@@ -68,7 +68,6 @@ center_mark_screw_keepout = 3.0;
 
 /* [Outer edge ridge] */
 outer_ridge_height = 4.0;
-outer_ridge_taper_inset = 0.35;
 
 /* [Preview] */
 preview_view = "final"; // [final,functional,profile,base,screw-hole,tube-pocket,locator-pin-clearance,guides,reinforcement-locator,reference-pockets,center-marks]
@@ -133,8 +132,7 @@ function hub75_corner_edge_coupler_create(
     center_mark_cross_length = 6.0,
     center_mark_screw_keepout = 3.0,
 
-    outer_ridge_height = 4.0,
-    outer_ridge_taper_inset = 0.35
+    outer_ridge_height = 4.0
 ) =
     let(
         x_inward = side == "left" ? 1 : -1,
@@ -240,7 +238,6 @@ function hub75_corner_edge_coupler_create(
         center_mark_screw_keepout = center_mark_screw_keepout,
 
         outer_ridge_height = outer_ridge_height,
-        outer_ridge_taper_inset = outer_ridge_taper_inset,
 
         x_inward = x_inward,
         rear_outer_edge_x = x_inward * rear_edge_x_abs,
@@ -1153,45 +1150,23 @@ module _hub75_corner_edge_coupler_guide_walls(coupler) {
 }
 
 
-module _hub75_corner_edge_coupler_tapered_ridge_patch(coupler) {
-    taper =
-        min(
-            coupler.outer_ridge_taper_inset,
-            coupler.wall_thickness / 4
-        );
-
-    hull() {
-        _hub75_corner_edge_coupler_extrude_xz_y(
-            -_HUB75_CORNER_EDGE_COUPLER_EPS,
-             _HUB75_CORNER_EDGE_COUPLER_EPS
-        )
-            children();
-
-        _hub75_corner_edge_coupler_extrude_xz_y(
-            -coupler.outer_ridge_height
-                - _HUB75_CORNER_EDGE_COUPLER_EPS,
-            -coupler.outer_ridge_height
-                + _HUB75_CORNER_EDGE_COUPLER_EPS
-        )
-            offset(delta = -taper)
-                children();
-    }
-}
-
-
 module _hub75_corner_edge_coupler_outer_ridges(coupler) {
-    // Taper horizontal and vertical outside-edge patches independently. This
-    // avoids a hull operation filling the concave corner between them.
-    _hub75_corner_edge_coupler_tapered_ridge_patch(coupler)
+    // Keep the first corner milestone deliberately simple. The outside ridge
+    // is a low straight extrusion of the fitted shell outside the physical
+    // panel edges. A taper is deferred until the tube/clip geometry exists,
+    // because hull() over disconnected corner-ridge patches can bridge them
+    // with a large diagonal sheet.
+    _hub75_corner_edge_coupler_extrude_xz_y(
+        -coupler.outer_ridge_height,
+        0
+    )
         intersection() {
             _hub75_corner_edge_coupler_guide_shell_2d(coupler);
-            _hub75_corner_edge_coupler_horizontal_outer_zone_2d(coupler);
-        }
 
-    _hub75_corner_edge_coupler_tapered_ridge_patch(coupler)
-        intersection() {
-            _hub75_corner_edge_coupler_guide_shell_2d(coupler);
-            _hub75_corner_edge_coupler_vertical_outer_zone_2d(coupler);
+            union() {
+                _hub75_corner_edge_coupler_horizontal_outer_zone_2d(coupler);
+                _hub75_corner_edge_coupler_vertical_outer_zone_2d(coupler);
+            }
         }
 }
 
@@ -1314,8 +1289,7 @@ _preview_coupler =
         center_mark_cross_length = center_mark_cross_length,
         center_mark_screw_keepout = center_mark_screw_keepout,
 
-        outer_ridge_height = outer_ridge_height,
-        outer_ridge_taper_inset = outer_ridge_taper_inset
+        outer_ridge_height = outer_ridge_height
     );
 
 hub75_corner_edge_coupler_render(
