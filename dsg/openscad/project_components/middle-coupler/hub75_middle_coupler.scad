@@ -260,6 +260,46 @@ function hub75_middle_coupler_create(
     );
 
 
+// Function: hub75_middle_coupler_create_for_size()
+// Description:
+//   Creates one of the approved project size presets. Medium intentionally
+//   matches the current default coupler geometry.
+// Arguments:
+//   size = "small", "medium" or "large".
+//   panel = HUB75 panel object that defines the mating geometry.
+function hub75_middle_coupler_create_for_size(
+    size = "medium",
+    panel = hub75_p5_64x32_panel_create()
+) =
+    assert(
+        size == "small" || size == "medium" || size == "large",
+        str("Unsupported middle-coupler size: ", size)
+    )
+    size == "small"
+        ? hub75_middle_coupler_create(
+            panel = panel,
+            profile_size = 60,
+            wall_thickness = 2,
+            guide_height = 4,
+            base_thickness = 2
+        )
+        : size == "large"
+            ? hub75_middle_coupler_create(
+                panel = panel,
+                profile_size = 100,
+                wall_thickness = 6,
+                guide_height = 10,
+                base_thickness = 4
+            )
+            : hub75_middle_coupler_create(
+                panel = panel,
+                profile_size = 80,
+                wall_thickness = 4,
+                guide_height = 6,
+                base_thickness = 3
+            );
+
+
 // Function: hub75_middle_coupler_horizontal_arm_height()
 // Description: Returns the complete horizontal PLUS-arm height.
 function hub75_middle_coupler_horizontal_arm_height(coupler) =
