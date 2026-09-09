@@ -7,6 +7,45 @@ releases. Until version tags are introduced, changes are grouped by milestone.
 When tagged releases start, these milestone entries can remain as the design
 history and new entries can be grouped by version.
 
+## Milestone 3 — Horizontal edge coupler core
+
+### Added
+
+- Project-specific object-based horizontal-edge coupler using the same
+  connector-family dimensions and surface language as the middle coupler.
+- Rounded T-shaped base positioned from the real HUB75 rear end rail and the
+  nominal 320 mm panel-edge datum.
+- Small, medium and large presets matching the middle-coupler family.
+- Seam-side screw holes with the same shallow anti-elephant-foot relief.
+- Shallow panel mounting-tube pockets.
+- Public HUB75 locator-pin mating accessors and automatic locator-pin
+  clearance where the selected T profile reaches the physical pin.
+- Fitted raised guide around the real rear end rail / seam-rail geometry.
+- Low tapered ridge outside the physical rear edge, without tube clips.
+- Reinforcement pad/pin locators for the two edge-row reinforcement circles.
+- Tapered seam locator extending inward from the nominal display edge.
+- Same print-friendly Ø3 reference pockets with the final 0.5 mm tapered to
+  Ø2 mm.
+- Centre `+` at the nominal panel edge and 5/10 mm reference ticks.
+- Dedicated two-panel top-edge fit fixture.
+- Horizontal-edge verification views for angled fit, rear fit section and YZ
+  end-rail section.
+- PNG and STL evidence for small, medium and large.
+
+### Changed
+
+- Rear-fit verification depth is size-aware: 3 mm for the 4 mm small guide and
+  5 mm for medium/large, so every preset produces meaningful guide evidence.
+- Verification gallery now groups both middle and horizontal-edge connector
+  evidence while retaining flat unique filenames.
+
+### Status
+
+The horizontal-edge T body is digitally build- and fit-verified against the
+reusable HUB75 panel model. The first version intentionally excludes the
+aluminium reinforcement tube and clips. Physical print fit is still to be
+checked before the connector family is treated as physically accepted.
+
 ## Milestone 2 — Middle coupler core
 
 ### Added
@@ -63,7 +102,7 @@ history and new entries can be grouped by version.
   - standalone PNG;
   - standalone STL;
   - angled two-panel fit detail;
-  - rear-facing 5 mm fit section;
+  - size-aware rear fit section;
   - XY seam section.
 - Generated evidence remains separate from normal build output on the
   `verification` branch.
@@ -71,8 +110,8 @@ history and new entries can be grouped by version.
 ### Status
 
 The geometry is digitally verified against the reusable HUB75 panel model.
-Physical print fit is still to be checked before expanding the coupler family
-with horizontal-edge and corner components.
+Physical print fit is still to be checked. The horizontal-edge family member
+is developed separately in Milestone 3.
 
 ## Milestone 1 — Five-panel assembly
 
