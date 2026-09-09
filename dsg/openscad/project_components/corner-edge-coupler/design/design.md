@@ -157,9 +157,10 @@ The guide is derived from the **actual panel material** at the rear corner:
 3. apply the configured print clearance;
 4. subtract that keep-out from the printable corner profile.
 
-The tall guide is retained only on the panel side of the two physical outside
-edges. The outside portions are rebuilt as low straight ridges in this first
-milestone.
+The fitted guide continues across the two physical outside edges at the same
+family `guide_height`: 4 mm for small, 6 mm for medium and 10 mm for large.
+The outside portions are kept straight in this first milestone; only a future
+taper is deferred.
 
 The guide end mask is an intersection only: it can trim a free end but can
 never expand or erode the thin 2 mm small-profile wall.
