@@ -25,22 +25,33 @@ intended**.
 
 ### Middle coupler
 
-The middle coupler joins two adjacent panels at the middle mounting row. Each
-small/medium/large size publishes standalone geometry, an angled local fit
-view, a size-aware rear fit section and an XY seam section.
+Joins two adjacent panels at the middle mounting row. Each small/medium/large
+size publishes standalone geometry, an angled local fit view, a size-aware
+rear fit section and an XY seam section.
 
 ### Horizontal-edge coupler
 
-The horizontal-edge coupler joins the same panel seam at the top/bottom display
-edge. The first implementation intentionally has no aluminium-tube clip.
+Joins the same panel seam at the top/bottom display edge. The first
+implementation intentionally has no aluminium-tube clip.
 
-Each small/medium/large size publishes:
+Each small/medium/large size publishes standalone geometry, an angled top-edge
+fit detail, a size-aware rear fit section and a YZ end-rail section.
+
+### Corner-edge couplers
+
+The corner family has two printable parts:
+
+- left = top-left and, after 180 degree rotation, bottom-right;
+- right = top-right and, after 180 degree rotation, bottom-left.
+
+Each side and size publishes:
 
 - standalone PNG;
 - standalone STL;
-- angled top-edge fit detail;
-- size-aware rear fit section;
-- YZ section through the panel rear end rail.
+- angled one-panel corner fit detail;
+- size-aware rear fit section through the rounded rear corner opening.
+
+The first corner milestone intentionally has no aluminium-tube clip.
 
 ## Rear fit sections
 
@@ -54,7 +65,7 @@ The section plane is kept inside the active guide: **3 mm** for the small
 
 These images and STLs are digital verification evidence, not proof of a
 physical print fit. Production STLs still need a real-panel fit check before a
-connector family milestone is considered physically accepted.
+connector-family milestone is considered physically accepted.
 EOF
 
 cat > "${PNG_DIR}/README.md" <<'EOF'
@@ -126,4 +137,54 @@ can be compared directly without navigating through separate directories.
 ![Horizontal edge large YZ section](horizontal-edge-coupler-large-yz-edge-section.png)
 
 ![Horizontal edge large angled fit](horizontal-edge-coupler-large-fit-detail.png)
+
+# Corner-edge couplers
+
+## Small left
+
+![Corner left small](corner-edge-coupler-left-small.png)
+
+![Corner left small rear fit](corner-edge-coupler-left-small-rear-fit-section.png)
+
+![Corner left small angled fit](corner-edge-coupler-left-small-fit-detail.png)
+
+## Small right
+
+![Corner right small](corner-edge-coupler-right-small.png)
+
+![Corner right small rear fit](corner-edge-coupler-right-small-rear-fit-section.png)
+
+![Corner right small angled fit](corner-edge-coupler-right-small-fit-detail.png)
+
+## Medium left
+
+![Corner left medium](corner-edge-coupler-left-medium.png)
+
+![Corner left medium rear fit](corner-edge-coupler-left-medium-rear-fit-section.png)
+
+![Corner left medium angled fit](corner-edge-coupler-left-medium-fit-detail.png)
+
+## Medium right
+
+![Corner right medium](corner-edge-coupler-right-medium.png)
+
+![Corner right medium rear fit](corner-edge-coupler-right-medium-rear-fit-section.png)
+
+![Corner right medium angled fit](corner-edge-coupler-right-medium-fit-detail.png)
+
+## Large left
+
+![Corner left large](corner-edge-coupler-left-large.png)
+
+![Corner left large rear fit](corner-edge-coupler-left-large-rear-fit-section.png)
+
+![Corner left large angled fit](corner-edge-coupler-left-large-fit-detail.png)
+
+## Large right
+
+![Corner right large](corner-edge-coupler-right-large.png)
+
+![Corner right large rear fit](corner-edge-coupler-right-large-rear-fit-section.png)
+
+![Corner right large angled fit](corner-edge-coupler-right-large-fit-detail.png)
 EOF
