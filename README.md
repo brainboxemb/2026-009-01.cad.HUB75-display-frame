@@ -27,15 +27,18 @@ These images are generated from the current `build` branch.
 - [Build provenance](../../blob/build/publication-info.txt)
 - [Generated design documentation](../../blob/build/design/README.md)
 - [Middle coupler design source](dsg/openscad/project_components/middle-coupler/design/design.md)
+- [Horizontal-edge coupler design source](dsg/openscad/project_components/horizontal-edge-coupler/design/design.md)
 - [Generated middle coupler design](../../blob/build/design/project/openscad/project_components/middle-coupler/design/design.md)
+- [Generated horizontal-edge coupler design](../../blob/build/design/project/openscad/project_components/horizontal-edge-coupler/design/design.md)
 - [Verification branch](../../tree/verification)
 - [Verification overview](../../blob/verification/README.md)
 - [Verification PNG gallery](../../blob/verification/png/README.md)
-- [Medium rear fit section](../../blob/verification/png/middle-coupler-medium-rear-fit-section.png)
-- [Medium XY seam section](../../blob/verification/png/middle-coupler-medium-xy-seam-section.png)
+- [Middle medium rear fit section](../../blob/verification/png/middle-coupler-medium-rear-fit-section.png)
+- [Horizontal-edge medium fit detail](../../blob/verification/png/horizontal-edge-coupler-medium-fit-detail.png)
+- [Horizontal-edge medium rear fit section](../../blob/verification/png/horizontal-edge-coupler-medium-rear-fit-section.png)
 - [PNG renders](../../tree/build/png)
 - [Five-panel STL](../../blob/build/stl/panels-assembly.stl)
-- [Middle coupler STLs](../../tree/build/stl)
+- [Connector STLs](../../tree/build/stl)
 
 ## Current milestone
 
@@ -111,7 +114,7 @@ rear seam gap          2.795 mm
 seam locator width     2.295 mm
 reinforcement pad       Ø9.4 x 2.4 mm
 reinforcement pin       Ø2.1 x 2.0 mm
-reference pockets       Ø3.0 x 2.5 mm blind
+reference pockets       Ø3.0, max 2.0 mm blind, final 0.5 mm taper to Ø2.0
 reference tick pitch      5 mm minor / 10 mm major
 centre reference +        6.0 mm
 ```
@@ -120,6 +123,40 @@ The component, detail design documentation, two-panel fit render, true XY fit
 section and standalone STL all build successfully. The fit is **not yet treated
 as physically approved** until the generated evidence or a print has been
 checked.
+
+### Milestone 3 — horizontal-edge coupler core
+
+The second connector-family member is the **horizontal-edge coupler**. It joins
+the same vertical panel seam where it reaches the top or bottom display edge.
+
+The first version intentionally has **no aluminium-tube clip**. The T-shaped
+body and HUB75 fit are verified as a separate step before the reinforcement
+system is introduced.
+
+The component keeps the same family language as the middle coupler:
+
+```text
+rounded T base
+same small / medium / large presets
+two seam-side mounting holes
+anti-elephant-foot screw relief
+shallow mounting-tube pockets
+fitted guide around the rear end/seam rails
+two reinforcement pad/pin locators
+tapered seam locator
+low tapered outer-edge ridge
+Ø3 blind reference pockets with Ø3 -> Ø2 tapered bottoms
+centre + at the nominal panel edge
+5/10 mm distance ticks
+```
+
+Its local reference system deliberately puts the nominal **320 mm panel edge at
+Z=0**. The engraved `+` therefore identifies the real seam/edge datum rather
+than merely decorating the part. The ticks and pocket pattern make differences
+between the T proportions of small, medium and large immediately visible.
+
+The same printable connector is used at the top and bottom edge by rotating it
+180 degrees.
 
 ## Dimension authority
 
@@ -201,13 +238,17 @@ dsg/
 └── openscad/
     ├── assemblies/
     │   ├── panels_assembly.scad
-    │   └── middle_coupler_fit_assembly.scad
+    │   ├── middle_coupler_fit_assembly.scad
+    │   └── horizontal_edge_coupler_fit_assembly.scad
     ├── project_components/
-    │   └── middle-coupler/
-    │       ├── hub75_middle_coupler.scad
-    │       ├── hub75_middle_coupler_render.scad
-    │       └── design/
-    │           └── design.md
+    │   ├── middle-coupler/
+    │   │   ├── hub75_middle_coupler.scad
+    │   │   ├── hub75_middle_coupler_render.scad
+    │   │   └── design/design.md
+    │   └── horizontal-edge-coupler/
+    │       ├── hub75_horizontal_edge_coupler.scad
+    │       ├── hub75_horizontal_edge_coupler_render.scad
+    │       └── design/design.md
     ├── ext/
     │   └── lib.scad.hub75
     ├── render/
@@ -215,10 +256,12 @@ dsg/
     │   ├── front-angled.scad
     │   ├── rear.scad
     │   ├── rear-angled.scad
-    │   └── middle-coupler.scad
+    │   ├── middle-coupler.scad
+    │   └── horizontal-edge-coupler.scad
     ├── export/
     │   ├── panels-assembly.scad
-    │   └── middle-coupler.scad
+    │   ├── middle-coupler.scad
+    │   └── horizontal-edge-coupler.scad
     └── main.scad
 
 tools/
@@ -228,7 +271,10 @@ vrf/
 └── openscad/
     ├── middle-coupler-fit-detail.scad
     ├── middle-coupler-rear-fit-section.scad
-    └── middle-coupler-xy-seam-section.scad
+    ├── middle-coupler-xy-seam-section.scad
+    ├── horizontal-edge-coupler-fit-detail.scad
+    ├── horizontal-edge-coupler-rear-fit-section.scad
+    └── horizontal-edge-coupler-yz-edge-section.scad
 ```
 
 ## Tooling
@@ -266,12 +312,12 @@ The same assembly is also exported as `bld/stl/panels-assembly.stl`. This STL
 is a verification model: it lets the complete five-panel arrangement be opened
 in a 3D viewer and freely rotated/zoomed.
 
-The normal build contains the three size-specific component renders:
+The normal build contains size-specific renders for both current connector
+family members:
 
 ```text
-bld/png/middle-coupler-small.png
-bld/png/middle-coupler-medium.png
-bld/png/middle-coupler-large.png
+bld/png/middle-coupler-<size>.png
+bld/png/horizontal-edge-coupler-<size>.png
 ```
 
 Fit evidence is intentionally published on the separate `verification` branch:
@@ -280,18 +326,21 @@ Fit evidence is intentionally published on the separate `verification` branch:
 png/middle-coupler-<size>-fit-detail.png
 png/middle-coupler-<size>-rear-fit-section.png
 png/middle-coupler-<size>-xy-seam-section.png
+
+png/horizontal-edge-coupler-<size>-fit-detail.png
+png/horizontal-edge-coupler-<size>-rear-fit-section.png
+png/horizontal-edge-coupler-<size>-yz-edge-section.png
 ```
 
-The rear-fit section is cut 5 mm forward from the rear mounting plane and is
-the primary visual check that the red coupler geometry actually enters the
-intended grey HUB75 rear structure.
+Rear-fit sections are cut inside the active guide: 3 mm for the 4 mm small
+guide and 5 mm for medium/large. This keeps the same 5 mm reference where
+possible while ensuring the small preset still shows meaningful fit evidence.
 
-The build also contains one STL per coupler size:
+The build also contains one STL per connector and size:
 
 ```text
-bld/stl/middle-coupler-small.stl
-bld/stl/middle-coupler-medium.stl
-bld/stl/middle-coupler-large.stl
+bld/stl/middle-coupler-<size>.stl
+bld/stl/horizontal-edge-coupler-<size>.stl
 ```
 
 The generated design walkthrough is published separately under the build
@@ -322,16 +371,17 @@ dsg/openscad/main.scad
 
 ## Next design step
 
-Inspect the middle-coupler evidence before expanding the family:
+Inspect the horizontal-edge evidence before expanding the family:
 
-1. inspect the finished component render;
-2. inspect the verification-branch rear fit section;
-3. inspect the verification-branch true XY seam/locator section;
-4. inspect the angled two-panel verification view;
-5. rotate/zoom the standalone middle-coupler STL;
-6. preferably print this core component and check the real fit.
+1. compare small, medium and large T proportions using the visible 5/10 mm marks;
+2. inspect the angled two-panel top-edge fit view;
+3. inspect the size-aware rear fit section;
+4. inspect the YZ section through the rear end rail;
+5. rotate/zoom the standalone STL;
+6. preferably print the middle and horizontal-edge core parts against real panels.
 
-Do not add horizontal-edge or corner couplers until the middle-coupler fit and
-its complete surface-reference layer are understood.
+After the T body is accepted, the next connector-family work is the left/right
+corner geometry. The aluminium reinforcement tube and clips remain a separate
+follow-up so panel-fit errors cannot be confused with tube-system geometry.
 
 The model and documentation were developed with the assistance of ChatGPT.
