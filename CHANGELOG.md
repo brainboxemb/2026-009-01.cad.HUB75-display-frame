@@ -36,6 +36,10 @@ history and new entries can be grouped by version.
 
 ### Changed
 
+- Blind Ø3 mm reference pockets now keep a straight Ø3 section and taper only
+  over the final 0.5 mm to a Ø2 mm bottom for friendlier printing.
+- Restored the original shallow screw-hole anti-elephant-foot relief:
+  0.20 mm deep and 0.40 mm radial widening at both base-plate faces.
 - Verification output uses flat `png/` and `stl/` directories with unique size-qualified filenames for easier comparison.
 - Verification now publishes a dedicated PNG gallery at `png/README.md`.
 
