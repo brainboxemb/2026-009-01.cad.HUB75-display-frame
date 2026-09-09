@@ -7,6 +7,53 @@ releases. Until version tags are introduced, changes are grouped by milestone.
 When tagged releases start, these milestone entries can remain as the design
 history and new entries can be grouped by version.
 
+## Milestone 4 — Corner edge coupler core
+
+### Added
+
+- One parametrised corner-edge coupler component with left and right printable
+  variants.
+- Top-left / bottom-right mapping from the left part and top-right /
+  bottom-left mapping from the right part by 180 degree rotation.
+- Nominal 160 x 320 mm panel-corner datum at the component origin.
+- Rounded asymmetric corner-cross base using the same small, medium and large
+  family presets.
+- Single corner mounting hole with shallow anti-elephant-foot relief.
+- Shallow mounting-tube pocket.
+- Automatic clearance for the physical diagonal Ø3 locator pin on the left /
+  bottom-right chirality.
+- Fitted guide around the real rounded HUB75 rear corner.
+- One reinforcement pad/pin locator at the corner reinforcement circle.
+- Same print-friendly tapered Ø3 reference pockets and 5/10 mm reference marks.
+- Dedicated one-panel left/right corner fit fixtures and size-aware rear-fit
+  sections.
+- PNG and STL evidence for left/right × small/medium/large.
+- Shared blue Ø2 verification datum pin through the engraved `+` for middle,
+  horizontal-edge and corner fit views.
+
+### Fixed
+
+- Removed an invalid corner outer-guide taper construction that could bridge
+  disconnected ridge patches with a large diagonal sheet.
+- Horizontal-edge and corner outside guides now use the same `guide_height`
+  as every other guide instead of an undocumented fixed 4 mm height.
+
+### Changed
+
+- Removed the independent corner `outer_ridge_height` parameter; corner guide
+  height is controlled only by the family `guide_height` preset.
+- Corner outside-guide shape remains straight until tube/clip geometry is
+  introduced; height remains fully consistent at 4 / 6 / 10 mm.
+- Verification documentation now distinguishes grey panel geometry, red
+  coupler geometry and the blue nominal-datum pin.
+
+### Status
+
+The left/right corner core is digitally build- and fit-verified against the
+reusable HUB75 panel model. The first corner milestone intentionally excludes
+the aluminium reinforcement tube and clips. Physical print fit is still
+required before the connector family is treated as physically accepted.
+
 ## Milestone 3 — Horizontal edge coupler core
 
 ### Added
@@ -21,7 +68,8 @@ history and new entries can be grouped by version.
 - Public HUB75 locator-pin mating accessors and automatic locator-pin
   clearance where the selected T profile reaches the physical pin.
 - Fitted raised guide around the real rear end rail / seam-rail geometry.
-- Low tapered ridge outside the physical rear edge, without tube clips.
+- Tapered outer-edge guide using the same 4 / 6 / 10 mm family guide height,
+  without tube clips.
 - Reinforcement pad/pin locators for the two edge-row reinforcement circles.
 - Tapered seam locator extending inward from the nominal display edge.
 - Same print-friendly Ø3 reference pockets with the final 0.5 mm tapered to
@@ -34,6 +82,9 @@ history and new entries can be grouped by version.
 
 ### Changed
 
+- Outer-edge guide height now follows the same `guide_height` preset as every
+  other guide; the earlier implicit 4 mm coupling to seam-locator height was
+  removed.
 - Rear-fit verification depth is size-aware: 3 mm for the 4 mm small guide and
   5 mm for medium/large, so every preset produces meaningful guide evidence.
 - Verification gallery now groups both middle and horizontal-edge connector

@@ -6,6 +6,7 @@
 
 use <../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
 use <../project_components/middle-coupler/hub75_middle_coupler.scad>
+use <verification_datum_pin.scad>
 
 
 function _hub75_middle_coupler_fit_panel_pitch(panel) =
@@ -76,6 +77,17 @@ module hub75_middle_coupler_fit_detail(
             hub75_middle_coupler_build(
                 active_coupler
             );
+
+    // Blue verification datum through the engraved + at the seam/row origin.
+    hub75_verification_datum_pin(
+        x = 0,
+        z = 0,
+        y_min = -4,
+        y_max =
+            mounting_y
+            + active_coupler.base_thickness
+            + 8
+    );
 }
 
 
@@ -229,4 +241,15 @@ module hub75_middle_coupler_rear_fit_section(
 
             _rear_section_keep_volume();
         }
+
+    // Rear view sees this mainly as a blue circle at the exact + datum.
+    hub75_verification_datum_pin(
+        x = 0,
+        z = 0,
+        y_min = -4,
+        y_max =
+            mounting_y
+            + active_coupler.base_thickness
+            + 8
+    );
 }

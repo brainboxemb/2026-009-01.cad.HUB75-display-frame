@@ -96,9 +96,24 @@ verify_horizontal_edge_coupler() {
   render_png     "Horizontal-edge coupler ${size} YZ edge section"     "${size}"     "${ROOT_DIR}/vrf/openscad/horizontal-edge-coupler-yz-edge-section.scad"     "${PNG_DIR}/horizontal-edge-coupler-${size}-yz-edge-section.png"
 }
 
+verify_corner_edge_coupler() {
+  local side="$1"
+  local size="$2"
+
+  render_png     "Corner-edge ${side} coupler ${size} standalone"     "${size}"     "${ROOT_DIR}/dsg/openscad/render/corner-edge-coupler-${side}.scad"     "${PNG_DIR}/corner-edge-coupler-${side}-${size}.png"
+
+  export_stl     "Corner-edge ${side} coupler ${size} STL"     "${size}"     "${ROOT_DIR}/dsg/openscad/export/corner-edge-coupler-${side}.scad"     "${STL_DIR}/corner-edge-coupler-${side}-${size}.stl"
+
+  render_png     "Corner-edge ${side} coupler ${size} angled fit detail"     "${size}"     "${ROOT_DIR}/vrf/openscad/corner-edge-coupler-${side}-fit-detail.scad"     "${PNG_DIR}/corner-edge-coupler-${side}-${size}-fit-detail.png"
+
+  render_png     "Corner-edge ${side} coupler ${size} rear fit section"     "${size}"     "${ROOT_DIR}/vrf/openscad/corner-edge-coupler-${side}-rear-fit-section.scad"     "${PNG_DIR}/corner-edge-coupler-${side}-${size}-rear-fit-section.png"
+}
+
 for size in small medium large; do
   verify_middle_coupler "${size}"
   verify_horizontal_edge_coupler "${size}"
+  verify_corner_edge_coupler "left" "${size}"
+  verify_corner_edge_coupler "right" "${size}"
 done
 
 echo "Verification output written to ${OUT_DIR}"

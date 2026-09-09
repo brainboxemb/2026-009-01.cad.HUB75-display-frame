@@ -28,8 +28,10 @@ These images are generated from the current `build` branch.
 - [Generated design documentation](../../blob/build/design/README.md)
 - [Middle coupler design source](dsg/openscad/project_components/middle-coupler/design/design.md)
 - [Horizontal-edge coupler design source](dsg/openscad/project_components/horizontal-edge-coupler/design/design.md)
+- [Corner-edge coupler design source](dsg/openscad/project_components/corner-edge-coupler/design/design.md)
 - [Generated middle coupler design](../../blob/build/design/project/openscad/project_components/middle-coupler/design/design.md)
 - [Generated horizontal-edge coupler design](../../blob/build/design/project/openscad/project_components/horizontal-edge-coupler/design/design.md)
+- [Generated corner-edge coupler design](../../blob/build/design/project/openscad/project_components/corner-edge-coupler/design/design.md)
 - [Verification branch](../../tree/verification)
 - [Verification overview](../../blob/verification/README.md)
 - [Verification PNG gallery](../../blob/verification/png/README.md)
@@ -144,7 +146,7 @@ shallow mounting-tube pockets
 fitted guide around the rear end/seam rails
 two reinforcement pad/pin locators
 tapered seam locator
-low tapered outer-edge ridge
+same-height tapered outer-edge guide
 Ø3 blind reference pockets with Ø3 -> Ø2 tapered bottoms
 centre + at the nominal panel edge
 5/10 mm distance ticks
@@ -157,6 +159,52 @@ between the T proportions of small, medium and large immediately visible.
 
 The same printable connector is used at the top and bottom edge by rotating it
 180 degrees.
+
+### Milestone 4 — corner-edge coupler core
+
+The connector family is completed at the display corners with one parametrised
+corner component and two printable variants:
+
+```text
+left
+    top-left
+    rotate 180 degrees -> bottom-right
+
+right
+    top-right
+    rotate 180 degrees -> bottom-left
+```
+
+The corner origin is the **nominal 160 x 320 mm panel corner**, not the screw
+centre. The engraved `+` therefore marks the actual nominal panel envelope.
+
+The corner follows the same family rules as middle and horizontal edge:
+
+```text
+rounded asymmetric corner cross
+same small / medium / large presets
+single corner mounting hole
+anti-elephant-foot screw relief
+shallow mounting-tube pocket
+fitted guide around the real rounded rear corner
+one reinforcement pad/pin locator
+Ø3 blind reference pockets with Ø3 -> Ø2 tapered bottoms
+corner + and 5/10 mm distance ticks
+same guide height everywhere: 4 / 6 / 10 mm
+```
+
+Only the left/top-left variant overlaps the physical diagonal Ø3 locator pin;
+the right/top-right variant does not. Rotating the two printable parts 180
+degrees preserves that physical relationship for the bottom corners.
+
+The first corner milestone deliberately has **no aluminium-tube clip**. The
+outside guide remains straight for now; any final taper is deferred until the
+tube/clip geometry is introduced.
+
+Verification now also draws a **blue Ø2 datum pin** normal to the panel plane,
+exactly through each connector's engraved `+`. This makes the nominal
+middle/seam/edge/corner datum easy to compare directly with the grey HUB75 rear
+frame.
 
 ## Dimension authority
 
@@ -239,15 +287,21 @@ dsg/
     ├── assemblies/
     │   ├── panels_assembly.scad
     │   ├── middle_coupler_fit_assembly.scad
-    │   └── horizontal_edge_coupler_fit_assembly.scad
+    │   ├── horizontal_edge_coupler_fit_assembly.scad
+    │   ├── corner_edge_coupler_fit_assembly.scad
+    │   └── verification_datum_pin.scad
     ├── project_components/
     │   ├── middle-coupler/
     │   │   ├── hub75_middle_coupler.scad
     │   │   ├── hub75_middle_coupler_render.scad
     │   │   └── design/design.md
-    │   └── horizontal-edge-coupler/
-    │       ├── hub75_horizontal_edge_coupler.scad
-    │       ├── hub75_horizontal_edge_coupler_render.scad
+    │   ├── horizontal-edge-coupler/
+    │   │   ├── hub75_horizontal_edge_coupler.scad
+    │   │   ├── hub75_horizontal_edge_coupler_render.scad
+    │   │   └── design/design.md
+    │   └── corner-edge-coupler/
+    │       ├── hub75_corner_edge_coupler.scad
+    │       ├── hub75_corner_edge_coupler_render.scad
     │       └── design/design.md
     ├── ext/
     │   └── lib.scad.hub75
@@ -257,11 +311,15 @@ dsg/
     │   ├── rear.scad
     │   ├── rear-angled.scad
     │   ├── middle-coupler.scad
-    │   └── horizontal-edge-coupler.scad
+    │   ├── horizontal-edge-coupler.scad
+    │   ├── corner-edge-coupler-left.scad
+    │   └── corner-edge-coupler-right.scad
     ├── export/
     │   ├── panels-assembly.scad
     │   ├── middle-coupler.scad
-    │   └── horizontal-edge-coupler.scad
+    │   ├── horizontal-edge-coupler.scad
+    │   ├── corner-edge-coupler-left.scad
+    │   └── corner-edge-coupler-right.scad
     └── main.scad
 
 tools/
@@ -274,7 +332,11 @@ vrf/
     ├── middle-coupler-xy-seam-section.scad
     ├── horizontal-edge-coupler-fit-detail.scad
     ├── horizontal-edge-coupler-rear-fit-section.scad
-    └── horizontal-edge-coupler-yz-edge-section.scad
+    ├── horizontal-edge-coupler-yz-edge-section.scad
+    ├── corner-edge-coupler-left-fit-detail.scad
+    ├── corner-edge-coupler-left-rear-fit-section.scad
+    ├── corner-edge-coupler-right-fit-detail.scad
+    └── corner-edge-coupler-right-rear-fit-section.scad
 ```
 
 ## Tooling
@@ -312,12 +374,14 @@ The same assembly is also exported as `bld/stl/panels-assembly.stl`. This STL
 is a verification model: it lets the complete five-panel arrangement be opened
 in a 3D viewer and freely rotated/zoomed.
 
-The normal build contains size-specific renders for both current connector
-family members:
+The normal build contains size-specific renders for the current connector
+family:
 
 ```text
 bld/png/middle-coupler-<size>.png
 bld/png/horizontal-edge-coupler-<size>.png
+bld/png/corner-edge-coupler-left-<size>.png
+bld/png/corner-edge-coupler-right-<size>.png
 ```
 
 Fit evidence is intentionally published on the separate `verification` branch:
@@ -330,6 +394,11 @@ png/middle-coupler-<size>-xy-seam-section.png
 png/horizontal-edge-coupler-<size>-fit-detail.png
 png/horizontal-edge-coupler-<size>-rear-fit-section.png
 png/horizontal-edge-coupler-<size>-yz-edge-section.png
+
+png/corner-edge-coupler-left-<size>-fit-detail.png
+png/corner-edge-coupler-left-<size>-rear-fit-section.png
+png/corner-edge-coupler-right-<size>-fit-detail.png
+png/corner-edge-coupler-right-<size>-rear-fit-section.png
 ```
 
 Rear-fit sections are cut inside the active guide: 3 mm for the 4 mm small
@@ -341,6 +410,8 @@ The build also contains one STL per connector and size:
 ```text
 bld/stl/middle-coupler-<size>.stl
 bld/stl/horizontal-edge-coupler-<size>.stl
+bld/stl/corner-edge-coupler-left-<size>.stl
+bld/stl/corner-edge-coupler-right-<size>.stl
 ```
 
 The generated design walkthrough is published separately under the build
@@ -371,17 +442,17 @@ dsg/openscad/main.scad
 
 ## Next design step
 
-Inspect the horizontal-edge evidence before expanding the family:
+Inspect the complete connector family before introducing tube reinforcement:
 
-1. compare small, medium and large T proportions using the visible 5/10 mm marks;
-2. inspect the angled two-panel top-edge fit view;
-3. inspect the size-aware rear fit section;
-4. inspect the YZ section through the rear end rail;
-5. rotate/zoom the standalone STL;
-6. preferably print the middle and horizontal-edge core parts against real panels.
+1. compare middle, horizontal-edge and corner small/medium/large proportions;
+2. use the blue datum pin to confirm every engraved `+` against the real HUB75 frame;
+3. inspect rear-fit sections for guide clearance and continuity;
+4. compare left/right corner chirality and the large left locator-pin clearance;
+5. rotate/zoom all standalone STLs;
+6. preferably print at least the medium middle, horizontal-edge and both corner variants against real panels.
 
-After the T body is accepted, the next connector-family work is the left/right
-corner geometry. The aluminium reinforcement tube and clips remain a separate
-follow-up so panel-fit errors cannot be confused with tube-system geometry.
+Only after these core connector geometries are accepted should the aluminium
+reinforcement tube and C-clips be introduced. That keeps tube-system geometry
+separate from panel-fit geometry.
 
 The model and documentation were developed with the assistance of ChatGPT.

@@ -6,6 +6,7 @@
 
 use <../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
 use <../project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad>
+use <verification_datum_pin.scad>
 
 
 function _hub75_horizontal_edge_fit_panel_pitch(panel) =
@@ -74,6 +75,17 @@ module hub75_horizontal_edge_coupler_fit_detail(
     color([0.72, 0.05, 0.04, 1])
         translate([0, mounting_y, edge_z])
             hub75_horizontal_edge_coupler_build(active_coupler);
+
+    // Exact seam / nominal-panel-edge datum used by the engraved +.
+    hub75_verification_datum_pin(
+        x = 0,
+        z = edge_z,
+        y_min = -4,
+        y_max =
+            mounting_y
+            + active_coupler.base_thickness
+            + 8
+    );
 }
 
 
@@ -149,6 +161,16 @@ module hub75_horizontal_edge_coupler_rear_fit_section(
 
             _keep_volume();
         }
+
+    hub75_verification_datum_pin(
+        x = 0,
+        z = edge_z,
+        y_min = -4,
+        y_max =
+            mounting_y
+            + active_coupler.base_thickness
+            + 8
+    );
 }
 
 
