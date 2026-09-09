@@ -5,9 +5,13 @@
 `2026-009-01.cad.HUB75-display-frame` is the clean restart of the HUB75 display
 frame project.
 
-The old `2026-006-01.cad.HUB75-display-frame` repository may be inspected as
-historical design reference, but its project structure and frame/coupler code
-must not be copied wholesale into this repository.
+The previous HUB75 display-frame repository is not a design authority for this
+clean rebuild. Do not use its frame/coupler code as reference geometry.
+
+Historical material may be used once to recover an explicitly approved design
+decision, but that decision must then be captured in the current source and
+design documentation. From that point forward, the current project is the
+authority.
 
 The goal is controlled development through small, verifiable assemblies.
 
