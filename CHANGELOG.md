@@ -38,6 +38,9 @@ history and new entries can be grouped by version.
 
 - Blind Ø3 mm reference pockets now keep a straight Ø3 section and taper only
   over the final 0.5 mm to a Ø2 mm bottom for friendlier printing.
+- Reference pockets are 0.5 mm shallower in their straight section and now keep
+  at least 0.7 mm of material behind the pocket; the small preset therefore
+  uses 1.3 mm total depth instead of approaching a through-hole.
 - Restored the original shallow screw-hole anti-elephant-foot relief:
   0.20 mm deep and 0.40 mm radial widening at both base-plate faces.
 - Verification output uses flat `png/` and `stl/` directories with unique size-qualified filenames for easier comparison.
