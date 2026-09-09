@@ -122,9 +122,10 @@ view: locator-pin-clearance
 The raised guide is built around a T-shaped keep-out made from the actual rear
 end rail and the two side rails meeting at the seam.
 
-The normal tall guide exists on the panel side of the outer rail. The material
-outside the physical rear edge is rebuilt as a low tapered ridge. This keeps
-the edge treatment print-friendly without introducing the future tube clip yet.
+The guide exists on both sides of the physical rear edge and uses the same
+family `guide_height` everywhere: 4 mm for small, 6 mm for medium and 10 mm
+for large. The outside portion keeps a tapered cross-section, but it is not a
+shorter guide.
 
 <!-- scad-render
 view: guides
