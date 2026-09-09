@@ -1,4 +1,5 @@
-// Local two-panel verification assembly for the middle coupler.
+// File: middle_coupler_fit_assembly.scad
+//   Local two-panel verification assembly for the middle coupler.
 //
 // This file deliberately uses only two panels. It is a development fixture,
 // not the final five-panel display assembly.
