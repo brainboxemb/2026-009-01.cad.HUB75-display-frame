@@ -140,10 +140,24 @@ concave arm transitions  10 mm radius
 convex arm ends            6 mm radius
 ```
 
-The PLUS outline is generated as a polygon, so its quarter-arc segment count is
-derived from `$fn`. With the default `render_fn = 192`, each 90 degree arc
-uses 48 segments instead of the earlier fixed 18. This affects the actual STL,
-not only preview cylinders.
+The PLUS outline is generated as a polygon. Its quarter-arc segment count is
+derived directly from `coupler.render_fn`. With the default
+`render_fn = 192`, each 90 degree arc uses 48 segments instead of the earlier
+fixed 18.
+
+The resolution is deliberately stored in the coupler object. This matters
+because STL/export entrypoints load the component through `use <...>`;
+top-level assignments such as `$fn = 192` are not imported by `use`.
+
+Both public geometry modules therefore set:
+
+```scad
+$fn = coupler.render_fn;
+```
+
+before creating any cylinders, circles or rounded offsets. The actual STL thus
+uses the same high-resolution geometry as the standalone preview and design
+renders.
 
 <!-- scad-render
 view: profile

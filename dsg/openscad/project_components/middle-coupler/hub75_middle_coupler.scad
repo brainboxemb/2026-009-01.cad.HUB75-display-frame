@@ -64,6 +64,7 @@ _HUB75_MIDDLE_COUPLER_EPS = 0.05;
 //   inside_corner_radius = Concave PLUS-profile corner radius.
 //   outside_corner_radius = Convex free-end corner radius.
 //   guide_end_rounding = Rounding applied to exposed raised-guide endpoints.
+//   render_fn = Facet count used by all curved production geometry.
 //   screw_hole_diameter = Through-hole diameter for the two mounting screws.
 function hub75_middle_coupler_create(
     panel = hub75_p5_64x32_panel_create(),
@@ -75,6 +76,7 @@ function hub75_middle_coupler_create(
     inside_corner_radius = 10,
     outside_corner_radius = 6,
     guide_end_rounding = 1.5,
+    render_fn = 192,
     screw_hole_diameter = 3.4,
     mounting_tube_radial_clearance = 0.45,
     mounting_tube_axial_clearance = 0.40,
@@ -92,6 +94,7 @@ function hub75_middle_coupler_create(
     assert(base_thickness > 0, "base_thickness must be > 0")
     assert(guide_height >= 0, "guide_height must be >= 0")
     assert(guide_end_rounding >= 0, "guide_end_rounding must be >= 0")
+    assert(render_fn >= 24, "render_fn must be >= 24")
     assert(screw_hole_diameter > 0, "screw_hole_diameter must be > 0")
     object(
         profile_size = profile_size,
@@ -102,6 +105,7 @@ function hub75_middle_coupler_create(
         inside_corner_radius = inside_corner_radius,
         outside_corner_radius = outside_corner_radius,
         guide_end_rounding = guide_end_rounding,
+        render_fn = render_fn,
         screw_hole_diameter = screw_hole_diameter,
         mounting_tube_radial_clearance = mounting_tube_radial_clearance,
         mounting_tube_axial_clearance = mounting_tube_axial_clearance,
@@ -195,6 +199,11 @@ function hub75_middle_coupler_mounting_tube_pocket_depth(coupler) =
 //   Builds the functional middle coupler: fitted base, mounting holes,
 //   mounting-tube pockets, raised rib guides and the seam locator.
 module hub75_middle_coupler_build(coupler) {
+    // Do not rely on a top-level $fn assignment: this module is commonly
+    // imported with use <...>, which does not import ordinary variable
+    // assignments. Production geometry owns its resolution through the object.
+    $fn = coupler.render_fn;
+
     horizontal_arm =
         hub75_middle_coupler_horizontal_arm_height(coupler);
     vertical_arm =
@@ -242,6 +251,9 @@ module hub75_middle_coupler_build(coupler) {
 //   view = final, profile, base, screw-holes, tube-pockets, guides or
 //          seam-locator.
 module hub75_middle_coupler_render(coupler, view = "final") {
+    // Design/debug geometry must tessellate exactly like the production build.
+    $fn = coupler.render_fn;
+
     existing = [0.72, 0.72, 0.72, 1.0];
     existing_transparent = [0.72, 0.72, 0.72, 0.45];
     current = [0.88, 0.08, 0.06, 0.62];
@@ -362,10 +374,10 @@ module _hub75_middle_coupler_profile_2d(coupler) {
         ) / 2 - 0.01
     );
 
-    // Four times this count approximates a complete circle. Unlike the first
-    // clean-project implementation, this must follow $fn so increasing render
-    // resolution also smooths the hand-built PLUS profile itself.
-    steps = max(24, ceil($fn / 4));
+    // Four times this count approximates a complete circle. This deliberately
+    // uses the object's production resolution rather than ambient $fn, so the
+    // result is identical when this file is imported through use <...>.
+    steps = max(24, ceil(coupler.render_fn / 4));
 
     points = concat(
         [[vx_left + outside_r, hh], [vx_right - outside_r, hh]],
@@ -734,6 +746,7 @@ _preview_coupler =
         inside_corner_radius = inside_corner_radius,
         outside_corner_radius = outside_corner_radius,
         guide_end_rounding = guide_end_rounding,
+        render_fn = render_fn,
         screw_hole_diameter = screw_hole_diameter,
         mounting_tube_radial_clearance =
             mounting_tube_radial_clearance,

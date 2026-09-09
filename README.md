@@ -74,9 +74,11 @@ The rounded component form is now captured directly in the current source from
 the approved v120 design reference. The old repository is not a geometry
 authority for this component.
 
-The component defaults to `render_fn = 192`. The hand-built PLUS arcs derive
-their segment count from `$fn`, so STL curves become smoother as the component
-resolution increases.
+The component defaults to `render_fn = 192`. Resolution is stored in the
+coupler object and enforced inside its public build/render modules. This avoids
+OpenSCAD's `use <...>` behaviour dropping a top-level `$fn` assignment during
+STL export. Screw holes, pockets, rounded offsets and the hand-built PLUS arcs
+therefore all use the same high-resolution tessellation.
 
 Current derived default values include:
 

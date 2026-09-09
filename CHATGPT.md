@@ -106,8 +106,15 @@ The component defaults to:
 render_fn = 192
 ```
 
-Hand-built PLUS arcs must derive their segment count from `$fn`; never
-reintroduce a small fixed `steps` count that makes STL curves visibly faceted.
+Resolution is part of the middle-coupler object. Public build/render modules
+must set `$fn = coupler.render_fn` internally because component files are often
+loaded through `use <...>`, which does not import top-level variable
+assignments.
+
+Hand-built PLUS arcs must derive their segment count from
+`coupler.render_fn`, never from ambient `$fn` and never from a small fixed
+`steps` count. This prevents hexagonal screw holes and visibly faceted STL
+rounding.
 
 ## Project coordinate system
 

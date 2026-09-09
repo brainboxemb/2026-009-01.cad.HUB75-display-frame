@@ -16,6 +16,11 @@ assert(
     "Middle coupler guide/locator rounding changed"
 );
 
+assert(
+    coupler.render_fn >= 192,
+    "Middle coupler STL resolution dropped below approved quality"
+);
+
 // These are milestone verification expectations, not geometry sources.
 assert(
     abs(
