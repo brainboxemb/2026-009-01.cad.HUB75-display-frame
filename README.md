@@ -13,12 +13,17 @@ after each smaller assembly is understood and verified.
 - [Build overview](../../blob/build/README.md)
 - [Build provenance](../../blob/build/publication-info.txt)
 - [Generated design documentation](../../blob/build/design/README.md)
+- [Middle coupler design source](dsg/openscad/project_components/middle-coupler/design/design.md)
+- [Generated middle coupler design](../../blob/build/design/project/openscad/project_components/middle-coupler/design/design.md)
 - [PNG renders](../../tree/build/png)
-- [STL verification model](../../blob/build/stl/panels-assembly.stl)
+- [Five-panel STL](../../blob/build/stl/panels-assembly.stl)
+- [Middle coupler STL](../../blob/build/stl/middle-coupler.stl)
 
 ## Current milestone
 
-Milestone 1 contains only the five physical HUB75 panels.
+### Milestone 1 — five-panel assembly
+
+The five-panel portrait assembly is established and build-verified.
 
 The display uses five P5 64x32 panels in **portrait orientation**, side by side:
 
@@ -37,6 +42,48 @@ display.
 
 No panel is rotated 90 degrees by this project. The reusable library already
 models the panel in portrait orientation.
+
+### Milestone 2 — middle coupler core
+
+The first project-specific frame component is now the **middle coupler** joining
+two adjacent panels at their vertical seam.
+
+This first version intentionally contains functional geometry only:
+
+```text
+80 mm PLUS base
+two seam-side mounting holes
+two shallow mounting-tube pockets
+raised fitted guides around the rear rib cross
+tapered seam locator
+```
+
+The old medium profile supplies only the printable starting values:
+
+```text
+profile size        80 mm
+wall thickness       4 mm
+guide height         6 mm
+base thickness       3 mm
+fit clearance     0.25 mm per side
+```
+
+Panel-dependent dimensions come from the public `lib.scad.hub75` mating API.
+
+Current derived default values include:
+
+```text
+horizontal PLUS arm   28.482 mm
+vertical PLUS arm     33.800 mm
+screw centres         -8 / +8 mm
+rear seam gap          2.795 mm
+seam locator width     2.295 mm
+```
+
+The component, detail design documentation, two-panel fit render, true XY fit
+section and standalone STL all build successfully. The fit is **not yet treated
+as physically approved** until the generated evidence or a print has been
+checked.
 
 ## Dimension authority
 
@@ -117,16 +164,27 @@ project.yml
 dsg/
 └── openscad/
     ├── assemblies/
-    │   └── panels_assembly.scad
+    │   ├── panels_assembly.scad
+    │   └── middle_coupler_fit_assembly.scad
+    ├── project_components/
+    │   └── middle-coupler/
+    │       ├── hub75_middle_coupler.scad
+    │       ├── hub75_middle_coupler_render.scad
+    │       └── design/
+    │           └── design.md
     ├── ext/
     │   └── lib.scad.hub75
     ├── render/
     │   ├── front.scad
     │   ├── front-angled.scad
     │   ├── rear.scad
-    │   └── rear-angled.scad
+    │   ├── rear-angled.scad
+    │   ├── middle-coupler.scad
+    │   ├── middle-coupler-fit.scad
+    │   └── middle-coupler-fit-section.scad
     ├── export/
-    │   └── panels-assembly.scad
+    │   ├── panels-assembly.scad
+    │   └── middle-coupler.scad
     └── main.scad
 
 tools/
@@ -163,6 +221,23 @@ The same assembly is also exported as `bld/stl/panels-assembly.stl`. This STL
 is a verification model: it lets the complete five-panel arrangement be opened
 in a 3D viewer and freely rotated/zoomed.
 
+The middle coupler adds three focused PNG outputs:
+
+```text
+bld/png/middle-coupler.png
+bld/png/middle-coupler-fit.png
+bld/png/middle-coupler-fit-section.png
+```
+
+and one component STL:
+
+```text
+bld/stl/middle-coupler.stl
+```
+
+The generated design walkthrough is published separately under the build
+branch's `design/` tree.
+
 Generated files are published to the mutable `build` branch and are not stored
 on `main`.
 
@@ -188,7 +263,15 @@ dsg/openscad/main.scad
 
 ## Next design step
 
-Do not add frame parts, couplers or reinforcement geometry until the five-panel
-assembly and its nominal placement are confirmed.
+Inspect the middle-coupler evidence before expanding the family:
+
+1. inspect the finished component render;
+2. inspect the cropped two-panel fit render;
+3. inspect the true XY seam/locator section;
+4. rotate/zoom the standalone middle-coupler STL;
+5. preferably print this core component and check the real fit.
+
+Do not add decorative pockets, centre marks, horizontal-edge couplers or corner
+couplers until the middle-coupler core fit is understood.
 
 The model and documentation were developed with the assistance of ChatGPT.

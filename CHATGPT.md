@@ -11,9 +11,11 @@ must not be copied wholesale into this repository.
 
 The goal is controlled development through small, verifiable assemblies.
 
-## Current milestone: five panels only
+## Current milestones
 
-The first milestone contains exactly five HUB75 panels and no frame geometry.
+### Milestone 1 — five panels
+
+The five-panel portrait assembly is established and build-verified.
 
 Important orientation:
 
@@ -40,6 +42,39 @@ The user may describe the total size height-first as:
 ```
 
 Do not rotate these panels 90 degrees. The library model is already portrait.
+
+### Milestone 2 — middle coupler core
+
+The first project-specific frame component is:
+
+```text
+dsg/openscad/project_components/middle-coupler/
+```
+
+It joins two adjacent portrait panels at their vertical seam and currently
+contains only:
+
+```text
+PLUS base plate
+two screw holes
+mounting-tube pockets
+rear-rib guide walls
+seam locator
+```
+
+Explicitly deferred:
+
+```text
+decorative 3 mm pockets
+centimetre / centre marks
+cosmetic guide-end refinements
+horizontal-edge couplers
+corner couplers
+tube clamps / reinforcement
+```
+
+The generated build is green, but the coupler is not physically approved until
+the fit evidence or a real print has been reviewed.
 
 ## Project coordinate system
 
@@ -96,6 +131,16 @@ hub75_p5_64x32_panel_nominal_width(panel);
 hub75_p5_64x32_panel_nominal_height(panel);
 hub75_p5_64x32_panel_width(panel);
 hub75_p5_64x32_panel_height(panel);
+
+// Mechanical mating API
+hub75_p5_64x32_panel_rear_grid_gap_x(panel);
+hub75_p5_64x32_panel_rear_side_rail_width_at_mounting_plane(panel);
+hub75_p5_64x32_panel_rear_crossbar_width_at_mounting_plane(panel);
+hub75_p5_64x32_panel_rear_opening_corner_radius(panel);
+hub75_p5_64x32_panel_mounting_tube_outer_diameter(panel);
+hub75_p5_64x32_panel_mounting_tube_protrusion(panel);
+hub75_p5_64x32_panel_reinforcement_bushing_outer_diameter(panel);
+hub75_p5_64x32_panel_reinforcement_bushing_offset(panel);
 ```
 
 Current library defaults:
@@ -131,6 +176,15 @@ Current cross-file OpenSCAD interface:
 hub75_display_panel_create()
 hub75_display_verify_nominal_size()
 hub75_panels_assembly()
+
+hub75_middle_coupler_create()
+hub75_middle_coupler_build()
+hub75_middle_coupler_render()
+hub75_middle_coupler_horizontal_arm_height()
+hub75_middle_coupler_vertical_arm_width()
+hub75_middle_coupler_seam_keepout_width()
+hub75_middle_coupler_seam_locator_width()
+hub75_middle_coupler_screw_x_positions()
 ```
 
 Calculation helpers used only inside `panels_assembly.scad` must remain
@@ -149,7 +203,9 @@ lib.scad.hub75
     reusable panel geometry
 
 this repository
-    panel arrangement and future frame-specific design
+    panel arrangement
+    project-specific middle coupler
+    local two-panel fit verification
 ```
 
 Direct submodules only:
@@ -211,6 +267,19 @@ dsg/openscad/export/panels-assembly.scad
 The STL is for interactive inspection/rotation and must represent the same
 five-panel milestone assembly as the PNG renders.
 
+Middle-coupler verification outputs:
+
+```text
+bld/png/middle-coupler.png
+bld/png/middle-coupler-fit.png
+bld/png/middle-coupler-fit-section.png
+bld/stl/middle-coupler.stl
+```
+
+The fit fixture deliberately contains only two panels and must remain small
+enough to diagnose the seam interface. The XY section is taken below the
+horizontal rear crossbar so the seam locator and panel depth remain visible.
+
 Default build resolution:
 
 ```text
@@ -241,8 +310,9 @@ For each next component:
 
 Prefer fewer view modes and explicit component toggles.
 
-Do not add frame couplers, tube clamps, reinforcement or decorative features to
-milestone 1.
+Milestone 1 remains the five-panel baseline. For milestone 2, do not add
+decorative features or other coupler families until the middle-coupler core fit
+has been reviewed.
 
 Top-level project READMEs should follow the current SCAD-project convention with
 a `Quick links` section near the top linking at least to generated build output,
