@@ -1,0 +1,20 @@
+name: Build HUB75 display frame
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - "**"
+    tags:
+      - "v*"
+  pull_request:
+
+permissions:
+  contents: write
+  packages: read
+
+jobs:
+  build:
+    uses: brainboxemb/tool.scad-project/.github/workflows/project-build.yml@v0.6.0
+    with:
+      artifact_name: hub75-display-frame-build

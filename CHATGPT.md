@@ -1,0 +1,141 @@
+# ChatGPT project handoff
+
+## Project purpose
+
+`2026-009-01.cad.HUB75-display-frame` is the clean restart of the HUB75 display
+frame project.
+
+The old `2026-006-01.cad.HUB75-display-frame` repository may be inspected as
+historical design reference, but its project structure and frame/coupler code
+must not be copied wholesale into this repository.
+
+The goal is controlled development through small, verifiable assemblies.
+
+## Current milestone: five panels only
+
+The first milestone contains exactly five HUB75 panels and no frame geometry.
+
+Important orientation:
+
+```text
+library panel orientation
+    portrait
+
+one panel
+    X = nominal 160 mm
+    Z = nominal 320 mm
+    32 x 64 pixels
+
+five side by side
+    X = nominal 800 mm
+    Z = nominal 320 mm
+    160 x 64 pixels
+```
+
+The user may describe the total size height-first as:
+
+```text
+320 x 800 mm
+64 x 160 pixels
+```
+
+Do not rotate these panels 90 degrees. The library model is already portrait.
+
+## Dimension authority
+
+Use `lib.scad.hub75` as the only authority for physical panel geometry and
+placement dimensions.
+
+Public API:
+
+```scad
+panel = hub75_p5_64x32_panel_create();
+
+hub75_p5_64x32_panel_build(panel);
+
+hub75_p5_64x32_panel_nominal_width(panel);
+hub75_p5_64x32_panel_nominal_height(panel);
+hub75_p5_64x32_panel_width(panel);
+hub75_p5_64x32_panel_height(panel);
+```
+
+Current library defaults:
+
+```text
+physical width        159.70 mm
+physical height       319.71 mm
+nominal width         160.00 mm
+nominal height        320.00 mm
+```
+
+Placement must use nominal width/height accessors. Do not duplicate these
+dimensions as project constants.
+
+## Project architecture
+
+```text
+docker.scad-toolchain v0.4.0
+    runtime capabilities
+
+tool.scad-project v0.6.0
+    configuration/build orchestration
+
+lib.scad.hub75
+    reusable panel geometry
+
+this repository
+    panel arrangement and future frame-specific design
+```
+
+Direct submodules only:
+
+```text
+tools/tool.scad-project
+dsg/openscad/ext/lib.scad.hub75
+```
+
+Do not recursively initialize development dependencies inside those submodules.
+
+## Render policy
+
+Configured build:
+
+```text
+dsg/openscad/render/panels-assembly.scad
+    -> bld/png/panels-assembly.png
+```
+
+Default build resolution:
+
+```text
+2560 x 1440
+```
+
+PNG build output uses:
+
+```yaml
+rendering:
+  watermark:
+    text: "© 2026 brainboxemb"
+```
+
+Watermark drawing belongs to `docker.scad-toolchain`; orchestration belongs to
+`tool.scad-project`. Do not add project-local image-processing code.
+
+## Development discipline
+
+For each next component:
+
+1. define the physical purpose and interfaces;
+2. build the smallest useful geometry;
+3. add a focused assembly or fit view;
+4. verify it;
+5. document the design reasoning;
+6. only then add the next layer of complexity.
+
+Prefer fewer view modes and explicit component toggles.
+
+Do not add frame couplers, tube clamps, reinforcement or decorative features to
+milestone 1.
+
+The model and documentation were developed with the assistance of ChatGPT.
