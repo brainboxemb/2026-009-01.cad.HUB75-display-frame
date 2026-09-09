@@ -327,10 +327,22 @@ The project also contains a two-panel local fit assembly:
 dsg/openscad/assemblies/middle_coupler_fit_assembly.scad
 ```
 
-Generated project renders show:
+Verification evidence is published separately from normal build output:
 
-- a cropped rear detail around the coupler;
-- a true XY section through the vertical seam/locator region.
+```text
+verification/middle-coupler/
+├── rear-fit-section.png
+├── xy-seam-section.png
+└── fit-detail.png
+```
 
-The standalone STL is also generated so the component can be inspected freely
-in a 3D viewer before printing.
+The primary **Rear fit section** is cut 5 mm forward from the rear mounting
+plane. Grey shows only the HUB75 rear structure retained by that cut; red shows
+only coupler geometry reaching into the same volume. This makes penetration,
+clearance and accidental overlap readable at a glance.
+
+The XY seam section remains useful for the seam locator, while the angled
+detail gives overall local context.
+
+The standalone STL remains a normal build artifact so the actual printable
+component can be inspected freely in a 3D viewer before printing.

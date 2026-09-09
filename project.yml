@@ -58,17 +58,15 @@ builds:
     source: dsg/openscad/render/middle-coupler.scad
     output: bld/png/middle-coupler.png
 
-  - name: middle-coupler-fit-png
-    source: dsg/openscad/render/middle-coupler-fit.scad
-    output: bld/png/middle-coupler-fit.png
-
-  - name: middle-coupler-fit-section-png
-    source: dsg/openscad/render/middle-coupler-fit-section.scad
-    output: bld/png/middle-coupler-fit-section.png
-
   - name: middle-coupler-stl
     source: dsg/openscad/export/middle-coupler.scad
     output: bld/stl/middle-coupler.stl
+
+verification:
+  commands:
+    - [bash, scripts/run-verification.sh]
+    - [bash, scripts/build-verification-index.sh]
+  output_root: vrf/out
 
 publication:
   production:

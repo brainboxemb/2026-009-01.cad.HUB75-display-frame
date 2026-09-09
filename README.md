@@ -15,6 +15,10 @@ after each smaller assembly is understood and verified.
 - [Generated design documentation](../../blob/build/design/README.md)
 - [Middle coupler design source](dsg/openscad/project_components/middle-coupler/design/design.md)
 - [Generated middle coupler design](../../blob/build/design/project/openscad/project_components/middle-coupler/design/design.md)
+- [Verification branch](../../tree/verification)
+- [Verification overview](../../blob/verification/README.md)
+- [Rear fit section](../../blob/verification/middle-coupler/rear-fit-section.png)
+- [XY seam section](../../blob/verification/middle-coupler/xy-seam-section.png)
 - [PNG renders](../../tree/build/png)
 - [Five-panel STL](../../blob/build/stl/panels-assembly.stl)
 - [Middle coupler STL](../../blob/build/stl/middle-coupler.stl)
@@ -234,15 +238,25 @@ The same assembly is also exported as `bld/stl/panels-assembly.stl`. This STL
 is a verification model: it lets the complete five-panel arrangement be opened
 in a 3D viewer and freely rotated/zoomed.
 
-The middle coupler adds three focused PNG outputs:
+The normal build contains only the component render:
 
 ```text
 bld/png/middle-coupler.png
-bld/png/middle-coupler-fit.png
-bld/png/middle-coupler-fit-section.png
 ```
 
-and one component STL:
+Fit evidence is intentionally published on the separate `verification` branch:
+
+```text
+middle-coupler/fit-detail.png
+middle-coupler/rear-fit-section.png
+middle-coupler/xy-seam-section.png
+```
+
+The rear-fit section is cut 5 mm forward from the rear mounting plane and is
+the primary visual check that the red coupler geometry actually enters the
+intended grey HUB75 rear structure.
+
+The build also contains one component STL:
 
 ```text
 bld/stl/middle-coupler.stl
@@ -279,10 +293,11 @@ dsg/openscad/main.scad
 Inspect the middle-coupler evidence before expanding the family:
 
 1. inspect the finished component render;
-2. inspect the cropped two-panel fit render;
-3. inspect the true XY seam/locator section;
-4. rotate/zoom the standalone middle-coupler STL;
-5. preferably print this core component and check the real fit.
+2. inspect the verification-branch rear fit section;
+3. inspect the verification-branch true XY seam/locator section;
+4. inspect the angled two-panel verification view;
+5. rotate/zoom the standalone middle-coupler STL;
+6. preferably print this core component and check the real fit.
 
 Do not add decorative pockets, centre marks, horizontal-edge couplers or corner
 couplers until the middle-coupler core fit is understood.

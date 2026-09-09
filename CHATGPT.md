@@ -235,6 +235,7 @@ hub75_middle_coupler_screw_x_positions()
 hub75_middle_coupler_reinforcement_locator_pad_diameter()
 hub75_middle_coupler_reinforcement_locator_pad_height()
 hub75_middle_coupler_reinforcement_locator_pin_diameter()
+hub75_middle_coupler_rear_fit_section()
 ```
 
 Calculation helpers used only inside `panels_assembly.scad` must remain
@@ -317,14 +318,25 @@ dsg/openscad/export/panels-assembly.scad
 The STL is for interactive inspection/rotation and must represent the same
 five-panel milestone assembly as the PNG renders.
 
-Middle-coupler verification outputs:
+Middle-coupler build output:
 
 ```text
 bld/png/middle-coupler.png
-bld/png/middle-coupler-fit.png
-bld/png/middle-coupler-fit-section.png
 bld/stl/middle-coupler.stl
 ```
+
+Fit evidence belongs on the separate verification branch, under:
+
+```text
+middle-coupler/fit-detail.png
+middle-coupler/rear-fit-section.png
+middle-coupler/xy-seam-section.png
+```
+
+The rear fit section is the primary visual passing check. It retains only the
+panel/coupler volume at least 5 mm forward from the rear mounting plane and is
+viewed perpendicular from the rear. Grey is HUB75 rear structure; red is
+coupler material entering the same retained volume.
 
 The fit fixture deliberately contains only two panels and must remain small
 enough to diagnose the seam interface. The XY section is taken below the
