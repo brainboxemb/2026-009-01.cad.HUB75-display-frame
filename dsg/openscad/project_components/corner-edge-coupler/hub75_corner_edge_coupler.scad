@@ -66,9 +66,6 @@ center_mark_width = 0.8;
 center_mark_cross_length = 6.0;
 center_mark_screw_keepout = 3.0;
 
-/* [Outer edge ridge] */
-outer_ridge_height = 4.0;
-
 /* [Preview] */
 preview_view = "final"; // [final,functional,profile,base,screw-hole,tube-pocket,locator-pin-clearance,guides,reinforcement-locator,reference-pockets,center-marks]
 
@@ -130,9 +127,7 @@ function hub75_corner_edge_coupler_create(
     center_mark_minor_length = 2.2,
     center_mark_width = 0.8,
     center_mark_cross_length = 6.0,
-    center_mark_screw_keepout = 3.0,
-
-    outer_ridge_height = 4.0
+    center_mark_screw_keepout = 3.0
 ) =
     let(
         x_inward = side == "left" ? 1 : -1,
@@ -237,7 +232,6 @@ function hub75_corner_edge_coupler_create(
         center_mark_cross_length = center_mark_cross_length,
         center_mark_screw_keepout = center_mark_screw_keepout,
 
-        outer_ridge_height = outer_ridge_height,
 
         x_inward = x_inward,
         rear_outer_edge_x = x_inward * rear_edge_x_abs,
@@ -434,7 +428,7 @@ module hub75_corner_edge_coupler_build(coupler) {
         if (coupler.guide_height > 0)
             _hub75_corner_edge_coupler_guide_walls(coupler);
 
-        if (coupler.outer_ridge_height > 0)
+        if (coupler.guide_height > 0)
             _hub75_corner_edge_coupler_outer_ridges(coupler);
 
         _hub75_corner_edge_coupler_reinforcement_locator(coupler);
@@ -1151,13 +1145,12 @@ module _hub75_corner_edge_coupler_guide_walls(coupler) {
 
 
 module _hub75_corner_edge_coupler_outer_ridges(coupler) {
-    // Keep the first corner milestone deliberately simple. The outside ridge
-    // is a low straight extrusion of the fitted shell outside the physical
-    // panel edges. A taper is deferred until the tube/clip geometry exists,
-    // because hull() over disconnected corner-ridge patches can bridge them
-    // with a large diagonal sheet.
+    // The outside portions are part of the same guide system as the inward
+    // portions. Their height is therefore exactly guide_height (4 / 6 / 10 mm).
+    // Keep the shape straight for now; the final taper remains deferred until
+    // the tube/clip geometry is introduced.
     _hub75_corner_edge_coupler_extrude_xz_y(
-        -coupler.outer_ridge_height,
+        -coupler.guide_height,
         0
     )
         intersection() {
@@ -1222,7 +1215,7 @@ module _hub75_corner_edge_coupler_functional_build(coupler) {
         if (coupler.guide_height > 0)
             _hub75_corner_edge_coupler_guide_walls(coupler);
 
-        if (coupler.outer_ridge_height > 0)
+        if (coupler.guide_height > 0)
             _hub75_corner_edge_coupler_outer_ridges(coupler);
 
         _hub75_corner_edge_coupler_reinforcement_locator(coupler);
@@ -1287,9 +1280,7 @@ _preview_coupler =
         center_mark_minor_length = center_mark_minor_length,
         center_mark_width = center_mark_width,
         center_mark_cross_length = center_mark_cross_length,
-        center_mark_screw_keepout = center_mark_screw_keepout,
-
-        outer_ridge_height = outer_ridge_height
+        center_mark_screw_keepout = center_mark_screw_keepout
     );
 
 hub75_corner_edge_coupler_render(
