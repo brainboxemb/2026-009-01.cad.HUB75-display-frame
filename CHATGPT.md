@@ -110,6 +110,32 @@ nominal height        320.00 mm
 Placement must use nominal width/height accessors. Do not duplicate these
 dimensions as project constants.
 
+## Private symbol naming
+
+Use the same BOSL2-style convention as the reusable SCAD libraries:
+
+```text
+cross-file project interface
+    no leading underscore
+
+private implementation helper
+    leading underscore
+
+nested/local private helper
+    leading underscore too
+```
+
+Current cross-file OpenSCAD interface:
+
+```text
+hub75_display_panel_create()
+hub75_display_verify_nominal_size()
+hub75_panels_assembly()
+```
+
+Calculation helpers used only inside `panels_assembly.scad` must remain
+underscore-prefixed.
+
 ## Project architecture
 
 ```text

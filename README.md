@@ -104,6 +104,12 @@ Z = 0
 Future frame/coupler geometry should reference explicit mechanical datums such
 as the front face and rear mounting plane instead of assuming symmetry in Y.
 
+## OpenSCAD naming
+
+Private implementation helpers use a leading `_`, including nested helpers.
+Only the small cross-file project interface remains without an underscore. This
+follows the same convention as BOSL2 and the reusable SCAD libraries.
+
 ## Structure
 
 ```text
