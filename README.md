@@ -69,14 +69,14 @@ configuration.
 
 ## Project origin
 
-The global origin is the geometric centre of the five-panel assembly:
+The project uses the physical front face of the HUB75 panels as its Y datum:
 
 ```text
 X = 0
     horizontal centre of the complete five-panel display
 
 Y = 0
-    centre of the HUB75 panel depth
+    front face of the HUB75 panels
 
 Z = 0
     vertical centre of the panels
@@ -85,24 +85,24 @@ Z = 0
 With the current 14.50 mm panel depth:
 
 ```text
-front face          Y = -7.25 mm
-panel depth centre  Y =  0.00 mm
-rear mounting plane Y = +7.25 mm
+front face          Y =  0.00 mm
+rear mounting plane Y = 14.50 mm
 ```
 
-The rear mounting plane remains an explicit mechanical datum, but it is no
-longer the global model origin.
+This deliberately matches the native coordinate convention of
+`lib.scad.hub75`. The panel is not symmetric front-to-rear, so the physical
+front face is a clearer and more stable datum than the geometric midpoint of
+its depth.
 
-The five panel centres are:
+The five panel placement centres are:
 
 ```text
 X = -320, -160, 0, +160, +320 mm
-Y = 0
 Z = 0
 ```
 
-This keeps rotations, front/rear views and angled camera targets symmetric
-around the actual display geometry.
+Future frame/coupler geometry should reference explicit mechanical datums such
+as the front face and rear mounting plane instead of assuming symmetry in Y.
 
 ## Structure
 

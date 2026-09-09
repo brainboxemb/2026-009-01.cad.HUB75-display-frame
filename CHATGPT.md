@@ -43,39 +43,39 @@ Do not rotate these panels 90 degrees. The library model is already portrait.
 
 ## Project coordinate system
 
-Use a geometric-centre origin for the current project:
+Use the HUB75 front face as the Y datum:
 
 ```text
 X = 0
     centre of complete display width
 
 Y = 0
-    centre of HUB75 panel depth
+    HUB75 front face
 
 Z = 0
     centre of panel/display height
 ```
 
-The reusable library panel has local front-face Y=0 and mounting-plane
-Y=+14.50 mm. Therefore the project assembly translates each panel by half the
-mounting-plane distance:
+This intentionally preserves the native `lib.scad.hub75` coordinate system.
+The panel is not symmetric in Y, so do not use the geometric midpoint of the
+panel depth as the primary mechanical datum.
+
+Current default panel depth:
 
 ```text
-front face          Y = -7.25 mm
-panel depth centre  Y =  0.00 mm
-rear mounting plane Y = +7.25 mm
+front face          Y =  0.00 mm
+rear mounting plane Y = 14.50 mm
 ```
 
-Expected panel centres for the five-panel milestone:
+Expected X/Z placement for the five-panel milestone:
 
 ```text
 X = -320, -160, 0, +160, +320 mm
-Y = 0
 Z = 0
 ```
 
-Keep the rear mounting plane as an explicit mechanical datum rather than using
-it as the global origin.
+Future frame and coupler geometry should use explicit accessors for mechanical
+Y datums such as the rear mounting plane.
 
 Do not change camera targets to compensate for a coordinate-origin mismatch.
 Keep the model origin correct first.

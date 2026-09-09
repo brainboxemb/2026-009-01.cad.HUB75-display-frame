@@ -6,12 +6,12 @@
 //
 // Project coordinate system:
 // X = display width, centred around X = 0
-// Y = panel depth, centred around Y = 0
+// Y = panel depth, with the HUB75 front face at Y = 0
 // Z = display height, centred around Z = 0
 //
-// The reusable library component exposes its front face at local Y = 0 and its
-// rear mounting plane at local Y = mounting_plane_y. The project shifts the
-// complete panel by half that distance so the panel depth straddles Y = 0.
+// This deliberately preserves the reusable library component's native
+// coordinate convention. The panel is not symmetric front-to-rear, so the
+// physical front face is the clearest project datum.
 //
 // Each library panel is already modeled in portrait orientation:
 // nominal 160 mm in X x 320 mm in Z.
@@ -39,13 +39,10 @@ function hub75_display_nominal_width(
 function hub75_display_nominal_height(panel) =
     hub75_display_panel_pitch_z(panel);
 
-function hub75_display_panel_center_y(panel) = 0;
-
-function hub75_display_panel_front_y(panel) =
-    -hub75_p5_64x32_panel_mounting_plane_y(panel) / 2;
+function hub75_display_panel_front_y(panel) = 0;
 
 function hub75_display_panel_rear_mounting_y(panel) =
-    hub75_p5_64x32_panel_mounting_plane_y(panel) / 2;
+    hub75_p5_64x32_panel_mounting_plane_y(panel);
 
 function hub75_display_panel_center_x(
     panel,
@@ -71,15 +68,15 @@ module hub75_display_verify_nominal_size(
         "Five-panel display must be 320 mm nominal height"
     );
     assert(
-        abs(hub75_display_panel_center_y(panel)) < 0.001,
-        "Panel depth centre must remain on project Y=0"
+        abs(hub75_display_panel_front_y(panel)) < 0.001,
+        "HUB75 front face must remain on project Y=0"
     );
     assert(
         abs(
-            hub75_display_panel_front_y(panel)
-            + hub75_display_panel_rear_mounting_y(panel)
+            hub75_display_panel_rear_mounting_y(panel)
+            - hub75_p5_64x32_panel_mounting_plane_y(panel)
         ) < 0.001,
-        "Front and rear mounting planes must remain symmetric around Y=0"
+        "Rear mounting plane must follow the library mounting-plane datum"
     );
 }
 
@@ -92,7 +89,7 @@ module hub75_panels_assembly(
     for (index = [0 : panel_count - 1])
         translate([
             hub75_display_panel_center_x(panel, index, panel_count),
-            hub75_display_panel_front_y(panel),
+            0,
             0
         ])
             hub75_p5_64x32_panel_build(panel);
