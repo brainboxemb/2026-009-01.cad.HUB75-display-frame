@@ -15,4 +15,4 @@ permissions:
 
 jobs:
   verify:
-    uses: brainboxemb/tool.scad-project/.github/workflows/project-verify.yml@v0.7.0
+    uses: brainboxemb/tool.scad-project/.github/workflows/project-verify.yml@v0.7.1
