@@ -412,6 +412,35 @@ function hub75_middle_coupler_reinforcement_locator_pin_diameter(coupler) =
     );
 
 
+// Function: hub75_middle_coupler_reference_pocket_effective_depth()
+// Description:
+//   Returns the actual blind-pocket depth after respecting both the requested
+//   maximum depth and the minimum material that must remain behind the pocket.
+function hub75_middle_coupler_reference_pocket_effective_depth(coupler) =
+    max(
+        0,
+        min(
+            coupler.reference_pocket_depth,
+            coupler.base_thickness
+                - coupler.reference_pocket_min_back_wall
+        )
+    );
+
+
+// Function: hub75_middle_coupler_reference_pocket_straight_depth()
+// Description:
+//   Returns the cylindrical Ø3 section before the tapered pocket bottom.
+function hub75_middle_coupler_reference_pocket_straight_depth(coupler) =
+    max(
+        0,
+        hub75_middle_coupler_reference_pocket_effective_depth(coupler)
+            - min(
+                coupler.reference_pocket_taper_depth,
+                hub75_middle_coupler_reference_pocket_effective_depth(coupler)
+            )
+    );
+
+
 // Function: hub75_middle_coupler_reference_pocket_lane_offset()
 // Description:
 //   Returns the transverse pocket-lane offset for one PLUS arm. The target is
@@ -1139,14 +1168,7 @@ module _hub75_middle_coupler_center_mark_pattern_2d(coupler) {
 
 module _hub75_middle_coupler_reference_pocket_cutters(coupler) {
     depth =
-        max(
-            0,
-            min(
-                coupler.reference_pocket_depth,
-                coupler.base_thickness
-                    - coupler.reference_pocket_min_back_wall
-            )
-        );
+        hub75_middle_coupler_reference_pocket_effective_depth(coupler);
     taper_depth =
         min(
             coupler.reference_pocket_taper_depth,
