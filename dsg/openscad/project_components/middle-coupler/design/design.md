@@ -346,6 +346,7 @@ The pockets are blind. With the current 3 mm base and 2.5 mm pocket depth,
 
 <!-- scad-render
 view: reference-pockets
+vpr: [68, 0, 215]
 -->
 
 ## 10. Centre + and distance ticks
@@ -377,6 +378,7 @@ to an inset of the real rounded PLUS outline.
 
 <!-- scad-render
 view: center-marks
+vpr: [68, 0, 215]
 -->
 
 ## 11. Complete middle coupler

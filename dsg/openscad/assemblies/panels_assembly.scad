@@ -1,3 +1,6 @@
+// File: panels_assembly.scad
+//   Five-panel portrait HUB75 display assembly.
+
 // Five-panel HUB75 display assembly.
 //
 // The reusable panel geometry and its dimensions come exclusively from
