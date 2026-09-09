@@ -59,7 +59,9 @@ The section plane is kept inside the active guide: **3 mm** for the small
 4 mm guide and **5 mm** for medium/large.
 
 - grey = real HUB75 rear structural geometry;
-- red = only coupler material reaching into the same retained volume.
+- red = only coupler material reaching into the same retained volume;
+- blue = Ø2 verification datum pin through the connector's engraved `+`,
+  normal to the panel plane.
 
 ## Acceptance
 

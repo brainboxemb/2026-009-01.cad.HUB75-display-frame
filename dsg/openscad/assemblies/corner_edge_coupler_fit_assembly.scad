@@ -6,6 +6,7 @@
 
 use <../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
 use <../project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad>
+use <verification_datum_pin.scad>
 
 
 function _hub75_corner_edge_fit_corner_x(panel, side) =
@@ -115,6 +116,17 @@ module hub75_corner_edge_coupler_fit_detail(
             hub75_corner_edge_coupler_build(
                 active_coupler
             );
+
+    // Exact nominal 160 x 320 mm panel-corner datum of the engraved +.
+    hub75_verification_datum_pin(
+        x = corner_x,
+        z = corner_z,
+        y_min = -4,
+        y_max =
+            mounting_y
+            + active_coupler.base_thickness
+            + 8
+    );
 }
 
 
@@ -190,4 +202,14 @@ module hub75_corner_edge_coupler_rear_fit_section(
                 y_max_override = section_y
             );
         }
+
+    hub75_verification_datum_pin(
+        x = corner_x,
+        z = corner_z,
+        y_min = -4,
+        y_max =
+            mounting_y
+            + active_coupler.base_thickness
+            + 8
+    );
 }
