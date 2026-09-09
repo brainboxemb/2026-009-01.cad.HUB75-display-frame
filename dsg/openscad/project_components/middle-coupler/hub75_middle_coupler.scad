@@ -25,6 +25,8 @@ guide_end_rounding = 1.5;
 
 /* [Mounting] */
 screw_hole_diameter = 3.4;
+screw_relief_depth = 0.20;
+screw_relief_radial = 0.40;
 mounting_tube_radial_clearance = 0.45;
 mounting_tube_axial_clearance = 0.40;
 reinforcement_bushing_clearance = 0.45;
@@ -37,6 +39,8 @@ reinforcement_locator_pin_length = 2.0;
 show_reference_pockets = true;
 reference_pocket_diameter = 3.0;
 reference_pocket_depth = 2.5;
+reference_pocket_end_diameter = 2.0;
+reference_pocket_taper_depth = 0.5;
 reference_pocket_pitch = 10.0;
 reference_pocket_steps = [2, 3, 4];
 reference_pocket_lane_grid = 2.5;
@@ -90,9 +94,12 @@ _HUB75_MIDDLE_COUPLER_EPS = 0.05;
 //   guide_end_rounding = Rounding applied to exposed raised-guide endpoints.
 //   render_fn = Facet count used by all curved production geometry.
 //   screw_hole_diameter = Through-hole diameter for the two mounting screws.
+//   screw_relief_* = Shallow cylindrical anti-elephant-foot relief at both
+//     base-plate faces.
 //   reinforcement_locator_* = Printable clearances for the positive pad/pin
 //     locators that enter the panel reinforcement recesses.
-//   reference_pocket_* = Blind Ø3 surface-pocket pattern parameters.
+//   reference_pocket_* = Blind surface-pocket pattern parameters. The visible
+//     Ø3 bore stays cylindrical before a short taper narrows the pocket bottom.
 //   center_mark_* = Shallow centre cross and 5/10 mm reference tick parameters.
 function hub75_middle_coupler_create(
     panel = hub75_p5_64x32_panel_create(),
@@ -106,6 +113,8 @@ function hub75_middle_coupler_create(
     guide_end_rounding = 1.5,
     render_fn = 192,
     screw_hole_diameter = 3.4,
+    screw_relief_depth = 0.20,
+    screw_relief_radial = 0.40,
     mounting_tube_radial_clearance = 0.45,
     mounting_tube_axial_clearance = 0.40,
     reinforcement_bushing_clearance = 0.45,
@@ -117,6 +126,8 @@ function hub75_middle_coupler_create(
     show_reference_pockets = true,
     reference_pocket_diameter = 3.0,
     reference_pocket_depth = 2.5,
+    reference_pocket_end_diameter = 2.0,
+    reference_pocket_taper_depth = 0.5,
     reference_pocket_pitch = 10.0,
     reference_pocket_steps = [2, 3, 4],
     reference_pocket_lane_grid = 2.5,
@@ -148,6 +159,8 @@ function hub75_middle_coupler_create(
     assert(guide_end_rounding >= 0, "guide_end_rounding must be >= 0")
     assert(render_fn >= 24, "render_fn must be >= 24")
     assert(screw_hole_diameter > 0, "screw_hole_diameter must be > 0")
+    assert(screw_relief_depth >= 0, "screw_relief_depth must be >= 0")
+    assert(screw_relief_radial >= 0, "screw_relief_radial must be >= 0")
     assert(
         reinforcement_locator_pad_radial_clearance >= 0,
         "reinforcement locator pad radial clearance must be >= 0"
@@ -166,6 +179,16 @@ function hub75_middle_coupler_create(
     )
     assert(reference_pocket_diameter > 0, "reference pocket diameter must be > 0")
     assert(reference_pocket_depth >= 0, "reference pocket depth must be >= 0")
+    assert(
+        reference_pocket_end_diameter > 0
+        && reference_pocket_end_diameter <= reference_pocket_diameter,
+        "reference pocket end diameter must be > 0 and <= pocket diameter"
+    )
+    assert(
+        reference_pocket_taper_depth >= 0
+        && reference_pocket_taper_depth <= reference_pocket_depth,
+        "reference pocket taper depth must be between 0 and pocket depth"
+    )
     assert(reference_pocket_pitch > 0, "reference pocket pitch must be > 0")
     assert(reference_pocket_lane_grid > 0, "reference pocket lane grid must be > 0")
     assert(
@@ -193,6 +216,8 @@ function hub75_middle_coupler_create(
         guide_end_rounding = guide_end_rounding,
         render_fn = render_fn,
         screw_hole_diameter = screw_hole_diameter,
+        screw_relief_depth = screw_relief_depth,
+        screw_relief_radial = screw_relief_radial,
         mounting_tube_radial_clearance = mounting_tube_radial_clearance,
         mounting_tube_axial_clearance = mounting_tube_axial_clearance,
         reinforcement_bushing_clearance = reinforcement_bushing_clearance,
@@ -208,6 +233,8 @@ function hub75_middle_coupler_create(
         show_reference_pockets = show_reference_pockets,
         reference_pocket_diameter = reference_pocket_diameter,
         reference_pocket_depth = reference_pocket_depth,
+        reference_pocket_end_diameter = reference_pocket_end_diameter,
+        reference_pocket_taper_depth = reference_pocket_taper_depth,
         reference_pocket_pitch = reference_pocket_pitch,
         reference_pocket_steps = reference_pocket_steps,
         reference_pocket_lane_grid = reference_pocket_lane_grid,
@@ -770,19 +797,58 @@ module _hub75_middle_coupler_base_solid(coupler) {
 
 
 module _hub75_middle_coupler_screw_cutters(coupler) {
+    relief_depth =
+        min(
+            coupler.screw_relief_depth,
+            coupler.base_thickness / 2
+                - _HUB75_MIDDLE_COUPLER_EPS
+        );
+    relief_diameter =
+        coupler.screw_hole_diameter
+        + 2 * coupler.screw_relief_radial;
+
     for (x = hub75_middle_coupler_screw_x_positions(coupler))
-        translate([
-            x,
-            coupler.base_thickness + _HUB75_MIDDLE_COUPLER_EPS,
-            0
-        ])
-            rotate([90, 0, 0])
-                cylinder(
-                    h =
-                        coupler.base_thickness
-                        + 2 * _HUB75_MIDDLE_COUPLER_EPS,
-                    d = coupler.screw_hole_diameter
-                );
+        translate([x, 0, 0]) {
+            // Main cylindrical bore through the complete base.
+            translate([
+                0,
+                coupler.base_thickness + _HUB75_MIDDLE_COUPLER_EPS,
+                0
+            ])
+                rotate([90, 0, 0])
+                    cylinder(
+                        h =
+                            coupler.base_thickness
+                            + 2 * _HUB75_MIDDLE_COUPLER_EPS,
+                        d = coupler.screw_hole_diameter
+                    );
+
+            // Original v1.2 print aid: widen only one shallow layer at both
+            // physical plate faces. This is cylindrical relief, not a
+            // countersink, and does not alter the nominal through bore.
+            if (
+                relief_depth > 0
+                && coupler.screw_relief_radial > 0
+            ) {
+                translate([
+                    0,
+                    coupler.base_thickness + _HUB75_MIDDLE_COUPLER_EPS,
+                    0
+                ])
+                    rotate([90, 0, 0])
+                        cylinder(
+                            h = relief_depth + _HUB75_MIDDLE_COUPLER_EPS,
+                            d = relief_diameter
+                        );
+
+                translate([0, relief_depth, 0])
+                    rotate([90, 0, 0])
+                        cylinder(
+                            h = relief_depth + _HUB75_MIDDLE_COUPLER_EPS,
+                            d = relief_diameter
+                        );
+            }
+        }
 }
 
 
@@ -878,45 +944,59 @@ module _hub75_middle_coupler_reference_pocket_strip_2d(
 }
 
 
+function _hub75_middle_coupler_reference_pocket_positions(coupler) =
+    let(
+        horizontal_arm =
+            hub75_middle_coupler_horizontal_arm_height(coupler),
+        vertical_arm =
+            hub75_middle_coupler_vertical_arm_width(coupler),
+        x_lane =
+            hub75_middle_coupler_reference_pocket_lane_offset(
+                coupler,
+                horizontal_arm
+            ),
+        z_lane =
+            hub75_middle_coupler_reference_pocket_lane_offset(
+                coupler,
+                vertical_arm
+            ),
+        lane_signs =
+            hub75_middle_coupler_reference_pocket_uses_two_lanes(coupler)
+                ? [-1, 1]
+                : [0]
+    )
+    concat(
+        [
+            for (
+                direction = [-1, 1],
+                step = coupler.reference_pocket_steps,
+                lane = lane_signs
+            )
+                [
+                    direction * step * coupler.reference_pocket_pitch,
+                    lane * x_lane
+                ]
+        ],
+        [
+            for (
+                direction = [-1, 1],
+                step = coupler.reference_pocket_steps,
+                lane = lane_signs
+            )
+                [
+                    lane * z_lane,
+                    direction * step * coupler.reference_pocket_pitch
+                ]
+        ]
+    );
+
+
 module _hub75_middle_coupler_reference_pockets_2d(coupler) {
-    horizontal_arm =
-        hub75_middle_coupler_horizontal_arm_height(coupler);
-    vertical_arm =
-        hub75_middle_coupler_vertical_arm_width(coupler);
-
-    x_lane =
-        hub75_middle_coupler_reference_pocket_lane_offset(
-            coupler,
-            horizontal_arm
-        );
-    z_lane =
-        hub75_middle_coupler_reference_pocket_lane_offset(
-            coupler,
-            vertical_arm
-        );
-
-    lane_signs =
-        hub75_middle_coupler_reference_pocket_uses_two_lanes(coupler)
-            ? [-1, 1]
-            : [0];
-
-    for (direction = [-1, 1])
-        _hub75_middle_coupler_reference_pocket_strip_2d(
-            coupler,
-            axis = "x",
-            direction_sign = direction,
-            lane_signs = lane_signs,
-            lane_offset = x_lane
-        );
-
-    for (direction = [-1, 1])
-        _hub75_middle_coupler_reference_pocket_strip_2d(
-            coupler,
-            axis = "z",
-            direction_sign = direction,
-            lane_signs = lane_signs,
-            lane_offset = z_lane
-        );
+    for (position =
+        _hub75_middle_coupler_reference_pocket_positions(coupler)
+    )
+        translate(position)
+            circle(d = coupler.reference_pocket_diameter);
 }
 
 
@@ -1055,17 +1135,72 @@ module _hub75_middle_coupler_reference_pocket_cutters(coupler) {
             coupler.reference_pocket_depth,
             coupler.base_thickness - 0.2
         );
+    taper_depth =
+        min(
+            coupler.reference_pocket_taper_depth,
+            depth
+        );
+    straight_depth =
+        max(0, depth - taper_depth);
 
     if (
         coupler.show_reference_pockets
         && depth > 0
     )
-        _hub75_middle_coupler_extrude_xz_y(
-            coupler.base_thickness - depth,
-            coupler.base_thickness
-                + _HUB75_MIDDLE_COUPLER_EPS
-        )
-            _hub75_middle_coupler_reference_pocket_pattern_2d(coupler);
+        intersection() {
+            // Keep every cutter inside the same true rounded PLUS inset used
+            // by the old 2D pocket pattern.
+            _hub75_middle_coupler_extrude_xz_y(
+                coupler.base_thickness - depth
+                    - _HUB75_MIDDLE_COUPLER_EPS,
+                coupler.base_thickness
+                    + _HUB75_MIDDLE_COUPLER_EPS
+            )
+                offset(delta = -coupler.reference_pocket_edge_margin)
+                    _hub75_middle_coupler_profile_2d(coupler);
+
+            union()
+                for (position =
+                    _hub75_middle_coupler_reference_pocket_positions(coupler)
+                )
+                    translate([position[0], 0, position[1]]) {
+                        // Visible section stays cylindrical at Ø3 mm.
+                        if (straight_depth > 0)
+                            translate([
+                                0,
+                                coupler.base_thickness
+                                    + _HUB75_MIDDLE_COUPLER_EPS,
+                                0
+                            ])
+                                rotate([90, 0, 0])
+                                    cylinder(
+                                        h =
+                                            straight_depth
+                                            + _HUB75_MIDDLE_COUPLER_EPS,
+                                        d = coupler.reference_pocket_diameter
+                                    );
+
+                        // Only the final section narrows, default Ø3 -> Ø2
+                        // over 0.5 mm. For the 2 mm small base the total blind
+                        // depth is still clamped to preserve 0.2 mm material.
+                        if (taper_depth > 0)
+                            translate([
+                                0,
+                                coupler.base_thickness
+                                    - straight_depth
+                                    + _HUB75_MIDDLE_COUPLER_EPS,
+                                0
+                            ])
+                                rotate([90, 0, 0])
+                                    cylinder(
+                                        h =
+                                            taper_depth
+                                            + 2 * _HUB75_MIDDLE_COUPLER_EPS,
+                                        d1 = coupler.reference_pocket_diameter,
+                                        d2 = coupler.reference_pocket_end_diameter
+                                    );
+                    }
+        }
 }
 
 
@@ -1371,6 +1506,8 @@ _preview_coupler =
         guide_end_rounding = guide_end_rounding,
         render_fn = render_fn,
         screw_hole_diameter = screw_hole_diameter,
+        screw_relief_depth = screw_relief_depth,
+        screw_relief_radial = screw_relief_radial,
         mounting_tube_radial_clearance =
             mounting_tube_radial_clearance,
         mounting_tube_axial_clearance =
@@ -1389,6 +1526,8 @@ _preview_coupler =
         show_reference_pockets = show_reference_pockets,
         reference_pocket_diameter = reference_pocket_diameter,
         reference_pocket_depth = reference_pocket_depth,
+        reference_pocket_end_diameter = reference_pocket_end_diameter,
+        reference_pocket_taper_depth = reference_pocket_taper_depth,
         reference_pocket_pitch = reference_pocket_pitch,
         reference_pocket_steps = reference_pocket_steps,
         reference_pocket_lane_grid = reference_pocket_lane_grid,
