@@ -426,7 +426,7 @@ module hub75_horizontal_edge_coupler_build(coupler) {
         if (coupler.guide_height > 0)
             _hub75_horizontal_edge_coupler_guide_walls(coupler);
 
-        if (coupler.seam_locator_height > 0)
+        if (coupler.guide_height > 0)
             _hub75_horizontal_edge_coupler_outer_edge_ridge(coupler);
 
         _hub75_horizontal_edge_coupler_reinforcement_locators(coupler);
@@ -1227,7 +1227,10 @@ module _hub75_horizontal_edge_coupler_guide_walls(coupler) {
 
 
 module _hub75_horizontal_edge_coupler_outer_edge_ridge(coupler) {
-    ridge_h = coupler.seam_locator_height;
+    // The outside rail is part of the same guide system. It therefore uses
+    // exactly the configured family guide height (4 / 6 / 10 mm) rather than
+    // borrowing the independent seam-locator height.
+    ridge_h = coupler.guide_height;
     taper = min(
         coupler.outer_ridge_taper_inset,
         coupler.wall_thickness / 4
@@ -1366,7 +1369,7 @@ module _hub75_horizontal_edge_coupler_functional_build(coupler) {
         if (coupler.guide_height > 0)
             _hub75_horizontal_edge_coupler_guide_walls(coupler);
 
-        if (coupler.seam_locator_height > 0)
+        if (coupler.guide_height > 0)
             _hub75_horizontal_edge_coupler_outer_edge_ridge(coupler);
 
         _hub75_horizontal_edge_coupler_reinforcement_locators(coupler);
