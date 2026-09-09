@@ -8,3 +8,5 @@ profiles:
     files:
       - middle-coupler.scad
       - horizontal-edge-coupler.scad
+      - corner-edge-coupler-left.scad
+      - corner-edge-coupler-right.scad
