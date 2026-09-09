@@ -20,4 +20,4 @@ $vpd =
     : size == "large" ? 250
     : 200;
 
-hub75_horizontal_edge_coupler_build(coupler);
+hub75_horizontal_edge_coupler_render(coupler, view = "final");
