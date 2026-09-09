@@ -1,0 +1,9 @@
+defaults:
+  image_size: [2560, 1440]
+
+profiles:
+  multi-size:
+    sizes: [small, medium, large]
+    image_size: [2560, 1440]
+    files:
+      - middle-coupler.scad
