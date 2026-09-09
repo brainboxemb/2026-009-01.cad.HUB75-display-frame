@@ -7,7 +7,19 @@ on:
       - "**"
     tags:
       - "v*"
+    paths:
+      - "dsg/**"
+      - "project.yml"
+      - ".gitmodules"
+      - "tools/tool.scad-project"
+      - ".github/workflows/build.yml"
   pull_request:
+    paths:
+      - "dsg/**"
+      - "project.yml"
+      - ".gitmodules"
+      - "tools/tool.scad-project"
+      - ".github/workflows/build.yml"
 
 permissions:
   contents: write

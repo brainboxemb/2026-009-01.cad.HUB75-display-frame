@@ -7,7 +7,23 @@ on:
       - "**"
     tags:
       - "v*"
+    paths:
+      - "dsg/**"
+      - "vrf/**"
+      - "scripts/**"
+      - "project.yml"
+      - ".gitmodules"
+      - "tools/tool.scad-project"
+      - ".github/workflows/verify.yml"
   pull_request:
+    paths:
+      - "dsg/**"
+      - "vrf/**"
+      - "scripts/**"
+      - "project.yml"
+      - ".gitmodules"
+      - "tools/tool.scad-project"
+      - ".github/workflows/verify.yml"
 
 permissions:
   contents: write
