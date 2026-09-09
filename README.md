@@ -94,7 +94,7 @@ tools/
 The project pins:
 
 ```text
-tool.scad-project v0.6.0
+tool.scad-project v0.6.1
 docker.scad-toolchain v0.4.0 (through the reusable workflow)
 lib.scad.hub75 main, locked by the project gitlink
 ```

@@ -77,7 +77,7 @@ dimensions as project constants.
 docker.scad-toolchain v0.4.0
     runtime capabilities
 
-tool.scad-project v0.6.0
+tool.scad-project v0.6.1
     configuration/build orchestration
 
 lib.scad.hub75
