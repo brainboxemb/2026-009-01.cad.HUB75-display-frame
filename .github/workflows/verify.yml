@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   verify:
-    # A newer run for the same workflow/ref supersedes stale generated output.
+    # Keep only the newest run for this workflow and Git ref.
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: true
