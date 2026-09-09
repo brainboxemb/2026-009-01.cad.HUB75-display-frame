@@ -7,6 +7,14 @@ This repository is a clean restart of the display-frame design. It deliberately
 does not copy the old frame/coupler implementation. Complexity is added only
 after each smaller assembly is understood and verified.
 
+## Quick links
+
+- [Generated build branch](../../tree/build)
+- [Build overview](../../blob/build/README.md)
+- [Generated design documentation](../../blob/build/design/README.md)
+- [PNG renders](../../tree/build/png)
+- [STL verification model](../../blob/build/stl/panels-assembly.stl)
+
 ## Current milestone
 
 Milestone 1 contains only the five physical HUB75 panels.
@@ -69,6 +77,11 @@ dsg/
     ├── ext/
     │   └── lib.scad.hub75
     ├── render/
+    │   ├── front.scad
+    │   ├── front-angled.scad
+    │   ├── rear.scad
+    │   └── rear-angled.scad
+    ├── export/
     │   └── panels-assembly.scad
     └── main.scad
 
@@ -86,11 +99,25 @@ docker.scad-toolchain v0.4.0 (through the reusable workflow)
 lib.scad.hub75 main, locked by the project gitlink
 ```
 
-The configured PNG build uses a 2560x1440 render and the generic watermark path:
+The four configured full-display PNG renders use 2560x1440 and deliberately
+reuse the official camera views from the old HUB75 display-frame project:
+
+```text
+front         [90, 0,   0]  distance 1200
+front angled  [85, 0,  40]  distance 1050
+rear          [90, 0, 180]  distance 1200
+rear angled   [85, 0, 220]  distance 1050
+```
+
+They use the generic watermark path:
 
 ```text
 © 2026 brainboxemb
 ```
+
+The same assembly is also exported as `bld/stl/panels-assembly.stl`. This STL
+is a verification model: it lets the complete five-panel arrangement be opened
+in a 3D viewer and freely rotated/zoomed.
 
 Generated files are published to the mutable `build` branch and are not stored
 on `main`.

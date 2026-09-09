@@ -33,9 +33,25 @@ externals:
     required_file: openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad
 
 builds:
-  - name: panels-assembly-png
-    source: dsg/openscad/render/panels-assembly.scad
-    output: bld/png/panels-assembly.png
+  - name: front-png
+    source: dsg/openscad/render/front.scad
+    output: bld/png/front.png
+
+  - name: front-angled-png
+    source: dsg/openscad/render/front-angled.scad
+    output: bld/png/front-angled.png
+
+  - name: rear-png
+    source: dsg/openscad/render/rear.scad
+    output: bld/png/rear.png
+
+  - name: rear-angled-png
+    source: dsg/openscad/render/rear-angled.scad
+    output: bld/png/rear-angled.png
+
+  - name: panels-assembly-stl
+    source: dsg/openscad/export/panels-assembly.scad
+    output: bld/stl/panels-assembly.stl
 
 publication:
   production:

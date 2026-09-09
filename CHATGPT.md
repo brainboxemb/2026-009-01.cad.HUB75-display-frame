@@ -98,12 +98,40 @@ Do not recursively initialize development dependencies inside those submodules.
 
 ## Render policy
 
-Configured build:
+Configured full-display renders:
 
 ```text
-dsg/openscad/render/panels-assembly.scad
-    -> bld/png/panels-assembly.png
+dsg/openscad/render/front.scad
+    -> bld/png/front.png
+
+dsg/openscad/render/front-angled.scad
+    -> bld/png/front-angled.png
+
+dsg/openscad/render/rear.scad
+    -> bld/png/rear.png
+
+dsg/openscad/render/rear-angled.scad
+    -> bld/png/rear-angled.png
 ```
+
+Use the same official whole-display cameras as the old project:
+
+```text
+front         $vpr=[90,0,0]    $vpd=1200
+front angled  $vpr=[85,0,40]   $vpd=1050
+rear          $vpr=[90,0,180]  $vpd=1200
+rear angled   $vpr=[85,0,220]  $vpd=1050
+```
+
+Verification STL:
+
+```text
+dsg/openscad/export/panels-assembly.scad
+    -> bld/stl/panels-assembly.stl
+```
+
+The STL is for interactive inspection/rotation and must represent the same
+five-panel milestone assembly as the PNG renders.
 
 Default build resolution:
 
@@ -137,5 +165,9 @@ Prefer fewer view modes and explicit component toggles.
 
 Do not add frame couplers, tube clamps, reinforcement or decorative features to
 milestone 1.
+
+Top-level project READMEs should follow the current SCAD-project convention with
+a `Quick links` section near the top linking at least to generated build output,
+generated design documentation, PNG renders and STL output when present.
 
 The model and documentation were developed with the assistance of ChatGPT.

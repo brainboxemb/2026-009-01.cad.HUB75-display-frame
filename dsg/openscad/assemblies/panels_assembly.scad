@@ -42,6 +42,24 @@ function hub75_display_panel_center_x(
 ) =
     (index - (panel_count - 1) / 2) * hub75_display_panel_pitch_x(panel);
 
+module hub75_display_verify_nominal_size(
+    panel = hub75_display_panel_create(),
+    panel_count = HUB75_DISPLAY_PANEL_COUNT
+) {
+    assert(
+        panel_count == 5,
+        "Current milestone requires exactly five HUB75 panels"
+    );
+    assert(
+        abs(hub75_display_nominal_width(panel, panel_count) - 800) < 0.001,
+        "Five-panel display must be 800 mm nominal width"
+    );
+    assert(
+        abs(hub75_display_nominal_height(panel) - 320) < 0.001,
+        "Five-panel display must be 320 mm nominal height"
+    );
+}
+
 module hub75_panels_assembly(
     panel = hub75_display_panel_create(),
     panel_count = HUB75_DISPLAY_PANEL_COUNT
