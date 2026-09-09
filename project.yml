@@ -19,7 +19,7 @@ openscad:
     - --render
     - --projection=o
   image_size: [2560, 1440]
-  design_image_size: [640, 480]
+  design_image_size: [1000, 750]
 
 rendering:
   watermark:
@@ -53,6 +53,22 @@ builds:
   - name: panels-assembly-stl
     source: dsg/openscad/export/panels-assembly.scad
     output: bld/stl/panels-assembly.stl
+
+  - name: middle-coupler-png
+    source: dsg/openscad/render/middle-coupler.scad
+    output: bld/png/middle-coupler.png
+
+  - name: middle-coupler-fit-png
+    source: dsg/openscad/render/middle-coupler-fit.scad
+    output: bld/png/middle-coupler-fit.png
+
+  - name: middle-coupler-fit-section-png
+    source: dsg/openscad/render/middle-coupler-fit-section.scad
+    output: bld/png/middle-coupler-fit-section.png
+
+  - name: middle-coupler-stl
+    source: dsg/openscad/export/middle-coupler.scad
+    output: bld/stl/middle-coupler.stl
 
 publication:
   production:
