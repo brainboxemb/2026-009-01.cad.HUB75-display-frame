@@ -11,6 +11,7 @@ after each smaller assembly is understood and verified.
 
 - [Generated build branch](../../tree/build)
 - [Build overview](../../blob/build/README.md)
+- [Build provenance](../../blob/build/publication-info.txt)
 - [Generated design documentation](../../blob/build/design/README.md)
 - [PNG renders](../../tree/build/png)
 - [STL verification model](../../blob/build/stl/panels-assembly.stl)
