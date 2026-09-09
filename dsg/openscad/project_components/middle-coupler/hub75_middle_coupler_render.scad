@@ -1,5 +1,4 @@
 // File: hub75_middle_coupler_render.scad
-// FileSummary:
 //   Design-documentation adapter for the project-specific middle coupler.
 
 $fn = 120;
