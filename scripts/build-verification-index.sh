@@ -27,7 +27,7 @@ intended**.
 
 The middle coupler joins two adjacent panels at the middle mounting row. Each
 small/medium/large size publishes standalone geometry, an angled local fit
-view, a rear-facing 5 mm fit section and an XY seam section.
+view, a size-aware rear fit section and an XY seam section.
 
 ### Horizontal-edge coupler
 
@@ -39,12 +39,13 @@ Each small/medium/large size publishes:
 - standalone PNG;
 - standalone STL;
 - angled top-edge fit detail;
-- rear-facing 5 mm fit section;
+- size-aware rear fit section;
 - YZ section through the panel rear end rail.
 
 ## Rear fit sections
 
-The section plane is **5 mm forward from the HUB75 rear mounting plane**.
+The section plane is kept inside the active guide: **3 mm** for the small
+4 mm guide and **5 mm** for medium/large.
 
 - grey = real HUB75 rear structural geometry;
 - red = only coupler material reaching into the same retained volume.
