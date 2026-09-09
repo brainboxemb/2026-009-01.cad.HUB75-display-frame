@@ -17,6 +17,7 @@ openscad:
     - --enable=object-function
   render_flags:
     - --render
+    - --projection=o
   image_size: [2560, 1440]
   design_image_size: [640, 480]
 

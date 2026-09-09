@@ -123,6 +123,19 @@ rear          $vpr=[90,0,180]  $vpd=1200
 rear angled   $vpr=[85,0,220]  $vpd=1050
 ```
 
+These official documentation views must use orthographic OpenSCAD projection,
+matching the classic HUB75 renderer:
+
+```yaml
+openscad:
+  render_flags:
+    - --render
+    - --projection=o
+```
+
+Do not compensate for accidental perspective rendering by shifting `$vpt` or
+changing the official camera angles.
+
 Verification STL:
 
 ```text
