@@ -29,7 +29,15 @@ history and new entries can be grouped by version.
   - large: 100 mm profile, 6 mm wall, 10 mm guide, 4 mm base.
 - PNG and STL verification evidence for all three coupler sizes.
 
+### Fixed
+
+- Preserve the complete raised guide wall in the 2 mm small preset by limiting guide-end rounding to the available wall thickness.
+- Verification renders now auto-fit each size so the large coupler remains fully visible.
+
 ### Changed
+
+- Verification output uses flat `png/` and `stl/` directories with unique size-qualified filenames for easier comparison.
+- Verification now publishes a dedicated PNG gallery at `png/README.md`.
 
 - Normal OpenSCAD renders and exports are now discovered from
   `dsg/openscad/render` and `dsg/openscad/export` instead of being listed

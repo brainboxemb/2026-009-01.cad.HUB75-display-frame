@@ -30,8 +30,9 @@ These images are generated from the current `build` branch.
 - [Generated middle coupler design](../../blob/build/design/project/openscad/project_components/middle-coupler/design/design.md)
 - [Verification branch](../../tree/verification)
 - [Verification overview](../../blob/verification/README.md)
-- [Medium rear fit section](../../blob/verification/middle-coupler/medium/rear-fit-section.png)
-- [Medium XY seam section](../../blob/verification/middle-coupler/medium/xy-seam-section.png)
+- [Verification PNG gallery](../../blob/verification/png/README.md)
+- [Medium rear fit section](../../blob/verification/png/middle-coupler-medium-rear-fit-section.png)
+- [Medium XY seam section](../../blob/verification/png/middle-coupler-medium-xy-seam-section.png)
 - [PNG renders](../../tree/build/png)
 - [Five-panel STL](../../blob/build/stl/panels-assembly.stl)
 - [Middle coupler STLs](../../tree/build/stl)
@@ -276,9 +277,9 @@ bld/png/middle-coupler-large.png
 Fit evidence is intentionally published on the separate `verification` branch:
 
 ```text
-middle-coupler/<size>/fit-detail.png
-middle-coupler/<size>/rear-fit-section.png
-middle-coupler/<size>/xy-seam-section.png
+png/middle-coupler-<size>-fit-detail.png
+png/middle-coupler-<size>-rear-fit-section.png
+png/middle-coupler-<size>-xy-seam-section.png
 ```
 
 The rear-fit section is cut 5 mm forward from the rear mounting plane and is
