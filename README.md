@@ -7,6 +7,14 @@ This repository is a clean restart of the display-frame design. It deliberately
 does not copy the old frame/coupler implementation. Complexity is added only
 after each smaller assembly is understood and verified.
 
+## Preview
+
+| Front angled | Rear angled |
+|:---:|:---:|
+| [![Front angled view](../../raw/build/png/front-angled.png)](../../blob/build/png/front-angled.png) | [![Rear angled view](../../raw/build/png/rear-angled.png)](../../blob/build/png/rear-angled.png) |
+
+These images are generated from the current `build` branch.
+
 ## Quick links
 
 - [Generated build branch](../../tree/build)
@@ -196,9 +204,7 @@ dsg/
     │   ├── front-angled.scad
     │   ├── rear.scad
     │   ├── rear-angled.scad
-    │   ├── middle-coupler.scad
-    │   ├── middle-coupler-fit.scad
-    │   └── middle-coupler-fit-section.scad
+    │   └── middle-coupler.scad
     ├── export/
     │   ├── panels-assembly.scad
     │   └── middle-coupler.scad
@@ -206,6 +212,12 @@ dsg/
 
 tools/
 └── tool.scad-project
+
+vrf/
+└── openscad/
+    ├── middle-coupler-fit-detail.scad
+    ├── middle-coupler-rear-fit-section.scad
+    └── middle-coupler-xy-seam-section.scad
 ```
 
 ## Tooling
