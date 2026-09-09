@@ -21,6 +21,7 @@ These images are generated from the current `build` branch.
 
 ## Quick links
 
+- [Changelog](CHANGELOG.md)
 - [Generated build branch](../../tree/build)
 - [Build overview](../../blob/build/README.md)
 - [Build provenance](../../blob/build/publication-info.txt)
@@ -29,11 +30,11 @@ These images are generated from the current `build` branch.
 - [Generated middle coupler design](../../blob/build/design/project/openscad/project_components/middle-coupler/design/design.md)
 - [Verification branch](../../tree/verification)
 - [Verification overview](../../blob/verification/README.md)
-- [Rear fit section](../../blob/verification/middle-coupler/rear-fit-section.png)
-- [XY seam section](../../blob/verification/middle-coupler/xy-seam-section.png)
+- [Medium rear fit section](../../blob/verification/middle-coupler/medium/rear-fit-section.png)
+- [Medium XY seam section](../../blob/verification/middle-coupler/medium/xy-seam-section.png)
 - [PNG renders](../../tree/build/png)
 - [Five-panel STL](../../blob/build/stl/panels-assembly.stl)
-- [Middle coupler STL](../../blob/build/stl/middle-coupler.stl)
+- [Middle coupler STLs](../../tree/build/stl)
 
 ## Current milestone
 
@@ -234,7 +235,7 @@ vrf/
 The project pins:
 
 ```text
-tool.scad-project v0.6.1
+tool.scad-project v0.7.1
 docker.scad-toolchain v0.4.0 (through the reusable workflow)
 lib.scad.hub75 main, locked by the project gitlink
 ```
@@ -264,28 +265,32 @@ The same assembly is also exported as `bld/stl/panels-assembly.stl`. This STL
 is a verification model: it lets the complete five-panel arrangement be opened
 in a 3D viewer and freely rotated/zoomed.
 
-The normal build contains only the component render:
+The normal build contains the three size-specific component renders:
 
 ```text
-bld/png/middle-coupler.png
+bld/png/middle-coupler-small.png
+bld/png/middle-coupler-medium.png
+bld/png/middle-coupler-large.png
 ```
 
 Fit evidence is intentionally published on the separate `verification` branch:
 
 ```text
-middle-coupler/fit-detail.png
-middle-coupler/rear-fit-section.png
-middle-coupler/xy-seam-section.png
+middle-coupler/<size>/fit-detail.png
+middle-coupler/<size>/rear-fit-section.png
+middle-coupler/<size>/xy-seam-section.png
 ```
 
 The rear-fit section is cut 5 mm forward from the rear mounting plane and is
 the primary visual check that the red coupler geometry actually enters the
 intended grey HUB75 rear structure.
 
-The build also contains one component STL:
+The build also contains one STL per coupler size:
 
 ```text
-bld/stl/middle-coupler.stl
+bld/stl/middle-coupler-small.stl
+bld/stl/middle-coupler-medium.stl
+bld/stl/middle-coupler-large.stl
 ```
 
 The generated design walkthrough is published separately under the build
