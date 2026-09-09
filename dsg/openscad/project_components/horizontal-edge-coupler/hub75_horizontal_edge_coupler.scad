@@ -1059,8 +1059,11 @@ module _hub75_horizontal_edge_coupler_center_mark_cutters(coupler) {
                 + _HUB75_HORIZONTAL_EDGE_COUPLER_EPS
         )
             intersection() {
-                offset(delta = -coupler.center_mark_edge_margin)
-                    _hub75_horizontal_edge_coupler_profile_2d(coupler);
+                // Unlike the middle coupler, Z=0 is the nominal OUTER panel
+                // edge. An additional 4 mm inset would erase the very + / X
+                // reference line that makes the edge proportions readable.
+                // The real T contour itself is therefore the clipping boundary.
+                _hub75_horizontal_edge_coupler_profile_2d(coupler);
 
                 _hub75_horizontal_edge_coupler_center_marks_2d(coupler);
             }
