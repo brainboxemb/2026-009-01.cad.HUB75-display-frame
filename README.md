@@ -70,6 +70,14 @@ fit clearance     0.25 mm per side
 
 Panel-dependent dimensions come from the public `lib.scad.hub75` mating API.
 
+The rounded component form is now captured directly in the current source from
+the approved v120 design reference. The old repository is not a geometry
+authority for this component.
+
+The component defaults to `render_fn = 192`. The hand-built PLUS arcs derive
+their segment count from `$fn`, so STL curves become smoother as the component
+resolution increases.
+
 Current derived default values include:
 
 ```text

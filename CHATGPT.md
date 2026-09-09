@@ -76,6 +76,35 @@ tube clamps / reinforcement
 The generated build is green, but the coupler is not physically approved until
 the fit evidence or a real print has been reviewed.
 
+### Middle-coupler shape authority
+
+Do not use the old GitHub repository as the middle-coupler geometry reference.
+
+The approved v120 archive supplied during the redesign was used once to recover
+the preferred rounded form. That form is now encoded in the current component
+and design documentation and is authoritative:
+
+```text
+profile size           80 mm
+inside corner radius   10 mm
+outside end radius      6 mm
+guide end rounding    1.5 mm
+seam locator radius     1 mm
+```
+
+Future changes should compare against the current
+`hub75_middle_coupler.scad` and generated design evidence, not against old
+repository code.
+
+The component defaults to:
+
+```text
+render_fn = 192
+```
+
+Hand-built PLUS arcs must derive their segment count from `$fn`; never
+reintroduce a small fixed `steps` count that makes STL curves visibly faceted.
+
 ## Project coordinate system
 
 Use the HUB75 front face as the Y datum:

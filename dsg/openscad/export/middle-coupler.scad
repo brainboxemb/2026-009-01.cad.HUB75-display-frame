@@ -4,6 +4,18 @@ use <../project_components/middle-coupler/hub75_middle_coupler.scad>
 
 coupler = hub75_middle_coupler_create();
 
+assert(
+    abs(coupler.inside_corner_radius - 10) < 0.001
+    && abs(coupler.outside_corner_radius - 6) < 0.001,
+    "Middle coupler must retain the approved rounded v120 profile"
+);
+
+assert(
+    abs(coupler.guide_end_rounding - 1.5) < 0.001
+    && abs(coupler.seam_locator_end_radius - 1.0) < 0.001,
+    "Middle coupler guide/locator rounding changed"
+);
+
 // These are milestone verification expectations, not geometry sources.
 assert(
     abs(

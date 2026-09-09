@@ -19,8 +19,9 @@ wall_thickness = 4;
 fit_clearance = 0.25;
 base_thickness = 3;
 guide_height = 6;
-inside_corner_radius = 8;
-outside_corner_radius = 4;
+inside_corner_radius = 10;
+outside_corner_radius = 6;
+guide_end_rounding = 1.5;
 
 /* [Mounting] */
 screw_hole_diameter = 3.4;
@@ -31,13 +32,15 @@ reinforcement_bushing_clearance = 0.45;
 /* [Seam locator] */
 seam_locator_height = 4;
 seam_locator_lead_in_per_side = 0.20;
-seam_locator_end_radius = 0.80;
+seam_locator_end_radius = 1.00;
 
 /* [Preview] */
 preview_view = "final"; // [final,profile,base,screw-holes,tube-pockets,guides,seam-locator]
 
 /* [Resolution] */
-$fn = 96;
+render_fn = 192;
+
+$fn = render_fn;
 
 _HUB75_MIDDLE_COUPLER_EPS = 0.05;
 
@@ -60,6 +63,7 @@ _HUB75_MIDDLE_COUPLER_EPS = 0.05;
 //   guide_height = Guide-wall insertion depth toward the panel.
 //   inside_corner_radius = Concave PLUS-profile corner radius.
 //   outside_corner_radius = Convex free-end corner radius.
+//   guide_end_rounding = Rounding applied to exposed raised-guide endpoints.
 //   screw_hole_diameter = Through-hole diameter for the two mounting screws.
 function hub75_middle_coupler_create(
     panel = hub75_p5_64x32_panel_create(),
@@ -68,15 +72,16 @@ function hub75_middle_coupler_create(
     fit_clearance = 0.25,
     base_thickness = 3,
     guide_height = 6,
-    inside_corner_radius = 8,
-    outside_corner_radius = 4,
+    inside_corner_radius = 10,
+    outside_corner_radius = 6,
+    guide_end_rounding = 1.5,
     screw_hole_diameter = 3.4,
     mounting_tube_radial_clearance = 0.45,
     mounting_tube_axial_clearance = 0.40,
     reinforcement_bushing_clearance = 0.45,
     seam_locator_height = 4,
     seam_locator_lead_in_per_side = 0.20,
-    seam_locator_end_radius = 0.80
+    seam_locator_end_radius = 1.00
 ) =
     let(
         screw_x = _hub75_middle_coupler_seam_screw_x_positions(panel)
@@ -86,6 +91,7 @@ function hub75_middle_coupler_create(
     assert(fit_clearance >= 0, "fit_clearance must be >= 0")
     assert(base_thickness > 0, "base_thickness must be > 0")
     assert(guide_height >= 0, "guide_height must be >= 0")
+    assert(guide_end_rounding >= 0, "guide_end_rounding must be >= 0")
     assert(screw_hole_diameter > 0, "screw_hole_diameter must be > 0")
     object(
         profile_size = profile_size,
@@ -95,6 +101,7 @@ function hub75_middle_coupler_create(
         guide_height = guide_height,
         inside_corner_radius = inside_corner_radius,
         outside_corner_radius = outside_corner_radius,
+        guide_end_rounding = guide_end_rounding,
         screw_hole_diameter = screw_hole_diameter,
         mounting_tube_radial_clearance = mounting_tube_radial_clearance,
         mounting_tube_axial_clearance = mounting_tube_axial_clearance,
@@ -355,7 +362,10 @@ module _hub75_middle_coupler_profile_2d(coupler) {
         ) / 2 - 0.01
     );
 
-    steps = 18;
+    // Four times this count approximates a complete circle. Unlike the first
+    // clean-project implementation, this must follow $fn so increasing render
+    // resolution also smooths the hand-built PLUS profile itself.
+    steps = max(24, ceil($fn / 4));
 
     points = concat(
         [[vx_left + outside_r, hh], [vx_right - outside_r, hh]],
@@ -586,13 +596,26 @@ module _hub75_middle_coupler_rib_cross_keepout_2d(coupler) {
 }
 
 
-module _hub75_middle_coupler_guide_shell_2d(coupler) {
+module _hub75_middle_coupler_raw_guide_shell_2d(coupler) {
     difference() {
         _hub75_middle_coupler_profile_2d(coupler);
 
         offset(delta = coupler.fit_clearance)
             _hub75_middle_coupler_rib_cross_keepout_2d(coupler);
     }
+}
+
+
+module _hub75_middle_coupler_guide_shell_2d(coupler) {
+    // The approved v120 shape used a small 2D opening operation on the fitted
+    // guide shell. It removes the pointed/triangular guide tips that otherwise
+    // appear where the raised guide terminates at the rounded PLUS outline.
+    if (coupler.guide_end_rounding > 0)
+        offset(r = coupler.guide_end_rounding)
+            offset(delta = -coupler.guide_end_rounding)
+                _hub75_middle_coupler_raw_guide_shell_2d(coupler);
+    else
+        _hub75_middle_coupler_raw_guide_shell_2d(coupler);
 }
 
 
@@ -710,6 +733,7 @@ _preview_coupler =
         guide_height = guide_height,
         inside_corner_radius = inside_corner_radius,
         outside_corner_radius = outside_corner_radius,
+        guide_end_rounding = guide_end_rounding,
         screw_hole_diameter = screw_hole_diameter,
         mounting_tube_radial_clearance =
             mounting_tube_radial_clearance,

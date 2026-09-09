@@ -76,16 +76,22 @@ Project code must not read HUB75 panel object internals directly.
 
 ## Starting dimensions
 
-The old project's medium profile is retained only as a controlled starting
-point for printable coupler choices:
+The approved rounded form from the supplied v120 design archive has now been
+captured directly in this component. The current source and this design
+document are the authority from this point forward; future work should not
+depend on the old repository or archive code.
+
+The retained printable starting values are:
 
 ```text
 profile size        80 mm
 wall thickness       4 mm
 guide height         6 mm
 base thickness       3 mm
-inside radius        8 mm
-outside radius       4 mm
+inside radius       10 mm
+outside radius        6 mm
+guide end rounding  1.5 mm
+seam locator radius   1 mm
 fit clearance     0.25 mm per side
 ```
 
@@ -126,6 +132,18 @@ left panel rear side rail
 ```
 
 The concave corners and free outside ends are rounded separately.
+
+The current rounded form is intentional:
+
+```text
+concave arm transitions  10 mm radius
+convex arm ends            6 mm radius
+```
+
+The PLUS outline is generated as a polygon, so its quarter-arc segment count is
+derived from `$fn`. With the default `render_fn = 192`, each 90 degree arc
+uses 48 segments instead of the earlier fixed 18. This affects the actual STL,
+not only preview cylinders.
 
 <!-- scad-render
 view: profile
@@ -207,6 +225,17 @@ that rounded corner geometry rather than assuming a sharp PLUS.
 
 Reliefs are also removed where the two nearby reinforcement bushings occupy the
 guide region.
+
+The fitted guide shell then receives a 1.5 mm 2D opening operation:
+
+```text
+offset(-1.5 mm)
+then
+offset(+1.5 mm)
+```
+
+This restores the softer v120 guide endpoints and removes the small pointed
+tips that otherwise appear at the ends of the raised walls.
 
 <!-- scad-render
 view: guides
