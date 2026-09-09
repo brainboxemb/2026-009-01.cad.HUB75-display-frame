@@ -12,39 +12,64 @@ Verification evidence is deliberately separate from normal build output.
 The build branch answers **what is built**. This verification branch answers
 **whether the middle coupler fits the HUB75 panel geometry as intended**.
 
-## Middle coupler
+The middle coupler is checked in all three approved project sizes:
 
-### Rear fit section
+- small
+- medium
+- large
 
-This is the primary rear-fit evidence. It follows the useful verification
-concept from the earlier project, but is rebuilt from the current two-panel
-fixture and current object-based coupler.
+Each size contains:
+
+- a standalone PNG;
+- a standalone STL;
+- an angled two-panel fit detail;
+- a rear-facing 5 mm fit section;
+- an XY seam section.
+
+## Small
+
+![Small coupler](middle-coupler/small/middle-coupler.png)
+
+![Small rear fit section](middle-coupler/small/rear-fit-section.png)
+
+![Small XY seam section](middle-coupler/small/xy-seam-section.png)
+
+![Small angled fit detail](middle-coupler/small/fit-detail.png)
+
+## Medium
+
+![Medium coupler](middle-coupler/medium/middle-coupler.png)
+
+![Medium rear fit section](middle-coupler/medium/rear-fit-section.png)
+
+![Medium XY seam section](middle-coupler/medium/xy-seam-section.png)
+
+![Medium angled fit detail](middle-coupler/medium/fit-detail.png)
+
+## Large
+
+![Large coupler](middle-coupler/large/middle-coupler.png)
+
+![Large rear fit section](middle-coupler/large/rear-fit-section.png)
+
+![Large XY seam section](middle-coupler/large/xy-seam-section.png)
+
+![Large angled fit detail](middle-coupler/large/fit-detail.png)
+
+## Rear fit section
+
+The rear-fit section follows the useful verification concept from the earlier
+project, but is rebuilt from the current two-panel fixture and current
+object-based coupler.
 
 The section plane is **5 mm forward from the HUB75 rear mounting plane**.
 
 - grey = real HUB75 rear structural geometry;
 - red = only coupler material that penetrates into the same retained volume.
 
-![Rear fit section](middle-coupler/rear-fit-section.png)
-
-### XY seam section
-
-A true XY slice below the horizontal rear crossbar. It shows the panel depth,
-vertical seam, seam locator and coupler engagement without the horizontal rib
-hiding the interface.
-
-![XY seam section](middle-coupler/xy-seam-section.png)
-
-### Angled fit detail
-
-A cropped two-panel rear context view for checking the complete local assembly,
-including mounting holes, reinforcement locators, guide walls and seam locator.
-
-![Angled fit detail](middle-coupler/fit-detail.png)
-
 ## Acceptance
 
-These images are verification evidence, not proof of a physical print fit.
-After the geometry looks correct here, the standalone coupler STL from the
-build branch should be printed and checked against the real panels.
+These images and STLs are verification evidence, not proof of a physical print
+fit. After the geometry looks correct here, the production STL from the build
+branch should still be printed and checked against the real panels.
 EOF
