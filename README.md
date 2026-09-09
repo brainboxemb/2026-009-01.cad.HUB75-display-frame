@@ -55,6 +55,7 @@ This first version intentionally contains functional geometry only:
 two seam-side mounting holes
 two shallow mounting-tube pockets
 raised fitted guides around the rear rib cross
+two reinforcement pad/pin locators
 tapered seam locator
 ```
 
@@ -88,6 +89,8 @@ vertical PLUS arm     33.800 mm
 screw centres         -8 / +8 mm
 rear seam gap          2.795 mm
 seam locator width     2.295 mm
+reinforcement pad       Ø9.4 x 2.4 mm
+reinforcement pin       Ø2.1 x 2.0 mm
 ```
 
 The component, detail design documentation, two-panel fit render, true XY fit

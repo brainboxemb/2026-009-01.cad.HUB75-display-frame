@@ -63,6 +63,7 @@ PLUS base plate
 two screw holes
 mounting-tube pockets
 rear-rib guide walls
+two reinforcement pad/pin locators
 seam locator
 ```
 
@@ -74,7 +75,7 @@ centimetre / centre marks
 cosmetic guide-end refinements
 horizontal-edge couplers
 corner couplers
-tube clamps / reinforcement
+tube clamps / frame reinforcement
 ```
 
 The generated build is green, but the coupler is not physically approved until
@@ -94,6 +95,8 @@ inside corner radius   10 mm
 outside end radius      6 mm
 guide end rounding    1.5 mm
 seam locator radius     1 mm
+reinforcement pad      Ø9.4 x 2.4 mm
+reinforcement pin       Ø2.1 x 2.0 mm
 ```
 
 Future changes should compare against the current
@@ -180,6 +183,10 @@ hub75_p5_64x32_panel_rear_opening_corner_radius(panel);
 hub75_p5_64x32_panel_mounting_tube_outer_diameter(panel);
 hub75_p5_64x32_panel_mounting_tube_protrusion(panel);
 hub75_p5_64x32_panel_reinforcement_bushing_outer_diameter(panel);
+hub75_p5_64x32_panel_reinforcement_bushing_recess_diameter(panel);
+hub75_p5_64x32_panel_reinforcement_bushing_recess_depth(panel);
+hub75_p5_64x32_panel_reinforcement_bushing_hole_diameter(panel);
+hub75_p5_64x32_panel_reinforcement_bushing_hole_depth(panel);
 hub75_p5_64x32_panel_reinforcement_bushing_offset(panel);
 ```
 
@@ -225,6 +232,9 @@ hub75_middle_coupler_vertical_arm_width()
 hub75_middle_coupler_seam_keepout_width()
 hub75_middle_coupler_seam_locator_width()
 hub75_middle_coupler_screw_x_positions()
+hub75_middle_coupler_reinforcement_locator_pad_diameter()
+hub75_middle_coupler_reinforcement_locator_pad_height()
+hub75_middle_coupler_reinforcement_locator_pin_diameter()
 ```
 
 Calculation helpers used only inside `panels_assembly.scad` must remain

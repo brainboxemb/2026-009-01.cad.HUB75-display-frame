@@ -21,6 +21,29 @@ assert(
     "Middle coupler STL resolution dropped below approved quality"
 );
 
+assert(
+    abs(
+        hub75_middle_coupler_reinforcement_locator_pad_diameter(coupler)
+        - 9.4
+    ) < 0.001
+    &&
+    abs(
+        hub75_middle_coupler_reinforcement_locator_pad_height(coupler)
+        - 2.4
+    ) < 0.001,
+    "Reinforcement locator pad derivation changed"
+);
+
+assert(
+    abs(
+        hub75_middle_coupler_reinforcement_locator_pin_diameter(coupler)
+        - 2.1
+    ) < 0.001
+    &&
+    abs(coupler.reinforcement_locator_pin_length - 2.0) < 0.001,
+    "Reinforcement locator pin derivation changed"
+);
+
 // These are milestone verification expectations, not geometry sources.
 assert(
     abs(

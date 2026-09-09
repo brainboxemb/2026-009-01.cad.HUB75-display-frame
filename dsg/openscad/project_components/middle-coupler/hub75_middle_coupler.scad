@@ -28,6 +28,10 @@ screw_hole_diameter = 3.4;
 mounting_tube_radial_clearance = 0.45;
 mounting_tube_axial_clearance = 0.40;
 reinforcement_bushing_clearance = 0.45;
+reinforcement_locator_pad_radial_clearance = 0.30;
+reinforcement_locator_pad_axial_clearance = 0.10;
+reinforcement_locator_pin_radial_clearance = 0.20;
+reinforcement_locator_pin_length = 2.0;
 
 /* [Seam locator] */
 seam_locator_height = 4;
@@ -35,7 +39,7 @@ seam_locator_lead_in_per_side = 0.20;
 seam_locator_end_radius = 1.00;
 
 /* [Preview] */
-preview_view = "final"; // [final,profile,base,screw-holes,tube-pockets,guides,seam-locator]
+preview_view = "final"; // [final,profile,base,screw-holes,tube-pockets,guides,reinforcement-locators,seam-locator]
 
 /* [Resolution] */
 render_fn = 192;
@@ -66,6 +70,8 @@ _HUB75_MIDDLE_COUPLER_EPS = 0.05;
 //   guide_end_rounding = Rounding applied to exposed raised-guide endpoints.
 //   render_fn = Facet count used by all curved production geometry.
 //   screw_hole_diameter = Through-hole diameter for the two mounting screws.
+//   reinforcement_locator_* = Printable clearances for the positive pad/pin
+//     locators that enter the panel reinforcement recesses.
 function hub75_middle_coupler_create(
     panel = hub75_p5_64x32_panel_create(),
     profile_size = 80,
@@ -81,6 +87,10 @@ function hub75_middle_coupler_create(
     mounting_tube_radial_clearance = 0.45,
     mounting_tube_axial_clearance = 0.40,
     reinforcement_bushing_clearance = 0.45,
+    reinforcement_locator_pad_radial_clearance = 0.30,
+    reinforcement_locator_pad_axial_clearance = 0.10,
+    reinforcement_locator_pin_radial_clearance = 0.20,
+    reinforcement_locator_pin_length = 2.0,
     seam_locator_height = 4,
     seam_locator_lead_in_per_side = 0.20,
     seam_locator_end_radius = 1.00
@@ -96,6 +106,22 @@ function hub75_middle_coupler_create(
     assert(guide_end_rounding >= 0, "guide_end_rounding must be >= 0")
     assert(render_fn >= 24, "render_fn must be >= 24")
     assert(screw_hole_diameter > 0, "screw_hole_diameter must be > 0")
+    assert(
+        reinforcement_locator_pad_radial_clearance >= 0,
+        "reinforcement locator pad radial clearance must be >= 0"
+    )
+    assert(
+        reinforcement_locator_pad_axial_clearance >= 0,
+        "reinforcement locator pad axial clearance must be >= 0"
+    )
+    assert(
+        reinforcement_locator_pin_radial_clearance >= 0,
+        "reinforcement locator pin radial clearance must be >= 0"
+    )
+    assert(
+        reinforcement_locator_pin_length > 0,
+        "reinforcement locator pin length must be > 0"
+    )
     object(
         profile_size = profile_size,
         wall_thickness = wall_thickness,
@@ -110,6 +136,14 @@ function hub75_middle_coupler_create(
         mounting_tube_radial_clearance = mounting_tube_radial_clearance,
         mounting_tube_axial_clearance = mounting_tube_axial_clearance,
         reinforcement_bushing_clearance = reinforcement_bushing_clearance,
+        reinforcement_locator_pad_radial_clearance =
+            reinforcement_locator_pad_radial_clearance,
+        reinforcement_locator_pad_axial_clearance =
+            reinforcement_locator_pad_axial_clearance,
+        reinforcement_locator_pin_radial_clearance =
+            reinforcement_locator_pin_radial_clearance,
+        reinforcement_locator_pin_length =
+            reinforcement_locator_pin_length,
         seam_locator_height = seam_locator_height,
         seam_locator_lead_in_per_side = seam_locator_lead_in_per_side,
         seam_locator_end_radius = seam_locator_end_radius,
@@ -130,6 +164,14 @@ function hub75_middle_coupler_create(
 
         reinforcement_bushing_outer_diameter =
             hub75_p5_64x32_panel_reinforcement_bushing_outer_diameter(panel),
+        reinforcement_bushing_recess_diameter =
+            hub75_p5_64x32_panel_reinforcement_bushing_recess_diameter(panel),
+        reinforcement_bushing_recess_depth =
+            hub75_p5_64x32_panel_reinforcement_bushing_recess_depth(panel),
+        reinforcement_bushing_hole_diameter =
+            hub75_p5_64x32_panel_reinforcement_bushing_hole_diameter(panel),
+        reinforcement_bushing_hole_depth =
+            hub75_p5_64x32_panel_reinforcement_bushing_hole_depth(panel),
         reinforcement_bushing_offset =
             hub75_p5_64x32_panel_reinforcement_bushing_offset(panel),
 
@@ -187,6 +229,34 @@ function hub75_middle_coupler_mounting_tube_pocket_depth(coupler) =
     + coupler.mounting_tube_axial_clearance;
 
 
+// Function: hub75_middle_coupler_reinforcement_locator_pad_diameter()
+// Description: Diameter of the large locator pad entering the Ø10 panel recess.
+function hub75_middle_coupler_reinforcement_locator_pad_diameter(coupler) =
+    max(
+        0.2,
+        coupler.reinforcement_bushing_recess_diameter
+        - 2 * coupler.reinforcement_locator_pad_radial_clearance
+    );
+
+// Function: hub75_middle_coupler_reinforcement_locator_pad_height()
+// Description: Insertion depth of the large locator pad into the panel recess.
+function hub75_middle_coupler_reinforcement_locator_pad_height(coupler) =
+    max(
+        0.2,
+        coupler.reinforcement_bushing_recess_depth
+        - coupler.reinforcement_locator_pad_axial_clearance
+    );
+
+// Function: hub75_middle_coupler_reinforcement_locator_pin_diameter()
+// Description: Diameter of the small pin entering the blind centre hole.
+function hub75_middle_coupler_reinforcement_locator_pin_diameter(coupler) =
+    max(
+        0.2,
+        coupler.reinforcement_bushing_hole_diameter
+        - 2 * coupler.reinforcement_locator_pin_radial_clearance
+    );
+
+
 // ----------------------------------------------------------------------
 // Public geometry
 // ----------------------------------------------------------------------
@@ -197,7 +267,8 @@ function hub75_middle_coupler_mounting_tube_pocket_depth(coupler) =
 //   hub75_middle_coupler_build(coupler);
 // Description:
 //   Builds the functional middle coupler: fitted base, mounting holes,
-//   mounting-tube pockets, raised rib guides and the seam locator.
+//   mounting-tube pockets, raised rib guides, reinforcement pad/pin locators
+//   and the seam locator.
 module hub75_middle_coupler_build(coupler) {
     // Do not rely on a top-level $fn assignment: this module is commonly
     // imported with use <...>, which does not import ordinary variable
@@ -229,12 +300,19 @@ module hub75_middle_coupler_build(coupler) {
         pocket_depth < coupler.base_thickness,
         "mounting-tube pocket must remain blind"
     );
+    assert(
+        coupler.reinforcement_locator_pin_length
+            <= coupler.reinforcement_bushing_hole_depth,
+        "reinforcement locator pin must fit inside the blind panel hole"
+    );
 
     union() {
         _hub75_middle_coupler_base_after_pockets(coupler);
 
         if (coupler.guide_height > 0)
             _hub75_middle_coupler_guide_walls(coupler);
+
+        _hub75_middle_coupler_reinforcement_locators(coupler);
 
         if (coupler.seam_locator_height > 0)
             _hub75_middle_coupler_seam_locator(coupler);
@@ -248,8 +326,8 @@ module hub75_middle_coupler_build(coupler) {
 //   production geometry.
 // Arguments:
 //   coupler = Middle-coupler object.
-//   view = final, profile, base, screw-holes, tube-pockets, guides or
-//          seam-locator.
+//   view = final, profile, base, screw-holes, tube-pockets, guides,
+//          reinforcement-locators or seam-locator.
 module hub75_middle_coupler_render(coupler, view = "final") {
     // Design/debug geometry must tessellate exactly like the production build.
     $fn = coupler.render_fn;
@@ -292,10 +370,20 @@ module hub75_middle_coupler_render(coupler, view = "final") {
         color(current)
             _hub75_middle_coupler_guide_walls(coupler);
 
+    } else if (view == "reinforcement-locators") {
+        color(existing) {
+            _hub75_middle_coupler_base_after_pockets(coupler);
+            _hub75_middle_coupler_guide_walls(coupler);
+        }
+
+        color(current)
+            _hub75_middle_coupler_reinforcement_locators(coupler);
+
     } else if (view == "seam-locator") {
         color(existing) {
             _hub75_middle_coupler_base_after_pockets(coupler);
             _hub75_middle_coupler_guide_walls(coupler);
+            _hub75_middle_coupler_reinforcement_locators(coupler);
         }
 
         color(current)
@@ -668,6 +756,56 @@ module _hub75_middle_coupler_guide_walls(coupler) {
 
 
 // ----------------------------------------------------------------------
+// Private reinforcement pad/pin locators
+// ----------------------------------------------------------------------
+
+module _hub75_middle_coupler_reinforcement_locator(coupler) {
+    pad_d =
+        hub75_middle_coupler_reinforcement_locator_pad_diameter(coupler);
+    pad_h =
+        hub75_middle_coupler_reinforcement_locator_pad_height(coupler);
+    pin_d =
+        hub75_middle_coupler_reinforcement_locator_pin_diameter(coupler);
+
+    // Local mounting plane is Y=0. Positive coupler body is behind the panel;
+    // these locating features extend into the panel along negative Y.
+    translate([0, _HUB75_MIDDLE_COUPLER_EPS, 0])
+        rotate([90, 0, 0])
+            cylinder(
+                d = pad_d,
+                h = pad_h + _HUB75_MIDDLE_COUPLER_EPS
+            );
+
+    // Overlap the pin slightly with the pad to keep the union manifold.
+    translate([
+        0,
+        -pad_h + _HUB75_MIDDLE_COUPLER_EPS,
+        0
+    ])
+        rotate([90, 0, 0])
+            cylinder(
+                d = pin_d,
+                h =
+                    coupler.reinforcement_locator_pin_length
+                    + _HUB75_MIDDLE_COUPLER_EPS
+            );
+}
+
+
+module _hub75_middle_coupler_reinforcement_locators(coupler) {
+    for (position =
+        _hub75_middle_coupler_reinforcement_positions(coupler)
+    )
+        translate([
+            position[0],
+            0,
+            position[1]
+        ])
+            _hub75_middle_coupler_reinforcement_locator(coupler);
+}
+
+
+// ----------------------------------------------------------------------
 // Private seam locator
 // ----------------------------------------------------------------------
 
@@ -754,6 +892,14 @@ _preview_coupler =
             mounting_tube_axial_clearance,
         reinforcement_bushing_clearance =
             reinforcement_bushing_clearance,
+        reinforcement_locator_pad_radial_clearance =
+            reinforcement_locator_pad_radial_clearance,
+        reinforcement_locator_pad_axial_clearance =
+            reinforcement_locator_pad_axial_clearance,
+        reinforcement_locator_pin_radial_clearance =
+            reinforcement_locator_pin_radial_clearance,
+        reinforcement_locator_pin_length =
+            reinforcement_locator_pin_length,
         seam_locator_height = seam_locator_height,
         seam_locator_lead_in_per_side =
             seam_locator_lead_in_per_side,

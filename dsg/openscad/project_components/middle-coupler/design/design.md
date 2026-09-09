@@ -44,6 +44,8 @@ two shallow mounting-tube pockets
     ↓
 raised guides beside the rear rib cross
     ↓
+two reinforcement pad/pin locators
+    ↓
 tapered seam locator
     ↓
 functional middle coupler
@@ -91,8 +93,12 @@ base thickness       3 mm
 inside radius       10 mm
 outside radius        6 mm
 guide end rounding  1.5 mm
-seam locator radius   1 mm
-fit clearance     0.25 mm per side
+reinforcement pad radial clearance  0.30 mm
+reinforcement pad axial clearance   0.10 mm
+reinforcement pin radial clearance  0.20 mm
+reinforcement pin length             2.00 mm
+seam locator radius                  1.00 mm
+fit clearance                        0.25 mm per side
 ```
 
 Panel-dependent dimensions are **not copied** from the old coupler.
@@ -255,7 +261,33 @@ tips that otherwise appear at the ends of the raised walls.
 view: guides
 -->
 
-## 6. Seam locator
+## 6. Reinforcement pad/pin locators
+
+The two circular reinforcement features beside the screw holes contain a large
+Ø10 recess with a small blind Ø2.5 centre hole.
+
+The guide wall already has a larger circular relief around each feature. Inside
+that cleared area the coupler now adds a **positive two-stage locator**:
+
+```text
+panel recess Ø10.0 x 2.5 mm
+    ↓ 0.30 mm radial / 0.10 mm axial clearance
+coupler pad Ø9.4 x 2.4 mm
+
+panel blind hole Ø2.5 mm
+    ↓ 0.20 mm radial clearance
+coupler pin Ø2.1 x 2.0 mm
+```
+
+The pad provides broad location in the circular recess. The smaller pin then
+enters the blind centre hole. Both dimensions come from the public HUB75 mating
+API; only printable clearances belong to the coupler.
+
+<!-- scad-render
+view: reinforcement-locators
+-->
+
+## 7. Seam locator
 
 The narrow locator enters the actual rear gap between the two panels.
 
@@ -272,9 +304,10 @@ without moving the locator away from the nominal seam centre.
 view: seam-locator
 -->
 
-## 7. Final core component
+## 8. Final core component
 
-The public build combines the fitted base, guides and locator:
+The public build combines the fitted base, guides, reinforcement locators and
+seam locator:
 
 ```scad
 hub75_middle_coupler_build(coupler);
