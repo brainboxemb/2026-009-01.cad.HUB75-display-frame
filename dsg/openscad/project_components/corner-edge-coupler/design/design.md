@@ -158,7 +158,8 @@ The guide is derived from the **actual panel material** at the rear corner:
 4. subtract that keep-out from the printable corner profile.
 
 The tall guide is retained only on the panel side of the two physical outside
-edges. The outside portions are rebuilt as low tapered ridges.
+edges. The outside portions are rebuilt as low straight ridges in this first
+milestone.
 
 The guide end mask is an intersection only: it can trim a free end but can
 never expand or erode the thin 2 mm small-profile wall.
@@ -246,6 +247,7 @@ No separate top/bottom geometry is required.
 
 ## Deferred
 
-The aluminium tube and corner C-clip remain intentionally deferred. Once the
-left/right corner body is digitally and physically accepted, the reinforcement
-system can be added to the already verified connector family.
+The aluminium tube, corner C-clip and final outer-ridge taper remain
+intentionally deferred. Once the left/right corner body is digitally and
+physically accepted, the reinforcement system can be added to the already
+verified connector family.
