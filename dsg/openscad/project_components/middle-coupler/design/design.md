@@ -342,8 +342,8 @@ Default geometry:
 
 ```text
 visible diameter      3.0 mm
-total depth           2.5 mm
-straight depth        2.0 mm
+maximum total depth   2.0 mm
+minimum back wall     0.7 mm
 taper depth           0.5 mm
 bottom diameter       2.0 mm
 pitch                10.0 mm
@@ -355,9 +355,17 @@ The visible part stays cylindrical at Ø3 mm. Only the final 0.5 mm narrows to
 Ø2 mm. This gives the blind pocket a short print-friendly tapered end without
 turning the whole feature into a cone.
 
-For thinner presets, the total blind depth is still limited so at least
-0.2 mm of base material remains. The taper is retained and the straight section
-becomes shorter as needed.
+Pocket depth is explicitly constrained by the base thickness:
+
+```text
+small   base 2.0 mm -> total 1.3 mm -> 0.8 straight + 0.5 taper -> 0.7 mm remains
+medium  base 3.0 mm -> total 2.0 mm -> 1.5 straight + 0.5 taper -> 1.0 mm remains
+large   base 4.0 mm -> total 2.0 mm -> 1.5 straight + 0.5 taper -> 2.0 mm remains
+```
+
+This deliberately removes 0.5 mm from the former straight section while
+retaining the same 0.5 mm taper. Thin presets are limited further by the
+configured 0.7 mm minimum back wall.
 
 The lane offset is not hard-coded at 7.5 mm. It is derived from approximately
 one quarter of the real arm thickness and snapped to a 2.5 mm reference grid.
@@ -366,8 +374,8 @@ For the current horizontal and vertical arm widths both derive to 7.5 mm.
 Two symmetric lanes are used only when they geometrically fit in **both** PLUS
 arms. This keeps the pattern symmetric when future profile dimensions change.
 
-The pockets are blind. With the current 3 mm base and 2.5 mm pocket depth,
-0.5 mm of material remains at the panel-facing side.
+The pockets are blind. With the current medium 3 mm base and 2.0 mm effective
+pocket depth, 1.0 mm of material remains at the panel-facing side.
 
 <!-- scad-render
 view: reference-pockets
