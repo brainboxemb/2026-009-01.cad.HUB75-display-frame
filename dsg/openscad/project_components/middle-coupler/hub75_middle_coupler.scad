@@ -1,5 +1,4 @@
 // File: hub75_middle_coupler.scad
-// FileSummary:
 //   Project-specific middle coupler for two adjacent portrait HUB75 panels.
 //
 // Physical role:
