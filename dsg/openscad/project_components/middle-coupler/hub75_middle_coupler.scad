@@ -1172,13 +1172,32 @@ module _hub75_middle_coupler_raw_guide_shell_2d(coupler) {
 }
 
 
+function _hub75_middle_coupler_effective_guide_end_rounding(coupler) =
+    min(
+        coupler.guide_end_rounding,
+        max(
+            0,
+            coupler.wall_thickness / 2
+                - _HUB75_MIDDLE_COUPLER_EPS
+        )
+    );
+
+
 module _hub75_middle_coupler_guide_shell_2d(coupler) {
     // The approved v120 shape used a small 2D opening operation on the fitted
     // guide shell. It removes the pointed/triangular guide tips that otherwise
     // appear where the raised guide terminates at the rounded PLUS outline.
-    if (coupler.guide_end_rounding > 0)
-        offset(r = coupler.guide_end_rounding)
-            offset(delta = -coupler.guide_end_rounding)
+    //
+    // The opening radius must never consume the complete guide wall. This is
+    // especially important for the 2 mm small preset: using the nominal
+    // 1.5 mm opening radius there would erode the guide away before it reaches
+    // the free end. Medium and large continue to use the configured radius.
+    effective_rounding =
+        _hub75_middle_coupler_effective_guide_end_rounding(coupler);
+
+    if (effective_rounding > 0)
+        offset(r = effective_rounding)
+            offset(delta = -effective_rounding)
                 _hub75_middle_coupler_raw_guide_shell_2d(coupler);
     else
         _hub75_middle_coupler_raw_guide_shell_2d(coupler);
