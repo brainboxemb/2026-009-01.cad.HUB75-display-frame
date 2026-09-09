@@ -1,4 +1,4 @@
-name: Verify HUB75 display frame
+name: Verify
 
 on:
   workflow_dispatch:

@@ -1,4 +1,4 @@
-name: Build HUB75 display frame
+name: Build
 
 on:
   workflow_dispatch:
