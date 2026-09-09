@@ -38,7 +38,8 @@ reinforcement_locator_pin_length = 2.0;
 /* [Surface reference details] */
 show_reference_pockets = true;
 reference_pocket_diameter = 3.0;
-reference_pocket_depth = 2.5;
+reference_pocket_depth = 2.0;
+reference_pocket_min_back_wall = 0.7;
 reference_pocket_end_diameter = 2.0;
 reference_pocket_taper_depth = 0.5;
 reference_pocket_pitch = 10.0;
@@ -99,7 +100,8 @@ _HUB75_MIDDLE_COUPLER_EPS = 0.05;
 //   reinforcement_locator_* = Printable clearances for the positive pad/pin
 //     locators that enter the panel reinforcement recesses.
 //   reference_pocket_* = Blind surface-pocket pattern parameters. The visible
-//     Ø3 bore stays cylindrical before a short taper narrows the pocket bottom.
+//     Ø3 bore stays cylindrical before a short taper narrows the pocket bottom;
+//     minimum back-wall thickness limits depth on thin presets.
 //   center_mark_* = Shallow centre cross and 5/10 mm reference tick parameters.
 function hub75_middle_coupler_create(
     panel = hub75_p5_64x32_panel_create(),
@@ -125,7 +127,8 @@ function hub75_middle_coupler_create(
 
     show_reference_pockets = true,
     reference_pocket_diameter = 3.0,
-    reference_pocket_depth = 2.5,
+    reference_pocket_depth = 2.0,
+    reference_pocket_min_back_wall = 0.7,
     reference_pocket_end_diameter = 2.0,
     reference_pocket_taper_depth = 0.5,
     reference_pocket_pitch = 10.0,
@@ -180,6 +183,10 @@ function hub75_middle_coupler_create(
     assert(reference_pocket_diameter > 0, "reference pocket diameter must be > 0")
     assert(reference_pocket_depth >= 0, "reference pocket depth must be >= 0")
     assert(
+        reference_pocket_min_back_wall >= 0,
+        "reference pocket minimum back wall must be >= 0"
+    )
+    assert(
         reference_pocket_end_diameter > 0
         && reference_pocket_end_diameter <= reference_pocket_diameter,
         "reference pocket end diameter must be > 0 and <= pocket diameter"
@@ -233,6 +240,7 @@ function hub75_middle_coupler_create(
         show_reference_pockets = show_reference_pockets,
         reference_pocket_diameter = reference_pocket_diameter,
         reference_pocket_depth = reference_pocket_depth,
+        reference_pocket_min_back_wall = reference_pocket_min_back_wall,
         reference_pocket_end_diameter = reference_pocket_end_diameter,
         reference_pocket_taper_depth = reference_pocket_taper_depth,
         reference_pocket_pitch = reference_pocket_pitch,
@@ -1131,9 +1139,13 @@ module _hub75_middle_coupler_center_mark_pattern_2d(coupler) {
 
 module _hub75_middle_coupler_reference_pocket_cutters(coupler) {
     depth =
-        min(
-            coupler.reference_pocket_depth,
-            coupler.base_thickness - 0.2
+        max(
+            0,
+            min(
+                coupler.reference_pocket_depth,
+                coupler.base_thickness
+                    - coupler.reference_pocket_min_back_wall
+            )
         );
     taper_depth =
         min(
@@ -1181,8 +1193,8 @@ module _hub75_middle_coupler_reference_pocket_cutters(coupler) {
                                     );
 
                         // Only the final section narrows, default Ø3 -> Ø2
-                        // over 0.5 mm. For the 2 mm small base the total blind
-                        // depth is still clamped to preserve 0.2 mm material.
+                        // over 0.5 mm. Thin presets clamp the total blind depth
+                        // so the configured minimum back wall always remains.
                         if (taper_depth > 0)
                             translate([
                                 0,
@@ -1526,6 +1538,7 @@ _preview_coupler =
         show_reference_pockets = show_reference_pockets,
         reference_pocket_diameter = reference_pocket_diameter,
         reference_pocket_depth = reference_pocket_depth,
+        reference_pocket_min_back_wall = reference_pocket_min_back_wall,
         reference_pocket_end_diameter = reference_pocket_end_diameter,
         reference_pocket_taper_depth = reference_pocket_taper_depth,
         reference_pocket_pitch = reference_pocket_pitch,
