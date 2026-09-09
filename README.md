@@ -67,6 +67,39 @@ hub75_p5_64x32_panel_nominal_height()
 The project does not duplicate 160/320 mm panel constants in its own
 configuration.
 
+## Project origin
+
+The project deliberately uses the same global origin as the classic HUB75
+display-frame model:
+
+```text
+X = 0
+    horizontal centre of the complete five-panel display
+
+Y = 0
+    rear mounting plane of the HUB75 panels
+
+Z = 0
+    vertical centre of the panels
+```
+
+With the current 14.50 mm panel depth:
+
+```text
+front face          Y = -14.50 mm
+rear mounting plane Y =   0.00 mm
+```
+
+The five panel centres are:
+
+```text
+X = -320, -160, 0, +160, +320 mm
+Z = 0
+```
+
+This makes the new assembly coordinate-compatible with the old project for
+camera and future frame/coupler reference geometry.
+
 ## Structure
 
 ```text

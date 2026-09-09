@@ -41,6 +41,36 @@ The user may describe the total size height-first as:
 
 Do not rotate these panels 90 degrees. The library model is already portrait.
 
+## Project coordinate system
+
+The current project must remain coordinate-compatible with the classic HUB75
+display-frame project:
+
+```text
+X = 0
+    centre of complete display width
+
+Y = 0
+    rear HUB75 mounting plane
+
+Z = 0
+    centre of panel/display height
+```
+
+The reusable library panel has local front-face Y=0 and mounting-plane
+Y=+14.50 mm. Therefore the project assembly must translate each panel by
+`-hub75_p5_64x32_panel_mounting_plane_y(panel)` in Y.
+
+Expected panel centres for the five-panel milestone:
+
+```text
+X = -320, -160, 0, +160, +320 mm
+Z = 0
+```
+
+Do not change camera targets to compensate for a coordinate-origin mismatch.
+Keep the model origin correct first.
+
 ## Dimension authority
 
 Use `lib.scad.hub75` as the only authority for physical panel geometry and
