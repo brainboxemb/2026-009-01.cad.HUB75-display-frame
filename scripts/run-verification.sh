@@ -4,8 +4,12 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "${ROOT_DIR}"
 
-OUT_DIR="${ROOT_DIR}/vrf/out/middle-coupler"
-mkdir -p "${OUT_DIR}"
+OUT_DIR="${ROOT_DIR}/vrf/out"
+PNG_DIR="${OUT_DIR}/png"
+STL_DIR="${OUT_DIR}/stl"
+
+rm -rf "${PNG_DIR}" "${STL_DIR}"
+mkdir -p "${PNG_DIR}" "${STL_DIR}"
 
 run_checked() {
   local label="$1"
@@ -42,7 +46,7 @@ render_png() {
   local source="$3"
   local output="$4"
 
-  run_checked     "${label}"     xvfb-run -a       openscad         --enable=object-function         --render         --projection=o         --imgsize=2560,1440         -D "size=\"${size}\""         -o "${output}"         "${source}"
+  run_checked     "${label}"     xvfb-run -a       openscad         --enable=object-function         --render         --projection=o         --autocenter         --viewall         --imgsize=2560,1440         -D "size=\"${size}\""         -o "${output}"         "${source}"
 
   if [[ ! -s "${output}" ]]; then
     echo "ERROR: ${label} did not create a non-empty PNG" >&2
@@ -65,18 +69,15 @@ export_stl() {
 }
 
 for size in small medium large; do
-  size_dir="${OUT_DIR}/${size}"
-  mkdir -p "${size_dir}"
+  render_png     "Middle coupler ${size} standalone"     "${size}"     "${ROOT_DIR}/dsg/openscad/render/middle-coupler.scad"     "${PNG_DIR}/middle-coupler-${size}.png"
 
-  render_png     "Middle coupler ${size} standalone"     "${size}"     "${ROOT_DIR}/dsg/openscad/render/middle-coupler.scad"     "${size_dir}/middle-coupler.png"
+  export_stl     "Middle coupler ${size} STL"     "${size}"     "${ROOT_DIR}/dsg/openscad/export/middle-coupler.scad"     "${STL_DIR}/middle-coupler-${size}.stl"
 
-  export_stl     "Middle coupler ${size} STL"     "${size}"     "${ROOT_DIR}/dsg/openscad/export/middle-coupler.scad"     "${size_dir}/middle-coupler.stl"
+  render_png     "Middle coupler ${size} angled fit detail"     "${size}"     "${ROOT_DIR}/vrf/openscad/middle-coupler-fit-detail.scad"     "${PNG_DIR}/middle-coupler-${size}-fit-detail.png"
 
-  render_png     "Middle coupler ${size} angled fit detail"     "${size}"     "${ROOT_DIR}/vrf/openscad/middle-coupler-fit-detail.scad"     "${size_dir}/fit-detail.png"
+  render_png     "Middle coupler ${size} rear fit section"     "${size}"     "${ROOT_DIR}/vrf/openscad/middle-coupler-rear-fit-section.scad"     "${PNG_DIR}/middle-coupler-${size}-rear-fit-section.png"
 
-  render_png     "Middle coupler ${size} rear fit section"     "${size}"     "${ROOT_DIR}/vrf/openscad/middle-coupler-rear-fit-section.scad"     "${size_dir}/rear-fit-section.png"
-
-  render_png     "Middle coupler ${size} XY seam section"     "${size}"     "${ROOT_DIR}/vrf/openscad/middle-coupler-xy-seam-section.scad"     "${size_dir}/xy-seam-section.png"
+  render_png     "Middle coupler ${size} XY seam section"     "${size}"     "${ROOT_DIR}/vrf/openscad/middle-coupler-xy-seam-section.scad"     "${PNG_DIR}/middle-coupler-${size}-xy-seam-section.png"
 done
 
 echo "Verification output written to ${OUT_DIR}"
