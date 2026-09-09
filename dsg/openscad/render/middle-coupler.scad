@@ -6,7 +6,10 @@ size = "medium";
 
 $vpt = [0, 0, 0];
 $vpr = [68, 0, 35];
-$vpd = 150;
+$vpd =
+    size == "small" ? 125
+    : size == "large" ? 190
+    : 150;
 
 coupler = hub75_middle_coupler_create_for_size(size = size);
 hub75_middle_coupler_render(coupler, view = "final");
