@@ -7,3 +7,4 @@ profiles:
     image_size: [2560, 1440]
     files:
       - middle-coupler.scad
+      - horizontal-edge-coupler.scad

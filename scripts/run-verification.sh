@@ -46,7 +46,7 @@ render_png() {
   local source="$3"
   local output="$4"
 
-  run_checked     "${label}"     xvfb-run -a       openscad         --enable=object-function         --render         --projection=o         --autocenter         --viewall         --imgsize=2560,1440         -D "size=\"${size}\""         -o "${output}"         "${source}"
+  run_checked     "${label}"     xvfb-run -a       openscad         --enable=object-function         --render         --projection=o         --imgsize=2560,1440         -D "size=\"${size}\""         -o "${output}"         "${source}"
 
   if [[ ! -s "${output}" ]]; then
     echo "ERROR: ${label} did not create a non-empty PNG" >&2
@@ -68,7 +68,9 @@ export_stl() {
   fi
 }
 
-for size in small medium large; do
+verify_middle_coupler() {
+  local size="$1"
+
   render_png     "Middle coupler ${size} standalone"     "${size}"     "${ROOT_DIR}/dsg/openscad/render/middle-coupler.scad"     "${PNG_DIR}/middle-coupler-${size}.png"
 
   export_stl     "Middle coupler ${size} STL"     "${size}"     "${ROOT_DIR}/dsg/openscad/export/middle-coupler.scad"     "${STL_DIR}/middle-coupler-${size}.stl"
@@ -78,6 +80,25 @@ for size in small medium large; do
   render_png     "Middle coupler ${size} rear fit section"     "${size}"     "${ROOT_DIR}/vrf/openscad/middle-coupler-rear-fit-section.scad"     "${PNG_DIR}/middle-coupler-${size}-rear-fit-section.png"
 
   render_png     "Middle coupler ${size} XY seam section"     "${size}"     "${ROOT_DIR}/vrf/openscad/middle-coupler-xy-seam-section.scad"     "${PNG_DIR}/middle-coupler-${size}-xy-seam-section.png"
+}
+
+verify_horizontal_edge_coupler() {
+  local size="$1"
+
+  render_png     "Horizontal-edge coupler ${size} standalone"     "${size}"     "${ROOT_DIR}/dsg/openscad/render/horizontal-edge-coupler.scad"     "${PNG_DIR}/horizontal-edge-coupler-${size}.png"
+
+  export_stl     "Horizontal-edge coupler ${size} STL"     "${size}"     "${ROOT_DIR}/dsg/openscad/export/horizontal-edge-coupler.scad"     "${STL_DIR}/horizontal-edge-coupler-${size}.stl"
+
+  render_png     "Horizontal-edge coupler ${size} angled fit detail"     "${size}"     "${ROOT_DIR}/vrf/openscad/horizontal-edge-coupler-fit-detail.scad"     "${PNG_DIR}/horizontal-edge-coupler-${size}-fit-detail.png"
+
+  render_png     "Horizontal-edge coupler ${size} rear fit section"     "${size}"     "${ROOT_DIR}/vrf/openscad/horizontal-edge-coupler-rear-fit-section.scad"     "${PNG_DIR}/horizontal-edge-coupler-${size}-rear-fit-section.png"
+
+  render_png     "Horizontal-edge coupler ${size} YZ edge section"     "${size}"     "${ROOT_DIR}/vrf/openscad/horizontal-edge-coupler-yz-edge-section.scad"     "${PNG_DIR}/horizontal-edge-coupler-${size}-yz-edge-section.png"
+}
+
+for size in small medium large; do
+  verify_middle_coupler "${size}"
+  verify_horizontal_edge_coupler "${size}"
 done
 
 echo "Verification output written to ${OUT_DIR}"

@@ -3,3 +3,4 @@ profiles:
     sizes: [small, medium, large]
     files:
       - middle-coupler.scad
+      - horizontal-edge-coupler.scad
