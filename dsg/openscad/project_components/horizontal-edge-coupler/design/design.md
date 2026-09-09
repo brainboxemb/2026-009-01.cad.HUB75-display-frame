@@ -6,6 +6,7 @@ source: hub75_horizontal_edge_coupler_render.scad
 module: hub75_horizontal_edge_coupler_design
 vpr: [68, 0, 35]
 vpt: [0, 0, -20]
+vpd: 220
 -->
 
 ## Physical purpose
