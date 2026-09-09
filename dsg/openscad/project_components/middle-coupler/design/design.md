@@ -208,7 +208,21 @@ X = +8 mm
 Z =  0 mm
 ```
 
-The red cylinders are cutters through the base.
+The nominal through bore remains cylindrical at Ø3.4 mm.
+
+The original v1.2 print aid is also restored around both ends of each bore:
+
+```text
+relief depth      0.20 mm
+radial widening   0.40 mm
+relief diameter   Ø4.20 mm
+```
+
+Only that shallow first layer is widened. It is an anti-elephant-foot relief,
+not a countersink, so the functional Ø3.4 mm screw bore is unchanged.
+
+The red cylinders are the complete cutters through the base, including these
+shallow relief rings.
 
 <!-- scad-render
 view: screw-holes
@@ -327,12 +341,23 @@ the approved v120 design language.
 Default geometry:
 
 ```text
-diameter       3.0 mm
-depth          2.5 mm
-pitch         10.0 mm
-stations      20 / 30 / 40 mm from the centre
-lane offset    7.5 mm for the current middle coupler
+visible diameter      3.0 mm
+total depth           2.5 mm
+straight depth        2.0 mm
+taper depth           0.5 mm
+bottom diameter       2.0 mm
+pitch                10.0 mm
+stations             20 / 30 / 40 mm from the centre
+lane offset           7.5 mm for the current middle coupler
 ```
+
+The visible part stays cylindrical at Ø3 mm. Only the final 0.5 mm narrows to
+Ø2 mm. This gives the blind pocket a short print-friendly tapered end without
+turning the whole feature into a cone.
+
+For thinner presets, the total blind depth is still limited so at least
+0.2 mm of base material remains. The taper is retained and the straight section
+becomes shorter as needed.
 
 The lane offset is not hard-coded at 7.5 mm. It is derived from approximately
 one quarter of the real arm thickness and snapped to a 2.5 mm reference grid.
