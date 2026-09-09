@@ -32,6 +32,12 @@ assert(
 );
 
 assert(
+    abs(coupler.screw_relief_depth - 0.20) < 0.001
+    && abs(coupler.screw_relief_radial - 0.40) < 0.001,
+    "Middle coupler screw anti-elephant-foot relief changed"
+);
+
+assert(
     coupler.render_fn >= 192,
     "Middle coupler STL resolution dropped below approved quality"
 );
@@ -39,6 +45,8 @@ assert(
 assert(
     abs(coupler.reference_pocket_diameter - 3.0) < 0.001
     && abs(coupler.reference_pocket_depth - 2.5) < 0.001
+    && abs(coupler.reference_pocket_end_diameter - 2.0) < 0.001
+    && abs(coupler.reference_pocket_taper_depth - 0.5) < 0.001
     && abs(coupler.reference_pocket_pitch - 10.0) < 0.001,
     "Middle coupler reference pocket defaults changed"
 );
