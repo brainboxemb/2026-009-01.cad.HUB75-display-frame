@@ -1,4 +1,4 @@
-name: Build HUB75 display frame
+name: Build
 
 on:
   workflow_dispatch:
@@ -15,6 +15,10 @@ permissions:
 
 jobs:
   build:
+    # Keep only the newest run for this workflow and Git ref.
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
     uses: brainboxemb/tool.scad-project/.github/workflows/project-build.yml@v0.7.1
     with:
       artifact_name: hub75-display-frame-build

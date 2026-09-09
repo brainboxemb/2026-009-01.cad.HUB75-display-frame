@@ -1,4 +1,4 @@
-name: Verify HUB75 display frame
+name: Verify
 
 on:
   workflow_dispatch:
@@ -15,4 +15,8 @@ permissions:
 
 jobs:
   verify:
+    # Keep only the newest run for this workflow and Git ref.
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
     uses: brainboxemb/tool.scad-project/.github/workflows/project-verify.yml@v0.7.1
