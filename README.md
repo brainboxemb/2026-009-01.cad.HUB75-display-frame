@@ -69,15 +69,14 @@ configuration.
 
 ## Project origin
 
-The project deliberately uses the same global origin as the classic HUB75
-display-frame model:
+The global origin is the geometric centre of the five-panel assembly:
 
 ```text
 X = 0
     horizontal centre of the complete five-panel display
 
 Y = 0
-    rear mounting plane of the HUB75 panels
+    centre of the HUB75 panel depth
 
 Z = 0
     vertical centre of the panels
@@ -86,19 +85,24 @@ Z = 0
 With the current 14.50 mm panel depth:
 
 ```text
-front face          Y = -14.50 mm
-rear mounting plane Y =   0.00 mm
+front face          Y = -7.25 mm
+panel depth centre  Y =  0.00 mm
+rear mounting plane Y = +7.25 mm
 ```
+
+The rear mounting plane remains an explicit mechanical datum, but it is no
+longer the global model origin.
 
 The five panel centres are:
 
 ```text
 X = -320, -160, 0, +160, +320 mm
+Y = 0
 Z = 0
 ```
 
-This makes the new assembly coordinate-compatible with the old project for
-camera and future frame/coupler reference geometry.
+This keeps rotations, front/rear views and angled camera targets symmetric
+around the actual display geometry.
 
 ## Structure
 

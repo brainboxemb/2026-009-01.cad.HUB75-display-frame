@@ -43,30 +43,39 @@ Do not rotate these panels 90 degrees. The library model is already portrait.
 
 ## Project coordinate system
 
-The current project must remain coordinate-compatible with the classic HUB75
-display-frame project:
+Use a geometric-centre origin for the current project:
 
 ```text
 X = 0
     centre of complete display width
 
 Y = 0
-    rear HUB75 mounting plane
+    centre of HUB75 panel depth
 
 Z = 0
     centre of panel/display height
 ```
 
 The reusable library panel has local front-face Y=0 and mounting-plane
-Y=+14.50 mm. Therefore the project assembly must translate each panel by
-`-hub75_p5_64x32_panel_mounting_plane_y(panel)` in Y.
+Y=+14.50 mm. Therefore the project assembly translates each panel by half the
+mounting-plane distance:
+
+```text
+front face          Y = -7.25 mm
+panel depth centre  Y =  0.00 mm
+rear mounting plane Y = +7.25 mm
+```
 
 Expected panel centres for the five-panel milestone:
 
 ```text
 X = -320, -160, 0, +160, +320 mm
+Y = 0
 Z = 0
 ```
+
+Keep the rear mounting plane as an explicit mechanical datum rather than using
+it as the global origin.
 
 Do not change camera targets to compensate for a coordinate-origin mismatch.
 Keep the model origin correct first.
