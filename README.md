@@ -9,9 +9,13 @@ after each smaller assembly is understood and verified.
 
 ## Preview
 
-| Front angled | Rear angled |
-|:---:|:---:|
-| [![Front angled view](../../raw/build/png/front-angled.png)](../../blob/build/png/front-angled.png) | [![Rear angled view](../../raw/build/png/rear-angled.png)](../../blob/build/png/rear-angled.png) |
+### Front angled
+
+[![Front angled view](../../raw/build/png/front-angled.png)](../../blob/build/png/front-angled.png)
+
+### Rear angled
+
+[![Rear angled view](../../raw/build/png/rear-angled.png)](../../blob/build/png/rear-angled.png)
 
 These images are generated from the current `build` branch.
 
@@ -235,8 +239,13 @@ docker.scad-toolchain v0.4.0 (through the reusable workflow)
 lib.scad.hub75 main, locked by the project gitlink
 ```
 
-The four configured full-display PNG renders use 2560x1440 and deliberately
-reuse the official camera views from the old HUB75 display-frame project:
+The four configured full-display PNG renders use 2560x1440. Complete-display
+presentation uses the library's `light_gray` colour scheme explicitly, rather
+than the dark/original material colours used by the low-level panel
+`build()` API.
+
+They deliberately reuse the official camera views from the old HUB75
+display-frame project:
 
 ```text
 front         [90, 0,   0]  distance 1200

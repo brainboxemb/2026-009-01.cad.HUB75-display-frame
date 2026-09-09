@@ -277,6 +277,17 @@ Do not recursively initialize development dependencies inside those submodules.
 
 ## Render policy
 
+The complete five-panel assembly defaults to:
+
+```text
+color_scheme = "light_gray"
+```
+
+Do not switch whole-display documentation renders back to the library's
+dark/original `hub75_p5_64x32_panel_build()` appearance. Use the public
+`hub75_p5_64x32_panel_render(..., color_scheme="light_gray")` path so whole
+display and detail views remain visually consistent.
+
 Configured full-display renders:
 
 ```text

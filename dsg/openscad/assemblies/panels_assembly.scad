@@ -80,9 +80,19 @@ module hub75_display_verify_nominal_size(
     );
 }
 
+// Module: hub75_panels_assembly()
+// Description:
+//   Places the five physical panels. The project presentation default is
+//   light_gray so complete-display renders remain readable and match the
+//   library's normal render/debug presentation.
+// Arguments:
+//   panel = HUB75 panel object.
+//   panel_count = Number of portrait panels placed side by side.
+//   color_scheme = Library render colour scheme; default light_gray.
 module hub75_panels_assembly(
     panel = hub75_display_panel_create(),
-    panel_count = HUB75_DISPLAY_PANEL_COUNT
+    panel_count = HUB75_DISPLAY_PANEL_COUNT,
+    color_scheme = "light_gray"
 ) {
     assert(panel_count >= 1, "panel_count must be at least 1");
 
@@ -92,5 +102,10 @@ module hub75_panels_assembly(
             0,
             0
         ])
-            hub75_p5_64x32_panel_build(panel);
+            hub75_p5_64x32_panel_render(
+                panel,
+                view =
+                    hub75_p5_64x32_panel_view_id("final"),
+                color_scheme = color_scheme
+            );
 }
