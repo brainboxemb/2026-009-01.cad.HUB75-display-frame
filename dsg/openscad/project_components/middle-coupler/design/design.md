@@ -49,14 +49,19 @@ two reinforcement pad/pin locators
 tapered seam locator
     ↓
 functional middle coupler
+    ↓
+Ø3 blind reference pockets
+    ↓
+centre + and 5/10 mm distance ticks
+    ↓
+complete middle coupler
 ```
 
 Not yet included:
 
-- decorative 3 mm pockets;
-- centimetre/centre reference marks;
-- cosmetic guide-end refinements;
-- edge/corner coupler variants.
+- edge/corner coupler variants;
+- tube clamps and frame reinforcement;
+- other future coupler-family features.
 
 Those are intentionally deferred until this core part fits correctly.
 
@@ -304,10 +309,80 @@ without moving the locator away from the nominal seam centre.
 view: seam-locator
 -->
 
-## 8. Final core component
+## 8. Functional coupler
 
-The public build combines the fitted base, guides, reinforcement locators and
-seam locator:
+Before any visible reference detail is cut, the complete mechanical coupler is
+available as a separate design stage. This is deliberate: surface markings must
+never become part of the mating logic.
+
+<!-- scad-render
+view: functional
+-->
+
+## 9. Ø3 blind reference pockets
+
+The visible rear face receives the small circular reference-style pockets from
+the approved v120 design language.
+
+Default geometry:
+
+```text
+diameter       3.0 mm
+depth          2.5 mm
+pitch         10.0 mm
+stations      20 / 30 / 40 mm from the centre
+lane offset    7.5 mm for the current middle coupler
+```
+
+The lane offset is not hard-coded at 7.5 mm. It is derived from approximately
+one quarter of the real arm thickness and snapped to a 2.5 mm reference grid.
+For the current horizontal and vertical arm widths both derive to 7.5 mm.
+
+Two symmetric lanes are used only when they geometrically fit in **both** PLUS
+arms. This keeps the pattern symmetric when future profile dimensions change.
+
+The pockets are blind. With the current 3 mm base and 2.5 mm pocket depth,
+0.5 mm of material remains at the panel-facing side.
+
+<!-- scad-render
+view: reference-pockets
+-->
+
+## 10. Centre + and distance ticks
+
+These marks are reference geometry rather than decoration.
+
+At the local component origin a small `+` identifies:
+
+```text
+X = 0  nominal panel seam
+Z = 0  middle mounting-hole row
+```
+
+Along both X and Z axes, ticks appear every 5 mm:
+
+```text
+5 mm   minor tick   2.2 mm long
+10 mm  major tick   4.0 mm long
+width               0.8 mm
+depth               0.40 mm
+centre +            6.0 mm
+```
+
+The marks are shallow, discontinuous recesses. This makes them useful for
+measurement without creating one long structural groove through the coupler.
+
+A keep-out is applied around both screw holes and the whole pattern is clipped
+to an inset of the real rounded PLUS outline.
+
+<!-- scad-render
+view: center-marks
+-->
+
+## 11. Complete middle coupler
+
+The public build now combines the verified functional geometry with the two
+surface-reference layers:
 
 ```scad
 hub75_middle_coupler_build(coupler);

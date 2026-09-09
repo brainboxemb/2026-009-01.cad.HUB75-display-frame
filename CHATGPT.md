@@ -65,17 +65,17 @@ mounting-tube pockets
 rear-rib guide walls
 two reinforcement pad/pin locators
 seam locator
+Ø3 blind reference pockets
+centre + and 5/10 mm distance ticks
 ```
 
 Explicitly deferred:
 
 ```text
-decorative 3 mm pockets
-centimetre / centre marks
-cosmetic guide-end refinements
 horizontal-edge couplers
 corner couplers
 tube clamps / frame reinforcement
+other future coupler-family features
 ```
 
 The generated build is green, but the coupler is not physically approved until
@@ -97,6 +97,11 @@ guide end rounding    1.5 mm
 seam locator radius     1 mm
 reinforcement pad      Ø9.4 x 2.4 mm
 reinforcement pin       Ø2.1 x 2.0 mm
+reference pockets       Ø3.0 x 2.5 mm blind
+pocket stations          20 / 30 / 40 mm
+current pocket lanes     ±7.5 mm
+reference marks          5 mm minor / 10 mm major
+centre reference +       6.0 mm
 ```
 
 Future changes should compare against the current
@@ -235,6 +240,8 @@ hub75_middle_coupler_screw_x_positions()
 hub75_middle_coupler_reinforcement_locator_pad_diameter()
 hub75_middle_coupler_reinforcement_locator_pad_height()
 hub75_middle_coupler_reinforcement_locator_pin_diameter()
+hub75_middle_coupler_reference_pocket_lane_offset()
+hub75_middle_coupler_reference_pocket_uses_two_lanes()
 hub75_middle_coupler_rear_fit_section()
 ```
 
@@ -372,9 +379,9 @@ For each next component:
 
 Prefer fewer view modes and explicit component toggles.
 
-Milestone 1 remains the five-panel baseline. For milestone 2, do not add
-decorative features or other coupler families until the middle-coupler core fit
-has been reviewed.
+Milestone 1 remains the five-panel baseline. Milestone 2 now includes the
+complete middle-coupler surface-reference layer. Do not add other coupler
+families until the middle-coupler fit evidence has been reviewed.
 
 Top-level project READMEs should follow the current SCAD-project convention with
 a `Quick links` section near the top linking at least to generated build output,

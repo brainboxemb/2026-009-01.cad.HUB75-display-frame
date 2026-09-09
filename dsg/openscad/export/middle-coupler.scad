@@ -22,6 +22,47 @@ assert(
 );
 
 assert(
+    abs(coupler.reference_pocket_diameter - 3.0) < 0.001
+    && abs(coupler.reference_pocket_depth - 2.5) < 0.001
+    && abs(coupler.reference_pocket_pitch - 10.0) < 0.001,
+    "Middle coupler reference pocket defaults changed"
+);
+
+assert(
+    abs(
+        hub75_middle_coupler_reference_pocket_lane_offset(
+            coupler,
+            hub75_middle_coupler_horizontal_arm_height(coupler)
+        )
+        - 7.5
+    ) < 0.001
+    &&
+    abs(
+        hub75_middle_coupler_reference_pocket_lane_offset(
+            coupler,
+            hub75_middle_coupler_vertical_arm_width(coupler)
+        )
+        - 7.5
+    ) < 0.001,
+    "Middle coupler reference pocket lane derivation changed"
+);
+
+assert(
+    hub75_middle_coupler_reference_pocket_uses_two_lanes(coupler),
+    "Default middle coupler should support symmetric two-lane pockets"
+);
+
+assert(
+    abs(coupler.center_mark_depth - 0.40) < 0.001
+    && abs(coupler.center_mark_pitch - 10.0) < 0.001
+    && abs(coupler.center_mark_major_length - 4.0) < 0.001
+    && abs(coupler.center_mark_minor_length - 2.2) < 0.001
+    && abs(coupler.center_mark_width - 0.8) < 0.001
+    && abs(coupler.center_mark_cross_length - 6.0) < 0.001,
+    "Middle coupler centre-reference defaults changed"
+);
+
+assert(
     abs(
         hub75_middle_coupler_reinforcement_locator_pad_diameter(coupler)
         - 9.4

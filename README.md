@@ -69,6 +69,8 @@ two shallow mounting-tube pockets
 raised fitted guides around the rear rib cross
 two reinforcement pad/pin locators
 tapered seam locator
+Ø3 blind reference pockets
+centre + and 5/10 mm distance ticks
 ```
 
 The old medium profile supplies only the printable starting values:
@@ -103,6 +105,9 @@ rear seam gap          2.795 mm
 seam locator width     2.295 mm
 reinforcement pad       Ø9.4 x 2.4 mm
 reinforcement pin       Ø2.1 x 2.0 mm
+reference pockets       Ø3.0 x 2.5 mm blind
+reference tick pitch      5 mm minor / 10 mm major
+centre reference +        6.0 mm
 ```
 
 The component, detail design documentation, two-panel fit render, true XY fit
@@ -311,7 +316,7 @@ Inspect the middle-coupler evidence before expanding the family:
 5. rotate/zoom the standalone middle-coupler STL;
 6. preferably print this core component and check the real fit.
 
-Do not add decorative pockets, centre marks, horizontal-edge couplers or corner
-couplers until the middle-coupler core fit is understood.
+Do not add horizontal-edge or corner couplers until the middle-coupler fit and
+its complete surface-reference layer are understood.
 
 The model and documentation were developed with the assistance of ChatGPT.

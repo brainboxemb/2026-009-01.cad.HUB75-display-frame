@@ -33,13 +33,33 @@ reinforcement_locator_pad_axial_clearance = 0.10;
 reinforcement_locator_pin_radial_clearance = 0.20;
 reinforcement_locator_pin_length = 2.0;
 
+/* [Surface reference details] */
+show_reference_pockets = true;
+reference_pocket_diameter = 3.0;
+reference_pocket_depth = 2.5;
+reference_pocket_pitch = 10.0;
+reference_pocket_steps = [2, 3, 4];
+reference_pocket_lane_grid = 2.5;
+reference_pocket_lane_fraction = 0.25;
+reference_pocket_edge_margin = 4.0;
+
+show_center_reference_marks = true;
+center_mark_depth = 0.40;
+center_mark_pitch = 10.0;
+center_mark_major_length = 4.0;
+center_mark_minor_length = 2.2;
+center_mark_width = 0.8;
+center_mark_cross_length = 6.0;
+center_mark_edge_margin = 4.0;
+center_mark_screw_keepout = 3.0;
+
 /* [Seam locator] */
 seam_locator_height = 4;
 seam_locator_lead_in_per_side = 0.20;
 seam_locator_end_radius = 1.00;
 
 /* [Preview] */
-preview_view = "final"; // [final,profile,base,screw-holes,tube-pockets,guides,reinforcement-locators,seam-locator]
+preview_view = "final"; // [final,functional,profile,base,screw-holes,tube-pockets,guides,reinforcement-locators,seam-locator,reference-pockets,center-marks]
 
 /* [Resolution] */
 render_fn = 192;
@@ -72,6 +92,8 @@ _HUB75_MIDDLE_COUPLER_EPS = 0.05;
 //   screw_hole_diameter = Through-hole diameter for the two mounting screws.
 //   reinforcement_locator_* = Printable clearances for the positive pad/pin
 //     locators that enter the panel reinforcement recesses.
+//   reference_pocket_* = Blind Ø3 surface-pocket pattern parameters.
+//   center_mark_* = Shallow centre cross and 5/10 mm reference tick parameters.
 function hub75_middle_coupler_create(
     panel = hub75_p5_64x32_panel_create(),
     profile_size = 80,
@@ -91,6 +113,26 @@ function hub75_middle_coupler_create(
     reinforcement_locator_pad_axial_clearance = 0.10,
     reinforcement_locator_pin_radial_clearance = 0.20,
     reinforcement_locator_pin_length = 2.0,
+
+    show_reference_pockets = true,
+    reference_pocket_diameter = 3.0,
+    reference_pocket_depth = 2.5,
+    reference_pocket_pitch = 10.0,
+    reference_pocket_steps = [2, 3, 4],
+    reference_pocket_lane_grid = 2.5,
+    reference_pocket_lane_fraction = 0.25,
+    reference_pocket_edge_margin = 4.0,
+
+    show_center_reference_marks = true,
+    center_mark_depth = 0.40,
+    center_mark_pitch = 10.0,
+    center_mark_major_length = 4.0,
+    center_mark_minor_length = 2.2,
+    center_mark_width = 0.8,
+    center_mark_cross_length = 6.0,
+    center_mark_edge_margin = 4.0,
+    center_mark_screw_keepout = 3.0,
+
     seam_locator_height = 4,
     seam_locator_lead_in_per_side = 0.20,
     seam_locator_end_radius = 1.00
@@ -122,6 +164,24 @@ function hub75_middle_coupler_create(
         reinforcement_locator_pin_length > 0,
         "reinforcement locator pin length must be > 0"
     )
+    assert(reference_pocket_diameter > 0, "reference pocket diameter must be > 0")
+    assert(reference_pocket_depth >= 0, "reference pocket depth must be >= 0")
+    assert(reference_pocket_pitch > 0, "reference pocket pitch must be > 0")
+    assert(reference_pocket_lane_grid > 0, "reference pocket lane grid must be > 0")
+    assert(
+        reference_pocket_lane_fraction > 0
+        && reference_pocket_lane_fraction < 0.5,
+        "reference pocket lane fraction must be between 0 and 0.5"
+    )
+    assert(reference_pocket_edge_margin >= 0, "reference pocket edge margin must be >= 0")
+    assert(center_mark_depth >= 0, "center mark depth must be >= 0")
+    assert(center_mark_pitch > 0, "center mark pitch must be > 0")
+    assert(center_mark_major_length > 0, "center mark major length must be > 0")
+    assert(center_mark_minor_length > 0, "center mark minor length must be > 0")
+    assert(center_mark_width > 0, "center mark width must be > 0")
+    assert(center_mark_cross_length > 0, "center mark cross length must be > 0")
+    assert(center_mark_edge_margin >= 0, "center mark edge margin must be >= 0")
+    assert(center_mark_screw_keepout >= 0, "center mark screw keepout must be >= 0")
     object(
         profile_size = profile_size,
         wall_thickness = wall_thickness,
@@ -144,6 +204,26 @@ function hub75_middle_coupler_create(
             reinforcement_locator_pin_radial_clearance,
         reinforcement_locator_pin_length =
             reinforcement_locator_pin_length,
+
+        show_reference_pockets = show_reference_pockets,
+        reference_pocket_diameter = reference_pocket_diameter,
+        reference_pocket_depth = reference_pocket_depth,
+        reference_pocket_pitch = reference_pocket_pitch,
+        reference_pocket_steps = reference_pocket_steps,
+        reference_pocket_lane_grid = reference_pocket_lane_grid,
+        reference_pocket_lane_fraction = reference_pocket_lane_fraction,
+        reference_pocket_edge_margin = reference_pocket_edge_margin,
+
+        show_center_reference_marks = show_center_reference_marks,
+        center_mark_depth = center_mark_depth,
+        center_mark_pitch = center_mark_pitch,
+        center_mark_major_length = center_mark_major_length,
+        center_mark_minor_length = center_mark_minor_length,
+        center_mark_width = center_mark_width,
+        center_mark_cross_length = center_mark_cross_length,
+        center_mark_edge_margin = center_mark_edge_margin,
+        center_mark_screw_keepout = center_mark_screw_keepout,
+
         seam_locator_height = seam_locator_height,
         seam_locator_lead_in_per_side = seam_locator_lead_in_per_side,
         seam_locator_end_radius = seam_locator_end_radius,
@@ -257,6 +337,42 @@ function hub75_middle_coupler_reinforcement_locator_pin_diameter(coupler) =
     );
 
 
+// Function: hub75_middle_coupler_reference_pocket_lane_offset()
+// Description:
+//   Returns the transverse pocket-lane offset for one PLUS arm. The target is
+//   approximately one quarter of the arm thickness, snapped to a 2.5 mm grid.
+function hub75_middle_coupler_reference_pocket_lane_offset(
+    coupler,
+    arm_thickness
+) =
+    max(
+        coupler.reference_pocket_lane_grid,
+        round(
+            (
+                arm_thickness
+                * coupler.reference_pocket_lane_fraction
+            )
+            / coupler.reference_pocket_lane_grid
+        )
+        * coupler.reference_pocket_lane_grid
+    );
+
+// Function: hub75_middle_coupler_reference_pocket_uses_two_lanes()
+// Description:
+//   Returns true only when two symmetric lanes fit in both PLUS arms with the
+//   configured pocket diameter and edge margin.
+function hub75_middle_coupler_reference_pocket_uses_two_lanes(coupler) =
+    _hub75_middle_coupler_reference_two_lanes_fit(
+        coupler,
+        hub75_middle_coupler_horizontal_arm_height(coupler)
+    )
+    &&
+    _hub75_middle_coupler_reference_two_lanes_fit(
+        coupler,
+        hub75_middle_coupler_vertical_arm_width(coupler)
+    );
+
+
 // ----------------------------------------------------------------------
 // Public geometry
 // ----------------------------------------------------------------------
@@ -266,9 +382,9 @@ function hub75_middle_coupler_reinforcement_locator_pin_diameter(coupler) =
 //   coupler = hub75_middle_coupler_create();
 //   hub75_middle_coupler_build(coupler);
 // Description:
-//   Builds the functional middle coupler: fitted base, mounting holes,
-//   mounting-tube pockets, raised rib guides, reinforcement pad/pin locators
-//   and the seam locator.
+//   Builds the complete middle coupler: functional fitted geometry plus the
+//   blind reference pockets and shallow centre/distance reference marks on the
+//   visible rear face.
 module hub75_middle_coupler_build(coupler) {
     // Do not rely on a top-level $fn assignment: this module is commonly
     // imported with use <...>, which does not import ordinary variable
@@ -307,7 +423,7 @@ module hub75_middle_coupler_build(coupler) {
     );
 
     union() {
-        _hub75_middle_coupler_base_after_pockets(coupler);
+        _hub75_middle_coupler_base_with_surface_details(coupler);
 
         if (coupler.guide_height > 0)
             _hub75_middle_coupler_guide_walls(coupler);
@@ -326,8 +442,9 @@ module hub75_middle_coupler_build(coupler) {
 //   production geometry.
 // Arguments:
 //   coupler = Middle-coupler object.
-//   view = final, profile, base, screw-holes, tube-pockets, guides,
-//          reinforcement-locators or seam-locator.
+//   view = final, functional, profile, base, screw-holes, tube-pockets,
+//          guides, reinforcement-locators, seam-locator, reference-pockets or
+//          center-marks.
 module hub75_middle_coupler_render(coupler, view = "final") {
     // Design/debug geometry must tessellate exactly like the production build.
     $fn = coupler.render_fn;
@@ -337,7 +454,11 @@ module hub75_middle_coupler_render(coupler, view = "final") {
     current = [0.88, 0.08, 0.06, 0.62];
     final_color = [0.72, 0.05, 0.04, 1.0];
 
-    if (view == "profile") {
+    if (view == "functional") {
+        color(existing)
+            _hub75_middle_coupler_functional_build(coupler);
+
+    } else if (view == "profile") {
         color(current)
             _hub75_middle_coupler_extrude_xz_y(
                 -0.35,
@@ -388,6 +509,22 @@ module hub75_middle_coupler_render(coupler, view = "final") {
 
         color(current)
             _hub75_middle_coupler_seam_locator(coupler);
+
+    } else if (view == "reference-pockets") {
+        color(existing)
+            _hub75_middle_coupler_functional_build(coupler);
+
+        color(current)
+            _hub75_middle_coupler_reference_pocket_cutters(coupler);
+
+    } else if (view == "center-marks") {
+        color(existing)
+            _hub75_middle_coupler_functional_build(coupler);
+
+        color(current) {
+            _hub75_middle_coupler_reference_pocket_cutters(coupler);
+            _hub75_middle_coupler_center_mark_cutters(coupler);
+        }
 
     } else {
         color(final_color)
@@ -648,6 +785,295 @@ module _hub75_middle_coupler_base_after_pockets(coupler) {
 
 
 // ----------------------------------------------------------------------
+// Private surface reference geometry
+// ----------------------------------------------------------------------
+
+function _hub75_middle_coupler_reference_two_lanes_fit(
+    coupler,
+    arm_thickness
+) =
+    let(
+        lane_offset =
+            hub75_middle_coupler_reference_pocket_lane_offset(
+                coupler,
+                arm_thickness
+            ),
+        remaining =
+            arm_thickness / 2
+            - lane_offset
+            - coupler.reference_pocket_diameter / 2
+    )
+    remaining >= coupler.reference_pocket_edge_margin;
+
+
+module _hub75_middle_coupler_reference_pocket_strip_2d(
+    coupler,
+    axis = "x",
+    direction_sign = 1,
+    lane_signs = [-1, 1],
+    lane_offset = 7.5
+) {
+    for (step = coupler.reference_pocket_steps)
+        for (lane = lane_signs)
+            if (axis == "x")
+                translate([
+                    direction_sign
+                        * step
+                        * coupler.reference_pocket_pitch,
+                    lane * lane_offset
+                ])
+                    circle(
+                        d = coupler.reference_pocket_diameter
+                    );
+            else
+                translate([
+                    lane * lane_offset,
+                    direction_sign
+                        * step
+                        * coupler.reference_pocket_pitch
+                ])
+                    circle(
+                        d = coupler.reference_pocket_diameter
+                    );
+}
+
+
+module _hub75_middle_coupler_reference_pockets_2d(coupler) {
+    horizontal_arm =
+        hub75_middle_coupler_horizontal_arm_height(coupler);
+    vertical_arm =
+        hub75_middle_coupler_vertical_arm_width(coupler);
+
+    x_lane =
+        hub75_middle_coupler_reference_pocket_lane_offset(
+            coupler,
+            horizontal_arm
+        );
+    z_lane =
+        hub75_middle_coupler_reference_pocket_lane_offset(
+            coupler,
+            vertical_arm
+        );
+
+    lane_signs =
+        hub75_middle_coupler_reference_pocket_uses_two_lanes(coupler)
+            ? [-1, 1]
+            : [0];
+
+    for (direction = [-1, 1])
+        _hub75_middle_coupler_reference_pocket_strip_2d(
+            coupler,
+            axis = "x",
+            direction_sign = direction,
+            lane_signs = lane_signs,
+            lane_offset = x_lane
+        );
+
+    for (direction = [-1, 1])
+        _hub75_middle_coupler_reference_pocket_strip_2d(
+            coupler,
+            axis = "z",
+            direction_sign = direction,
+            lane_signs = lane_signs,
+            lane_offset = z_lane
+        );
+}
+
+
+module _hub75_middle_coupler_reference_pocket_pattern_2d(coupler) {
+    intersection() {
+        // A true geometric edge keep-out: pocket centres must remain inside
+        // an inset of the actual rounded PLUS outline.
+        offset(delta = -coupler.reference_pocket_edge_margin)
+            _hub75_middle_coupler_profile_2d(coupler);
+
+        _hub75_middle_coupler_reference_pockets_2d(coupler);
+    }
+}
+
+
+module _hub75_middle_coupler_center_marks_2d(coupler) {
+    difference() {
+        union() {
+            // The local X/Z origin is the nominal panel seam / middle row.
+            square(
+                [
+                    coupler.center_mark_cross_length,
+                    coupler.center_mark_width
+                ],
+                center = true
+            );
+            square(
+                [
+                    coupler.center_mark_width,
+                    coupler.center_mark_cross_length
+                ],
+                center = true
+            );
+
+            // Ticks every 5 mm. Full centimetres are the longer marks.
+            for (
+                x = [
+                    coupler.center_mark_pitch / 2
+                    :
+                    coupler.center_mark_pitch / 2
+                    :
+                    coupler.profile_size / 2
+                ]
+            ) {
+                major =
+                    abs(
+                        (x / coupler.center_mark_pitch)
+                        - round(x / coupler.center_mark_pitch)
+                    ) < 0.001;
+                tick_length =
+                    major
+                        ? coupler.center_mark_major_length
+                        : coupler.center_mark_minor_length;
+
+                translate([x, 0])
+                    square(
+                        [
+                            coupler.center_mark_width,
+                            tick_length
+                        ],
+                        center = true
+                    );
+                translate([-x, 0])
+                    square(
+                        [
+                            coupler.center_mark_width,
+                            tick_length
+                        ],
+                        center = true
+                    );
+            }
+
+            for (
+                z = [
+                    coupler.center_mark_pitch / 2
+                    :
+                    coupler.center_mark_pitch / 2
+                    :
+                    coupler.profile_size / 2
+                ]
+            ) {
+                major =
+                    abs(
+                        (z / coupler.center_mark_pitch)
+                        - round(z / coupler.center_mark_pitch)
+                    ) < 0.001;
+                tick_length =
+                    major
+                        ? coupler.center_mark_major_length
+                        : coupler.center_mark_minor_length;
+
+                translate([0, z])
+                    square(
+                        [
+                            tick_length,
+                            coupler.center_mark_width
+                        ],
+                        center = true
+                    );
+                translate([0, -z])
+                    square(
+                        [
+                            tick_length,
+                            coupler.center_mark_width
+                        ],
+                        center = true
+                    );
+            }
+        }
+
+        // Keep all reference engraving away from the structural screw lands.
+        screw_keepout_radius =
+            coupler.screw_hole_diameter / 2
+            + coupler.center_mark_screw_keepout;
+
+        for (x = hub75_middle_coupler_screw_x_positions(coupler))
+            translate([x, 0])
+                circle(r = screw_keepout_radius);
+    }
+}
+
+
+module _hub75_middle_coupler_center_mark_pattern_2d(coupler) {
+    intersection() {
+        offset(delta = -coupler.center_mark_edge_margin)
+            _hub75_middle_coupler_profile_2d(coupler);
+
+        _hub75_middle_coupler_center_marks_2d(coupler);
+    }
+}
+
+
+module _hub75_middle_coupler_reference_pocket_cutters(coupler) {
+    depth =
+        min(
+            coupler.reference_pocket_depth,
+            coupler.base_thickness - 0.2
+        );
+
+    if (
+        coupler.show_reference_pockets
+        && depth > 0
+    )
+        _hub75_middle_coupler_extrude_xz_y(
+            coupler.base_thickness - depth,
+            coupler.base_thickness
+                + _HUB75_MIDDLE_COUPLER_EPS
+        )
+            _hub75_middle_coupler_reference_pocket_pattern_2d(coupler);
+}
+
+
+module _hub75_middle_coupler_center_mark_cutters(coupler) {
+    depth =
+        min(
+            coupler.center_mark_depth,
+            coupler.base_thickness - 0.2
+        );
+
+    if (
+        coupler.show_center_reference_marks
+        && depth > 0
+    )
+        _hub75_middle_coupler_extrude_xz_y(
+            coupler.base_thickness - depth,
+            coupler.base_thickness
+                + _HUB75_MIDDLE_COUPLER_EPS
+        )
+            _hub75_middle_coupler_center_mark_pattern_2d(coupler);
+}
+
+
+module _hub75_middle_coupler_base_with_surface_details(coupler) {
+    difference() {
+        _hub75_middle_coupler_base_after_pockets(coupler);
+        _hub75_middle_coupler_reference_pocket_cutters(coupler);
+        _hub75_middle_coupler_center_mark_cutters(coupler);
+    }
+}
+
+
+module _hub75_middle_coupler_functional_build(coupler) {
+    union() {
+        _hub75_middle_coupler_base_after_pockets(coupler);
+
+        if (coupler.guide_height > 0)
+            _hub75_middle_coupler_guide_walls(coupler);
+
+        _hub75_middle_coupler_reinforcement_locators(coupler);
+
+        if (coupler.seam_locator_height > 0)
+            _hub75_middle_coupler_seam_locator(coupler);
+    }
+}
+
+
+// ----------------------------------------------------------------------
 // Private fitted guide geometry
 // ----------------------------------------------------------------------
 
@@ -900,6 +1326,26 @@ _preview_coupler =
             reinforcement_locator_pin_radial_clearance,
         reinforcement_locator_pin_length =
             reinforcement_locator_pin_length,
+
+        show_reference_pockets = show_reference_pockets,
+        reference_pocket_diameter = reference_pocket_diameter,
+        reference_pocket_depth = reference_pocket_depth,
+        reference_pocket_pitch = reference_pocket_pitch,
+        reference_pocket_steps = reference_pocket_steps,
+        reference_pocket_lane_grid = reference_pocket_lane_grid,
+        reference_pocket_lane_fraction = reference_pocket_lane_fraction,
+        reference_pocket_edge_margin = reference_pocket_edge_margin,
+
+        show_center_reference_marks = show_center_reference_marks,
+        center_mark_depth = center_mark_depth,
+        center_mark_pitch = center_mark_pitch,
+        center_mark_major_length = center_mark_major_length,
+        center_mark_minor_length = center_mark_minor_length,
+        center_mark_width = center_mark_width,
+        center_mark_cross_length = center_mark_cross_length,
+        center_mark_edge_margin = center_mark_edge_margin,
+        center_mark_screw_keepout = center_mark_screw_keepout,
+
         seam_locator_height = seam_locator_height,
         seam_locator_lead_in_per_side =
             seam_locator_lead_in_per_side,
