@@ -44,11 +44,31 @@ assert(
 
 assert(
     abs(coupler.reference_pocket_diameter - 3.0) < 0.001
-    && abs(coupler.reference_pocket_depth - 2.5) < 0.001
+    && abs(coupler.reference_pocket_depth - 2.0) < 0.001
+    && abs(coupler.reference_pocket_min_back_wall - 0.7) < 0.001
     && abs(coupler.reference_pocket_end_diameter - 2.0) < 0.001
     && abs(coupler.reference_pocket_taper_depth - 0.5) < 0.001
     && abs(coupler.reference_pocket_pitch - 10.0) < 0.001,
     "Middle coupler reference pocket defaults changed"
+);
+
+
+expected_reference_depth =
+    size == "small" ? 1.3 : 2.0;
+expected_reference_straight =
+    size == "small" ? 0.8 : 1.5;
+
+assert(
+    abs(
+        hub75_middle_coupler_reference_pocket_effective_depth(coupler)
+        - expected_reference_depth
+    ) < 0.001
+    &&
+    abs(
+        hub75_middle_coupler_reference_pocket_straight_depth(coupler)
+        - expected_reference_straight
+    ) < 0.001,
+    "Middle coupler reference pocket depth derivation changed"
 );
 
 assert(
