@@ -2,7 +2,9 @@
 
 use <../project_components/middle-coupler/hub75_middle_coupler.scad>
 
-coupler = hub75_middle_coupler_create();
+size = "medium";
+
+coupler = hub75_middle_coupler_create_for_size(size = size);
 
 assert(
     abs(coupler.inside_corner_radius - 10) < 0.001
