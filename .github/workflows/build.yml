@@ -13,6 +13,10 @@ permissions:
   contents: write
   packages: read
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     uses: brainboxemb/tool.scad-project/.github/workflows/project-build.yml@v0.7.1
