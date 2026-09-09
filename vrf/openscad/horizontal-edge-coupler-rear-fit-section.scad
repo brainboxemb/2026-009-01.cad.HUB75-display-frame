@@ -14,7 +14,10 @@ coupler =
         size = size
     );
 
+section_depth =
+    min(5.0, max(1.0, coupler.guide_height - 1.0));
+
 hub75_horizontal_edge_coupler_rear_fit_section(
     coupler = coupler,
-    depth = 5.0
+    depth = section_depth
 );
