@@ -11,36 +11,36 @@ after each smaller assembly is understood and verified.
 
 ### Front angled
 
-[![Front angled view](../../raw/build/png/front-angled.png)](../../blob/build/png/front-angled.png)
+[![Front angled view](../../raw/prod/build/png/front-angled.png)](../../blob/prod/build/png/front-angled.png)
 
 ### Rear angled
 
-[![Rear angled view](../../raw/build/png/rear-angled.png)](../../blob/build/png/rear-angled.png)
+[![Rear angled view](../../raw/prod/build/png/rear-angled.png)](../../blob/prod/build/png/rear-angled.png)
 
-These images are generated from the current `build` branch.
+These images are generated from the current `prod/build` branch.
 
 ## Quick links
 
 - [Changelog](CHANGELOG.md)
-- [Generated build branch](../../tree/build)
-- [Build overview](../../blob/build/README.md)
-- [Build provenance](../../blob/build/publication-info.txt)
-- [Generated design documentation](../../blob/build/design/README.md)
+- [Generated build branch](../../tree/prod/build)
+- [Build overview](../../blob/prod/build/README.md)
+- [Build provenance](../../blob/prod/build/publication-info.txt)
+- [Generated design documentation](../../blob/prod/build/design/README.md)
 - [Middle coupler design source](dsg/openscad/project_components/middle-coupler/design/design.md)
 - [Horizontal-edge coupler design source](dsg/openscad/project_components/horizontal-edge-coupler/design/design.md)
 - [Corner-edge coupler design source](dsg/openscad/project_components/corner-edge-coupler/design/design.md)
-- [Generated middle coupler design](../../blob/build/design/project/openscad/project_components/middle-coupler/design/design.md)
-- [Generated horizontal-edge coupler design](../../blob/build/design/project/openscad/project_components/horizontal-edge-coupler/design/design.md)
-- [Generated corner-edge coupler design](../../blob/build/design/project/openscad/project_components/corner-edge-coupler/design/design.md)
-- [Verification branch](../../tree/verification)
-- [Verification overview](../../blob/verification/README.md)
-- [Verification PNG gallery](../../blob/verification/png/README.md)
-- [Middle medium rear fit section](../../blob/verification/png/middle-coupler-medium-rear-fit-section.png)
-- [Horizontal-edge medium fit detail](../../blob/verification/png/horizontal-edge-coupler-medium-fit-detail.png)
-- [Horizontal-edge medium rear fit section](../../blob/verification/png/horizontal-edge-coupler-medium-rear-fit-section.png)
-- [PNG renders](../../tree/build/png)
-- [Five-panel STL](../../blob/build/stl/panels-assembly.stl)
-- [Connector STLs](../../tree/build/stl)
+- [Generated middle coupler design](../../blob/prod/build/design/project/openscad/project_components/middle-coupler/design/design.md)
+- [Generated horizontal-edge coupler design](../../blob/prod/build/design/project/openscad/project_components/horizontal-edge-coupler/design/design.md)
+- [Generated corner-edge coupler design](../../blob/prod/build/design/project/openscad/project_components/corner-edge-coupler/design/design.md)
+- [Verification branch](../../tree/prod/verification)
+- [Verification overview](../../blob/prod/verification/README.md)
+- [Verification PNG gallery](../../blob/prod/verification/png/README.md)
+- [Middle medium rear fit section](../../blob/prod/verification/png/middle-coupler-medium-rear-fit-section.png)
+- [Horizontal-edge medium fit detail](../../blob/prod/verification/png/horizontal-edge-coupler-medium-fit-detail.png)
+- [Horizontal-edge medium rear fit section](../../blob/prod/verification/png/horizontal-edge-coupler-medium-rear-fit-section.png)
+- [PNG renders](../../tree/prod/build/png)
+- [Five-panel STL](../../blob/prod/build/stl/panels-assembly.stl)
+- [Connector STLs](../../tree/prod/build/stl)
 
 ## Project status
 
@@ -187,10 +187,20 @@ vrf/
 The project pins:
 
 ```text
-tool.scad-project v0.8.0
+tool.scad-project v0.9.0
 docker.scad-toolchain v0.4.1 (through the reusable workflow)
 lib.scad.hub75 main, locked by the project gitlink
 ```
+
+Normal project renders and exports are discovered from `dsg/openscad/render`
+and `dsg/openscad/export`. The configured SCons build engine tracks their SCAD
+dependencies and reuses compatible cached targets rather than blindly rebuilding
+every output on every workflow run.
+
+Production output from `main` is published to `prod/build` and
+`prod/verification`. Version releases are coordinated by the Release workflow
+and publish immutable snapshots under `rel/vX.Y.Z/build` and
+`rel/vX.Y.Z/verification`.
 
 The four configured full-display PNG renders use 2560x1440. Complete-display
 presentation uses the library's `light_gray` colour scheme explicitly, rather
@@ -227,7 +237,8 @@ bld/png/corner-edge-coupler-left-<size>.png
 bld/png/corner-edge-coupler-right-<size>.png
 ```
 
-Fit evidence is intentionally published on the separate `verification` branch:
+Fit evidence is intentionally published on the separate `prod/verification`
+branch:
 
 ```text
 png/middle-coupler-<size>-fit-detail.png
@@ -257,11 +268,11 @@ bld/stl/corner-edge-coupler-left-<size>.stl
 bld/stl/corner-edge-coupler-right-<size>.stl
 ```
 
-The generated design walkthrough is published separately under the build
-branch's `design/` tree.
+The generated design walkthrough is published under the `prod/build` branch's
+`design/` tree.
 
-Generated files are published to the mutable `build` branch and are not stored
-on `main`.
+Generated files are published to the mutable `prod/build` and
+`prod/verification` branches and are not stored on `main`.
 
 ## Local setup
 
