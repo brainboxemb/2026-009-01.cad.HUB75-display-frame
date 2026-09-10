@@ -42,169 +42,12 @@ These images are generated from the current `build` branch.
 - [Five-panel STL](../../blob/build/stl/panels-assembly.stl)
 - [Connector STLs](../../tree/build/stl)
 
-## Current milestone
+## Project status
 
-### Milestone 1 — five-panel assembly
-
-The five-panel portrait assembly is established and build-verified.
-
-The display uses five P5 64x32 panels in **portrait orientation**, side by side:
-
-```text
-one panel
-    nominal 160 mm wide x 320 mm high
-    32 x 64 pixels in portrait orientation
-
-five panels
-    nominal 800 mm wide x 320 mm high
-    160 x 64 pixels total
-```
-
-Expressed height-first, this is the intended **320 x 800 mm / 64 x 160 pixel**
-display.
-
-No panel is rotated 90 degrees by this project. The reusable library already
-models the panel in portrait orientation.
-
-### Milestone 2 — middle coupler core
-
-The first project-specific frame component is now the **middle coupler** joining
-two adjacent panels at their vertical seam.
-
-This first version intentionally contains functional geometry only:
-
-```text
-80 mm PLUS base
-two seam-side mounting holes
-two shallow mounting-tube pockets
-raised fitted guides around the rear rib cross
-two reinforcement pad/pin locators
-tapered seam locator
-Ø3 blind reference pockets
-centre + and 5/10 mm distance ticks
-```
-
-The old medium profile supplies only the printable starting values:
-
-```text
-profile size        80 mm
-wall thickness       4 mm
-guide height         6 mm
-base thickness       3 mm
-fit clearance     0.25 mm per side
-```
-
-Panel-dependent dimensions come from the public `lib.scad.hub75` mating API.
-
-The rounded component form is now captured directly in the current source from
-the approved v120 design reference. The old repository is not a geometry
-authority for this component.
-
-The component defaults to `render_fn = 192`. Resolution is stored in the
-coupler object and enforced inside its public build/render modules. This avoids
-OpenSCAD's `use <...>` behaviour dropping a top-level `$fn` assignment during
-STL export. Screw holes, pockets, rounded offsets and the hand-built PLUS arcs
-therefore all use the same high-resolution tessellation.
-
-Current derived default values include:
-
-```text
-horizontal PLUS arm   28.482 mm
-vertical PLUS arm     33.800 mm
-screw centres         -8 / +8 mm
-rear seam gap          2.795 mm
-seam locator width     2.295 mm
-reinforcement pad       Ø9.4 x 2.4 mm
-reinforcement pin       Ø2.1 x 2.0 mm
-reference pockets       Ø3.0, max 2.0 mm blind, final 0.5 mm taper to Ø2.0
-reference tick pitch      5 mm minor / 10 mm major
-centre reference +        6.0 mm
-```
-
-The component, detail design documentation, two-panel fit render, true XY fit
-section and standalone STL all build successfully. The fit is **not yet treated
-as physically approved** until the generated evidence or a print has been
-checked.
-
-### Milestone 3 — horizontal-edge coupler core
-
-The second connector-family member is the **horizontal-edge coupler**. It joins
-the same vertical panel seam where it reaches the top or bottom display edge.
-
-The first version intentionally has **no aluminium-tube clip**. The T-shaped
-body and HUB75 fit are verified as a separate step before the reinforcement
-system is introduced.
-
-The component keeps the same family language as the middle coupler:
-
-```text
-rounded T base
-same small / medium / large presets
-two seam-side mounting holes
-anti-elephant-foot screw relief
-shallow mounting-tube pockets
-fitted guide around the rear end/seam rails
-two reinforcement pad/pin locators
-tapered seam locator
-same-height tapered outer-edge guide
-Ø3 blind reference pockets with Ø3 -> Ø2 tapered bottoms
-centre + at the nominal panel edge
-5/10 mm distance ticks
-```
-
-Its local reference system deliberately puts the nominal **320 mm panel edge at
-Z=0**. The engraved `+` therefore identifies the real seam/edge datum rather
-than merely decorating the part. The ticks and pocket pattern make differences
-between the T proportions of small, medium and large immediately visible.
-
-The same printable connector is used at the top and bottom edge by rotating it
-180 degrees.
-
-### Milestone 4 — corner-edge coupler core
-
-The connector family is completed at the display corners with one parametrised
-corner component and two printable variants:
-
-```text
-left
-    top-left
-    rotate 180 degrees -> bottom-right
-
-right
-    top-right
-    rotate 180 degrees -> bottom-left
-```
-
-The corner origin is the **nominal 160 x 320 mm panel corner**, not the screw
-centre. The engraved `+` therefore marks the actual nominal panel envelope.
-
-The corner follows the same family rules as middle and horizontal edge:
-
-```text
-rounded asymmetric corner cross
-same small / medium / large presets
-single corner mounting hole
-anti-elephant-foot screw relief
-shallow mounting-tube pocket
-fitted guide around the real rounded rear corner
-one reinforcement pad/pin locator
-Ø3 blind reference pockets with Ø3 -> Ø2 tapered bottoms
-corner + and 5/10 mm distance ticks
-same guide height everywhere: 4 / 6 / 10 mm
-```
-
-Only the left/top-left variant overlaps the physical diagonal Ø3 locator pin;
-the right/top-right variant does not. Rotating the two printable parts 180
-degrees preserves that physical relationship for the bottom corners.
-
-The first corner milestone deliberately has **no aluminium-tube clip**. The
-outside guide remains straight for now; any final taper is deferred until the
-tube/clip geometry is introduced.
-
-Verification now also draws a **blue Ø2 datum pin** normal to the panel plane,
-exactly through each connector's engraved `+`. This makes the nominal
-middle/seam/edge/corner datum easy to compare directly with the grey HUB75 rear
-frame.
+Completed design milestones and their functional changes are recorded only in
+[CHANGELOG.md](CHANGELOG.md), so the README does not maintain a second milestone
+history that can drift out of sync. The current design direction is described
+under [Next design step](#next-design-step).
 
 ## Dimension authority
 
@@ -344,8 +187,8 @@ vrf/
 The project pins:
 
 ```text
-tool.scad-project v0.7.1
-docker.scad-toolchain v0.4.0 (through the reusable workflow)
+tool.scad-project v0.8.0
+docker.scad-toolchain v0.4.1 (through the reusable workflow)
 lib.scad.hub75 main, locked by the project gitlink
 ```
 
