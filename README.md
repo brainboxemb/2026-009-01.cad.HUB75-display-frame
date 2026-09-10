@@ -15,7 +15,13 @@ after each smaller assembly is understood and verified.
 
 ### Rear angled
 
-[![Rear angled view](../../raw/prod/build/png/rear-angled.png)](../../blob/prod/build/png/rear-angled.png)
+**Panels only**
+
+[![Rear angled panel view](../../raw/prod/build/png/rear-angled.png)](../../blob/prod/build/png/rear-angled.png)
+
+**With couplers**
+
+[![Rear angled view with couplers](../../raw/prod/build/png/rear-angled-couplers.png)](../../blob/prod/build/png/rear-angled-couplers.png)
 
 These images are generated from the current `prod/build` branch.
 
@@ -24,6 +30,7 @@ These images are generated from the current `prod/build` branch.
 - [Changelog](CHANGELOG.md)
 - [Generated build branch](../../tree/prod/build)
 - [Build overview](../../blob/prod/build/README.md)
+- [Build PNG gallery](../../blob/prod/build/png/README.md)
 - [Build provenance](../../blob/prod/build/publication-info.txt)
 - [Generated design documentation](../../blob/prod/build/design/README.md)
 - [Middle coupler design source](dsg/openscad/project_components/middle-coupler/design/design.md)
@@ -129,6 +136,7 @@ dsg/
 └── openscad/
     ├── assemblies/
     │   ├── panels_assembly.scad
+    │   ├── display_frame_assembly.scad
     │   ├── middle_coupler_fit_assembly.scad
     │   ├── horizontal_edge_coupler_fit_assembly.scad
     │   ├── corner_edge_coupler_fit_assembly.scad
@@ -153,6 +161,7 @@ dsg/
     │   ├── front-angled.scad
     │   ├── rear.scad
     │   ├── rear-angled.scad
+    │   ├── rear-angled-couplers.scad
     │   ├── middle-coupler.scad
     │   ├── horizontal-edge-coupler.scad
     │   ├── corner-edge-coupler-left.scad
@@ -187,7 +196,7 @@ vrf/
 The project pins:
 
 ```text
-tool.scad-project v0.9.0
+tool.scad-project v0.9.1
 docker.scad-toolchain v0.4.1 (through the reusable workflow)
 lib.scad.hub75 main, locked by the project gitlink
 ```
@@ -202,10 +211,11 @@ Production output from `main` is published to `prod/build` and
 and publish immutable snapshots under `rel/vX.Y.Z/build` and
 `rel/vX.Y.Z/verification`.
 
-The four configured full-display PNG renders use 2560x1440. Complete-display
+The five configured full-display PNG renders use 2560x1440. Complete-display
 presentation uses the library's `light_gray` colour scheme explicitly, rather
 than the dark/original material colours used by the low-level panel
-`build()` API.
+`build()` API. The fifth view, `rear-angled-couplers.png`, overlays the complete
+medium connector family on the same rear-angled panel view.
 
 They deliberately reuse the official camera views from the old HUB75
 display-frame project:
@@ -236,6 +246,10 @@ bld/png/horizontal-edge-coupler-<size>.png
 bld/png/corner-edge-coupler-left-<size>.png
 bld/png/corner-edge-coupler-right-<size>.png
 ```
+
+`tool.scad-project v0.9.1` also generates `bld/png/README.md` as a browseable,
+deterministically ordered gallery for the normal build PNGs. The generated
+`bld/README.md` links directly to that gallery.
 
 Fit evidence is intentionally published on the separate `prod/verification`
 branch:
