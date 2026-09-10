@@ -28,6 +28,7 @@ These images are generated from the current `prod/build` branch.
 ## Quick links
 
 - [Changelog](CHANGELOG.md)
+- [Project releases](../../releases)
 - [Generated build branch](../../tree/prod/build)
 - [Build overview](../../blob/prod/build/README.md)
 - [Build PNG gallery](../../blob/prod/build/png/README.md)
@@ -53,8 +54,9 @@ These images are generated from the current `prod/build` branch.
 
 Completed design milestones and their functional changes are recorded only in
 [CHANGELOG.md](CHANGELOG.md), so the README does not maintain a second milestone
-history that can drift out of sync. The current design direction is described
-under [Next design step](#next-design-step).
+history that can drift out of sync. Tagged releases capture reproducible project
+snapshots; milestone history remains the detailed design record. The current
+design direction is described under [Next design step](#next-design-step).
 
 ## Dimension authority
 
@@ -196,10 +198,16 @@ vrf/
 The project pins:
 
 ```text
-tool.scad-project v0.9.1
-docker.scad-toolchain v0.4.1 (through the reusable workflow)
-lib.scad.hub75 main, locked by the project gitlink
+tool.scad-project v0.9.8 (semantic dependency in project.yml)
+workflow callers  360b6aa950288adfad845fffccd0ffa41becd45c
+SCAD toolchain     v0.4.1 (through the reusable workflow)
+lib.scad.hub75     main, locked by the project gitlink
 ```
+
+The tool submodule gitlink resolves the semantic v0.9.8 dependency to the same
+commit used by the Build, Verify and Release workflow callers. Exact workflow
+SHA pinning avoids ambiguity in nested reusable workflows while `project.yml`
+remains human-readable.
 
 Normal project renders and exports are discovered from `dsg/openscad/render`
 and `dsg/openscad/export`. The configured SCons build engine tracks their SCAD
@@ -247,7 +255,7 @@ bld/png/corner-edge-coupler-left-<size>.png
 bld/png/corner-edge-coupler-right-<size>.png
 ```
 
-`tool.scad-project v0.9.1` also generates `bld/png/README.md` as a browseable,
+`tool.scad-project v0.9.8` also generates `bld/png/README.md` as a browseable,
 deterministically ordered gallery for the normal build PNGs. The generated
 `bld/README.md` links directly to that gallery.
 
