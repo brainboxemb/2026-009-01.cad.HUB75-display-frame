@@ -2,10 +2,39 @@
 
 This file records the functional evolution of the HUB75 display-frame project.
 
-The project is currently developed in **milestones** rather than tagged
-releases. Until version tags are introduced, changes are grouped by milestone.
-When tagged releases start, these milestone entries can remain as the design
-history and new entries can be grouped by version.
+Tagged releases summarize reproducible project snapshots. The milestone entries
+remain the detailed design history and continue to document geometry decisions,
+verification evidence and open physical-fit work.
+
+## v0.0.1
+
+### Added
+
+- First versioned development release of the restarted HUB75 display-frame project.
+- Reproducible release bundles, checksum manifest and immutable browseable build
+  and verification snapshots through the coordinated project Release workflow.
+
+### Changed
+
+- Upgrade the project tooling baseline to `tool.scad-project` v0.9.8 and SCAD
+  toolchain v0.4.1.
+- Keep the semantic tool dependency as `v0.9.8` in `project.yml`, pin the tool
+  gitlink to the corresponding commit, and pin Build, Verify and Release reusable
+  workflows to that exact 40-character commit SHA.
+- Synchronize the repository updater scripts with the v0.9.8 tool release so
+  future dependency upgrades update Build, Verify and Release together using
+  exact workflow commit pins.
+
+### Release scope
+
+- Captures the current five-panel assembly plus the middle, horizontal-edge and
+  left/right corner-edge connector families in small, medium and large presets.
+- Includes generated design documentation, normal PNG/STL build output and the
+  dedicated fit/section verification evidence already described by Milestones 1–5.
+- This release records the current **digitally verified development state**. It is
+  not physical print-fit acceptance: connector geometry, especially the
+  horizontal-edge fit, can still be refined against real panels before the
+  reinforcement tube and clip system is introduced.
 
 ## Milestone 5 — Panel-derived coupler mating taper
 
