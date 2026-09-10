@@ -30,6 +30,11 @@ history and new entries can be grouped by version.
 - PNG and STL evidence for left/right × small/medium/large.
 - Shared blue Ø2 verification datum pin through the engraved `+` for middle,
   horizontal-edge and corner fit views.
+- Complete five-panel rear-angled presentation assembly with all current medium
+  middle, horizontal-edge and corner couplers placed on their established
+  panel datums.
+- Dedicated `rear-angled-couplers.png` build render for direct comparison with
+  the existing panel-only rear-angled overview.
 
 ### Fixed
 
@@ -46,6 +51,9 @@ history and new entries can be grouped by version.
   introduced; height remains fully consistent at 4 / 6 / 10 mm.
 - Verification documentation now distinguishes grey panel geometry, red
   coupler geometry and the blue nominal-datum pin.
+- The project now pins `tool.scad-project v0.9.1`.
+- Normal build output now includes the generic generated `png/README.md`
+  gallery, matching the browseable verification PNG gallery pattern.
 
 ### Status
 
