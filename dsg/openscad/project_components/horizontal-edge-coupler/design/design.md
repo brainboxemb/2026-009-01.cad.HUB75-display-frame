@@ -124,8 +124,10 @@ end rail and the two side rails meeting at the seam.
 
 The guide exists on both sides of the physical rear edge and uses the same
 family `guide_height` everywhere: 4 mm for small, 6 mm for medium and 10 mm
-for large. The outside portion keeps a tapered cross-section, but it is not a
-shorter guide.
+for large. The outside portion keeps a constant X/Z cross-section. As it extends
+toward the panel it is translated in Z by the real continuous panel taper, so its
+mating face remains parallel to the sloped outer panel wall. The former arbitrary
+0.35 mm profile shrink has been removed.
 
 <!-- scad-render
 view: guides
@@ -143,8 +145,10 @@ view: reinforcement-locators
 ## 8. Seam locator
 
 A tapered locator follows the vertical seam from the nominal display edge
-inward through the T stem. Its width is derived from the actual rear panel gap
-minus print clearance.
+inward through the T stem. Its rear width starts from the actual rear panel gap
+minus print clearance. At every insertion depth it then narrows by twice the
+panel-derived X taper shift, one mating face from each adjacent panel. The former
+fixed 0.20 mm-per-side lead-in is therefore no longer a project constant.
 
 <!-- scad-render
 view: seam-locator
