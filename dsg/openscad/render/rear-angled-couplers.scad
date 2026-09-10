@@ -4,13 +4,10 @@
 
 use <../assemblies/display_frame_assembly.scad>
 
-panel = hub75_display_panel_create();
-
 $vpt = [0, 0, 0];
 $vpr = [85, 0, 220];
 $vpd = 1050;
 
 hub75_display_frame_assembly(
-    panel = panel,
     coupler_size = "medium"
 );
