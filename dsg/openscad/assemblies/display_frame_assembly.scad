@@ -21,14 +21,14 @@ function _hub75_display_frame_half_height(panel) =
 
 function _hub75_display_frame_half_width(
     panel,
-    panel_count = HUB75_DISPLAY_PANEL_COUNT
+    panel_count = 5
 ) =
     panel_count * _hub75_display_frame_panel_pitch_x(panel) / 2;
 
 function _hub75_display_frame_seam_x(
     panel,
     seam_index,
-    panel_count = HUB75_DISPLAY_PANEL_COUNT
+    panel_count = 5
 ) =
     -_hub75_display_frame_half_width(panel, panel_count)
     + (seam_index + 1) * _hub75_display_frame_panel_pitch_x(panel);
@@ -122,9 +122,9 @@ module _hub75_display_frame_corner_couplers(
 //   panel_color_scheme = Reusable HUB75 panel presentation colour scheme.
 //   coupler_color = RGBA colour for all printable connector geometry.
 module hub75_display_frame_assembly(
-    panel = hub75_display_panel_create(),
+    panel = hub75_p5_64x32_panel_create(),
     coupler_size = "medium",
-    panel_count = HUB75_DISPLAY_PANEL_COUNT,
+    panel_count = 5,
     panel_color_scheme = "light_gray",
     coupler_color = [0.72, 0.05, 0.04, 1]
 ) {
