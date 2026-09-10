@@ -6,7 +6,7 @@ tooling:
     type: git-submodule
     url: https://github.com/brainboxemb/tool.scad-project.git
     path: tools/tool.scad-project
-    ref: v0.9.5
+    ref: v0.9.8
 
 paths:
   design_root: dsg
@@ -25,9 +25,8 @@ openscad:
     - --enable=object-function
   render_flags:
     - --render
-    - --projection=o
   image_size: [2560, 1440]
-  design_image_size: [1000, 750]
+  design_image_size: [1200, 900]
 
 rendering:
   watermark:
