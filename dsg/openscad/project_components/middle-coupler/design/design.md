@@ -316,8 +316,22 @@ Its base width is:
 rear_seam_gap - 2 * fit_clearance
 ```
 
-The insertion end is slightly narrower on both sides, creating a simple lead-in
-without moving the locator away from the nominal seam centre.
+The locator width changes continuously with insertion depth. Both adjacent panel
+side walls move toward the seam as the panel widens toward its front face, so the
+available locator width is derived from the same public HUB75 taper dimensions:
+
+```text
+width at depth
+    = rear seam gap
+    - 2 x fit clearance
+    - 2 x panel taper shift at that depth
+```
+
+This is not an arbitrary lead-in. The old fixed 0.20 mm-per-side reduction has
+been removed. Only this central seam locator follows the X taper; the surrounding
+large rib guides remain straight because their bay/crossbar mating boundaries are
+vertical in Y and the widening side rails plus narrowing seam keep their combined
+keep-out width constant.
 
 <!-- scad-render
 view: seam-locator

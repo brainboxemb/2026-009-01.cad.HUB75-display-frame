@@ -7,6 +7,29 @@ releases. Until version tags are introduced, changes are grouped by milestone.
 When tagged releases start, these milestone entries can remain as the design
 history and new entries can be grouped by version.
 
+## Milestone 5 — Panel-derived coupler mating taper
+
+### Fixed
+
+- Horizontal-edge outer guide now keeps a constant cross-section and follows the
+  real HUB75 Z taper instead of shrinking by an arbitrary 0.35 mm.
+- Middle and horizontal-edge seam locators now derive their width at insertion
+  depth from the real HUB75 X taper instead of a fixed 0.20 mm-per-side lead-in.
+
+### Clarified
+
+- Middle main rib guides deliberately remain straight: their bay/crossbar mating
+  boundaries are vertical in Y, while side-rail widening and seam narrowing cancel
+  in the combined keep-out width.
+- Corner-edge taper correction is deferred to a separate change because its outer
+  geometry must be checked together with the project-wide <20 mm projection limit.
+
+### Verification
+
+- Small, medium and large middle XY seam/rear-fit views and horizontal YZ/rear-fit
+  views pass functional verification against the pinned HUB75 panel model.
+- Digital fit evidence remains separate from physical print acceptance.
+
 ## Milestone 4 — Corner edge coupler core
 
 ### Added

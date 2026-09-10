@@ -17,6 +17,7 @@
 // reinforcement hardware.
 
 use <../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
+use <../hub75_panel_mating.scad>
 
 /* [Core profile] */
 profile_size = 80;
@@ -67,9 +68,7 @@ center_mark_screw_keepout = 3.0;
 
 /* [Seam / outer edge locator] */
 seam_locator_height = 4;
-seam_locator_lead_in_per_side = 0.20;
 seam_locator_end_radius = 1.00;
-outer_ridge_taper_inset = 0.35;
 
 /* [Preview] */
 preview_view = "final"; // [final,functional,profile,base,screw-holes,tube-pockets,locator-pin-clearance,guides,reinforcement-locators,seam-locator,reference-pockets,center-marks]
@@ -134,9 +133,7 @@ function hub75_horizontal_edge_coupler_create(
     center_mark_screw_keepout = 3.0,
 
     seam_locator_height = 4,
-    seam_locator_lead_in_per_side = 0.20,
-    seam_locator_end_radius = 1.00,
-    outer_ridge_taper_inset = 0.35
+    seam_locator_end_radius = 1.00
 ) =
     let(
         screw_x = _hub75_horizontal_edge_coupler_seam_screw_x_positions(panel),
@@ -216,9 +213,7 @@ function hub75_horizontal_edge_coupler_create(
         center_mark_screw_keepout = center_mark_screw_keepout,
 
         seam_locator_height = seam_locator_height,
-        seam_locator_lead_in_per_side = seam_locator_lead_in_per_side,
         seam_locator_end_radius = seam_locator_end_radius,
-        outer_ridge_taper_inset = outer_ridge_taper_inset,
 
         rear_seam_gap =
             hub75_p5_64x32_panel_rear_grid_gap_x(panel),
@@ -229,6 +224,11 @@ function hub75_horizontal_edge_coupler_create(
         rear_opening_corner_radius =
             hub75_p5_64x32_panel_rear_opening_corner_radius(panel),
         rear_outer_edge_z = rear_outer_edge_z,
+        panel_taper_depth = hub75_rear_taper_depth(panel),
+        panel_rear_outer_inset_x =
+            hub75_p5_64x32_panel_rear_outer_inset_x(panel),
+        panel_rear_outer_inset_z =
+            hub75_p5_64x32_panel_rear_outer_inset_z(panel),
 
         mounting_tube_outer_diameter =
             hub75_p5_64x32_panel_mounting_tube_outer_diameter(panel),
@@ -326,6 +326,20 @@ function hub75_horizontal_edge_coupler_seam_locator_width(coupler) =
         - 2 * coupler.fit_clearance
     );
 
+function hub75_horizontal_edge_coupler_seam_locator_width_at_depth(
+    coupler,
+    depth
+) =
+    max(
+        0,
+        hub75_horizontal_edge_coupler_seam_locator_width(coupler)
+        - 2 * hub75_panel_taper_shift_at_depth(
+            depth,
+            coupler.panel_taper_depth,
+            coupler.panel_rear_outer_inset_x
+        )
+    );
+
 function hub75_horizontal_edge_coupler_screw_x_positions(coupler) =
     [coupler.screw_x_left, coupler.screw_x_right];
 
@@ -407,8 +421,11 @@ module hub75_horizontal_edge_coupler_build(coupler) {
         "vertical arm must fit inside profile_size"
     );
     assert(
-        hub75_horizontal_edge_coupler_seam_locator_width(coupler) > 0.5,
-        "rear seam is too narrow for the configured locator clearance"
+        hub75_horizontal_edge_coupler_seam_locator_width_at_depth(
+            coupler,
+            coupler.seam_locator_height
+        ) > 0.5,
+        "panel taper leaves too little rear seam width for the configured locator"
     );
     assert(
         hub75_horizontal_edge_coupler_mounting_tube_pocket_depth(coupler)
@@ -1227,28 +1244,43 @@ module _hub75_horizontal_edge_coupler_guide_walls(coupler) {
 
 
 module _hub75_horizontal_edge_coupler_outer_edge_ridge(coupler) {
-    // The outside rail is part of the same guide system. It therefore uses
-    // exactly the configured family guide height (4 / 6 / 10 mm) rather than
-    // borrowing the independent seam-locator height.
+    // The outside guide follows the panel's real continuous Z taper. Its X/Z
+    // cross-section stays unchanged; only its Z position moves as Y advances
+    // into the panel. This replaces the old arbitrary 0.35 mm profile shrink.
     ridge_h = coupler.guide_height;
-    taper = min(
-        coupler.outer_ridge_taper_inset,
-        coupler.wall_thickness / 4
+    taper_h = min(ridge_h, coupler.panel_taper_depth);
+    taper_shift_z = hub75_panel_taper_shift_at_depth(
+        taper_h,
+        coupler.panel_taper_depth,
+        coupler.panel_rear_outer_inset_z
     );
 
-    hull() {
-        _hub75_horizontal_edge_coupler_extrude_xz_y(
-            -_HUB75_HORIZONTAL_EDGE_COUPLER_EPS,
-             _HUB75_HORIZONTAL_EDGE_COUPLER_EPS
-        )
-            _hub75_horizontal_edge_coupler_outer_ridge_2d(coupler);
-
-        _hub75_horizontal_edge_coupler_extrude_xz_y(
-            -ridge_h - _HUB75_HORIZONTAL_EDGE_COUPLER_EPS,
-            -ridge_h + _HUB75_HORIZONTAL_EDGE_COUPLER_EPS
-        )
-            offset(delta = -taper)
+    union() {
+        hull() {
+            _hub75_horizontal_edge_coupler_extrude_xz_y(
+                -_HUB75_HORIZONTAL_EDGE_COUPLER_EPS,
+                 _HUB75_HORIZONTAL_EDGE_COUPLER_EPS
+            )
                 _hub75_horizontal_edge_coupler_outer_ridge_2d(coupler);
+
+            translate([0, 0, taper_shift_z])
+                _hub75_horizontal_edge_coupler_extrude_xz_y(
+                    -taper_h - _HUB75_HORIZONTAL_EDGE_COUPLER_EPS,
+                    -taper_h + _HUB75_HORIZONTAL_EDGE_COUPLER_EPS
+                )
+                    _hub75_horizontal_edge_coupler_outer_ridge_2d(coupler);
+        }
+
+        // If a caller requests an insertion deeper than the physical taper,
+        // continue with the front-footprint position instead of extending the
+        // taper beyond its real depth.
+        if (ridge_h > taper_h)
+            translate([0, 0, taper_shift_z])
+                _hub75_horizontal_edge_coupler_extrude_xz_y(
+                    -ridge_h - _HUB75_HORIZONTAL_EDGE_COUPLER_EPS,
+                    -taper_h + _HUB75_HORIZONTAL_EDGE_COUPLER_EPS
+                )
+                    _hub75_horizontal_edge_coupler_outer_ridge_2d(coupler);
     }
 }
 
@@ -1328,32 +1360,47 @@ module _hub75_horizontal_edge_coupler_seam_locator_section_2d(
 module _hub75_horizontal_edge_coupler_seam_locator(coupler) {
     base_width =
         hub75_horizontal_edge_coupler_seam_locator_width(coupler);
-    tip_width = max(
-        0.6,
-        base_width
-        - 2 * coupler.seam_locator_lead_in_per_side
-    );
+    locator_h = coupler.seam_locator_height;
+    taper_h = min(locator_h, coupler.panel_taper_depth);
+    taper_width =
+        hub75_horizontal_edge_coupler_seam_locator_width_at_depth(
+            coupler,
+            taper_h
+        );
 
-    hull() {
-        _hub75_horizontal_edge_coupler_extrude_xz_y(
-            -_HUB75_HORIZONTAL_EDGE_COUPLER_EPS,
-             _HUB75_HORIZONTAL_EDGE_COUPLER_EPS
-        )
-            _hub75_horizontal_edge_coupler_seam_locator_section_2d(
-                coupler,
-                base_width
-            );
+    // The seam narrows by exactly twice the panel's outward X taper shift:
+    // one mating face from each adjacent panel. Past the physical taper depth
+    // the width remains constant at the front-footprint value.
+    union() {
+        hull() {
+            _hub75_horizontal_edge_coupler_extrude_xz_y(
+                -_HUB75_HORIZONTAL_EDGE_COUPLER_EPS,
+                 _HUB75_HORIZONTAL_EDGE_COUPLER_EPS
+            )
+                _hub75_horizontal_edge_coupler_seam_locator_section_2d(
+                    coupler,
+                    base_width
+                );
 
-        _hub75_horizontal_edge_coupler_extrude_xz_y(
-            -coupler.seam_locator_height
-                - _HUB75_HORIZONTAL_EDGE_COUPLER_EPS,
-            -coupler.seam_locator_height
-                + _HUB75_HORIZONTAL_EDGE_COUPLER_EPS
-        )
-            _hub75_horizontal_edge_coupler_seam_locator_section_2d(
-                coupler,
-                tip_width
-            );
+            _hub75_horizontal_edge_coupler_extrude_xz_y(
+                -taper_h - _HUB75_HORIZONTAL_EDGE_COUPLER_EPS,
+                -taper_h + _HUB75_HORIZONTAL_EDGE_COUPLER_EPS
+            )
+                _hub75_horizontal_edge_coupler_seam_locator_section_2d(
+                    coupler,
+                    taper_width
+                );
+        }
+
+        if (locator_h > taper_h)
+            _hub75_horizontal_edge_coupler_extrude_xz_y(
+                -locator_h - _HUB75_HORIZONTAL_EDGE_COUPLER_EPS,
+                -taper_h + _HUB75_HORIZONTAL_EDGE_COUPLER_EPS
+            )
+                _hub75_horizontal_edge_coupler_seam_locator_section_2d(
+                    coupler,
+                    taper_width
+                );
     }
 }
 
@@ -1439,9 +1486,7 @@ _preview_coupler =
         center_mark_screw_keepout = center_mark_screw_keepout,
 
         seam_locator_height = seam_locator_height,
-        seam_locator_lead_in_per_side = seam_locator_lead_in_per_side,
-        seam_locator_end_radius = seam_locator_end_radius,
-        outer_ridge_taper_inset = outer_ridge_taper_inset
+        seam_locator_end_radius = seam_locator_end_radius
     );
 
 hub75_horizontal_edge_coupler_render(
