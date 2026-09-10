@@ -15,13 +15,37 @@ authority.
 
 The goal is controlled development through small, verifiable assemblies.
 
-## Current milestones
+## Current design state
 
-### Milestone 1 — five panels
+`CHANGELOG.md` is the authority for completed milestone history. Do not maintain
+a second detailed milestone history here.
 
-The five-panel portrait assembly is established and build-verified.
+The current digitally established sequence is:
 
-Important orientation:
+```text
+Milestone 1
+    five-panel portrait assembly
+
+Milestone 2
+    middle coupler core
+
+Milestone 3
+    horizontal-edge coupler core
+
+Milestone 4
+    left/right corner-edge coupler core
+```
+
+The middle, horizontal-edge and corner families all have small, medium and
+large normal-build evidence plus dedicated fit verification. The core connector
+family is therefore digitally established against the reusable HUB75 panel
+model.
+
+Physical print fit is still required before the family is treated as physically
+accepted. Aluminium reinforcement tube and clip geometry remains the next
+separate design layer and must not be mixed into basic panel-fit geometry.
+
+Important panel orientation:
 
 ```text
 library panel orientation
@@ -46,40 +70,6 @@ The user may describe the total size height-first as:
 ```
 
 Do not rotate these panels 90 degrees. The library model is already portrait.
-
-### Milestone 2 — middle coupler core
-
-The first project-specific frame component is:
-
-```text
-dsg/openscad/project_components/middle-coupler/
-```
-
-It joins two adjacent portrait panels at their vertical seam and currently
-contains only:
-
-```text
-PLUS base plate
-two screw holes
-mounting-tube pockets
-rear-rib guide walls
-two reinforcement pad/pin locators
-seam locator
-Ø3 blind reference pockets
-centre + and 5/10 mm distance ticks
-```
-
-Explicitly deferred:
-
-```text
-horizontal-edge couplers
-corner couplers
-tube clamps / frame reinforcement
-other future coupler-family features
-```
-
-The generated build is green, but the coupler is not physically approved until
-the fit evidence or a real print has been reviewed.
 
 ### Middle-coupler shape authority
 
@@ -222,58 +212,100 @@ nested/local private helper
     leading underscore too
 ```
 
-Current cross-file OpenSCAD interface:
-
-```text
-hub75_display_panel_create()
-hub75_display_verify_nominal_size()
-hub75_panels_assembly()
-
-hub75_middle_coupler_create()
-hub75_middle_coupler_build()
-hub75_middle_coupler_render()
-hub75_middle_coupler_horizontal_arm_height()
-hub75_middle_coupler_vertical_arm_width()
-hub75_middle_coupler_seam_keepout_width()
-hub75_middle_coupler_seam_locator_width()
-hub75_middle_coupler_screw_x_positions()
-hub75_middle_coupler_reinforcement_locator_pad_diameter()
-hub75_middle_coupler_reinforcement_locator_pad_height()
-hub75_middle_coupler_reinforcement_locator_pin_diameter()
-hub75_middle_coupler_reference_pocket_lane_offset()
-hub75_middle_coupler_reference_pocket_uses_two_lanes()
-hub75_middle_coupler_rear_fit_section()
-```
-
-Calculation helpers used only inside `panels_assembly.scad` must remain
-underscore-prefixed.
+Current cross-file OpenSCAD interface includes the panel assembly and public
+component APIs. Calculation helpers used only inside an implementation file
+must remain underscore-prefixed.
 
 ## Project architecture
 
 ```text
-docker.scad-toolchain v0.4.0
+docker.scad-toolchain v0.4.1
     runtime capabilities
 
-tool.scad-project v0.6.1
-    configuration/build orchestration
+tool.scad-project v0.9.0
+    configuration, selective build orchestration and publication lifecycle
 
 lib.scad.hub75
     reusable panel geometry
 
 this repository
     panel arrangement
-    project-specific middle coupler
-    local two-panel fit verification
+    project-specific connector family
+    focused fit verification
 ```
 
-Direct submodules only:
+Direct project submodules:
 
 ```text
 tools/tool.scad-project
 dsg/openscad/ext/lib.scad.hub75
 ```
 
-Do not recursively initialize development dependencies inside those submodules.
+Do not recursively initialize development dependencies inside those submodules
+as project dependencies. The project records only its direct dependency pins.
+
+Normal project outputs are discovered from:
+
+```text
+dsg/openscad/render/
+dsg/openscad/export/
+```
+
+Special multi-size behaviour is declared in the adjacent `render.yml` and
+`export.yml` profiles. Do not reintroduce an explicit per-output `builds:` list
+in `project.yml` for these normal directory-based targets.
+
+The configured build engine is SCons. Dependency-aware target state is cached
+outside `bld/`, while generated design documentation has a separate exact-input
+cache. A clean unchanged hosted-runner build was validated on 2026-09-10 with:
+
+```text
+design documentation
+    restored from cache; design-build skipped
+
+normal render/export targets
+    29 total
+     0 executed
+    29 cache-current / restored
+```
+
+This is the expected unchanged-build behaviour. A changed SCAD dependency must
+still rebuild only the affected target graph; do not replace dependency checking
+with a broad unconditional cache hit.
+
+## Publication lifecycle
+
+Current mutable publication branches:
+
+```text
+main
+    -> prod/build
+    -> prod/verification
+```
+
+Development branches publish to:
+
+```text
+dev/build
+dev/verification
+```
+
+Version releases are coordinated by `.github/workflows/release.yml`. Release
+requests use `release-request/vX.Y.Z`, after which immutable generated snapshots
+belong under:
+
+```text
+rel/vX.Y.Z/build
+rel/vX.Y.Z/verification
+```
+
+Do not create a project version tag merely because release infrastructure is
+present. Choose and review the project version independently before invoking the
+release workflow.
+
+Normal Build and Verify workflows deliberately exclude `release-request/**` and
+do not separately trigger on version tags; the coordinated Release workflow owns
+that lifecycle.
 
 ## Render policy
 
@@ -336,29 +368,27 @@ dsg/openscad/export/panels-assembly.scad
 The STL is for interactive inspection/rotation and must represent the same
 five-panel milestone assembly as the PNG renders.
 
-Middle-coupler build output:
+Normal connector build output is size-qualified:
 
 ```text
-bld/png/middle-coupler.png
-bld/stl/middle-coupler.stl
+bld/png/middle-coupler-<size>.png
+bld/png/horizontal-edge-coupler-<size>.png
+bld/png/corner-edge-coupler-left-<size>.png
+bld/png/corner-edge-coupler-right-<size>.png
+
+bld/stl/middle-coupler-<size>.stl
+bld/stl/horizontal-edge-coupler-<size>.stl
+bld/stl/corner-edge-coupler-left-<size>.stl
+bld/stl/corner-edge-coupler-right-<size>.stl
 ```
 
-Fit evidence belongs on the separate verification branch, under:
+Fit evidence belongs on `prod/verification`, using flat unique filenames for
+all size/chirality variants. Rear-fit sections are the primary visual passing
+checks: grey is HUB75 rear structure, red is coupler material and blue is the
+nominal verification datum pin.
 
-```text
-middle-coupler/fit-detail.png
-middle-coupler/rear-fit-section.png
-middle-coupler/xy-seam-section.png
-```
-
-The rear fit section is the primary visual passing check. It retains only the
-panel/coupler volume at least 5 mm forward from the rear mounting plane and is
-viewed perpendicular from the rear. Grey is HUB75 rear structure; red is
-coupler material entering the same retained volume.
-
-The fit fixture deliberately contains only two panels and must remain small
-enough to diagnose the seam interface. The XY section is taken below the
-horizontal rear crossbar so the seam locator and panel depth remain visible.
+The focused fit fixtures must remain small enough to diagnose the relevant
+panel/coupler interface rather than becoming full-display scenes.
 
 Default build resolution:
 
@@ -379,7 +409,7 @@ Watermark drawing belongs to `docker.scad-toolchain`; orchestration belongs to
 
 ## Development discipline
 
-For each next component:
+For each next component or layer:
 
 1. define the physical purpose and interfaces;
 2. build the smallest useful geometry;
@@ -390,12 +420,14 @@ For each next component:
 
 Prefer fewer view modes and explicit component toggles.
 
-Milestone 1 remains the five-panel baseline. Milestone 2 now includes the
-complete middle-coupler surface-reference layer. Do not add other coupler
-families until the middle-coupler fit evidence has been reviewed.
+The current connector cores are digitally established. Before adding aluminium
+reinforcement tube and clips, inspect the complete family, preferably print the
+medium middle/horizontal-edge and both corner variants, and resolve any panel-fit
+issues without mixing them with reinforcement geometry.
 
 Top-level project READMEs should follow the current SCAD-project convention with
-a `Quick links` section near the top linking at least to generated build output,
-generated design documentation, PNG renders and STL output when present.
+a `Quick links` section near the top linking at least to `prod/build`, generated
+design documentation, PNG renders, STL output and `prod/verification` when
+present.
 
 The model and documentation were developed with the assistance of ChatGPT.
