@@ -7,13 +7,34 @@ module: hub75_middle_coupler_design
 vpr: [68, 0, 35]
 -->
 
+## Purpose of this document
+
+This document explains **how the middle coupler is constructed geometrically**.
+It is intentionally written so the physical design can be followed without
+already knowing OpenSCAD.
+
+The order used here is therefore:
+
+```text
+physical interface
+    ↓
+geometry needed around that interface
+    ↓
+visible construction step
+    ↓
+relevant implementation detail
+```
+
+The production source does not always use the same primitive-by-primitive
+sequence shown in the explanatory images. For example, the rounded PLUS outline
+is generated directly as one polygon because that is robust and efficient. The
+design views first show the simpler rectangles and rounding concept because that
+makes the physical shape understandable.
+
 ## Physical purpose
 
-The middle coupler joins **two portrait HUB75 panels at their vertical seam**.
-
-It is deliberately the first frame component reintroduced in the clean project.
-The goal is to understand and verify one panel-to-panel interface before adding
-edge or corner couplers.
+The middle coupler joins **two portrait HUB75 panels at their vertical seam** on
+the middle mounting-hole row.
 
 The local component origin is physical and explicit:
 
@@ -23,163 +44,313 @@ X = 0
 
 Y = 0
     panel-facing surface of the coupler base
+    and therefore the HUB75 rear mounting plane when assembled
 
 Z = 0
     middle HUB75 mounting-hole row
 ```
 
-When assembled, this local Y=0 plane is translated to the HUB75 rear mounting
-plane.
+The base plate extends toward positive Y, away from the panel. Guides and
+locators extend toward negative Y, into matching features on the rear of the
+panels.
 
-## What this first version contains
+The reusable `lib.scad.hub75` model is the authority for the panel geometry. The
+coupler owns only printable choices such as wall thickness, clearance and base
+thickness.
 
-Functional geometry only:
+## Construction overview
+
+The complete middle coupler can be understood as four layers of design work:
 
 ```text
-PLUS base plate
-    ↓
-two screw holes
-    ↓
-two shallow mounting-tube pockets
-    ↓
-raised guides beside the rear rib cross
-    ↓
-two reinforcement pad/pin locators
-    ↓
-tapered seam locator
-    ↓
-functional middle coupler
-    ↓
-Ø3 blind reference pockets
-    ↓
-centre + and 5/10 mm distance ticks
-    ↓
-complete middle coupler
+A. establish the printable PLUS body
+   physical rear rib cross
+       ↓
+   horizontal arm
+       ↓
+   vertical arm
+       ↓
+   raw PLUS
+       ↓
+   rounded PLUS
+       ↓
+   extruded base
+
+B. make the base fit the panel hardware
+   screw bores
+       ↓
+   shallow screw reliefs
+       ↓
+   mounting-tube pockets
+
+C. add positive panel-location geometry
+   rib keep-out
+       ↓
+   raw guide shell
+       ↓
+   rounded guide ends
+       ↓
+   reinforcement reliefs
+       ↓
+   raised guides
+       ↓
+   reinforcement pad/pin locators
+       ↓
+   tapered seam locator
+
+D. add non-mating reference detail
+   blind reference pockets
+       ↓
+   centre + and distance marks
+       ↓
+   complete coupler
 ```
 
-Not yet included:
+The design images follow this order.
 
-- edge/corner coupler variants;
-- tube clamps and frame reinforcement;
-- other future coupler-family features.
+## Main printable choices
 
-Those are intentionally deferred until this core part fits correctly.
-
-## Object API
-
-The component follows the same object-based OpenSCAD architecture as the
-reusable libraries:
-
-```scad
-coupler = hub75_middle_coupler_create();
-
-hub75_middle_coupler_build(coupler);
-```
-
-The object contains printable coupler choices plus mating dimensions captured
-through the public `lib.scad.hub75` API.
-
-Project code must not read HUB75 panel object internals directly.
-
-## Starting dimensions
-
-The approved rounded form from the supplied v120 design archive has now been
-captured directly in this component. The current source and this design
-document are the authority from this point forward; future work should not
-depend on the old repository or archive code.
-
-The retained printable starting values are:
+The current medium coupler uses:
 
 ```text
 profile size        80 mm
 wall thickness       4 mm
-guide height         6 mm
+fit clearance      0.25 mm per side
 base thickness       3 mm
+guide height         6 mm
 inside radius       10 mm
-outside radius        6 mm
+outside radius       6 mm
 guide end rounding  1.5 mm
-reinforcement pad radial clearance  0.30 mm
-reinforcement pad axial clearance   0.10 mm
-reinforcement pin radial clearance  0.20 mm
-reinforcement pin length             2.00 mm
-seam locator radius                  1.00 mm
-fit clearance                        0.25 mm per side
+seam locator radius  1.0 mm
+render resolution   192 facets per full circle
 ```
 
-Panel-dependent dimensions are **not copied** from the old coupler.
+Panel-derived dimensions are deliberately not copied into the project as fixed
+constants.
 
-With the current default HUB75 panel they derive to approximately:
+With the current HUB75 panel definition they produce approximately:
 
 ```text
 horizontal PLUS arm   28.482 mm
 vertical PLUS arm     33.800 mm
 screw centres         -8 / +8 mm
 rear seam gap          2.795 mm
-seam locator width     2.295 mm
+rear seam locator      2.295 mm before depth taper
 ```
 
-These values are consequences of the HUB75 mating API, not independent project
-constants.
+Those values are consequences of the panel mating API plus the configured print
+clearance and wall thickness.
 
-## 1. PLUS profile
+## 1. The physical rear-rib reference
 
-The base starts as one symmetric PLUS profile centred on the seam and middle
-mounting row.
+Before making any printable geometry, the coupler needs to know what it must fit
+around.
 
-The horizontal arm is derived from the real rear crossbar plus printed material
-on both sides:
+At the middle seam the two panels present a cross-shaped rear structure:
+
+```text
+horizontal part
+    HUB75 rear crossbar at the middle mounting row
+
+vertical part
+    left panel side rail
+    + physical gap between panels
+    + right panel side rail
+```
+
+The gray shape in the image is this real panel keep-out. The red shape is the
+same keep-out expanded by the configured `fit_clearance`.
+
+<!-- scad-render
+view: mating-reference
+vpr: [0, 0, 0]
+-->
+
+The rounded regions at the four internal corners are important. The HUB75 rear
+bays are not sharp rectangles, so the keep-out includes the real rounded
+rib-to-bay transition from `lib.scad.hub75`.
+
+The relevant production helper is:
+
+```scad
+_hub75_middle_coupler_rib_cross_keepout_2d(coupler)
+```
+
+and printable clearance is applied geometrically with:
+
+```scad
+offset(delta = coupler.fit_clearance)
+```
+
+## 2. Build the horizontal arm
+
+The first printable part is the horizontal arm around the panel crossbar.
+
+Its height is not an arbitrary PLUS dimension. It is exactly:
+
+```text
+physical rear crossbar width
++ fit clearance above
++ printed wall above
++ fit clearance below
++ printed wall below
+```
+
+or:
+
+```scad
+coupler.rear_crossbar_width
++ 2 * (coupler.fit_clearance + coupler.wall_thickness)
+```
+
+The arm extends across the selected `profile_size` in X.
+
+In the image the gray strip is the actual crossbar thickness and the red strip
+is the printable horizontal arm built around it.
+
+<!-- scad-render
+view: profile-horizontal-arm
+vpr: [0, 0, 0]
+-->
+
+The public derived-dimension accessor is:
 
 ```scad
 hub75_middle_coupler_horizontal_arm_height(coupler)
 ```
 
-The vertical arm is derived from:
+For the current medium part this yields approximately `28.482 mm`.
+
+## 3. Build the vertical arm
+
+The vertical arm surrounds the meeting side rails and the seam between the two
+panels.
+
+First define the physical width that may not be occupied by the guide wall:
 
 ```text
-left panel rear side rail
+left rear side rail
 + rear seam gap
-+ right panel rear side rail
-+ printed material on both outside faces
++ right rear side rail
 ```
 
-The concave corners and free outside ends are rounded separately.
-
-The current rounded form is intentional:
-
-```text
-concave arm transitions  10 mm radius
-convex arm ends            6 mm radius
-```
-
-The PLUS outline is generated as a polygon. Its quarter-arc segment count is
-derived directly from `coupler.render_fn`. With the default
-`render_fn = 192`, each 90 degree arc uses 48 segments instead of the earlier
-fixed 18.
-
-The resolution is deliberately stored in the coupler object. This matters
-because STL/export entrypoints load the component through `use <...>`;
-top-level assignments such as `$fn = 192` are not imported by `use`.
-
-Both public geometry modules therefore set:
+The source exposes that combined physical keep-out as:
 
 ```scad
-$fn = coupler.render_fn;
+hub75_middle_coupler_seam_keepout_width(coupler)
 ```
 
-before creating any cylinders, circles or rounded offsets. The actual STL thus
-uses the same high-resolution geometry as the standalone preview and design
-renders.
+The printable vertical arm adds clearance and wall material on both outside
+faces:
+
+```text
+physical seam keep-out
++ 2 × fit clearance
++ 2 × wall thickness
+```
+
+or:
+
+```scad
+hub75_middle_coupler_seam_keepout_width(coupler)
++ 2 * (coupler.fit_clearance + coupler.wall_thickness)
+```
+
+The gray geometry in the image is the already established horizontal arm. The
+red rectangle is the new vertical arm.
 
 <!-- scad-render
-view: profile
+view: profile-vertical-arm
+vpr: [0, 0, 0]
 -->
 
-## 2. Base plate
+For the current medium part the vertical arm is approximately `33.800 mm` wide.
 
-The PLUS profile is extruded from local Y=0 toward positive Y.
+## 4. The raw PLUS
 
-This is the part of the coupler that remains **behind** the HUB75 rear mounting
-plane.
+Combining the two arms gives the simplest possible coupler outline:
+
+```text
+horizontal rectangle
+UNION
+vertical rectangle
+=
+raw PLUS
+```
+
+<!-- scad-render
+view: profile-raw-plus
+vpr: [0, 0, 0]
+-->
+
+This raw shape already has the correct physical arm thicknesses. What it does
+not yet have is the approved rounded connector language.
+
+It is useful to separate these concerns:
+
+```text
+arm dimensions   -> come from panel geometry + print wall/clearance
+corner radii     -> are printable coupler design choices
+```
+
+## 5. Round the PLUS profile
+
+Two different kinds of corners are rounded for different reasons.
+
+### Concave arm transitions
+
+Where the horizontal and vertical arms meet, the four inward corners receive the
+configured `inside_corner_radius`, currently `10 mm`.
+
+These broad internal transitions reduce the abrupt notch of a sharp PLUS and
+match the approved coupler form.
+
+### Convex free ends
+
+The eight outside corners at the four arm ends use the smaller
+`outside_corner_radius`, currently `6 mm`.
+
+The gray shape below is the raw PLUS. The red shape is the final rounded 2D
+profile. Gray remnants therefore show material removed by the rounding.
+
+<!-- scad-render
+view: profile-rounded
+vpr: [0, 0, 0]
+-->
+
+The production source does **not** create two rectangles and then run a generic
+rounding operation. It generates the final outline directly as a polygon made
+from straight segments and twelve quarter-circle transitions:
+
+```scad
+_hub75_middle_coupler_profile_2d(coupler)
+```
+
+That implementation keeps the inside and outside radii independently
+controlled. Its arc segment count is derived from `coupler.render_fn`; with the
+default `192`, each quarter circle uses 48 segments.
+
+The conceptual rectangle sequence and the production polygon therefore describe
+the same shape at different levels:
+
+```text
+design explanation    two orthogonal arms + two classes of rounding
+production geometry   one explicitly generated high-resolution polygon
+```
+
+## 6. Extrude the 2D profile into the base plate
+
+The completed 2D PLUS is now given thickness.
+
+The local panel-facing surface is Y=0. The base extends away from the panels to
+positive Y:
+
+```text
+Y = 0                 panel-facing surface
+Y = base_thickness    visible rear surface
+```
+
+For the medium part the extrusion is therefore 3 mm.
 
 ```scad
 module _hub75_middle_coupler_base_solid(coupler) {
@@ -195,162 +366,353 @@ module _hub75_middle_coupler_base_solid(coupler) {
 view: base
 -->
 
-## 3. Two mounting screw holes
+At this stage the part is one solid plate with no holes, pockets, guides or
+locators.
 
-The seam-side mounting hole of each panel is derived from the nominal 160 mm
-placement pitch and the panel's own centred mounting-hole coordinates.
+## 7. Derive and cut the two screw bores
 
-For the current panel this places the two screw centres at:
+The screw centres come from the actual panel mounting-hole coordinates, not from
+a project-owned `±8 mm` constant.
 
-```text
-X = -8 mm
-X = +8 mm
-Z =  0 mm
-```
-
-The nominal through bore remains cylindrical at Ø3.4 mm.
-
-The original v1.2 print aid is also restored around both ends of each bore:
+Conceptually the two panels are placed at their nominal pitch on either side of
+the seam. The seam-side mounting hole of each panel then becomes a local coupler
+coordinate:
 
 ```text
-relief depth      0.20 mm
-radial widening   0.40 mm
-relief diameter   Ø4.20 mm
+left panel seam-side screw   -> X ≈ -8 mm
+right panel seam-side screw  -> X ≈ +8 mm
+Z = 0 for both
 ```
 
-Only that shallow first layer is widened. It is an anti-elephant-foot relief,
-not a countersink, so the functional Ø3.4 mm screw bore is unchanged.
+The helper that performs this coordinate derivation is:
 
-The red cylinders are the complete cutters through the base, including these
-shallow relief rings.
+```scad
+_hub75_middle_coupler_seam_screw_x_positions(panel)
+```
+
+The nominal through bore is Ø3.4 mm.
+
+The same cutter also includes a shallow anti-elephant-foot relief at both plate
+faces:
+
+```text
+through bore          Ø3.40 mm
+relief widening       +0.40 mm radially
+relief diameter       Ø4.20 mm
+relief depth           0.20 mm
+```
+
+This is a short cylindrical widening only. It is not a countersink and it does
+not change the functional screw bore.
+
+The red geometry below is the complete subtraction volume.
 
 <!-- scad-render
 view: screw-holes
 -->
 
-## 4. Mounting-tube pockets
+## 8. Add blind mounting-tube pockets
 
-The HUB75 panel has a small mounting tube around each screw hole. That tube
-protrudes beyond the rear mounting plane.
+The panel has a cylindrical mounting tube around each screw hole. The tube
+projects beyond the HUB75 rear mounting plane, so a flat coupler base would hit
+it before seating.
 
-The coupler therefore receives a shallow **blind** pocket from its panel-facing
-surface. Pocket diameter and depth are derived from the public panel mating
-accessors plus printable clearance.
+A shallow pocket is therefore cut into the **panel-facing side** of the base.
+
+Its diameter is:
+
+```text
+physical tube outside diameter
++ radial print clearance on both sides
+```
+
+and its depth is:
+
+```text
+physical tube projection
++ axial print clearance
+```
+
+Both physical dimensions come from `lib.scad.hub75`.
+
+```scad
+hub75_middle_coupler_mounting_tube_pocket_diameter(coupler)
+hub75_middle_coupler_mounting_tube_pocket_depth(coupler)
+```
 
 <!-- scad-render
 view: tube-pockets
 -->
 
-## 5. Raised rib guides
+The pocket must remain blind. The build asserts that its depth is smaller than
+the base thickness.
 
-The guide walls extend from the coupler toward the panel.
+## 9. Define the guide keep-out
 
-They do not sit on top of the HUB75 rear ribs. Instead, the real rear rib cross
-is treated as a keep-out and the printed material remains **beside** that
-keep-out.
+The raised guides must enter the open spaces beside the panel ribs; they must
+not sit on top of the rear rib cross.
 
-Conceptually:
+The guide construction therefore starts with two areas:
 
 ```text
-PLUS plate profile
-minus
-(real rear rib cross + 0.25 mm clearance)
+printable area
+    = rounded PLUS profile
+
+forbidden area
+    = real HUB75 rear rib cross
+      expanded by fit_clearance
+```
+
+The gray shape is the available PLUS footprint. The red shape is the forbidden
+clearance envelope that must be removed from it.
+
+<!-- scad-render
+view: guide-keepout
+vpr: [0, 0, 0]
+-->
+
+This step is important because it makes the guide geometry traceable directly to
+the panel model. If the HUB75 rib dimensions or bay-corner radius change, the
+keep-out changes with them.
+
+## 10. Subtract the keep-out to make the raw guide shell
+
+The first guide outline is simply:
+
+```text
+rounded PLUS profile
+MINUS
+(clearance-expanded physical rib cross)
 =
-guide walls
+raw guide shell
 ```
 
-The rear bay corners are rounded in the panel model, so the keep-out includes
-that rounded corner geometry rather than assuming a sharp PLUS.
+In source form:
 
-Reliefs are also removed where the two nearby reinforcement bushings occupy the
-guide region.
+```scad
+module _hub75_middle_coupler_raw_guide_shell_2d(coupler) {
+    difference() {
+        _hub75_middle_coupler_profile_2d(coupler);
 
-The fitted guide shell then receives a 1.5 mm 2D opening operation:
+        offset(delta = coupler.fit_clearance)
+            _hub75_middle_coupler_rib_cross_keepout_2d(coupler);
+    }
+}
+```
+
+<!-- scad-render
+view: guide-raw-shell
+vpr: [0, 0, 0]
+-->
+
+This creates printed material beside the physical ribs. At the free ends of the
+PLUS arms, however, the intersection between rounded outer profile and keep-out
+can still leave pointed guide tips.
+
+## 11. Soften the exposed guide ends
+
+The raw guide shell receives a small 2D morphological opening:
 
 ```text
-offset(-1.5 mm)
+shrink by guide_end_rounding
 then
-offset(+1.5 mm)
+grow by the same amount
 ```
 
-This restores the softer v120 guide endpoints and removes the small pointed
-tips that otherwise appear at the ends of the raised walls.
+In OpenSCAD:
+
+```scad
+offset(r = effective_rounding)
+    offset(delta = -effective_rounding)
+        _hub75_middle_coupler_raw_guide_shell_2d(coupler);
+```
+
+This removes tiny pointed ends without changing the basic wall placement.
+
+The configured medium/large value is `1.5 mm`, but the effective radius is
+limited so it can never consume an entire thin guide wall. That matters for the
+small preset with only 2 mm wall thickness.
+
+The gray shell is the raw result. The red shell is the softened version.
+
+<!-- scad-render
+view: guide-rounded-shell
+vpr: [0, 0, 0]
+-->
+
+## 12. Reserve space around the reinforcement features
+
+Two circular reinforcement features on the panel occupy regions that overlap the
+raised guide area.
+
+Before the guide can be finalised, cylindrical reliefs are therefore removed
+around those physical footprints.
+
+The relief diameter is:
+
+```text
+panel reinforcement outside diameter
++ 2 × reinforcement clearance
+```
+
+The gray volume is the still-unrelieved guide shell. The red cylinders are the
+material that will be removed.
+
+<!-- scad-render
+view: guide-reinforcement-reliefs
+-->
+
+## 13. Extrude the finished raised guides
+
+The final 2D guide shell is extruded from the mounting plane toward the panel:
+
+```text
+Y = 0
+    ↓
+Y = -guide_height
+```
+
+For the medium coupler that is 6 mm into the rear panel geometry.
+
+The reinforcement relief cylinders are subtracted from this extrusion.
+
+```scad
+module _hub75_middle_coupler_guide_walls(coupler) {
+    difference() {
+        _hub75_middle_coupler_extrude_xz_y(
+            -coupler.guide_height,
+             _HUB75_MIDDLE_COUPLER_EPS
+        )
+            _hub75_middle_coupler_guide_shell_2d(coupler);
+
+        _hub75_middle_coupler_reinforcement_relief_cutters(coupler);
+    }
+}
+```
 
 <!-- scad-render
 view: guides
 -->
 
-## 6. Reinforcement pad/pin locators
+These large guide walls deliberately remain straight through their insertion
+depth. Their mating bay/crossbar boundaries are vertical in Y. Although the
+panel outside wall widens toward the front, the adjacent seam narrows by the
+same amount, so the combined side-rail/seam keep-out seen by these guides stays
+constant.
 
-The two circular reinforcement features beside the screw holes contain a large
-Ø10 recess with a small blind Ø2.5 centre hole.
+## 14. Add the reinforcement pad/pin locators
 
-The guide wall already has a larger circular relief around each feature. Inside
-that cleared area the coupler now adds a **positive two-stage locator**:
+The guide reliefs created empty circular areas around two panel reinforcement
+features. Inside those clear areas the coupler now adds positive locating
+geometry.
+
+Each panel feature contains:
 
 ```text
-panel recess Ø10.0 x 2.5 mm
-    ↓ 0.30 mm radial / 0.10 mm axial clearance
-coupler pad Ø9.4 x 2.4 mm
-
-panel blind hole Ø2.5 mm
-    ↓ 0.20 mm radial clearance
-coupler pin Ø2.1 x 2.0 mm
+large circular recess   Ø10.0 mm × 2.5 mm deep
+small blind centre hole Ø2.5 mm
 ```
 
-The pad provides broad location in the circular recess. The smaller pin then
-enters the blind centre hole. Both dimensions come from the public HUB75 mating
-API; only printable clearances belong to the coupler.
+The coupler creates a two-stage mating locator after printable clearance:
+
+```text
+large pad
+    Ø9.4 mm × 2.4 mm
+
+small pin
+    Ø2.1 mm × 2.0 mm
+```
+
+The pad gives broad radial location. The smaller pin then enters the blind centre
+hole.
 
 <!-- scad-render
 view: reinforcement-locators
 -->
 
-## 7. Seam locator
+The physical panel dimensions come from the reusable HUB75 API. Only the radial
+and axial clearances are coupler-owned design choices.
 
-The narrow locator enters the actual rear gap between the two panels.
+## 15. Add the seam locator
 
-Its base width is:
+The central seam is a different mating interface from the large rib guides.
+
+A narrow locator enters the actual gap between the two panels. At the rear
+mounting plane its width is:
+
+```text
+rear seam gap
+- clearance on left
+- clearance on right
+```
+
+or:
 
 ```scad
 rear_seam_gap - 2 * fit_clearance
 ```
 
-The locator width changes continuously with insertion depth. Both adjacent panel
-side walls move toward the seam as the panel widens toward its front face, so the
-available locator width is derived from the same public HUB75 taper dimensions:
+For the current panel and medium clearance this is approximately `2.295 mm`.
+
+Unlike the large guides, this locator **must follow the panel X taper**. As the
+locator moves toward the panel front, both adjacent panel side walls move toward
+the seam.
+
+Its available width at insertion depth is therefore:
 
 ```text
-width at depth
-    = rear seam gap
-    - 2 x fit clearance
-    - 2 x panel taper shift at that depth
+rear locator width
+- taper shift from left panel
+- taper shift from right panel
 ```
 
-This is not an arbitrary lead-in. The old fixed 0.20 mm-per-side reduction has
-been removed. Only this central seam locator follows the X taper; the surrounding
-large rib guides remain straight because their bay/crossbar mating boundaries are
-vertical in Y and the widening side rails plus narrowing seam keep their combined
-keep-out width constant.
+or:
+
+```text
+base width - 2 * panel_taper_shift_at_depth
+```
+
+The production geometry forms a hull between the wider rear section and the
+narrower section at the end of the panel taper. If the configured locator is
+deeper than the taper region, the remaining depth continues at the final narrow
+width.
 
 <!-- scad-render
 view: seam-locator
 -->
 
-## 8. Functional coupler
+This replaces the older arbitrary `0.20 mm per side` taper with geometry derived
+from the real HUB75 panel.
 
-Before any visible reference detail is cut, the complete mechanical coupler is
-available as a separate design stage. This is deliberate: surface markings must
-never become part of the mating logic.
+## 16. The complete functional coupler
+
+At this point all geometry required for mechanical fit exists:
+
+```text
+base plate
++ raised rib guides
++ reinforcement pad/pin locators
++ tapered seam locator
+-
+mounting screw bores
+-
+mounting-tube pockets
+```
+
+No visible reference pattern has been added yet.
 
 <!-- scad-render
 view: functional
 -->
 
-## 9. Ø3 blind reference pockets
+Keeping this as an explicit design stage is intentional. It separates
+**mechanical mating geometry** from markings that exist only to aid inspection
+and measurement.
 
-The visible rear face receives the small circular reference-style pockets from
-the approved v120 design language.
+## 17. Add the blind reference pockets
+
+The visible rear face receives the small circular pockets retained from the
+approved coupler design language.
 
 Default geometry:
 
@@ -362,52 +724,42 @@ taper depth           0.5 mm
 bottom diameter       2.0 mm
 pitch                10.0 mm
 stations             20 / 30 / 40 mm from the centre
-lane offset           7.5 mm for the current middle coupler
 ```
 
-The visible part stays cylindrical at Ø3 mm. Only the final 0.5 mm narrows to
-Ø2 mm. This gives the blind pocket a short print-friendly tapered end without
-turning the whole feature into a cone.
+Only the final 0.5 mm tapers from Ø3 to Ø2. The visible portion therefore stays
+cylindrical rather than becoming a cone.
 
-Pocket depth is explicitly constrained by the base thickness:
+The effective depth is limited by base thickness so at least the configured
+minimum back wall remains:
 
 ```text
-small   base 2.0 mm -> total 1.3 mm -> 0.8 straight + 0.5 taper -> 0.7 mm remains
-medium  base 3.0 mm -> total 2.0 mm -> 1.5 straight + 0.5 taper -> 1.0 mm remains
-large   base 4.0 mm -> total 2.0 mm -> 1.5 straight + 0.5 taper -> 2.0 mm remains
+small   2.0 mm base -> 1.3 mm pocket -> 0.7 mm remains
+medium  3.0 mm base -> 2.0 mm pocket -> 1.0 mm remains
+large   4.0 mm base -> 2.0 mm pocket -> 2.0 mm remains
 ```
 
-This deliberately removes 0.5 mm from the former straight section while
-retaining the same 0.5 mm taper. Thin presets are limited further by the
-configured 0.7 mm minimum back wall.
-
-The lane offset is not hard-coded at 7.5 mm. It is derived from approximately
-one quarter of the real arm thickness and snapped to a 2.5 mm reference grid.
-For the current horizontal and vertical arm widths both derive to 7.5 mm.
-
-Two symmetric lanes are used only when they geometrically fit in **both** PLUS
-arms. This keeps the pattern symmetric when future profile dimensions change.
-
-The pockets are blind. With the current medium 3 mm base and 2.0 mm effective
-pocket depth, 1.0 mm of material remains at the panel-facing side.
+Pocket lanes are derived from approximately one quarter of the real arm
+thickness and snapped to a 2.5 mm reference grid. Two symmetric lanes are used
+only when they fit safely in both arms.
 
 <!-- scad-render
 view: reference-pockets
 vpr: [68, 0, 215]
 -->
 
-## 10. Centre + and distance ticks
+## 18. Add the centre + and distance ticks
 
-These marks are reference geometry rather than decoration.
+The final visible reference layer marks the component datum and gives a local
+scale.
 
-At the local component origin a small `+` identifies:
+At the exact component origin a `+` identifies:
 
 ```text
-X = 0  nominal panel seam
-Z = 0  middle mounting-hole row
+X = 0   nominal panel seam
+Z = 0   middle mounting-hole row
 ```
 
-Along both X and Z axes, ticks appear every 5 mm:
+Ticks are placed every 5 mm:
 
 ```text
 5 mm   minor tick   2.2 mm long
@@ -417,23 +769,21 @@ depth               0.40 mm
 centre +            6.0 mm
 ```
 
-The marks are shallow, discontinuous recesses. This makes them useful for
-measurement without creating one long structural groove through the coupler.
-
-A keep-out is applied around both screw holes and the whole pattern is clipped
-to an inset of the real rounded PLUS outline.
+The marks are clipped to an inset of the real rounded PLUS profile and a keep-out
+is applied around the structural screw holes.
 
 <!-- scad-render
 view: center-marks
 vpr: [68, 0, 215]
 -->
 
-## 11. Complete middle coupler
+## 19. Complete middle coupler
 
-The public build now combines the verified functional geometry with the two
-surface-reference layers:
+The public build combines the mechanical part and the two reference-detail
+layers:
 
 ```scad
+coupler = hub75_middle_coupler_create();
 hub75_middle_coupler_build(coupler);
 ```
 
@@ -441,32 +791,61 @@ hub75_middle_coupler_build(coupler);
 view: final
 -->
 
+The public object contains both printable design choices and panel-derived mating
+values captured through `lib.scad.hub75`. Project code must not read private
+panel-object internals or duplicate those panel dimensions.
+
+## Size presets
+
+The same construction is used for all three approved presets:
+
+```text
+small    profile  60 mm   wall 2 mm   guide  4 mm   base 2 mm
+medium   profile  80 mm   wall 4 mm   guide  6 mm   base 3 mm
+large    profile 100 mm   wall 6 mm   guide 10 mm   base 4 mm
+```
+
+Only the selected printable dimensions change. The relationship to the actual
+HUB75 mating geometry remains derived from the same panel object.
+
 ## Fit verification
 
-The component is not accepted only because it renders.
+A component is not accepted merely because the standalone geometry looks
+correct.
 
-The project also contains a two-panel local fit assembly:
-
-```text
-dsg/openscad/assemblies/middle_coupler_fit_assembly.scad
-```
-
-Verification evidence is published separately from normal build output:
+The focused two-panel development fixture is located at:
 
 ```text
-verification/middle-coupler/
-├── rear-fit-section.png
-├── xy-seam-section.png
-└── fit-detail.png
+dsg/openscad/assemblies/verification/middle_coupler_fit_assembly.scad
 ```
 
-The primary **Rear fit section** is cut 5 mm forward from the rear mounting
-plane. Grey shows only the HUB75 rear structure retained by that cut; red shows
-only coupler geometry reaching into the same volume. This makes penetration,
-clearance and accidental overlap readable at a glance.
+The verification entrypoints produce three complementary views:
 
-The XY seam section remains useful for the seam locator, while the angled
-detail gives overall local context.
+```text
+rear-fit-section
+    primary interference/clearance check through real panel rear structure
 
-The standalone STL remains a normal build artifact so the actual printable
-component can be inspected freely in a 3D viewer before printing.
+xy-seam-section
+    true section through the seam locator and panel depth
+
+fit-detail
+    angled local context around the two-panel seam
+```
+
+In the rear-fit section, neutral gray is real HUB75 panel structure and red is
+coupler material entering the same retained volume. The blue datum pin passes
+through the engraved `+` so the nominal seam/mounting-row origin remains visible
+through the section.
+
+The verification layer therefore answers a different question from this design
+document:
+
+```text
+design.md
+    How is the coupler constructed and why?
+
+verification evidence
+    Does that construction actually fit the authoritative panel geometry?
+```
+
+Both are required before the component is treated as physically understood.
