@@ -8,6 +8,18 @@ OUT_DIR="${ROOT_DIR}/vrf/out"
 PNG_DIR="${OUT_DIR}/png"
 STL_DIR="${OUT_DIR}/stl"
 
+WATERMARK_TEXT="$(
+  python3 - <<'PY'
+from pathlib import Path
+import yaml
+
+config = yaml.safe_load(Path("project.yml").read_text(encoding="utf-8")) or {}
+rendering = config.get("rendering", {}) or {}
+watermark = rendering.get("watermark", {}) or {}
+print(watermark.get("text", "") or "")
+PY
+)"
+
 rm -rf "${PNG_DIR}" "${STL_DIR}"
 mkdir -p "${PNG_DIR}" "${STL_DIR}"
 
@@ -45,6 +57,9 @@ render_png() {
   local size="$2"
   local source="$3"
   local output="$4"
+  local raw_output="${output%.png}.unwatermarked.png"
+
+  rm -f "${raw_output}" "${output}"
 
   run_checked \
     "${label}" \
@@ -55,8 +70,25 @@ render_png() {
         --projection=o \
         --imgsize=2560,1440 \
         -D "size=\"${size}\"" \
-        -o "${output}" \
+        -o "${raw_output}" \
         "${source}"
+
+  if [[ ! -s "${raw_output}" ]]; then
+    echo "ERROR: ${label} did not create a non-empty raw PNG" >&2
+    exit 1
+  fi
+
+  if [[ -n "${WATERMARK_TEXT}" ]]; then
+    run_checked \
+      "${label} watermark" \
+      scad-image-watermark \
+        "${raw_output}" \
+        "${output}" \
+        --text "${WATERMARK_TEXT}"
+    rm -f "${raw_output}"
+  else
+    mv "${raw_output}" "${output}"
+  fi
 
   if [[ ! -s "${output}" ]]; then
     echo "ERROR: ${label} did not create a non-empty PNG" >&2

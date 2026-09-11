@@ -84,7 +84,7 @@ C. construct the guides
        ↓
    split inward guide / outside ridge
        ↓
-   move outside ridge with real panel Z taper
+   taper only the panel-facing ridge edge; keep the outside wall straight
        ↓
    reinforcement reliefs
        ↓
@@ -563,19 +563,33 @@ _hub75_horizontal_edge_coupler_tall_guide_2d(coupler)
 _hub75_horizontal_edge_coupler_outer_ridge_2d(coupler)
 ```
 
-This distinction is important because only the outside ridge must follow the
-sloped outer panel wall.
+This distinction is important because only the **panel-facing edge** of the
+outside ridge must follow the sloped outer panel wall.
 
-## 15. Move the outside ridge with the real panel Z taper
+## 15. Taper the panel-facing ridge edge while keeping the outside wall straight
 
-The outer ridge does **not** get arbitrarily thinner toward the panel. Its X/Z
-cross-section remains constant.
+The physical HUB75 outside wall moves outward in Z as Y advances from the rear
+mounting plane toward the front. The printable ridge therefore needs a matching
+movement on its **inside mating face**.
 
-Instead, the whole cross-section translates in Z as it moves from Y=0 toward the
-panel front. The translation comes from the real continuous HUB75 Z taper.
+The exposed outside face of the coupler has no physical reason to move with that
+panel taper. It remains at the fixed T-profile contour. Consequently the ridge
+gets slightly thinner toward the front instead of translating as one rigid
+cross-section.
 
-Gray is a thin slice at the rear mounting plane. Red is the same cross-section
-at the end of the physical taper, shifted to its panel-derived position.
+```text
+rear mounting plane
+    fixed outside edge
+    panel-facing edge at rear-panel position
+
+front of physical taper
+    same fixed outside edge
+    panel-facing edge shifted outward by real HUB75 taper
+```
+
+Gray is the ridge section at the rear mounting plane. Red is the section at the
+end of the physical taper. The outside contour coincides; only the panel-facing
+edge has moved.
 
 <!-- scad-render
 view: guide-outer-taper
@@ -584,7 +598,7 @@ vpt: [0, -2, 0]
 vpd: 150
 -->
 
-The shift is computed with:
+The physical shift is computed with:
 
 ```scad
 hub75_panel_taper_shift_at_depth(
@@ -594,15 +608,25 @@ hub75_panel_taper_shift_at_depth(
 )
 ```
 
-The production 3D implementation is:
+Production applies that shift to the lower boundary of the outside-zone cutter:
+
+```scad
+_hub75_horizontal_edge_coupler_outer_ridge_2d(
+    coupler,
+    panel_shift_z
+)
+```
+
+and constructs the 3D ridge with:
 
 ```scad
 _hub75_horizontal_edge_coupler_outer_edge_ridge(coupler)
 ```
 
-That module hulls the rear and shifted taper-end sections, then continues at the
-final position if the configured guide depth extends beyond the physical taper.
-This is the geometry that replaced the older arbitrary `0.35 mm` shrink.
+That module hulls the rear section and the thinner taper-end section. If the
+configured guide extends beyond the physical taper depth, it continues with the
+final thinner section while the outside wall remains straight. No arbitrary
+`0.35 mm` shrink is used; the inside movement is entirely panel-derived.
 
 ## 16. Reserve space around the reinforcement features
 
@@ -658,7 +682,8 @@ not production geometry.
 ## 17. Extrude the finished guide system
 
 The inward guide is extruded straight to the configured `guide_height`. The
-outside ridge follows the taper construction from step 15.
+outside ridge uses the construction from step 15: its panel-facing edge follows
+the physical taper while its exposed outside wall remains straight.
 
 <!-- scad-render
 view: guides
@@ -672,8 +697,8 @@ _hub75_horizontal_edge_coupler_outer_edge_ridge(coupler)
 ```
 
 The inward guide stays straight because its mating bay/crossbar boundaries are
-vertical in Y. The outside ridge moves because it mates to the sloped outer panel
-wall.
+vertical in Y. On the outside ridge only the mating face changes with depth;
+there is no reason for the complete printed wall to lean outward with the panel.
 
 ## 18. Add the two reinforcement pad/pin locators
 
@@ -854,8 +879,13 @@ The focused two-panel fixture is:
 dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad
 ```
 
-Verification views cover the local fit, a rear section and a Y/Z outer-edge
-section. These answer a different question from this document:
+Verification views cover the local fit, a **0.10 mm rear-facing slice** through
+the selected insertion depth, and a Y/Z outer-edge section. The thin rear slice
+cuts both sides of the section instead of retaining everything in front of one
+plane; this makes the actual red/gray mating contours readable even where the
+physical panel wall is sloped.
+
+These views answer a different question from this document:
 
 ```text
 design.md

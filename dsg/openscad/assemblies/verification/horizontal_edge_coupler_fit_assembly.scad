@@ -91,13 +91,14 @@ module hub75_horizontal_edge_coupler_fit_detail(
 
 // Module: hub75_horizontal_edge_coupler_rear_fit_section()
 // Description:
-//   Rear-facing section cut a fixed distance forward from the rear mounting
-//   plane. Grey is retained panel structure; red is coupler material entering
-//   the same retained volume.
+//   Rear-facing thin section centred a fixed distance forward from the rear
+//   mounting plane. Grey and red are cut by the same narrow Y slab so the exact
+//   panel/coupler mating contours are visible without oblique half-space walls.
 module hub75_horizontal_edge_coupler_rear_fit_section(
     panel = hub75_p5_64x32_panel_create(),
     coupler = undef,
     depth = 5.0,
+    slice_thickness = 0.10,
     crop_width = 140,
     crop_inward = 110,
     crop_outward = 10
@@ -115,9 +116,10 @@ module hub75_horizontal_edge_coupler_rear_fit_section(
         mounting_y - depth;
 
     assert(depth > 0, "rear fit section depth must be > 0");
+    assert(slice_thickness > 0, "rear fit slice thickness must be > 0");
     assert(
-        section_y > 0,
-        "rear fit section must remain behind the HUB75 front face"
+        section_y - slice_thickness / 2 > 0,
+        "rear fit slice must remain behind the HUB75 front face"
     );
 
     module _rear_structure() {
@@ -133,17 +135,15 @@ module hub75_horizontal_edge_coupler_rear_fit_section(
                 );
     }
 
-    module _keep_volume() {
-        y_min = -0.5;
-
+    module _slice_volume() {
         translate([
             -crop_width / 2,
-            y_min,
+            section_y - slice_thickness / 2,
             edge_z - crop_inward
         ])
             cube([
                 crop_width,
-                section_y - y_min,
+                slice_thickness,
                 crop_inward + crop_outward
             ]);
     }
@@ -151,7 +151,7 @@ module hub75_horizontal_edge_coupler_rear_fit_section(
     color([0.68, 0.68, 0.68, 1])
         intersection() {
             _rear_structure();
-            _keep_volume();
+            _slice_volume();
         }
 
     color([0.72, 0.05, 0.04, 1])
@@ -159,17 +159,14 @@ module hub75_horizontal_edge_coupler_rear_fit_section(
             translate([0, mounting_y, edge_z])
                 hub75_horizontal_edge_coupler_build(active_coupler);
 
-            _keep_volume();
+            _slice_volume();
         }
 
     hub75_verification_datum_pin(
         x = 0,
         z = edge_z,
-        y_min = -4,
-        y_max =
-            mounting_y
-            + active_coupler.base_thickness
-            + 8
+        y_min = section_y - 2,
+        y_max = section_y + 2
     );
 }
 
