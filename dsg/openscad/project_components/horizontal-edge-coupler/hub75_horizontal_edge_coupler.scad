@@ -1177,10 +1177,14 @@ module _hub75_horizontal_edge_coupler_guide_shell_2d(coupler) {
 }
 
 
-module _hub75_horizontal_edge_coupler_outer_zone_2d(coupler) {
+module _hub75_horizontal_edge_coupler_outer_zone_2d(
+    coupler,
+    panel_shift_z = 0
+) {
     z_min =
         coupler.rear_outer_edge_z
-        + coupler.fit_clearance;
+        + coupler.fit_clearance
+        + panel_shift_z;
     big = 2 * coupler.profile_size + 40;
 
     translate([
@@ -1202,10 +1206,16 @@ module _hub75_horizontal_edge_coupler_tall_guide_2d(coupler) {
 }
 
 
-module _hub75_horizontal_edge_coupler_outer_ridge_2d(coupler) {
+module _hub75_horizontal_edge_coupler_outer_ridge_2d(
+    coupler,
+    panel_shift_z = 0
+) {
     intersection() {
         _hub75_horizontal_edge_coupler_guide_shell_2d(coupler);
-        _hub75_horizontal_edge_coupler_outer_zone_2d(coupler);
+        _hub75_horizontal_edge_coupler_outer_zone_2d(
+            coupler,
+            panel_shift_z
+        );
     }
 }
 
@@ -1244,9 +1254,10 @@ module _hub75_horizontal_edge_coupler_guide_walls(coupler) {
 
 
 module _hub75_horizontal_edge_coupler_outer_edge_ridge(coupler) {
-    // The outside guide follows the panel's real continuous Z taper. Its X/Z
-    // cross-section stays unchanged; only its Z position moves as Y advances
-    // into the panel. This replaces the old arbitrary 0.35 mm profile shrink.
+    // Only the panel-facing edge follows the real continuous Z taper. The
+    // exposed outside contour of the coupler remains straight in Z; therefore
+    // the ridge becomes slightly thinner as it advances into the panel instead
+    // of translating the complete cross-section outward.
     ridge_h = coupler.guide_height;
     taper_h = min(ridge_h, coupler.panel_taper_depth);
     taper_shift_z = hub75_panel_taper_shift_at_depth(
@@ -1261,26 +1272,33 @@ module _hub75_horizontal_edge_coupler_outer_edge_ridge(coupler) {
                 -_HUB75_HORIZONTAL_EDGE_COUPLER_EPS,
                  _HUB75_HORIZONTAL_EDGE_COUPLER_EPS
             )
-                _hub75_horizontal_edge_coupler_outer_ridge_2d(coupler);
+                _hub75_horizontal_edge_coupler_outer_ridge_2d(
+                    coupler,
+                    0
+                );
 
-            translate([0, 0, taper_shift_z])
-                _hub75_horizontal_edge_coupler_extrude_xz_y(
-                    -taper_h - _HUB75_HORIZONTAL_EDGE_COUPLER_EPS,
-                    -taper_h + _HUB75_HORIZONTAL_EDGE_COUPLER_EPS
-                )
-                    _hub75_horizontal_edge_coupler_outer_ridge_2d(coupler);
+            _hub75_horizontal_edge_coupler_extrude_xz_y(
+                -taper_h - _HUB75_HORIZONTAL_EDGE_COUPLER_EPS,
+                -taper_h + _HUB75_HORIZONTAL_EDGE_COUPLER_EPS
+            )
+                _hub75_horizontal_edge_coupler_outer_ridge_2d(
+                    coupler,
+                    taper_shift_z
+                );
         }
 
         // If a caller requests an insertion deeper than the physical taper,
-        // continue with the front-footprint position instead of extending the
-        // taper beyond its real depth.
+        // continue with the front-footprint inner edge while the outside wall
+        // stays at the same straight coupler contour.
         if (ridge_h > taper_h)
-            translate([0, 0, taper_shift_z])
-                _hub75_horizontal_edge_coupler_extrude_xz_y(
-                    -ridge_h - _HUB75_HORIZONTAL_EDGE_COUPLER_EPS,
-                    -taper_h + _HUB75_HORIZONTAL_EDGE_COUPLER_EPS
-                )
-                    _hub75_horizontal_edge_coupler_outer_ridge_2d(coupler);
+            _hub75_horizontal_edge_coupler_extrude_xz_y(
+                -ridge_h - _HUB75_HORIZONTAL_EDGE_COUPLER_EPS,
+                -taper_h + _HUB75_HORIZONTAL_EDGE_COUPLER_EPS
+            )
+                _hub75_horizontal_edge_coupler_outer_ridge_2d(
+                    coupler,
+                    taper_shift_z
+                );
     }
 }
 
