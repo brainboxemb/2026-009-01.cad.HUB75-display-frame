@@ -188,7 +188,7 @@ module _hub75_horizontal_edge_design_locator_crop(coupler, width = 34) {
 module _hub75_horizontal_edge_design_outer_ridge_detail_2d(coupler) {
     intersection() {
         _hub75_horizontal_edge_coupler_outer_ridge_2d(coupler);
-        square([24, 40], center = true);
+        square([18, 32], center = true);
     }
 }
 
@@ -274,7 +274,7 @@ module hub75_horizontal_edge_coupler_design(view = "final") {
                         }
                     color([0.43, 0.43, 0.43, 1.0])
                         _hub75_horizontal_edge_design_physical_locator_pin(coupler);
-                    color(current)
+                    color([0.88, 0.08, 0.06, 0.30])
                         _hub75_horizontal_edge_coupler_locator_pin_clearance_cutter(coupler);
                 }
 
@@ -321,8 +321,8 @@ module hub75_horizontal_edge_coupler_design(view = "final") {
             coupler.panel_taper_depth,
             coupler.panel_rear_outer_inset_z
         );
-        translate([0, 0, -20])
-            scale([2.6, 2.6, 2.6]) {
+        translate([0, 0, -10])
+            scale([2.0, 2.0, 2.0]) {
                 color(existing)
                     _hub75_horizontal_edge_coupler_extrude_xz_y(-0.08, 0.08)
                         _hub75_horizontal_edge_design_outer_ridge_detail_2d(coupler);
@@ -343,8 +343,8 @@ module hub75_horizontal_edge_coupler_design(view = "final") {
 
     } else if (view == "guide-reinforcement-detail") {
         detail_position = _hub75_horizontal_edge_coupler_reinforcement_positions(coupler)[1];
-        translate([0, 0, -20])
-            scale([3.0, 3.0, 3.0])
+        translate([0, 0, -10])
+            scale([2.2, 2.2, 2.2])
                 translate([-detail_position[0], 0, -detail_position[1]]) {
                     color([0.43, 0.43, 0.43, 1.0])
                         _hub75_horizontal_edge_design_reinforcement_panel_fragment(coupler, detail_position);

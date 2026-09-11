@@ -291,7 +291,7 @@ module hub75_corner_edge_coupler_design(view = "final") {
                         }
                     color([0.43, 0.43, 0.43, 1.0])
                         _hub75_corner_edge_design_physical_locator_pin(coupler);
-                    color(current)
+                    color([0.88, 0.08, 0.06, 0.30])
                         _hub75_corner_edge_coupler_locator_pin_clearance_cutter(coupler);
                 }
 
@@ -344,8 +344,8 @@ module hub75_corner_edge_coupler_design(view = "final") {
 
     } else if (view == "guide-reinforcement-detail") {
         detail_position = hub75_corner_edge_coupler_reinforcement_position(coupler);
-        translate([10, 0, -10])
-            scale([3.0, 3.0, 3.0])
+        translate([10, 0, -2])
+            scale([2.2, 2.2, 2.2])
                 translate([-detail_position[0], 0, -detail_position[1]]) {
                     color([0.43, 0.43, 0.43, 1.0])
                         _hub75_corner_edge_design_reinforcement_panel_fragment(coupler, detail_position);
