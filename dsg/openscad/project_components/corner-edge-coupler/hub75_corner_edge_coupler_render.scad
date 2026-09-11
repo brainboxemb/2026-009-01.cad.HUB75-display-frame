@@ -75,6 +75,17 @@ module _hub75_corner_edge_design_panel_keepout_visible_2d(coupler) {
     }
 }
 
+module _hub75_corner_edge_design_clearance_band_2d(coupler) {
+    difference() {
+        intersection() {
+            offset(delta = coupler.fit_clearance)
+                _hub75_corner_edge_coupler_panel_keepout_2d(coupler);
+            _hub75_corner_edge_design_profile_window_2d(coupler);
+        }
+        _hub75_corner_edge_design_panel_keepout_visible_2d(coupler);
+    }
+}
+
 module _hub75_corner_edge_design_profile_outline_2d(coupler, line_width = 1.0) {
     difference() {
         _hub75_corner_edge_coupler_profile_2d(coupler);
@@ -194,10 +205,17 @@ module _hub75_corner_edge_design_physical_locator_pin(coupler) {
     position = hub75_corner_edge_coupler_locator_pin_position(coupler);
     translate([position[0], 0, position[1]])
         rotate([-90, 0, 0])
-            cylinder(
-                d = coupler.locator_pin_diameter,
-                h = coupler.locator_pin_protrusion
-            );
+            cylinder(d = coupler.locator_pin_diameter, h = coupler.locator_pin_protrusion);
+}
+
+module _hub75_corner_edge_design_locator_crop(coupler, width = 34) {
+    position = hub75_corner_edge_coupler_locator_pin_position(coupler);
+    translate([
+        position[0] - width / 2,
+        -2,
+        position[1] - width / 2
+    ])
+        cube([width, coupler.base_thickness + 5, width]);
 }
 
 module _hub75_corner_edge_design_after_reference_pockets(coupler) {
@@ -227,11 +245,7 @@ module hub75_corner_edge_coupler_design(view = "final") {
     if (view == "mating-reference") {
         color(current)
             _hub75_corner_edge_design_thin(-0.42, -0.02)
-                intersection() {
-                    offset(delta = coupler.fit_clearance)
-                        _hub75_corner_edge_coupler_panel_keepout_2d(coupler);
-                    _hub75_corner_edge_design_profile_window_2d(coupler);
-                }
+                _hub75_corner_edge_design_clearance_band_2d(coupler);
         color(existing)
             _hub75_corner_edge_design_thin(0.02, 0.42)
                 _hub75_corner_edge_design_panel_keepout_visible_2d(coupler);
@@ -266,12 +280,20 @@ module hub75_corner_edge_coupler_design(view = "final") {
                 _hub75_corner_edge_coupler_profile_2d(coupler);
 
     } else if (view == "locator-pin-clearance") {
-        color(existing_transparent)
-            _hub75_corner_edge_coupler_base_after_pocket(coupler);
-        color([0.43, 0.43, 0.43, 1.0])
-            _hub75_corner_edge_design_physical_locator_pin(coupler);
-        color(current)
-            _hub75_corner_edge_coupler_locator_pin_clearance_cutter(coupler);
+        position = hub75_corner_edge_coupler_locator_pin_position(coupler);
+        translate([10, 0, -10])
+            scale([2.25, 2.25, 2.25])
+                translate([-position[0], 0, -position[1]]) {
+                    color(existing_transparent)
+                        intersection() {
+                            _hub75_corner_edge_coupler_base_after_pocket(coupler);
+                            _hub75_corner_edge_design_locator_crop(coupler);
+                        }
+                    color([0.43, 0.43, 0.43, 1.0])
+                        _hub75_corner_edge_design_physical_locator_pin(coupler);
+                    color(current)
+                        _hub75_corner_edge_coupler_locator_pin_clearance_cutter(coupler);
+                }
 
     } else if (view == "guide-keepout") {
         color(current)
@@ -310,21 +332,30 @@ module hub75_corner_edge_coupler_design(view = "final") {
                 _hub75_corner_edge_design_outer_ridges_2d(coupler);
 
     } else if (view == "guide-reinforcement-relief") {
-        color(existing_transparent)
-            _hub75_corner_edge_design_unrelieved_tall_guide(coupler);
-        color(current)
-            _hub75_corner_edge_design_reinforcement_relief_cutter(coupler);
+        detail_position = hub75_corner_edge_coupler_reinforcement_position(coupler);
+        translate([10, 0, -10])
+            scale([1.75, 1.75, 1.75])
+                translate([-detail_position[0], 0, -detail_position[1]]) {
+                    color(existing_transparent)
+                        _hub75_corner_edge_design_unrelieved_tall_guide(coupler);
+                    color(current)
+                        _hub75_corner_edge_design_reinforcement_relief_cutter(coupler);
+                }
 
     } else if (view == "guide-reinforcement-detail") {
         detail_position = hub75_corner_edge_coupler_reinforcement_position(coupler);
-        color([0.43, 0.43, 0.43, 1.0])
-            _hub75_corner_edge_design_reinforcement_panel_fragment(coupler, detail_position);
-        color([0.72, 0.72, 0.72, 0.48])
-            _hub75_corner_edge_design_reinforcement_guide_fragment(coupler, detail_position);
-        color([0.88, 0.08, 0.06, 0.30])
-            _hub75_corner_edge_design_reinforcement_clearance_band(coupler, detail_position);
-        color([0.94, 0.03, 0.02, 0.96])
-            _hub75_corner_edge_design_reinforcement_collision(coupler, detail_position);
+        translate([10, 0, -10])
+            scale([3.0, 3.0, 3.0])
+                translate([-detail_position[0], 0, -detail_position[1]]) {
+                    color([0.43, 0.43, 0.43, 1.0])
+                        _hub75_corner_edge_design_reinforcement_panel_fragment(coupler, detail_position);
+                    color([0.72, 0.72, 0.72, 0.48])
+                        _hub75_corner_edge_design_reinforcement_guide_fragment(coupler, detail_position);
+                    color([0.88, 0.08, 0.06, 0.30])
+                        _hub75_corner_edge_design_reinforcement_clearance_band(coupler, detail_position);
+                    color([0.94, 0.03, 0.02, 0.96])
+                        _hub75_corner_edge_design_reinforcement_collision(coupler, detail_position);
+                }
 
     } else if (view == "center-marks") {
         color(existing)
