@@ -88,47 +88,102 @@ module _hub75_middle_coupler_design_profile_outline_2d(
 }
 
 
-module _hub75_middle_coupler_design_reinforcement_panel_context(
-    panel,
+module _hub75_middle_coupler_design_reinforcement_crop(
     coupler,
-    crop_width = 28,
-    crop_height = 28
+    position,
+    crop_width = 34,
+    crop_height = 34
 ) {
-    pitch = hub75_p5_64x32_panel_nominal_width(panel);
-    mounting_y = hub75_p5_64x32_panel_mounting_plane_y(panel);
+    translate([
+        position[0] - crop_width / 2,
+        -coupler.guide_height - 2,
+        position[1] - crop_height / 2
+    ])
+        cube([
+            crop_width,
+            coupler.guide_height + 3,
+            crop_height
+        ]);
+}
 
-    // Keep the real panel coordinate system, but shift the rear mounting plane
-    // to local Y=0 so it coincides with the coupler design coordinate system.
-    module _panel_pair() {
-        for (x = [-pitch / 2, pitch / 2])
-            translate([x, -mounting_y, 0])
-                hub75_p5_64x32_panel_render(
-                    panel,
-                    view = hub75_p5_64x32_panel_view_id("structure"),
-                    color_scheme = "light_gray"
-                );
-    }
 
-    // Only retain small physical fragments around the two reinforcement
-    // features. The diagram should explain the local collision rather than
-    // shrink the complete 320 x 160 mm panels into an unreadable background.
-    module _local_crop() {
-        for (position = _hub75_middle_coupler_reinforcement_positions(coupler))
-            translate([
-                position[0] - crop_width / 2,
-                -coupler.guide_height - 2,
-                position[1] - crop_height / 2
-            ])
-                cube([
-                    crop_width,
-                    coupler.guide_height + 3,
-                    crop_height
-                ]);
-    }
+module _hub75_middle_coupler_design_reinforcement_panel_fragment(
+    coupler,
+    position,
+    fragment_length = 30,
+    fragment_depth = 8
+) {
+    // Diagrammatic local reconstruction of the physical HUB75 side-rail
+    // reinforcement at one of the two coupler contact points. Every dimension
+    // comes from the panel-derived coupler object: no panel measurement is
+    // duplicated here. The detail deliberately omits unrelated panel area.
+    outer_d = coupler.reinforcement_bushing_outer_diameter;
+    recess_d = coupler.reinforcement_bushing_recess_diameter;
+    recess_depth = coupler.reinforcement_bushing_recess_depth;
+    hole_d = coupler.reinforcement_bushing_hole_diameter;
+    hole_depth = coupler.reinforcement_bushing_hole_depth;
+    rail_width = coupler.rear_side_rail_width;
+    eps = 0.04;
 
+    translate([position[0], 0, position[1]])
+        difference() {
+            // Rear side rail plus the retained circular reinforcement footprint.
+            _hub75_middle_coupler_extrude_xz_y(-fragment_depth, 0)
+                union() {
+                    square([rail_width, fragment_length], center = true);
+                    circle(d = outer_d);
+                }
+
+            // Large rear-facing recess in the reinforcement feature.
+            _hub75_middle_coupler_extrude_xz_y(
+                -recess_depth - eps,
+                 eps
+            )
+                circle(d = recess_d);
+
+            // Smaller blind hole continuing from the floor of the recess.
+            _hub75_middle_coupler_extrude_xz_y(
+                -recess_depth - hole_depth,
+                -recess_depth + eps
+            )
+                circle(d = hole_d);
+        }
+}
+
+
+module _hub75_middle_coupler_design_reinforcement_guide_fragment(
+    coupler,
+    position
+) {
     intersection() {
-        _panel_pair();
-        _local_crop();
+        _hub75_middle_coupler_extrude_xz_y(
+            -coupler.guide_height,
+            0
+        )
+            _hub75_middle_coupler_guide_shell_2d(coupler);
+
+        _hub75_middle_coupler_design_reinforcement_crop(
+            coupler,
+            position
+        );
+    }
+}
+
+
+module _hub75_middle_coupler_design_reinforcement_collision(
+    coupler,
+    position
+) {
+    // Show only guide material that lies inside the reinforcement relief
+    // cutter. This is the exact material removed from the unrelieved guide,
+    // not the complete abstract cutter cylinder.
+    intersection() {
+        _hub75_middle_coupler_design_reinforcement_guide_fragment(
+            coupler,
+            position
+        );
+
+        _hub75_middle_coupler_reinforcement_relief_cutters(coupler);
     }
 }
 
@@ -265,25 +320,31 @@ module hub75_middle_coupler_design(view = "final") {
                 _hub75_middle_coupler_guide_shell_2d(coupler);
 
     } else if (view == "guide-reinforcement-reliefs") {
-        // Real HUB75 structure provides the physical reason for this cut. The
-        // two cropped panel fragments show the reinforcement features in their
-        // actual assembled positions. The unrelieved guide remains translucent
-        // grey and the red cylinders are the complete clearance envelopes that
-        // must be subtracted from it.
-        _hub75_middle_coupler_design_reinforcement_panel_context(
-            panel,
-            coupler
-        );
+        // One enlarged physical detail is clearer than two small mirrored
+        // examples. The same relief operation is applied at both reinforcement
+        // positions in production. Dark grey is the panel-derived side-rail
+        // reinforcement, pale grey the still-unrelieved guide, and red exactly
+        // the guide material that collides with the required clearance zone.
+        detail_position =
+            _hub75_middle_coupler_reinforcement_positions(coupler)[1];
 
-        color([0.70, 0.70, 0.70, 0.28])
-            _hub75_middle_coupler_extrude_xz_y(
-                -coupler.guide_height,
-                0
-            )
-                _hub75_middle_coupler_guide_shell_2d(coupler);
+        color([0.43, 0.43, 0.43, 1.0])
+            _hub75_middle_coupler_design_reinforcement_panel_fragment(
+                coupler,
+                detail_position
+            );
 
-        color([0.88, 0.08, 0.06, 0.48])
-            _hub75_middle_coupler_reinforcement_relief_cutters(coupler);
+        color([0.72, 0.72, 0.72, 0.42])
+            _hub75_middle_coupler_design_reinforcement_guide_fragment(
+                coupler,
+                detail_position
+            );
+
+        color([0.88, 0.08, 0.06, 0.84])
+            _hub75_middle_coupler_design_reinforcement_collision(
+                coupler,
+                detail_position
+            );
 
     } else if (view == "center-marks") {
         // The reference pockets belong to the previous stage. Render them as
