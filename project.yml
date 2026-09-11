@@ -38,7 +38,7 @@ externals:
     type: git-submodule
     url: https://github.com/brainboxemb/lib.scad.hub75.git
     path: dsg/openscad/ext/lib.scad.hub75
-    ref: v0.1.0
+    ref: v0.1.1
     required_file: openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad
 
 verification:
