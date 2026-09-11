@@ -74,6 +74,19 @@ module _hub75_middle_coupler_design_vertical_rib_2d(coupler) {
 }
 
 
+module _hub75_middle_coupler_design_profile_outline_2d(
+    coupler,
+    line_width = 1.0
+) {
+    difference() {
+        _hub75_middle_coupler_profile_2d(coupler);
+
+        offset(delta = -line_width)
+            _hub75_middle_coupler_profile_2d(coupler);
+    }
+}
+
+
 module _hub75_middle_coupler_design_after_reference_pockets(coupler) {
     // Construction state used only by the documentation: the complete
     // functional coupler with the blind reference pockets already cut, but
@@ -166,16 +179,22 @@ module hub75_middle_coupler_design(view = "final") {
                 _hub75_middle_coupler_profile_2d(coupler);
 
     } else if (view == "guide-keepout") {
-        // Grey: printable PLUS area. Red: actual rear rib cross expanded by the
-        // fit clearance that the raised guides must stay outside of.
-        color(existing_transparent)
-            _hub75_middle_coupler_design_thin(-0.42, -0.02)
-                _hub75_middle_coupler_profile_2d(coupler);
-
+        // The guide subtraction only cares about the forbidden region inside
+        // the printable PLUS. Show that region in red and keep the complete
+        // printable boundary visible as a grey outline instead of hiding it
+        // underneath another opaque filled shape.
         color(current)
+            _hub75_middle_coupler_design_thin(-0.42, -0.02)
+                intersection() {
+                    _hub75_middle_coupler_profile_2d(coupler);
+
+                    offset(delta = coupler.fit_clearance)
+                        _hub75_middle_coupler_rib_cross_keepout_2d(coupler);
+                }
+
+        color(existing)
             _hub75_middle_coupler_design_thin(0.02, 0.42)
-                offset(delta = coupler.fit_clearance)
-                    _hub75_middle_coupler_rib_cross_keepout_2d(coupler);
+                _hub75_middle_coupler_design_profile_outline_2d(coupler);
 
     } else if (view == "guide-raw-shell") {
         // Keep the starting printable footprint visible behind the subtraction
