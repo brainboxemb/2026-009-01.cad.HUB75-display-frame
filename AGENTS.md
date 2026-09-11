@@ -1,56 +1,37 @@
-# ChatGPT project handoff
+# Repository agent guidance
+
+Persistent guidance for automated coding agents working in
+`2026-009-01.cad.HUB75-display-frame`.
 
 ## Project purpose
 
-`2026-009-01.cad.HUB75-display-frame` is the clean restart of the HUB75 display
-frame project.
+This repository is the clean restart of the HUB75 display-frame project. The
+older display-frame repository is not a geometry authority. Historical material
+may be used once to recover an explicitly approved decision, but that decision
+must then be captured in current source/design documentation.
 
-The previous HUB75 display-frame repository is not a design authority for this
-clean rebuild. Do not use its frame/coupler code as reference geometry.
+Develop through small, verifiable assemblies. Do not mix new reinforcement or
+mounting layers into unresolved basic panel-fit geometry.
 
-Historical material may be used once to recover an explicitly approved design
-decision, but that decision must then be captured in the current source and
-design documentation. From that point forward, the current project is the
-authority.
+## Sources of truth
 
-The goal is controlled development through small, verifiable assemblies.
-
-## Current design state
-
-`CHANGELOG.md` is the authority for completed milestone history. Do not maintain
-a second detailed milestone history here.
-
-The current digitally established sequence is:
+Use these in order:
 
 ```text
-Milestone 1
-    five-panel portrait assembly
-
-Milestone 2
-    middle coupler core
-
-Milestone 3
-    horizontal-edge coupler core
-
-Milestone 4
-    left/right corner-edge coupler core
+current component source + generated design evidence
+lib.scad.hub75 public geometry/mating API
+project.yml for tooling/build/publication policy
+CHANGELOG.md for completed milestone history
 ```
 
-The middle, horizontal-edge and corner families all have small, medium and
-large normal-build evidence plus dedicated fit verification. The core connector
-family is therefore digitally established against the reusable HUB75 panel
-model.
+Do not duplicate volatile tool versions in this file. `project.yml`, gitlinks
+and reusable workflow refs define the active tooling release.
 
-Physical print fit is still required before the family is treated as physically
-accepted. Aluminium reinforcement tube and clip geometry remains the next
-separate design layer and must not be mixed into basic panel-fit geometry.
+## Panel orientation and coordinate system
 
-Important panel orientation:
+The library panel is already portrait in this project:
 
 ```text
-library panel orientation
-    portrait
-
 one panel
     X = nominal 160 mm
     Z = nominal 320 mm
@@ -62,372 +43,123 @@ five side by side
     160 x 64 pixels
 ```
 
-The user may describe the total size height-first as:
+Do not rotate the panel 90 degrees to obtain this orientation.
+
+Project coordinates preserve the native library datum:
 
 ```text
-320 x 800 mm
-64 x 160 pixels
+X = 0    centre of complete display width
+Y = 0    HUB75 front face
+Z = 0    centre of panel/display height
 ```
 
-Do not rotate these panels 90 degrees. The library model is already portrait.
+The panel is not symmetric in Y. Use explicit mechanical accessors such as the
+rear mounting plane; never substitute the geometric depth midpoint.
 
-### Middle-coupler shape authority
-
-Do not use the old GitHub repository as the middle-coupler geometry reference.
-
-The approved v120 archive supplied during the redesign was used once to recover
-the preferred rounded form. That form is now encoded in the current component
-and design documentation and is authoritative:
+Expected five-panel X placement is nominally:
 
 ```text
-profile size           80 mm
-inside corner radius   10 mm
-outside end radius      6 mm
-guide end rounding    1.5 mm
-seam locator radius     1 mm
-reinforcement pad      Ø9.4 x 2.4 mm
-reinforcement pin       Ø2.1 x 2.0 mm
-reference pockets       Ø3.0 x 2.5 mm blind
-pocket stations          20 / 30 / 40 mm
-current pocket lanes     ±7.5 mm
-reference marks          5 mm minor / 10 mm major
-centre reference +       6.0 mm
+-320, -160, 0, +160, +320 mm
 ```
 
-Future changes should compare against the current
-`hub75_middle_coupler.scad` and generated design evidence, not against old
-repository code.
+Placement must use nominal-size accessors from `lib.scad.hub75`, not duplicated
+project constants.
 
-The component defaults to:
+## Geometry authority
 
-```text
-render_fn = 192
-```
+`lib.scad.hub75` is the sole reusable authority for physical panel geometry and
+mating dimensions. Consume its public object/accessor API. Do not copy panel
+measurements into connector source unless the value is genuinely project-owned.
 
-Resolution is part of the middle-coupler object. Public build/render modules
-must set `$fn = coupler.render_fn` internally because component files are often
-loaded through `use <...>`, which does not import top-level variable
-assignments.
+OpenSCAD cross-file interfaces use public names without a leading underscore.
+Private implementation helpers use a leading underscore, including nested
+helpers.
 
-Hand-built PLUS arcs must derive their segment count from
-`coupler.render_fn`, never from ambient `$fn` and never from a small fixed
-`steps` count. This prevents hexagonal screw holes and visibly faceted STL
-rounding.
+## Connector design discipline
 
-## Project coordinate system
+The middle, horizontal-edge and corner-edge families are developed as separate
+components with small/medium/large build evidence and focused fit verification.
 
-Use the HUB75 front face as the Y datum:
+The previously approved rounded middle-coupler form is now encoded in current
+source and design documentation. Future changes must compare against current
+source/evidence, not an old archive or old repository code.
 
-```text
-X = 0
-    centre of complete display width
+Surface resolution is part of the connector object where required. Public
+build/render modules must not depend on ambient top-level variables that are
+lost across `use <...>` boundaries.
 
-Y = 0
-    HUB75 front face
+Any hand-built curved helper must derive tessellation from the component's
+configured render resolution; do not use a small fixed segment count that can
+produce faceted STL geometry or polygonal screw holes.
 
-Z = 0
-    centre of panel/display height
-```
+## Build architecture
 
-This intentionally preserves the native `lib.scad.hub75` coordinate system.
-The panel is not symmetric in Y, so do not use the geometric midpoint of the
-panel depth as the primary mechanical datum.
-
-Current default panel depth:
-
-```text
-front face          Y =  0.00 mm
-rear mounting plane Y = 14.50 mm
-```
-
-Expected X/Z placement for the five-panel milestone:
-
-```text
-X = -320, -160, 0, +160, +320 mm
-Z = 0
-```
-
-Future frame and coupler geometry should use explicit accessors for mechanical
-Y datums such as the rear mounting plane.
-
-Do not change camera targets to compensate for a coordinate-origin mismatch.
-Keep the model origin correct first.
-
-## Dimension authority
-
-Use `lib.scad.hub75` as the only authority for physical panel geometry and
-placement dimensions.
-
-Public API:
-
-```scad
-panel = hub75_p5_64x32_panel_create();
-
-hub75_p5_64x32_panel_build(panel);
-
-hub75_p5_64x32_panel_nominal_width(panel);
-hub75_p5_64x32_panel_nominal_height(panel);
-hub75_p5_64x32_panel_width(panel);
-hub75_p5_64x32_panel_height(panel);
-
-// Mechanical mating API
-hub75_p5_64x32_panel_rear_grid_gap_x(panel);
-hub75_p5_64x32_panel_rear_side_rail_width_at_mounting_plane(panel);
-hub75_p5_64x32_panel_rear_crossbar_width_at_mounting_plane(panel);
-hub75_p5_64x32_panel_rear_opening_corner_radius(panel);
-hub75_p5_64x32_panel_mounting_tube_outer_diameter(panel);
-hub75_p5_64x32_panel_mounting_tube_protrusion(panel);
-hub75_p5_64x32_panel_reinforcement_bushing_outer_diameter(panel);
-hub75_p5_64x32_panel_reinforcement_bushing_recess_diameter(panel);
-hub75_p5_64x32_panel_reinforcement_bushing_recess_depth(panel);
-hub75_p5_64x32_panel_reinforcement_bushing_hole_diameter(panel);
-hub75_p5_64x32_panel_reinforcement_bushing_hole_depth(panel);
-hub75_p5_64x32_panel_reinforcement_bushing_offset(panel);
-```
-
-Current library defaults:
-
-```text
-physical width        159.70 mm
-physical height       319.71 mm
-nominal width         160.00 mm
-nominal height        320.00 mm
-```
-
-Placement must use nominal width/height accessors. Do not duplicate these
-dimensions as project constants.
-
-## Private symbol naming
-
-Use the same BOSL2-style convention as the reusable SCAD libraries:
-
-```text
-cross-file project interface
-    no leading underscore
-
-private implementation helper
-    leading underscore
-
-nested/local private helper
-    leading underscore too
-```
-
-Current cross-file OpenSCAD interface includes the panel assembly and public
-component APIs. Calculation helpers used only inside an implementation file
-must remain underscore-prefixed.
-
-## Project architecture
-
-```text
-docker.scad-toolchain v0.4.1
-    runtime capabilities
-
-tool.scad-project v0.9.0
-    configuration, selective build orchestration and publication lifecycle
-
-lib.scad.hub75
-    reusable panel geometry
-
-this repository
-    panel arrangement
-    project-specific connector family
-    focused fit verification
-```
-
-Direct project submodules:
-
-```text
-tools/tool.scad-project
-dsg/openscad/ext/lib.scad.hub75
-```
-
-Do not recursively initialize development dependencies inside those submodules
-as project dependencies. The project records only its direct dependency pins.
-
-Normal project outputs are discovered from:
+Normal output is discovered from:
 
 ```text
 dsg/openscad/render/
 dsg/openscad/export/
 ```
 
-Special multi-size behaviour is declared in the adjacent `render.yml` and
-`export.yml` profiles. Do not reintroduce an explicit per-output `builds:` list
-in `project.yml` for these normal directory-based targets.
+Special multi-size behavior belongs in adjacent `render.yml` / `export.yml`
+profiles. Do not reintroduce a long explicit `builds:` list for normal targets.
 
-The configured build engine is SCons. Dependency-aware target state is cached
-outside `bld/`, while generated design documentation has a separate exact-input
-cache. A clean unchanged hosted-runner build was validated on 2026-09-10 with:
+The project uses the SCons backend through `tool.scad-project`. Dependency-aware
+selection must remain correct: unchanged targets may be restored/current, but a
+changed SCAD dependency must rebuild only the affected target graph. Do not
+replace dependency checking with a broad unconditional cache hit.
 
-```text
-design documentation
-    restored from cache; design-build skipped
+Generated design documentation has its own cache and is separate from normal
+per-target SCons selection.
 
-normal render/export targets
-    29 total
-     0 executed
-    29 cache-current / restored
-```
+Direct project submodules are the project tool and `lib.scad.hub75`. Normal
+checkout is direct-only; do not recursively initialize development dependencies
+owned by those submodules.
 
-This is the expected unchanged-build behaviour. A changed SCAD dependency must
-still rebuild only the affected target graph; do not replace dependency checking
-with a broad unconditional cache hit.
+## Render and verification policy
 
-## Publication lifecycle
+Whole-display documentation renders use the public HUB75 render path with the
+project's light-grey color scheme so detail and assembly views stay consistent.
+Do not switch whole-display documentation back to the library's dark/default
+appearance.
 
-Current mutable publication branches:
+Official full-display cameras and orthographic projection are part of the
+project's documentation contract. Do not compensate for coordinate mistakes by
+changing camera targets or projection.
 
-```text
-main
-    -> prod/build
-    -> prod/verification
-```
+Default build PNGs use the watermark configured in `project.yml`. Image
+post-processing belongs to `docker.scad-toolchain`; orchestration belongs to
+`tool.scad-project`; do not add project-local watermark code.
 
-Development branches publish to:
+Fit evidence belongs on the configured verification publication branch. Rear-fit
+sections are the primary passing check: neutral panel structure, contrasting
+coupler material, and the nominal verification datum. Fixtures should stay
+small enough to diagnose the relevant interface.
 
-```text
-dev/build
-dev/verification
-```
+## Publication
 
-Version releases are coordinated by `.github/workflows/release.yml`. Release
-requests use `release-request/vX.Y.Z`, after which immutable generated snapshots
-belong under:
+Branch names and release behavior are defined in `project.yml` and reusable
+workflows. Do not duplicate changing branch/version details here.
 
-```text
-rel/vX.Y.Z/build
-rel/vX.Y.Z/verification
-```
+Source stays on `main`; production/development generated snapshots and immutable
+release snapshots are created by the shared publication lifecycle. Do not create
+a project version tag merely because release infrastructure exists.
 
-Do not create a project version tag merely because release infrastructure is
-present. Choose and review the project version independently before invoking the
-release workflow.
+## Development sequence
 
-Normal Build and Verify workflows deliberately exclude `release-request/**` and
-do not separately trigger on version tags; the coordinated Release workflow owns
-that lifecycle.
+For each new component or layer:
 
-## Render policy
-
-The complete five-panel assembly defaults to:
-
-```text
-color_scheme = "light_gray"
-```
-
-Do not switch whole-display documentation renders back to the library's
-dark/original `hub75_p5_64x32_panel_build()` appearance. Use the public
-`hub75_p5_64x32_panel_render(..., color_scheme="light_gray")` path so whole
-display and detail views remain visually consistent.
-
-Configured full-display renders:
-
-```text
-dsg/openscad/render/front.scad
-    -> bld/png/front.png
-
-dsg/openscad/render/front-angled.scad
-    -> bld/png/front-angled.png
-
-dsg/openscad/render/rear.scad
-    -> bld/png/rear.png
-
-dsg/openscad/render/rear-angled.scad
-    -> bld/png/rear-angled.png
-```
-
-Use the same official whole-display cameras as the old project:
-
-```text
-front         $vpr=[90,0,0]    $vpd=1200
-front angled  $vpr=[85,0,40]   $vpd=1050
-rear          $vpr=[90,0,180]  $vpd=1200
-rear angled   $vpr=[85,0,220]  $vpd=1050
-```
-
-These official documentation views must use orthographic OpenSCAD projection,
-matching the classic HUB75 renderer:
-
-```yaml
-openscad:
-  render_flags:
-    - --render
-    - --projection=o
-```
-
-Do not compensate for accidental perspective rendering by shifting `$vpt` or
-changing the official camera angles.
-
-Verification STL:
-
-```text
-dsg/openscad/export/panels-assembly.scad
-    -> bld/stl/panels-assembly.stl
-```
-
-The STL is for interactive inspection/rotation and must represent the same
-five-panel milestone assembly as the PNG renders.
-
-Normal connector build output is size-qualified:
-
-```text
-bld/png/middle-coupler-<size>.png
-bld/png/horizontal-edge-coupler-<size>.png
-bld/png/corner-edge-coupler-left-<size>.png
-bld/png/corner-edge-coupler-right-<size>.png
-
-bld/stl/middle-coupler-<size>.stl
-bld/stl/horizontal-edge-coupler-<size>.stl
-bld/stl/corner-edge-coupler-left-<size>.stl
-bld/stl/corner-edge-coupler-right-<size>.stl
-```
-
-Fit evidence belongs on `prod/verification`, using flat unique filenames for
-all size/chirality variants. Rear-fit sections are the primary visual passing
-checks: grey is HUB75 rear structure, red is coupler material and blue is the
-nominal verification datum pin.
-
-The focused fit fixtures must remain small enough to diagnose the relevant
-panel/coupler interface rather than becoming full-display scenes.
-
-Default build resolution:
-
-```text
-2560 x 1440
-```
-
-PNG build output uses:
-
-```yaml
-rendering:
-  watermark:
-    text: "© 2026 brainboxemb"
-```
-
-Watermark drawing belongs to `docker.scad-toolchain`; orchestration belongs to
-`tool.scad-project`. Do not add project-local image-processing code.
-
-## Development discipline
-
-For each next component or layer:
-
-1. define the physical purpose and interfaces;
+1. define physical purpose and interfaces;
 2. build the smallest useful geometry;
 3. add a focused assembly or fit view;
 4. verify it;
 5. document the design reasoning;
-6. only then add the next layer of complexity.
+6. only then add the next layer.
 
 Prefer fewer view modes and explicit component toggles.
 
-The current connector cores are digitally established. Before adding aluminium
-reinforcement tube and clips, inspect the complete family, preferably print the
-medium middle/horizontal-edge and both corner variants, and resolve any panel-fit
-issues without mixing them with reinforcement geometry.
-
-Top-level project READMEs should follow the current SCAD-project convention with
-a `Quick links` section near the top linking at least to `prod/build`, generated
-design documentation, PNG renders, STL output and `prod/verification` when
-present.
+Top-level README documentation should keep the current SCAD-project quick-link
+convention and expose generated design, renders, STL output and verification as
+appropriate.
 
 The model and documentation were developed with the assistance of ChatGPT.
