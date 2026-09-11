@@ -110,8 +110,8 @@ module _hub75_middle_coupler_design_reinforcement_crop(
 module _hub75_middle_coupler_design_reinforcement_panel_fragment(
     coupler,
     position,
-    fragment_length = 30,
-    fragment_depth = 8
+    fragment_length = 24,
+    fragment_depth = 6.5
 ) {
     // Diagrammatic local reconstruction of the physical HUB75 side-rail
     // reinforcement at one of the two coupler contact points. Every dimension
@@ -167,6 +167,34 @@ module _hub75_middle_coupler_design_reinforcement_guide_fragment(
             position
         );
     }
+}
+
+
+module _hub75_middle_coupler_design_reinforcement_clearance_band(
+    coupler,
+    position
+) {
+    outer_d =
+        coupler.reinforcement_bushing_outer_diameter
+        + 2 * coupler.reinforcement_bushing_clearance;
+    inner_d = coupler.reinforcement_bushing_outer_diameter;
+
+    // Thin red halo outside the physical reinforcement footprint. It makes the
+    // print-clearance requirement visible without hiding the dark panel detail.
+    translate([position[0], 0, position[1]])
+        difference() {
+            _hub75_middle_coupler_extrude_xz_y(
+                -coupler.guide_height,
+                0
+            )
+                circle(d = outer_d);
+
+            _hub75_middle_coupler_extrude_xz_y(
+                -coupler.guide_height - 0.05,
+                0.05
+            )
+                circle(d = inner_d);
+        }
 }
 
 
@@ -323,8 +351,9 @@ module hub75_middle_coupler_design(view = "final") {
         // One enlarged physical detail is clearer than two small mirrored
         // examples. The same relief operation is applied at both reinforcement
         // positions in production. Dark grey is the panel-derived side-rail
-        // reinforcement, pale grey the still-unrelieved guide, and red exactly
-        // the guide material that collides with the required clearance zone.
+        // reinforcement, pale grey the still-unrelieved guide. The transparent
+        // red halo shows required print clearance; saturated red is the guide
+        // material that actually intrudes into that protected volume.
         detail_position =
             _hub75_middle_coupler_reinforcement_positions(coupler)[1];
 
@@ -334,13 +363,19 @@ module hub75_middle_coupler_design(view = "final") {
                 detail_position
             );
 
-        color([0.72, 0.72, 0.72, 0.42])
+        color([0.72, 0.72, 0.72, 0.48])
             _hub75_middle_coupler_design_reinforcement_guide_fragment(
                 coupler,
                 detail_position
             );
 
-        color([0.88, 0.08, 0.06, 0.84])
+        color([0.88, 0.08, 0.06, 0.30])
+            _hub75_middle_coupler_design_reinforcement_clearance_band(
+                coupler,
+                detail_position
+            );
+
+        color([0.94, 0.03, 0.02, 0.96])
             _hub75_middle_coupler_design_reinforcement_collision(
                 coupler,
                 detail_position
