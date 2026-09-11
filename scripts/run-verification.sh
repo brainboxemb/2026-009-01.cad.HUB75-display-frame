@@ -258,6 +258,18 @@ verify_corner_edge_coupler() {
     "${size}" \
     "${ROOT_DIR}/vrf/openscad/corner-edge-coupler-${side}-rear-fit-section.scad" \
     "${PNG_DIR}/corner-edge-coupler-${side}-${size}-rear-fit-section.png"
+
+  render_png \
+    "Corner-edge ${side} coupler ${size} YZ top-edge section" \
+    "${size}" \
+    "${ROOT_DIR}/vrf/openscad/corner-edge-coupler-${side}-yz-top-edge-section.scad" \
+    "${PNG_DIR}/corner-edge-coupler-${side}-${size}-yz-top-edge-section.png"
+
+  render_png \
+    "Corner-edge ${side} coupler ${size} XY side-edge section" \
+    "${size}" \
+    "${ROOT_DIR}/vrf/openscad/corner-edge-coupler-${side}-xy-side-edge-section.scad" \
+    "${PNG_DIR}/corner-edge-coupler-${side}-${size}-xy-side-edge-section.png"
 }
 
 verify_interactive_main

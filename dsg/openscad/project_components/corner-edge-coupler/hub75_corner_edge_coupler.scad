@@ -242,6 +242,11 @@ function hub75_corner_edge_coupler_create(
             hub75_p5_64x32_panel_rear_end_rail_width_at_mounting_plane(panel),
         rear_opening_corner_radius =
             hub75_p5_64x32_panel_rear_opening_corner_radius(panel),
+        panel_taper_depth = hub75_rear_taper_depth(panel),
+        panel_rear_outer_inset_x =
+            hub75_p5_64x32_panel_rear_outer_inset_x(panel),
+        panel_rear_outer_inset_z =
+            hub75_p5_64x32_panel_rear_outer_inset_z(panel),
 
         mounting_tube_outer_diameter =
             hub75_p5_64x32_panel_mounting_tube_outer_diameter(panel),
@@ -633,6 +638,40 @@ module _hub75_corner_edge_coupler_profile_2d(
 
 
 // ----------------------------------------------------------------------
+// Reinforcement support envelope
+// ----------------------------------------------------------------------
+
+function hub75_corner_edge_coupler_reinforcement_relief_diameter(coupler) =
+    coupler.reinforcement_bushing_outer_diameter
+    + 2 * coupler.reinforcement_bushing_clearance;
+
+function hub75_corner_edge_coupler_reinforcement_support_diameter(coupler) =
+    hub75_corner_edge_coupler_reinforcement_relief_diameter(coupler)
+    + 2 * coupler.wall_thickness;
+
+module _hub75_corner_edge_coupler_reinforcement_support_envelope_2d(coupler) {
+    position = hub75_corner_edge_coupler_reinforcement_position(coupler);
+
+    translate(position)
+        circle(
+            d = hub75_corner_edge_coupler_reinforcement_support_diameter(coupler)
+        );
+}
+
+module _hub75_corner_edge_coupler_structural_profile_2d(
+    coupler,
+    outside_radius_override = undef
+) {
+    union() {
+        _hub75_corner_edge_coupler_profile_2d(
+            coupler,
+            outside_radius_override = outside_radius_override
+        );
+        _hub75_corner_edge_coupler_reinforcement_support_envelope_2d(coupler);
+    }
+}
+
+// ----------------------------------------------------------------------
 // Base and functional cutters
 // ----------------------------------------------------------------------
 
@@ -651,9 +690,8 @@ module _hub75_corner_edge_coupler_base_solid(coupler) {
         0,
         coupler.base_thickness
     )
-        _hub75_corner_edge_coupler_profile_2d(coupler);
+        _hub75_corner_edge_coupler_structural_profile_2d(coupler);
 }
-
 
 module _hub75_corner_edge_coupler_through_hole_y_with_relief(
     hole_diameter,
@@ -1065,7 +1103,7 @@ module _hub75_corner_edge_coupler_guide_shell_2d(coupler) {
 
     intersection() {
         difference() {
-            _hub75_corner_edge_coupler_profile_2d(coupler);
+            _hub75_corner_edge_coupler_structural_profile_2d(coupler);
 
             offset(delta = coupler.fit_clearance)
                 _hub75_corner_edge_coupler_panel_keepout_2d(coupler);
@@ -1073,13 +1111,14 @@ module _hub75_corner_edge_coupler_guide_shell_2d(coupler) {
 
         // This mask can only trim the free ends; it never expands the fitted
         // shell, so the 2 mm small wall cannot be eroded by offset(-r).
-        _hub75_corner_edge_coupler_profile_2d(
+        // The reinforcement support envelope remains independent of the
+        // cosmetic free-end rounding.
+        _hub75_corner_edge_coupler_structural_profile_2d(
             coupler,
             outside_radius_override = effective_rounding
         );
     }
 }
-
 
 module _hub75_corner_edge_coupler_tall_guide_2d(coupler) {
     intersection() {
@@ -1089,22 +1128,29 @@ module _hub75_corner_edge_coupler_tall_guide_2d(coupler) {
 }
 
 
-module _hub75_corner_edge_coupler_horizontal_outer_zone_2d(coupler) {
+module _hub75_corner_edge_coupler_horizontal_outer_zone_2d(
+    coupler,
+    panel_shift_z = 0
+) {
     span = 2 * coupler.profile_size + 80;
     boundary =
         coupler.rear_outer_edge_z
-        + coupler.fit_clearance;
+        + coupler.fit_clearance
+        + panel_shift_z;
 
     translate([0, boundary + span / 2])
         square([span, span], center = true);
 }
 
 
-module _hub75_corner_edge_coupler_vertical_outer_zone_2d(coupler) {
+module _hub75_corner_edge_coupler_vertical_outer_zone_2d(
+    coupler,
+    panel_shift_x = 0
+) {
     span = 2 * coupler.profile_size + 80;
     boundary =
         coupler.rear_outer_edge_x
-        - coupler.x_inward * coupler.fit_clearance;
+        - coupler.x_inward * (coupler.fit_clearance + panel_shift_x);
 
     if (coupler.side == "left")
         translate([boundary - span / 2, 0])
@@ -1114,6 +1160,33 @@ module _hub75_corner_edge_coupler_vertical_outer_zone_2d(coupler) {
             square([span, 2 * span], center = true);
 }
 
+
+module _hub75_corner_edge_coupler_horizontal_outer_ridge_2d(
+    coupler,
+    panel_shift_z = 0
+) {
+    intersection() {
+        _hub75_corner_edge_coupler_guide_shell_2d(coupler);
+        _hub75_corner_edge_coupler_horizontal_outer_zone_2d(
+            coupler,
+            panel_shift_z
+        );
+    }
+}
+
+
+module _hub75_corner_edge_coupler_vertical_outer_ridge_2d(
+    coupler,
+    panel_shift_x = 0
+) {
+    intersection() {
+        _hub75_corner_edge_coupler_guide_shell_2d(coupler);
+        _hub75_corner_edge_coupler_vertical_outer_zone_2d(
+            coupler,
+            panel_shift_x
+        );
+    }
+}
 
 module _hub75_corner_edge_coupler_guide_walls(coupler) {
     reinforcement =
@@ -1134,8 +1207,9 @@ module _hub75_corner_edge_coupler_guide_walls(coupler) {
             rotate([90, 0, 0])
                 cylinder(
                     d =
-                        coupler.reinforcement_bushing_outer_diameter
-                        + 2 * coupler.reinforcement_bushing_clearance,
+                        hub75_corner_edge_coupler_reinforcement_relief_diameter(
+                            coupler
+                        ),
                     h =
                         coupler.guide_height
                         + 0.30
@@ -1143,26 +1217,102 @@ module _hub75_corner_edge_coupler_guide_walls(coupler) {
     }
 }
 
+module _hub75_corner_edge_coupler_horizontal_outer_ridge(coupler) {
+    ridge_h = coupler.guide_height;
+    taper_h = min(ridge_h, coupler.panel_taper_depth);
+    taper_shift_z = hub75_panel_taper_shift_at_depth(
+        taper_h,
+        coupler.panel_taper_depth,
+        coupler.panel_rear_outer_inset_z
+    );
 
-module _hub75_corner_edge_coupler_outer_ridges(coupler) {
-    // The outside portions are part of the same guide system as the inward
-    // portions. Their height is therefore exactly guide_height (4 / 6 / 10 mm).
-    // Keep the shape straight for now; the final taper remains deferred until
-    // the tube/clip geometry is introduced.
-    _hub75_corner_edge_coupler_extrude_xz_y(
-        -coupler.guide_height,
-        0
-    )
-        intersection() {
-            _hub75_corner_edge_coupler_guide_shell_2d(coupler);
+    union() {
+        hull() {
+            _hub75_corner_edge_coupler_extrude_xz_y(
+                -_HUB75_CORNER_EDGE_COUPLER_EPS,
+                _HUB75_CORNER_EDGE_COUPLER_EPS
+            )
+                _hub75_corner_edge_coupler_horizontal_outer_ridge_2d(
+                    coupler,
+                    0
+                );
 
-            union() {
-                _hub75_corner_edge_coupler_horizontal_outer_zone_2d(coupler);
-                _hub75_corner_edge_coupler_vertical_outer_zone_2d(coupler);
-            }
+            _hub75_corner_edge_coupler_extrude_xz_y(
+                -taper_h - _HUB75_CORNER_EDGE_COUPLER_EPS,
+                -taper_h + _HUB75_CORNER_EDGE_COUPLER_EPS
+            )
+                _hub75_corner_edge_coupler_horizontal_outer_ridge_2d(
+                    coupler,
+                    taper_shift_z
+                );
         }
+
+        if (ridge_h > taper_h)
+            _hub75_corner_edge_coupler_extrude_xz_y(
+                -ridge_h - _HUB75_CORNER_EDGE_COUPLER_EPS,
+                -taper_h + _HUB75_CORNER_EDGE_COUPLER_EPS
+            )
+                _hub75_corner_edge_coupler_horizontal_outer_ridge_2d(
+                    coupler,
+                    taper_shift_z
+                );
+    }
 }
 
+
+module _hub75_corner_edge_coupler_vertical_outer_ridge(coupler) {
+    ridge_h = coupler.guide_height;
+    taper_h = min(ridge_h, coupler.panel_taper_depth);
+    taper_shift_x = hub75_panel_taper_shift_at_depth(
+        taper_h,
+        coupler.panel_taper_depth,
+        coupler.panel_rear_outer_inset_x
+    );
+
+    union() {
+        hull() {
+            _hub75_corner_edge_coupler_extrude_xz_y(
+                -_HUB75_CORNER_EDGE_COUPLER_EPS,
+                _HUB75_CORNER_EDGE_COUPLER_EPS
+            )
+                _hub75_corner_edge_coupler_vertical_outer_ridge_2d(
+                    coupler,
+                    0
+                );
+
+            _hub75_corner_edge_coupler_extrude_xz_y(
+                -taper_h - _HUB75_CORNER_EDGE_COUPLER_EPS,
+                -taper_h + _HUB75_CORNER_EDGE_COUPLER_EPS
+            )
+                _hub75_corner_edge_coupler_vertical_outer_ridge_2d(
+                    coupler,
+                    taper_shift_x
+                );
+        }
+
+        if (ridge_h > taper_h)
+            _hub75_corner_edge_coupler_extrude_xz_y(
+                -ridge_h - _HUB75_CORNER_EDGE_COUPLER_EPS,
+                -taper_h + _HUB75_CORNER_EDGE_COUPLER_EPS
+            )
+                _hub75_corner_edge_coupler_vertical_outer_ridge_2d(
+                    coupler,
+                    taper_shift_x
+                );
+    }
+}
+
+
+module _hub75_corner_edge_coupler_outer_ridges(coupler) {
+    // Build the two orthogonal ridges independently. Hulling their union would
+    // bridge disconnected corner patches with a diagonal sheet.
+    // Only the panel-facing edge of each ridge follows the real panel taper;
+    // the exposed outside contour stays on the fixed coupler profile.
+    union() {
+        _hub75_corner_edge_coupler_horizontal_outer_ridge(coupler);
+        _hub75_corner_edge_coupler_vertical_outer_ridge(coupler);
+    }
+}
 
 // ----------------------------------------------------------------------
 // Reinforcement locator

@@ -10,6 +10,16 @@ verification evidence and open physical-fit work.
 
 ### Changed
 
+- Apply the horizontal-edge fit refinements to the corner-edge family: the top
+  and side outside ridges now follow the real HUB75 Z/X taper only on their
+  panel-facing edges while the exposed coupler contour stays straight; each
+  orthogonal ridge is built independently to avoid diagonal bridging.
+- Preserve the configured corner guide wall around the panel reinforcement using
+  the same clearance-plus-wall support envelope as the horizontal-edge family.
+- Replace corner rear-fit half-space views with true 0.10 mm slices and add
+  0.10 mm YZ top-edge plus XY side-edge sections for direct verification of both
+  orthogonal taper interfaces.
+
 - Pin the reusable `lib.scad.hub75` dependency to its first immutable release,
   `v0.1.0`, instead of following the moving `main` branch.
 - Lock the `dsg/openscad/ext/lib.scad.hub75` gitlink to the exact source commit
