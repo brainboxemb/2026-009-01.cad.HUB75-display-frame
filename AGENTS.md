@@ -3,6 +3,16 @@
 Persistent guidance for automated coding agents working in
 `2026-009-01.cad.HUB75-display-frame`.
 
+## Generic workflow policy
+
+Before branch, pull-request, publication or release work, read the pinned
+`tools/tool.scad-project/AGENTS.md`. Its pull-request-first change workflow and
+publication lifecycle are authoritative for this consumer.
+
+This root file adds HUB75-frame-specific CAD and documentation guidance only. It
+must not contradict or duplicate changing generic branch/PR/publication rules
+from the pinned tool policy.
+
 ## Project purpose
 
 This repository is the clean restart of the HUB75 display-frame project. The
@@ -223,11 +233,11 @@ small enough to diagnose the relevant interface.
 
 ## Publication
 
-Branch names and release behavior are defined in `project.yml` and reusable
-workflows. Do not duplicate changing branch/version details here.
+Generic branch naming, pull-request previews, cleanup and release lifecycle are
+defined by the pinned tool policy and `project.yml`; do not duplicate changing
+branch/version details here.
 
-Source stays on `main`; production/development generated snapshots and immutable
-release snapshots are created by the shared publication lifecycle. Do not create
+Generated build and verification snapshots do not belong on `main`. Do not create
 a project version tag merely because release infrastructure exists.
 
 ## Development sequence
