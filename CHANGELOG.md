@@ -20,6 +20,10 @@ verification evidence and open physical-fit work.
 - Defer generic branch, pull-request and publication workflow guidance to the
   pinned `tools/tool.scad-project/AGENTS.md`; keep the root `AGENTS.md` focused
   on HUB75 display-frame project-specific policy.
+- Preserve the configured horizontal-edge guide wall around panel reinforcement
+  clearances by locally expanding the structural profile from the real bushing
+  clearance plus `wall_thickness`; wider presets remain unchanged wherever the
+  existing T already contains that support envelope.
 
 ## v0.0.1
 

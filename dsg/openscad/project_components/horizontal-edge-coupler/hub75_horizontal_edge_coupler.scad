@@ -703,6 +703,40 @@ module _hub75_horizontal_edge_coupler_profile_2d(coupler) {
 
 
 // ----------------------------------------------------------------------
+// Reinforcement support envelope
+// ----------------------------------------------------------------------
+
+function hub75_horizontal_edge_coupler_reinforcement_relief_diameter(coupler) =
+    coupler.reinforcement_bushing_outer_diameter
+    + 2 * coupler.reinforcement_bushing_clearance;
+
+function hub75_horizontal_edge_coupler_reinforcement_support_diameter(coupler) =
+    hub75_horizontal_edge_coupler_reinforcement_relief_diameter(coupler)
+    + 2 * coupler.wall_thickness;
+
+module _hub75_horizontal_edge_coupler_reinforcement_support_envelope_2d(coupler) {
+    support_d =
+        hub75_horizontal_edge_coupler_reinforcement_support_diameter(coupler);
+
+    for (position =
+        _hub75_horizontal_edge_coupler_reinforcement_positions(coupler)
+    )
+        translate(position)
+            circle(d = support_d);
+}
+
+module _hub75_horizontal_edge_coupler_structural_profile_2d(coupler) {
+    // The normal T remains the family shape. The reinforcement envelope only
+    // contributes where that T would otherwise leave less than one configured
+    // wall thickness around the physical bushing clearance.
+    union() {
+        _hub75_horizontal_edge_coupler_profile_2d(coupler);
+        _hub75_horizontal_edge_coupler_reinforcement_support_envelope_2d(coupler);
+    }
+}
+
+
+// ----------------------------------------------------------------------
 // Base and functional cutters
 // ----------------------------------------------------------------------
 
@@ -721,7 +755,7 @@ module _hub75_horizontal_edge_coupler_base_solid(coupler) {
         0,
         coupler.base_thickness
     )
-        _hub75_horizontal_edge_coupler_profile_2d(coupler);
+        _hub75_horizontal_edge_coupler_structural_profile_2d(coupler);
 }
 
 
@@ -1145,7 +1179,11 @@ module _hub75_horizontal_edge_coupler_panel_keepout_2d(coupler) {
 
 module _hub75_horizontal_edge_coupler_raw_guide_shell_2d(coupler) {
     difference() {
-        _hub75_horizontal_edge_coupler_profile_2d(coupler);
+        // Start from the structural profile so the small preset can carry a
+        // full wall around the reinforcement clearance. The expanded panel
+        // keep-out below still prevents the support envelope from re-entering
+        // the physical rail geometry.
+        _hub75_horizontal_edge_coupler_structural_profile_2d(coupler);
 
         offset(delta = coupler.fit_clearance)
             _hub75_horizontal_edge_coupler_panel_keepout_2d(coupler);
@@ -1243,8 +1281,9 @@ module _hub75_horizontal_edge_coupler_guide_walls(coupler) {
                 rotate([90, 0, 0])
                     cylinder(
                         d =
-                            coupler.reinforcement_bushing_outer_diameter
-                            + 2 * coupler.reinforcement_bushing_clearance,
+                            hub75_horizontal_edge_coupler_reinforcement_relief_diameter(
+                                coupler
+                            ),
                         h =
                             relief_depth
                             + 2 * _HUB75_HORIZONTAL_EDGE_COUPLER_EPS

@@ -322,32 +322,59 @@ rear rail through:
 hub75_horizontal_edge_coupler_outer_projection(coupler)
 ```
 
-## 7. Extrude the T into the base plate
+## 7. Preserve structural material around the reinforcement clearances
 
-The finished 2D T becomes a 3D plate from the rear mounting plane toward the
-back of the display:
+The small preset uses a thinner T arm, while the physical reinforcement
+bushings keep the same diameter. If the base and later guide shell are clipped
+only by the nominal T, the circular bushing clearance can consume most of the
+available wall.
+
+The structural profile therefore starts with the normal T and unions a local
+support envelope at each reinforcement position. Its diameter is derived from
+the real clearance plus one configured wall thickness on every side:
 
 ```text
-Y = 0
-    ↓
-Y = base_thickness
+support diameter
+    reinforcement outside diameter
+  + 2 × reinforcement clearance
+  + 2 × wall thickness
 ```
+
+The image intentionally uses the **small** preset. Gray is the unchanged family
+T; red is only the extra area required by the support envelope. On a wider
+preset the same rule naturally adds nothing where the normal T already contains
+the envelope.
 
 <!-- scad-render
-view: base
+view: reinforcement-support-profile
+vpr: [0, 0, 0]
+vpt: [0, 0, -12]
 -->
 
-Production uses:
+The panel-derived dimensions are exposed by:
 
 ```scad
-module _hub75_horizontal_edge_coupler_base_solid(coupler) {
-    _hub75_horizontal_edge_coupler_extrude_xz_y(
-        0,
-        coupler.base_thickness
-    )
-        _hub75_horizontal_edge_coupler_profile_2d(coupler);
-}
+hub75_horizontal_edge_coupler_reinforcement_relief_diameter(coupler)
+hub75_horizontal_edge_coupler_reinforcement_support_diameter(coupler)
 ```
+
+and production constructs the load-bearing 2D footprint with:
+
+```scad
+_hub75_horizontal_edge_coupler_reinforcement_support_envelope_2d(coupler)
+_hub75_horizontal_edge_coupler_structural_profile_2d(coupler)
+```
+
+That structural profile is then extruded into the base plate:
+
+```scad
+_hub75_horizontal_edge_coupler_base_solid(coupler)
+```
+
+The normal `_hub75_horizontal_edge_coupler_profile_2d()` remains the visible
+family reference shape and still clips the reference markings. The local
+structural extension exists only where the physical reinforcement clearance
+requires more material.
 
 ## 8. Cut the two mounting screw bores
 
@@ -628,56 +655,72 @@ configured guide extends beyond the physical taper depth, it continues with the
 final thinner section while the outside wall remains straight. No arbitrary
 `0.35 mm` shrink is used; the inside movement is entirely panel-derived.
 
-## 16. Reserve space around the reinforcement features
+## 16. Keep a full guide wall around the reinforcement features
 
-Two panel reinforcement features overlap the inward raised guide. The guide must
-therefore be relieved around the real reinforcement footprint plus print
-clearance.
+Two panel reinforcement features overlap the inward raised guide. A simple
+subtraction from the nominal T works for the broader presets, but in the small
+preset that circular cut removes most of the raised edge.
 
-The removal diameter is:
+The structural support envelope introduced in step 7 is therefore also the
+starting boundary for the guide shell. The normal panel keep-out is still
+subtracted first, so the locally widened guide cannot grow back into the rear
+rail. The real reinforcement clearance is then removed from that supported
+guide.
 
 ```text
-panel reinforcement outside diameter
-+ 2 × reinforcement clearance
+outer support radius
+    physical reinforcement radius
+  + reinforcement clearance
+  + wall thickness
+
+inner cleared radius
+    physical reinforcement radius
+  + reinforcement clearance
 ```
 
-The first image preserves the coupler construction view: gray is the unrelieved
-inward guide and red is the pair of cylindrical removal volumes.
+This guarantees the requested wall thickness around the circular clearance
+where free space exists. It is not a `small` special case: if a wider T already
+contains the support envelope, the union leaves its outside contour unchanged.
+
+The first image shows the production Boolean construction: gray is the
+unrelieved supported guide and red is the pair of cylindrical removal volumes.
 
 <!-- scad-render
 view: guide-reinforcement-reliefs
-alt: Horizontal-edge guide reinforcement relief construction
+alt: Horizontal-edge supported guide and reinforcement relief construction
 -->
 
 The second image explains the physical reason at one location. Dark gray is the
-panel reinforcement, light gray the still-unrelieved guide, transparent red the
-required clearance band and bright red the guide material that intrudes into
-that band.
+panel reinforcement, light gray the still-unrelieved supported guide,
+transparent red the required clearance band and bright red the guide material
+that must be removed.
 
 <!-- scad-render
 view: guide-reinforcement-detail
-alt: Horizontal-edge HUB75 reinforcement and guide clearance detail
+alt: Horizontal-edge HUB75 reinforcement and supported guide clearance detail
 size: [480, 360]
 -->
 
-Unlike the middle source, the horizontal-edge production file performs this
-subtraction directly inside the guide-wall module rather than through a separate
-named cutter helper. The key production logic is therefore the relief loop
-inside:
+Production uses the shared relief diameter:
+
+```scad
+hub75_horizontal_edge_coupler_reinforcement_relief_diameter(coupler)
+```
+
+and performs the final cylindrical subtraction inside:
 
 ```scad
 _hub75_horizontal_edge_coupler_guide_walls(coupler)
 ```
 
-using positions from:
+using panel-derived positions from:
 
 ```scad
 _hub75_horizontal_edge_coupler_reinforcement_positions(coupler)
 ```
 
-The documentation adapter contains a named explanatory cutter only so this
-otherwise embedded Boolean operation can be shown separately; that helper is
-not production geometry.
+The documentation adapter retains a named explanatory cutter only to visualize
+this embedded production Boolean.
 
 ## 17. Extrude the finished guide system
 
