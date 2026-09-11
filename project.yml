@@ -27,7 +27,7 @@ openscad:
     - --render
     - --projection=o
   image_size: [2560, 1440]
-  design_image_size: [1000, 750]
+  design_image_size: [640, 480]
 
 rendering:
   watermark:
