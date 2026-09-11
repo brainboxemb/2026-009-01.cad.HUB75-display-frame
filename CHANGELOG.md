@@ -6,6 +6,15 @@ Tagged releases summarize reproducible project snapshots. The milestone entries
 remain the detailed design history and continue to document geometry decisions,
 verification evidence and open physical-fit work.
 
+## Unreleased
+
+### Changed
+
+- Pin the reusable `lib.scad.hub75` dependency to its first immutable release,
+  `v0.1.0`, instead of following the moving `main` branch.
+- Lock the `dsg/openscad/ext/lib.scad.hub75` gitlink to the exact source commit
+  behind `v0.1.0`.
+
 ## v0.0.1
 
 ### Added
