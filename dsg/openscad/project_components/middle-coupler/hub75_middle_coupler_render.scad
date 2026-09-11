@@ -12,8 +12,13 @@ use <hub75_middle_coupler.scad>
 
 
 module _hub75_middle_coupler_design_thin(y_min = -0.35, y_max = 0.35) {
-    _hub75_middle_coupler_extrude_xz_y(y_min, y_max)
-        children();
+    // The production profile lives in the physical X/Z plane. The design
+    // document uses a zero-rotation camera for these diagram-like stages, so
+    // rotate the thin explanatory slice into the screen plane only for the
+    // documentation render. Production geometry remains untouched.
+    rotate([90, 0, 0])
+        _hub75_middle_coupler_extrude_xz_y(y_min, y_max)
+            children();
 }
 
 
