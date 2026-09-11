@@ -14,6 +14,12 @@ verification evidence and open physical-fit work.
   `v0.1.0`, instead of following the moving `main` branch.
 - Lock the `dsg/openscad/ext/lib.scad.hub75` gitlink to the exact source commit
   behind `v0.1.0`.
+- Upgrade repository tooling from `tool.scad-project` v0.9.11 to v0.9.12 and
+  align `project.yml`, the tool gitlink and Build/Verify/Release/PR-cleanup
+  workflow callers to the exact v0.9.12 source commit.
+- Defer generic branch, pull-request and publication workflow guidance to the
+  pinned `tools/tool.scad-project/AGENTS.md`; keep the root `AGENTS.md` focused
+  on HUB75 display-frame project-specific policy.
 
 ## v0.0.1
 
