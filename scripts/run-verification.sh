@@ -229,6 +229,12 @@ verify_horizontal_edge_coupler() {
     "${size}" \
     "${ROOT_DIR}/vrf/openscad/horizontal-edge-coupler-yz-edge-section.scad" \
     "${PNG_DIR}/horizontal-edge-coupler-${size}-yz-edge-section.png"
+
+  render_png \
+    "Horizontal-edge coupler ${size} XY seam section" \
+    "${size}" \
+    "${ROOT_DIR}/vrf/openscad/horizontal-edge-coupler-xy-seam-section.scad" \
+    "${PNG_DIR}/horizontal-edge-coupler-${size}-xy-seam-section.png"
 }
 
 verify_corner_edge_coupler() {
