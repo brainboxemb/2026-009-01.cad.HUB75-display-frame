@@ -9,7 +9,7 @@ PNG_DIR="${OUT_DIR}/png"
 STL_DIR="${OUT_DIR}/stl"
 
 WATERMARK_TEXT="$(
-  python - <<'PY'
+  python3 - <<'PY'
 from pathlib import Path
 import yaml
 
