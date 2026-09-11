@@ -204,6 +204,11 @@ vrf/
         └── README.md
 ```
 
+The verification README files are maintained as source templates under
+`vrf/templates/`. `scripts/build-verification-index.sh` copies those templates
+to the generated verification output instead of embedding long Markdown blocks
+inside the shell script.
+
 ## Tooling
 
 The project pins:
