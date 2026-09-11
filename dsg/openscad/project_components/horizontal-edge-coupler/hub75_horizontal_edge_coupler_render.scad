@@ -79,8 +79,7 @@ module _hub75_horizontal_edge_design_profile_outline_2d(coupler, line_width = 1.
 module _hub75_horizontal_edge_design_reinforcement_relief_cutters(coupler) {
     eps = 0.05;
     relief_diameter =
-        coupler.reinforcement_bushing_outer_diameter
-        + 2 * coupler.reinforcement_bushing_clearance;
+        hub75_horizontal_edge_coupler_reinforcement_relief_diameter(coupler);
     relief_depth = coupler.guide_height + 0.20;
 
     for (position = _hub75_horizontal_edge_coupler_reinforcement_positions(coupler))
@@ -215,9 +214,15 @@ module _hub75_horizontal_edge_design_after_reference_pockets(coupler) {
 }
 
 module hub75_horizontal_edge_coupler_design(view = "final") {
+    small = hub75_horizontal_edge_coupler_create_for_size(size = "small");
     medium = hub75_horizontal_edge_coupler_create_for_size(size = "medium");
     large = hub75_horizontal_edge_coupler_create_for_size(size = "large");
-    coupler = view == "locator-pin-clearance" ? large : medium;
+    coupler =
+        view == "locator-pin-clearance"
+            ? large
+            : view == "reinforcement-support-profile"
+                ? small
+                : medium;
 
     existing = [0.56, 0.56, 0.56, 1.0];
     existing_transparent = [0.56, 0.56, 0.56, 0.42];
@@ -267,6 +272,19 @@ module hub75_horizontal_edge_coupler_design(view = "final") {
         color(current)
             _hub75_horizontal_edge_design_thin(0.02, 0.42)
                 _hub75_horizontal_edge_coupler_profile_2d(coupler);
+
+    } else if (view == "reinforcement-support-profile") {
+        // This explanatory state deliberately uses the small preset, where the
+        // required support envelope first extends beyond the normal T profile.
+        color(existing)
+            _hub75_horizontal_edge_design_thin(-0.42, -0.02)
+                _hub75_horizontal_edge_coupler_profile_2d(coupler);
+        color(current)
+            _hub75_horizontal_edge_design_thin(0.02, 0.42)
+                difference() {
+                    _hub75_horizontal_edge_coupler_structural_profile_2d(coupler);
+                    _hub75_horizontal_edge_coupler_profile_2d(coupler);
+                }
 
     } else if (view == "locator-pin-clearance") {
         position = hub75_horizontal_edge_coupler_locator_pin_position(coupler);
