@@ -6,27 +6,30 @@ The build branch answers **what is built**. This verification branch answers
 **whether the current connector-family geometry fits the HUB75 panel model as
 intended**.
 
+Normal standalone component renders and production STL exports remain under
+`bld/` and are intentionally not duplicated in this snapshot. The verification
+snapshot contains only fit/section evidence plus publication provenance.
+
 ## Contents
 
 - [PNG verification gallery](png/README.md)
-- [STL verification exports](stl/)
 
 ## Components
 
 ### Middle coupler
 
 Joins two adjacent panels at the middle mounting row. Each small/medium/large
-size publishes standalone geometry, an angled local fit view, a size-aware
-rear fit section and an XY seam section.
+size publishes an angled local fit view, a size-aware rear fit section and an
+XY seam section.
 
 ### Horizontal-edge coupler
 
 Joins the same panel seam at the top/bottom display edge. The first
 implementation intentionally has no aluminium-tube clip.
 
-Each small/medium/large size publishes standalone geometry, an angled top-edge
-fit detail, a size-aware rear fit section, a YZ end-rail profile and an
-orthogonal XY seam profile through the vertical arm.
+Each small/medium/large size publishes an angled top-edge fit detail, a
+size-aware rear fit section, a YZ end-rail profile and an orthogonal XY seam
+profile through the vertical arm.
 
 ### Corner-edge couplers
 
@@ -37,8 +40,6 @@ The corner family has two printable parts:
 
 Each side and size publishes:
 
-- standalone PNG;
-- standalone STL;
 - angled one-panel corner fit detail;
 - size-aware rear fit section through the rounded rear corner opening;
 - a 0.10 mm YZ top-edge technical slice;
@@ -56,6 +57,14 @@ horizontal-edge profile sections.
 
 The first corner milestone intentionally has no aluminium-tube clip.
 
+## Selective verification
+
+The OpenSCAD evidence above is built by the dependency-aware verification target
+engine from `vrf/openscad`. It uses a cache separate from normal Build output, so
+an unchanged middle or horizontal verification target can be reused when only a
+corner dependency changes. The project-specific verification scripts retain only
+interactive-entrypoint smoke checks, output validation and README generation.
+
 ## Rear fit sections
 
 The section plane is kept inside the active guide: **3 mm** for the small
@@ -68,6 +77,6 @@ The section plane is kept inside the active guide: **3 mm** for the small
 
 ## Acceptance
 
-These images and STLs are digital verification evidence, not proof of a
-physical print fit. Production STLs still need a real-panel fit check before a
-connector-family milestone is considered physically accepted.
+These images are digital verification evidence, not proof of a physical print
+fit. Production STLs are supplied by the normal Build and still need a real-panel
+fit check before a connector-family milestone is considered physically accepted.

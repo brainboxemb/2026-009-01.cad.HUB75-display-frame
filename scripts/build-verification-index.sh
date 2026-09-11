@@ -6,7 +6,7 @@ OUT_DIR="${ROOT_DIR}/vrf/out"
 PNG_DIR="${OUT_DIR}/png"
 TEMPLATE_DIR="${ROOT_DIR}/vrf/templates"
 
-mkdir -p "${PNG_DIR}" "${OUT_DIR}/stl"
+mkdir -p "${PNG_DIR}"
 
 copy_template() {
   local source="$1"
