@@ -120,6 +120,48 @@ Any hand-built curved helper must derive tessellation from the component's
 configured render resolution; do not use a small fixed segment count that can
 produce faceted STL geometry or polygonal screw holes.
 
+## Design documentation policy
+
+Design documentation must explain enough geometric construction that a reader
+who does not know OpenSCAD can understand how the part is formed and can use the
+documentation to spot modelling errors.
+
+Explain each meaningful construction step in this order:
+
+```text
+physical feature or constraint
+    ↓
+geometric construction or change
+    ↓
+image that makes that change visible
+    ↓
+relevant code/helper only after the geometry is understood
+```
+
+Do not collapse an important shape into a single high-level step merely because
+the production implementation generates it efficiently as one polygon or one
+Boolean expression. Documentation-only construction views may decompose the
+same final geometry into simpler explanatory primitives without changing the
+production model.
+
+For sequential design images, use neutral grey for the established/reference
+state and red for the current operation or newly introduced geometry. The image
+must make both roles visually readable. Do not place an opaque red shape over a
+grey reference when that makes the referenced geometry disappear; change layer
+order, use a contour, clip the current operation, or choose another view.
+
+Choose the camera for the geometry being explained rather than applying one
+camera mechanically to every step. Prefer face-on/orthographic views for planar
+profiles and offsets, oblique views where depth or protrusion matters, and
+sections where internal fit is the point being explained.
+
+A successful render is **not** sufficient design-documentation verification.
+After changing design views, inspect the actual generated images from the current
+CI build artifact. Check that the claimed grey/red geometry is visible, the
+camera exposes the intended feature, consecutive steps are understandable, and
+the image agrees with the accompanying text. Tune and rebuild until the images
+are explanatory, not merely technically valid.
+
 ## Build architecture
 
 Normal output is discovered from:
