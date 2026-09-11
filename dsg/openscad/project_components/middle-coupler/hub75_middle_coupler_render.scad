@@ -348,12 +348,25 @@ module hub75_middle_coupler_design(view = "final") {
                 _hub75_middle_coupler_guide_shell_2d(coupler);
 
     } else if (view == "guide-reinforcement-reliefs") {
-        // One enlarged physical detail is clearer than two small mirrored
-        // examples. The same relief operation is applied at both reinforcement
-        // positions in production. Dark grey is the panel-derived side-rail
-        // reinforcement, pale grey the still-unrelieved guide. The transparent
-        // red halo shows required print clearance; saturated red is the guide
-        // material that actually intrudes into that protected volume.
+        // Coupler-centric construction view. Keep the full raised-guide shell
+        // visible and show both panel-derived reinforcement relief cutters in
+        // red. This preserves the normal step-by-step coupler narrative.
+        color(existing_transparent)
+            _hub75_middle_coupler_extrude_xz_y(
+                -coupler.guide_height,
+                0
+            )
+                _hub75_middle_coupler_guide_shell_2d(coupler);
+
+        color(current)
+            _hub75_middle_coupler_reinforcement_relief_cutters(coupler);
+
+    } else if (view == "guide-reinforcement-detail") {
+        // Enlarged physical explanation for ONE of the two identical relief
+        // operations. Dark grey is the panel-derived side-rail reinforcement,
+        // pale grey the still-unrelieved guide. The transparent red halo shows
+        // required print clearance; saturated red is exactly the guide material
+        // that intrudes into that protected volume.
         detail_position =
             _hub75_middle_coupler_reinforcement_positions(coupler)[1];
 
@@ -384,7 +397,7 @@ module hub75_middle_coupler_design(view = "final") {
     } else if (view == "center-marks") {
         // The reference pockets belong to the previous stage. Render them as
         // actual recesses in the grey coupler and highlight only the newly
-        // introduced centre cross and distance-tick cutters in red.
+        // introduced centre cross and distance ticks in red.
         color(existing)
             _hub75_middle_coupler_design_after_reference_pockets(coupler);
 
