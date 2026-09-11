@@ -180,17 +180,28 @@ tools/
 └── tool.scad-project
 
 vrf/
-└── openscad/
-    ├── middle-coupler-fit-detail.scad
-    ├── middle-coupler-rear-fit-section.scad
-    ├── middle-coupler-xy-seam-section.scad
-    ├── horizontal-edge-coupler-fit-detail.scad
-    ├── horizontal-edge-coupler-rear-fit-section.scad
-    ├── horizontal-edge-coupler-yz-edge-section.scad
-    ├── corner-edge-coupler-left-fit-detail.scad
-    ├── corner-edge-coupler-left-rear-fit-section.scad
-    ├── corner-edge-coupler-right-fit-detail.scad
-    └── corner-edge-coupler-right-rear-fit-section.scad
+├── openscad/
+│   ├── middle-coupler-fit-detail.scad
+│   ├── middle-coupler-rear-fit-section.scad
+│   ├── middle-coupler-xy-seam-section.scad
+│   ├── horizontal-edge-coupler-fit-detail.scad
+│   ├── horizontal-edge-coupler-rear-fit-section.scad
+│   ├── horizontal-edge-coupler-yz-edge-section.scad
+│   ├── horizontal-edge-coupler-xy-seam-section.scad
+│   ├── corner-edge-coupler-horizontal-profile-section.scad
+│   ├── corner-edge-coupler-vertical-profile-section.scad
+│   ├── corner-edge-coupler-left-fit-detail.scad
+│   ├── corner-edge-coupler-left-rear-fit-section.scad
+│   ├── corner-edge-coupler-left-yz-top-edge-section.scad
+│   ├── corner-edge-coupler-left-xy-side-edge-section.scad
+│   ├── corner-edge-coupler-right-fit-detail.scad
+│   ├── corner-edge-coupler-right-rear-fit-section.scad
+│   ├── corner-edge-coupler-right-yz-top-edge-section.scad
+│   └── corner-edge-coupler-right-xy-side-edge-section.scad
+└── templates/
+    ├── README.md
+    └── png/
+        └── README.md
 ```
 
 ## Tooling
@@ -270,11 +281,18 @@ png/middle-coupler-<size>-xy-seam-section.png
 png/horizontal-edge-coupler-<size>-fit-detail.png
 png/horizontal-edge-coupler-<size>-rear-fit-section.png
 png/horizontal-edge-coupler-<size>-yz-edge-section.png
+png/horizontal-edge-coupler-<size>-xy-seam-section.png
 
+png/corner-edge-coupler-<size>-horizontal-profile-section.png
+png/corner-edge-coupler-<size>-vertical-profile-section.png
 png/corner-edge-coupler-left-<size>-fit-detail.png
 png/corner-edge-coupler-left-<size>-rear-fit-section.png
+png/corner-edge-coupler-left-<size>-yz-top-edge-section.png
+png/corner-edge-coupler-left-<size>-xy-side-edge-section.png
 png/corner-edge-coupler-right-<size>-fit-detail.png
 png/corner-edge-coupler-right-<size>-rear-fit-section.png
+png/corner-edge-coupler-right-<size>-yz-top-edge-section.png
+png/corner-edge-coupler-right-<size>-xy-side-edge-section.png
 ```
 
 Rear-fit sections are cut inside the active guide: 3 mm for the 4 mm small
