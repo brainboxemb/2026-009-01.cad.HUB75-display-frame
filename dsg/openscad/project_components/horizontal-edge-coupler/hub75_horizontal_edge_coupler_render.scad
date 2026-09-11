@@ -5,6 +5,7 @@
 $fn = 120;
 
 use <hub75_horizontal_edge_coupler.scad>
+use <../hub75_panel_mating.scad>
 
 module _hub75_horizontal_edge_design_thin(y_min = -0.35, y_max = 0.35) {
     rotate([90, 0, 0])
