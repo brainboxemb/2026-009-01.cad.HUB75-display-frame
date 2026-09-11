@@ -1,7 +1,7 @@
 // File: middle-coupler-fit-detail.scad
 //   Angled two-panel context view for middle-coupler verification.
 
-use <../../dsg/openscad/assemblies/middle_coupler_fit_assembly.scad>
+use <../../dsg/openscad/assemblies/verification/middle_coupler_fit_assembly.scad>
 use <../../dsg/openscad/project_components/middle-coupler/hub75_middle_coupler.scad>
 
 size = "medium";

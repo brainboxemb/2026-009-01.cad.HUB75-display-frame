@@ -1,7 +1,7 @@
 // File: middle-coupler-rear-fit-section.scad
 //   Rear-facing 5 mm fit section through the panel/coupler interface.
 
-use <../../dsg/openscad/assemblies/middle_coupler_fit_assembly.scad>
+use <../../dsg/openscad/assemblies/verification/middle_coupler_fit_assembly.scad>
 use <../../dsg/openscad/project_components/middle-coupler/hub75_middle_coupler.scad>
 
 size = "medium";

@@ -4,9 +4,9 @@
 // This file deliberately uses only two panels. It is a development fixture,
 // not the final five-panel display assembly.
 
-use <../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
-use <../project_components/middle-coupler/hub75_middle_coupler.scad>
-use <verification_datum_pin.scad>
+use <../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
+use <../../project_components/middle-coupler/hub75_middle_coupler.scad>
+use <../helpers/verification_datum_pin.scad>
 
 
 function _hub75_middle_coupler_fit_panel_pitch(panel) =

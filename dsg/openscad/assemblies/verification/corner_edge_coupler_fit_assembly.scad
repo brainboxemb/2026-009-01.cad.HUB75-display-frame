@@ -4,9 +4,9 @@
 // The fixture keeps only one top panel corner. Bottom-right/bottom-left are
 // represented by the documented 180 degree rotation of the two top variants.
 
-use <../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
-use <../project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad>
-use <verification_datum_pin.scad>
+use <../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
+use <../../project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad>
+use <../helpers/verification_datum_pin.scad>
 
 
 function _hub75_corner_edge_fit_corner_x(panel, side) =

@@ -4,9 +4,9 @@
 // Only the top edge around one internal panel seam is retained. This is a
 // development fixture, not the complete display assembly.
 
-use <../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
-use <../project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad>
-use <verification_datum_pin.scad>
+use <../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
+use <../../project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad>
+use <../helpers/verification_datum_pin.scad>
 
 
 function _hub75_horizontal_edge_fit_panel_pitch(panel) =

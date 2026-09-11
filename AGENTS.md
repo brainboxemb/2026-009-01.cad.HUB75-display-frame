@@ -75,6 +75,34 @@ OpenSCAD cross-file interfaces use public names without a leading underscore.
 Private implementation helpers use a leading underscore, including nested
 helpers.
 
+## Assembly source layout
+
+Keep `dsg/openscad/assemblies/` reserved for meaningful top-level project
+assemblies. Small diagnostic fixtures and shared visual aids must not accumulate
+in the assembly root.
+
+Use the assembly subdirectories by meaning:
+
+```text
+assemblies/
+    <top-level project assemblies>
+    verification/   focused fit, section and diagnostic assemblies
+    helpers/        shared assembly-only visual or construction helpers
+    sub/            genuine physical subassemblies, when the project has them
+```
+
+`assemblies/verification/` is for deliberately small development fixtures used
+to inspect fit, alignment, sections or other local interfaces. These are not
+production assemblies even when they combine real production components.
+
+`assemblies/helpers/` contains geometry used to explain or construct assemblies
+but which is neither a product component nor an assembly itself. The visual
+verification datum pin belongs here.
+
+Use `assemblies/sub/` only for a real physical subassembly that forms part of a
+larger assembly. Do not classify a small verification view as a subassembly just
+because it contains fewer parts.
+
 ## Connector design discipline
 
 The middle, horizontal-edge and corner-edge families are developed as separate

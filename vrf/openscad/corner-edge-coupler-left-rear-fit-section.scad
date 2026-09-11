@@ -1,6 +1,6 @@
 // Rear-facing top-left corner fit section.
 
-use <../../dsg/openscad/assemblies/corner_edge_coupler_fit_assembly.scad>
+use <../../dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad>
 use <../../dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
 use <../../dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad>
 

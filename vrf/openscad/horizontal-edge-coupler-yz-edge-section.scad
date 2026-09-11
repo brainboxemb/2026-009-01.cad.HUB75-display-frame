@@ -1,6 +1,6 @@
 // YZ section through the right panel rear end rail near the seam.
 
-use <../../dsg/openscad/assemblies/horizontal_edge_coupler_fit_assembly.scad>
+use <../../dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad>
 use <../../dsg/openscad/project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad>
 
 size = "medium";
