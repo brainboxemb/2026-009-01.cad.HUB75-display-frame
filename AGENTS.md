@@ -138,6 +138,21 @@ image that makes that change visible
 relevant code/helper only after the geometry is understood
 ```
 
+Treat every numbered construction step that corresponds to production geometry
+as incomplete until all four layers above are present. The implementation layer
+does not need to reproduce a long module verbatim: a helper/module signature,
+the key derived formula and a short explanation of how that helper participates
+in the build are sufficient. If a view is deliberately a documentation-only
+intermediate state with no one-to-one production helper, state that explicitly
+and point to the production helper that creates the equivalent final geometry.
+
+Before considering a component `design.md` complete, audit the numbered steps
+from first to last. Do not let later sections degrade into explanation + image
+only after earlier sections established a stronger pattern. Check especially
+that every physical subtraction, positive locator, taper, surface detail and
+final composition can be traced back to the source helper/module that implements
+it.
+
 Do not collapse an important shape into a single high-level step merely because
 the production implementation generates it efficiently as one polygon or one
 Boolean expression. Documentation-only construction views may decompose the
