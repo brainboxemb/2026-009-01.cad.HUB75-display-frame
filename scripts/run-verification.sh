@@ -6,22 +6,6 @@ cd "${ROOT_DIR}"
 
 OUT_DIR="${ROOT_DIR}/vrf/out"
 PNG_DIR="${OUT_DIR}/png"
-STL_DIR="${OUT_DIR}/stl"
-
-WATERMARK_TEXT="$(
-  python3 - <<'PY'
-from pathlib import Path
-import yaml
-
-config = yaml.safe_load(Path("project.yml").read_text(encoding="utf-8")) or {}
-rendering = config.get("rendering", {}) or {}
-watermark = rendering.get("watermark", {}) or {}
-print(watermark.get("text", "") or "")
-PY
-)"
-
-rm -rf "${PNG_DIR}" "${STL_DIR}"
-mkdir -p "${PNG_DIR}" "${STL_DIR}"
 
 run_checked() {
   local label="$1"
@@ -50,70 +34,6 @@ run_checked() {
   fi
 
   rm -f "${log_file}"
-}
-
-render_png() {
-  local label="$1"
-  local size="$2"
-  local source="$3"
-  local output="$4"
-  local raw_output="${output%.png}.unwatermarked.png"
-
-  rm -f "${raw_output}" "${output}"
-
-  run_checked \
-    "${label}" \
-    xvfb-run -a \
-      openscad \
-        --enable=object-function \
-        --render \
-        --projection=o \
-        --imgsize=2560,1440 \
-        -D "size=\"${size}\"" \
-        -o "${raw_output}" \
-        "${source}"
-
-  if [[ ! -s "${raw_output}" ]]; then
-    echo "ERROR: ${label} did not create a non-empty raw PNG" >&2
-    exit 1
-  fi
-
-  if [[ -n "${WATERMARK_TEXT}" ]]; then
-    run_checked \
-      "${label} watermark" \
-      scad-image-watermark \
-        "${raw_output}" \
-        "${output}" \
-        --text "${WATERMARK_TEXT}"
-    rm -f "${raw_output}"
-  else
-    mv "${raw_output}" "${output}"
-  fi
-
-  if [[ ! -s "${output}" ]]; then
-    echo "ERROR: ${label} did not create a non-empty PNG" >&2
-    exit 1
-  fi
-}
-
-export_stl() {
-  local label="$1"
-  local size="$2"
-  local source="$3"
-  local output="$4"
-
-  run_checked \
-    "${label}" \
-    openscad \
-      --enable=object-function \
-      -D "size=\"${size}\"" \
-      -o "${output}" \
-      "${source}"
-
-  if [[ ! -s "${output}" ]]; then
-    echo "ERROR: ${label} did not create a non-empty STL" >&2
-    exit 1
-  fi
 }
 
 verify_interactive_main() {
@@ -163,110 +83,37 @@ verify_interactive_main() {
   rm -rf "${tmp_dir}"
 }
 
-verify_middle_coupler() {
-  local size="$1"
+require_png() {
+  local filename="$1"
+  local path="${PNG_DIR}/${filename}"
 
-  render_png \
-    "Middle coupler ${size} standalone" \
-    "${size}" \
-    "${ROOT_DIR}/dsg/openscad/render/middle-coupler.scad" \
-    "${PNG_DIR}/middle-coupler-${size}.png"
-
-  export_stl \
-    "Middle coupler ${size} STL" \
-    "${size}" \
-    "${ROOT_DIR}/dsg/openscad/export/middle-coupler.scad" \
-    "${STL_DIR}/middle-coupler-${size}.stl"
-
-  render_png \
-    "Middle coupler ${size} angled fit detail" \
-    "${size}" \
-    "${ROOT_DIR}/vrf/openscad/middle-coupler-fit-detail.scad" \
-    "${PNG_DIR}/middle-coupler-${size}-fit-detail.png"
-
-  render_png \
-    "Middle coupler ${size} rear fit section" \
-    "${size}" \
-    "${ROOT_DIR}/vrf/openscad/middle-coupler-rear-fit-section.scad" \
-    "${PNG_DIR}/middle-coupler-${size}-rear-fit-section.png"
-
-  render_png \
-    "Middle coupler ${size} XY seam section" \
-    "${size}" \
-    "${ROOT_DIR}/vrf/openscad/middle-coupler-xy-seam-section.scad" \
-    "${PNG_DIR}/middle-coupler-${size}-xy-seam-section.png"
-}
-
-verify_horizontal_edge_coupler() {
-  local size="$1"
-
-  render_png \
-    "Horizontal-edge coupler ${size} standalone" \
-    "${size}" \
-    "${ROOT_DIR}/dsg/openscad/render/horizontal-edge-coupler.scad" \
-    "${PNG_DIR}/horizontal-edge-coupler-${size}.png"
-
-  export_stl \
-    "Horizontal-edge coupler ${size} STL" \
-    "${size}" \
-    "${ROOT_DIR}/dsg/openscad/export/horizontal-edge-coupler.scad" \
-    "${STL_DIR}/horizontal-edge-coupler-${size}.stl"
-
-  render_png \
-    "Horizontal-edge coupler ${size} angled fit detail" \
-    "${size}" \
-    "${ROOT_DIR}/vrf/openscad/horizontal-edge-coupler-fit-detail.scad" \
-    "${PNG_DIR}/horizontal-edge-coupler-${size}-fit-detail.png"
-
-  render_png \
-    "Horizontal-edge coupler ${size} rear fit section" \
-    "${size}" \
-    "${ROOT_DIR}/vrf/openscad/horizontal-edge-coupler-rear-fit-section.scad" \
-    "${PNG_DIR}/horizontal-edge-coupler-${size}-rear-fit-section.png"
-
-  render_png \
-    "Horizontal-edge coupler ${size} YZ edge section" \
-    "${size}" \
-    "${ROOT_DIR}/vrf/openscad/horizontal-edge-coupler-yz-edge-section.scad" \
-    "${PNG_DIR}/horizontal-edge-coupler-${size}-yz-edge-section.png"
-}
-
-verify_corner_edge_coupler() {
-  local side="$1"
-  local size="$2"
-
-  render_png \
-    "Corner-edge ${side} coupler ${size} standalone" \
-    "${size}" \
-    "${ROOT_DIR}/dsg/openscad/render/corner-edge-coupler-${side}.scad" \
-    "${PNG_DIR}/corner-edge-coupler-${side}-${size}.png"
-
-  export_stl \
-    "Corner-edge ${side} coupler ${size} STL" \
-    "${size}" \
-    "${ROOT_DIR}/dsg/openscad/export/corner-edge-coupler-${side}.scad" \
-    "${STL_DIR}/corner-edge-coupler-${side}-${size}.stl"
-
-  render_png \
-    "Corner-edge ${side} coupler ${size} angled fit detail" \
-    "${size}" \
-    "${ROOT_DIR}/vrf/openscad/corner-edge-coupler-${side}-fit-detail.scad" \
-    "${PNG_DIR}/corner-edge-coupler-${side}-${size}-fit-detail.png"
-
-  render_png \
-    "Corner-edge ${side} coupler ${size} rear fit section" \
-    "${size}" \
-    "${ROOT_DIR}/vrf/openscad/corner-edge-coupler-${side}-rear-fit-section.scad" \
-    "${PNG_DIR}/corner-edge-coupler-${side}-${size}-rear-fit-section.png"
+  if [[ ! -s "${path}" ]]; then
+    echo "ERROR: expected verification render is missing or empty: ${path}" >&2
+    exit 1
+  fi
 }
 
 verify_interactive_main
 
 for size in small medium large; do
-  verify_middle_coupler "${size}"
-  verify_horizontal_edge_coupler "${size}"
-  verify_corner_edge_coupler "left" "${size}"
-  verify_corner_edge_coupler "right" "${size}"
+  require_png "middle-coupler-${size}-fit-detail.png"
+  require_png "middle-coupler-${size}-rear-fit-section.png"
+  require_png "middle-coupler-${size}-xy-seam-section.png"
+
+  require_png "horizontal-edge-coupler-${size}-fit-detail.png"
+  require_png "horizontal-edge-coupler-${size}-rear-fit-section.png"
+  require_png "horizontal-edge-coupler-${size}-yz-edge-section.png"
+  require_png "horizontal-edge-coupler-${size}-xy-seam-section.png"
+
+  for side in left right; do
+    require_png "corner-edge-coupler-${side}-${size}-fit-detail.png"
+    require_png "corner-edge-coupler-${side}-${size}-rear-fit-section.png"
+    require_png "corner-edge-coupler-${side}-${size}-yz-top-edge-section.png"
+    require_png "corner-edge-coupler-${side}-${size}-xy-side-edge-section.png"
+  done
+
+  require_png "corner-edge-coupler-${size}-horizontal-profile-section.png"
+  require_png "corner-edge-coupler-${size}-vertical-profile-section.png"
 done
 
-echo "Verification output written to ${OUT_DIR}"
+echo "Verification evidence and interactive main smoke checks: OK"

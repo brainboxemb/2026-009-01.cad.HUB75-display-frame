@@ -1,0 +1,85 @@
+profiles:
+  middle-fit-detail:
+    files: [middle-coupler-fit-detail.scad]
+    sizes: [small, medium, large]
+    output_pattern: "middle-coupler-{size}-fit-detail.png"
+
+  middle-rear-fit:
+    files: [middle-coupler-rear-fit-section.scad]
+    sizes: [small, medium, large]
+    output_pattern: "middle-coupler-{size}-rear-fit-section.png"
+
+  middle-xy-seam:
+    files: [middle-coupler-xy-seam-section.scad]
+    sizes: [small, medium, large]
+    output_pattern: "middle-coupler-{size}-xy-seam-section.png"
+
+  horizontal-fit-detail:
+    files: [horizontal-edge-coupler-fit-detail.scad]
+    sizes: [small, medium, large]
+    output_pattern: "horizontal-edge-coupler-{size}-fit-detail.png"
+
+  horizontal-rear-fit:
+    files: [horizontal-edge-coupler-rear-fit-section.scad]
+    sizes: [small, medium, large]
+    output_pattern: "horizontal-edge-coupler-{size}-rear-fit-section.png"
+
+  horizontal-yz-edge:
+    files: [horizontal-edge-coupler-yz-edge-section.scad]
+    sizes: [small, medium, large]
+    output_pattern: "horizontal-edge-coupler-{size}-yz-edge-section.png"
+
+  horizontal-xy-seam:
+    files: [horizontal-edge-coupler-xy-seam-section.scad]
+    sizes: [small, medium, large]
+    output_pattern: "horizontal-edge-coupler-{size}-xy-seam-section.png"
+
+  corner-left-fit-detail:
+    files: [corner-edge-coupler-left-fit-detail.scad]
+    sizes: [small, medium, large]
+    output_pattern: "corner-edge-coupler-left-{size}-fit-detail.png"
+
+  corner-left-rear-fit:
+    files: [corner-edge-coupler-left-rear-fit-section.scad]
+    sizes: [small, medium, large]
+    output_pattern: "corner-edge-coupler-left-{size}-rear-fit-section.png"
+
+  corner-left-yz-top-edge:
+    files: [corner-edge-coupler-left-yz-top-edge-section.scad]
+    sizes: [small, medium, large]
+    output_pattern: "corner-edge-coupler-left-{size}-yz-top-edge-section.png"
+
+  corner-left-xy-side-edge:
+    files: [corner-edge-coupler-left-xy-side-edge-section.scad]
+    sizes: [small, medium, large]
+    output_pattern: "corner-edge-coupler-left-{size}-xy-side-edge-section.png"
+
+  corner-right-fit-detail:
+    files: [corner-edge-coupler-right-fit-detail.scad]
+    sizes: [small, medium, large]
+    output_pattern: "corner-edge-coupler-right-{size}-fit-detail.png"
+
+  corner-right-rear-fit:
+    files: [corner-edge-coupler-right-rear-fit-section.scad]
+    sizes: [small, medium, large]
+    output_pattern: "corner-edge-coupler-right-{size}-rear-fit-section.png"
+
+  corner-right-yz-top-edge:
+    files: [corner-edge-coupler-right-yz-top-edge-section.scad]
+    sizes: [small, medium, large]
+    output_pattern: "corner-edge-coupler-right-{size}-yz-top-edge-section.png"
+
+  corner-right-xy-side-edge:
+    files: [corner-edge-coupler-right-xy-side-edge-section.scad]
+    sizes: [small, medium, large]
+    output_pattern: "corner-edge-coupler-right-{size}-xy-side-edge-section.png"
+
+  corner-horizontal-profile:
+    files: [corner-edge-coupler-horizontal-profile-section.scad]
+    sizes: [small, medium, large]
+    output_pattern: "corner-edge-coupler-{size}-horizontal-profile-section.png"
+
+  corner-vertical-profile:
+    files: [corner-edge-coupler-vertical-profile-section.scad]
+    sizes: [small, medium, large]
+    output_pattern: "corner-edge-coupler-{size}-vertical-profile-section.png"

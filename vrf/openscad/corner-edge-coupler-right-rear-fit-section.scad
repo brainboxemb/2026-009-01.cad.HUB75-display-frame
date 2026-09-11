@@ -22,7 +22,10 @@ corner_x =
 corner_z =
     hub75_p5_64x32_panel_nominal_height(panel) / 2;
 
-$vpt = [corner_x - 35, 9.5, corner_z - 38];
+// Centre on the complete coupler, including its outside projection.
+view_inward = (hub75_corner_edge_coupler_inward_reach(coupler)
+    - coupler.outside_projection) / 2;
+$vpt = [corner_x - view_inward, 9.5, corner_z - view_inward];
 $vpr = [90, 0, 180];
 $vpd =
     size == "small" ? 190

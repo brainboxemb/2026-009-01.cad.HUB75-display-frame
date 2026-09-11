@@ -10,6 +10,16 @@ verification evidence and open physical-fit work.
 
 ### Changed
 
+- Apply the horizontal-edge fit refinements to the corner-edge family: the top
+  and side outside ridges now follow the real HUB75 Z/X taper only on their
+  panel-facing edges while the exposed coupler contour stays straight; each
+  orthogonal ridge is built independently to avoid diagonal bridging.
+- Preserve the configured corner guide wall around the panel reinforcement using
+  the same clearance-plus-wall support envelope as the horizontal-edge family.
+- Replace corner rear-fit half-space views with true 0.10 mm slices and add
+  0.10 mm YZ top-edge plus XY side-edge sections for direct verification of both
+  orthogonal taper interfaces.
+
 - Pin the reusable `lib.scad.hub75` dependency to its first immutable release,
   `v0.1.0`, instead of following the moving `main` branch.
 - Lock the `dsg/openscad/ext/lib.scad.hub75` gitlink to the exact source commit
@@ -17,6 +27,12 @@ verification evidence and open physical-fit work.
 - Upgrade repository tooling from `tool.scad-project` v0.9.11 to v0.9.12 and
   align `project.yml`, the tool gitlink and Build/Verify/Release/PR-cleanup
   workflow callers to the exact v0.9.12 source commit.
+- Upgrade the repository tooling again to `tool.scad-project` v0.9.13 so
+  verification-only OpenSCAD targets can use dependency-aware SCons selection
+  with a cache that is separate from normal Build output.
+- Move fit/section verification renders under the reusable verification target
+  engine at 1280 x 720 and stop duplicating normal standalone PNG/STL build
+  products into `vrf`; project scripts now retain only cheap smoke/index checks.
 - Defer generic branch, pull-request and publication workflow guidance to the
   pinned `tools/tool.scad-project/AGENTS.md`; keep the root `AGENTS.md` focused
   on HUB75 display-frame project-specific policy.

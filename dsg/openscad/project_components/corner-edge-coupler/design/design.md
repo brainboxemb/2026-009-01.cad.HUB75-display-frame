@@ -85,6 +85,8 @@ A. construct the asymmetric corner body
        ↓
    rounded asymmetric profile
        ↓
+   reinforcement support envelope where required
+       ↓
    extrude base
 
 B. fit panel hardware
@@ -103,7 +105,9 @@ C. construct corner guides
        ↓
    split inward guide / two outside ridges
        ↓
-   reinforcement relief
+   panel-derived X/Z taper on the two outside ridges
+       ↓
+   reinforcement support + relief
        ↓
    complete guide system
        ↓
@@ -291,10 +295,44 @@ That module also accepts `outside_radius_override`; the guide construction later
 uses that controlled variant as an end mask without changing the production
 base profile.
 
-## 6. Extrude the profile into the base plate
+## 6. Preserve structural material and extrude the base plate
 
-The completed 2D corner profile is extruded from the panel mounting plane toward
-the back of the display:
+The physical corner reinforcement keeps the same diameter for every family
+preset. On the 2 mm small profile, subtracting its required clearance from the
+nominal corner shape can otherwise leave less than one configured wall thickness.
+
+The structural profile therefore unions a local support envelope around the
+panel-derived reinforcement position:
+
+```text
+reinforcement support diameter
+    physical bushing outside diameter
+  + 2 × reinforcement clearance
+  + 2 × wall thickness
+```
+
+The image deliberately uses the **small** preset. Gray is the unchanged family
+profile; red is only the extra structural footprint required around the physical
+reinforcement. Wider presets gain nothing where their existing arm already
+contains that envelope.
+
+<!-- scad-render
+view: reinforcement-support-profile
+vpr: [0, 0, 0]
+vpt: [8, 0, -8]
+-->
+
+Production exposes and constructs this footprint through:
+
+```scad
+hub75_corner_edge_coupler_reinforcement_relief_diameter(coupler)
+hub75_corner_edge_coupler_reinforcement_support_diameter(coupler)
+_hub75_corner_edge_coupler_reinforcement_support_envelope_2d(coupler)
+_hub75_corner_edge_coupler_structural_profile_2d(coupler)
+```
+
+That structural profile is extruded from the panel mounting plane toward the
+back of the display:
 
 ```text
 Y = 0
@@ -309,14 +347,12 @@ view: base
 The production module is:
 
 ```scad
-module _hub75_corner_edge_coupler_base_solid(coupler) {
-    _hub75_corner_edge_coupler_extrude_xz_y(
-        0,
-        coupler.base_thickness
-    )
-        _hub75_corner_edge_coupler_profile_2d(coupler);
-}
+_hub75_corner_edge_coupler_base_solid(coupler)
 ```
+
+The normal `_hub75_corner_edge_coupler_profile_2d()` remains the family reference
+contour used for surface markings. The local structural extension exists only
+where the reinforcement clearance requires more load-bearing material.
 
 ## 7. Cut the corner screw bore
 
@@ -505,20 +541,24 @@ _hub75_corner_edge_coupler_effective_guide_rounding(coupler)
 The important property is that the mask can **only trim** the fitted shell; it
 can never expand it or shift a panel-mating wall.
 
-## 13. Split the shell into inward guide and outside ridges
+## 13. Split the shell and follow both physical outside tapers
 
-A corner guide crosses two physical panel edges. The source therefore separates:
+A corner guide crosses two orthogonal physical panel edges. The source therefore
+separates:
 
 ```text
 inside-panel quadrant
     tall fitted guide
 
-outside horizontal and vertical zones
-    two outside ridges
+outside horizontal zone
+    top outside ridge
+
+outside vertical zone
+    side outside ridge
 ```
 
-Gray is the inward guide region. Red is the union of the two outside ridge
-regions.
+Gray is the inward guide region. Red is the two rear-plane outside ridge
+footprints.
 
 <!-- scad-render
 view: guide-zones
@@ -526,65 +566,123 @@ vpr: [0, 0, 0]
 vpt: [8, 0, -8]
 -->
 
-The production split uses:
+The rear-plane split uses:
 
 ```scad
 _hub75_corner_edge_coupler_inside_panel_2d(coupler)
 _hub75_corner_edge_coupler_tall_guide_2d(coupler)
-_hub75_corner_edge_coupler_horizontal_outer_zone_2d(coupler)
-_hub75_corner_edge_coupler_vertical_outer_zone_2d(coupler)
+_hub75_corner_edge_coupler_horizontal_outer_ridge_2d(coupler)
+_hub75_corner_edge_coupler_vertical_outer_ridge_2d(coupler)
 ```
 
-The outside portions are intentionally still straight through Y in this
-milestone. Unlike the horizontal-edge ridge, their final panel-taper treatment
-is deferred together with the future tube/clip system.
+Those rear footprints cannot simply be extruded straight toward the panel front.
+The real HUB75 outside faces widen continuously over the physical taper depth.
+The horizontal ridge must therefore move only its **panel-facing Z edge**; the
+vertical ridge must move only its **panel-facing X edge**. Their exposed outside
+coupler contour stays stationary.
 
-## 14. Reserve space around the corner reinforcement
+Gray in the next image is the finished production ridge geometry. Red is only
+the material removed from the old straight extrusion to accommodate the physical
+X/Z taper. The two solids do not overlap, so the thin panel-facing wedges remain
+visible without coincident transparent surfaces. This subtraction view explains
+the change; production constructs the tapered ridges directly.
 
-One panel reinforcement feature overlaps the inward corner guide. The guide must
-therefore be relieved around the physical reinforcement footprint plus print
-clearance.
+<!-- scad-render
+view: guide-taper
+vpr: [68, 0, 35]
+vpt: [8, -2, -8]
+-->
 
-The first image keeps the coupler construction visible: gray is the unrelieved
-inward guide; red is the cylindrical material-removal volume.
+The panel-derived inputs are:
+
+```scad
+coupler.panel_taper_depth
+coupler.panel_rear_outer_inset_x
+coupler.panel_rear_outer_inset_z
+hub75_panel_taper_shift_at_depth(...)
+```
+
+Production builds the two ridges **independently**:
+
+```scad
+_hub75_corner_edge_coupler_horizontal_outer_ridge(coupler)
+_hub75_corner_edge_coupler_vertical_outer_ridge(coupler)
+```
+
+and unions them only afterwards in:
+
+```scad
+_hub75_corner_edge_coupler_outer_ridges(coupler)
+```
+
+Each ridge starts as a straight extrusion of its unchanged rear footprint.
+An intersection with a panel-derived taper prism removes material only from the
+panel-facing edge. The horizontal prism is a YZ polygon extruded along X; the
+vertical prism is an XY polygon extruded along Z.
+
+Do not hull the ridges, either together or individually: even one ridge has a
+concave family outline, and its convex hull would fill that outline with unwanted
+diagonal material. Intersecting the original extrusion preserves that outline.
+
+## 14. Preserve a full wall around the corner reinforcement
+
+The reinforcement support envelope introduced in step 6 is also the starting
+boundary for the fitted guide shell. The real panel keep-out is still subtracted
+first, so the local extension cannot grow back into panel material.
+
+The final circular relief then removes exactly the physical reinforcement plus
+print clearance:
+
+```text
+inner cleared diameter
+    physical reinforcement outside diameter
+  + 2 × reinforcement clearance
+
+outer support diameter
+    inner cleared diameter
+  + 2 × wall thickness
+```
+
+This is the same rule as the horizontal-edge family and is not a small-only
+special case. If medium or large already contain the support envelope, their
+visible contour remains unchanged.
+
+The first image keeps the supported coupler construction visible: gray is the
+unrelieved guide; red is the cylindrical material-removal volume.
 
 <!-- scad-render
 view: guide-reinforcement-relief
-alt: Corner guide reinforcement relief construction
+alt: Corner supported guide reinforcement relief construction
 -->
 
-The second image explains the physical reason. Dark gray is the HUB75
-reinforcement feature, light gray the unrelieved guide, transparent red the
-required clearance band and bright red exactly the guide material that intrudes
-into that protected region.
+The detail image explains the physical reason. Dark gray is the HUB75
+reinforcement feature, light gray the supported guide, transparent red the
+required clearance band and bright red exactly the guide material that must be
+removed.
 
 <!-- scad-render
 view: guide-reinforcement-detail
-alt: Corner HUB75 reinforcement and guide clearance detail
+alt: Corner HUB75 reinforcement and supported guide clearance detail
 size: [480, 360]
 -->
 
-The physical centre comes from:
+Production uses:
 
 ```scad
+hub75_corner_edge_coupler_reinforcement_relief_diameter(coupler)
+hub75_corner_edge_coupler_reinforcement_support_diameter(coupler)
 hub75_corner_edge_coupler_reinforcement_position(coupler)
-```
-
-The production cutter is embedded directly inside:
-
-```scad
 _hub75_corner_edge_coupler_guide_walls(coupler)
 ```
 
-where its diameter is the panel-derived reinforcement outside diameter plus
-`2 * reinforcement_bushing_clearance`. The documentation adapter gives that
-embedded subtraction a temporary named helper only so it can be shown as its
-own design step.
+The documentation adapter gives the embedded cylindrical subtraction a named
+explanatory helper only so the Boolean operation can be shown independently.
 
 ## 15. Extrude the complete corner guide system
 
-The inward guide is now extruded to `guide_height` with the reinforcement relief
-removed. The two outside ridge regions are extruded to the same height.
+The inward guide is extruded to `guide_height` with the reinforcement relief
+removed. The two outside ridges use that same 4 / 6 / 10 mm height, but their
+panel-facing X/Z edges follow the continuous physical taper from step 13.
 
 <!-- scad-render
 view: guides
@@ -597,8 +695,8 @@ _hub75_corner_edge_coupler_guide_walls(coupler)
 _hub75_corner_edge_coupler_outer_ridges(coupler)
 ```
 
-The latter remains deliberately straight for now. That deferred taper is a
-known design boundary, not an accidental omission in the documentation.
+The latter is a union of two independently tapered ridge solids. It never hulls
+the combined horizontal/vertical ridge set.
 
 ## 16. Add the reinforcement pad/pin locator
 
@@ -772,26 +870,38 @@ right -> bottom-left
 
 ## Fit verification
 
-Focused corner fixtures live under:
+Left and right verification entrypoints provide local fit details plus three
+true **0.10 mm** slices for every size:
 
 ```text
-dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad
+rear-fit XZ slice
+    complete corner relationship at the selected insertion depth
+
+YZ top-edge slice
+    horizontal ridge against the physical Z taper
+
+XY side-edge slice
+    vertical ridge against the physical X taper
 ```
 
-Left and right verification entrypoints provide local fit details and rear
-sections. As with the other connector families:
+Each thin slice cuts on both sides of its section plane instead of keeping a
+complete half-space. That makes the red/gray mating contours readable even where
+the panel outside wall is sloped.
+
+These verification images answer a different question from the construction
+walkthrough:
 
 ```text
 design.md
-    How is the corner constructed and why?
+    How is the corner coupler constructed and why?
 
 verification evidence
-    Does that construction fit the authoritative HUB75 panel geometry?
+    Does that construction fit the authoritative HUB75 geometry in X, Y and Z?
 ```
 
 ## Deferred
 
-The aluminium tube, corner C-clip and final taper treatment of the two outside
-ridges remain intentionally deferred. The straight outer ridges shown above are
-therefore the current explicit production state, not an undocumented final
-assumption.
+The aluminium reinforcement tube and corner C-clip remain intentionally deferred.
+The panel-fit geometry of the corner body, including both outside-ridge tapers,
+is now explicit and independently verifiable before that reinforcement hardware
+is introduced.

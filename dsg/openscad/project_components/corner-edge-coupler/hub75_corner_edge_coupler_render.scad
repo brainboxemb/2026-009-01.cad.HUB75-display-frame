@@ -96,28 +96,39 @@ module _hub75_corner_edge_design_profile_outline_2d(coupler, line_width = 1.0) {
 
 module _hub75_corner_edge_design_raw_guide_shell_2d(coupler) {
     difference() {
-        _hub75_corner_edge_coupler_profile_2d(coupler);
+        _hub75_corner_edge_coupler_structural_profile_2d(coupler);
         offset(delta = coupler.fit_clearance)
             _hub75_corner_edge_coupler_panel_keepout_2d(coupler);
     }
 }
 
-module _hub75_corner_edge_design_outer_ridges_2d(coupler) {
-    intersection() {
-        _hub75_corner_edge_coupler_guide_shell_2d(coupler);
-        union() {
-            _hub75_corner_edge_coupler_horizontal_outer_zone_2d(coupler);
-            _hub75_corner_edge_coupler_vertical_outer_zone_2d(coupler);
-        }
+module _hub75_corner_edge_design_outer_ridges_2d(
+    coupler,
+    panel_shift_x = 0,
+    panel_shift_z = 0
+) {
+    union() {
+        _hub75_corner_edge_coupler_horizontal_outer_ridge_2d(
+            coupler,
+            panel_shift_z
+        );
+        _hub75_corner_edge_coupler_vertical_outer_ridge_2d(
+            coupler,
+            panel_shift_x
+        );
     }
+}
+
+module _hub75_corner_edge_design_straight_outer_ridges(coupler) {
+    _hub75_corner_edge_coupler_extrude_xz_y(-coupler.guide_height, 0)
+        _hub75_corner_edge_design_outer_ridges_2d(coupler);
 }
 
 module _hub75_corner_edge_design_reinforcement_relief_cutter(coupler) {
     eps = 0.05;
     position = hub75_corner_edge_coupler_reinforcement_position(coupler);
     relief_diameter =
-        coupler.reinforcement_bushing_outer_diameter
-        + 2 * coupler.reinforcement_bushing_clearance;
+        hub75_corner_edge_coupler_reinforcement_relief_diameter(coupler);
     translate([position[0], eps, position[1]])
         rotate([90, 0, 0])
             cylinder(d = relief_diameter, h = coupler.guide_height + 0.30);
@@ -233,10 +244,16 @@ module _hub75_corner_edge_design_after_reference_pockets(coupler) {
 }
 
 module hub75_corner_edge_coupler_design(view = "final") {
+    small = hub75_corner_edge_coupler_create_for_size(side = "left", size = "small");
     medium = hub75_corner_edge_coupler_create_for_size(side = "left", size = "medium");
     large = hub75_corner_edge_coupler_create_for_size(side = "left", size = "large");
     right_medium = hub75_corner_edge_coupler_create_for_size(side = "right", size = "medium");
-    coupler = view == "locator-pin-clearance" ? large : medium;
+    coupler =
+        view == "locator-pin-clearance"
+            ? large
+            : view == "reinforcement-support-profile"
+                ? small
+                : medium;
 
     existing = [0.56, 0.56, 0.56, 1.0];
     existing_transparent = [0.56, 0.56, 0.56, 0.42];
@@ -278,6 +295,17 @@ module hub75_corner_edge_coupler_design(view = "final") {
         color(current)
             _hub75_corner_edge_design_thin(0.02, 0.42)
                 _hub75_corner_edge_coupler_profile_2d(coupler);
+
+    } else if (view == "reinforcement-support-profile") {
+        color(existing)
+            _hub75_corner_edge_design_thin(-0.42, -0.02)
+                _hub75_corner_edge_coupler_profile_2d(coupler);
+        color(current)
+            _hub75_corner_edge_design_thin(0.02, 0.42)
+                difference() {
+                    _hub75_corner_edge_coupler_structural_profile_2d(coupler);
+                    _hub75_corner_edge_coupler_profile_2d(coupler);
+                }
 
     } else if (view == "locator-pin-clearance") {
         position = hub75_corner_edge_coupler_locator_pin_position(coupler);
@@ -330,6 +358,17 @@ module hub75_corner_edge_coupler_design(view = "final") {
         color(current)
             _hub75_corner_edge_design_thin(0.02, 0.42)
                 _hub75_corner_edge_design_outer_ridges_2d(coupler);
+
+    } else if (view == "guide-taper") {
+        // Disjoint solids expose the taper operation without coincident
+        // transparent surfaces hiding the thin panel-facing wedge.
+        color(existing)
+            _hub75_corner_edge_coupler_outer_ridges(coupler);
+        color(current)
+            difference() {
+                _hub75_corner_edge_design_straight_outer_ridges(coupler);
+                _hub75_corner_edge_coupler_outer_ridges(coupler);
+            }
 
     } else if (view == "guide-reinforcement-relief") {
         detail_position = hub75_corner_edge_coupler_reinforcement_position(coupler);
