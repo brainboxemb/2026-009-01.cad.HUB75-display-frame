@@ -141,7 +141,7 @@ module hub75_corner_edge_coupler_rear_fit_section(
     depth = 5.0,
     slice_thickness = 0.10,
     crop_inward = 105,
-    crop_outward = 10
+    crop_outward = undef
 ) {
     active_coupler =
         is_undef(coupler)
@@ -152,8 +152,12 @@ module hub75_corner_edge_coupler_rear_fit_section(
     corner_z = _hub75_corner_edge_fit_corner_z(panel);
     mounting_y = hub75_p5_64x32_panel_mounting_plane_y(panel);
     section_y = mounting_y - depth;
-    x_min = side == "left" ? corner_x - crop_outward : corner_x - crop_inward;
-    x_max = side == "left" ? corner_x + crop_inward : corner_x + crop_outward;
+    // Include the complete outside ridge in the default evidence crop.
+    outside_crop = is_undef(crop_outward)
+        ? active_coupler.outside_projection + 2
+        : crop_outward;
+    x_min = side == "left" ? corner_x - outside_crop : corner_x - crop_inward;
+    x_max = side == "left" ? corner_x + crop_inward : corner_x + outside_crop;
 
     assert(depth > 0, "rear fit section depth must be > 0");
     assert(slice_thickness > 0, "rear fit slice thickness must be > 0");
@@ -171,7 +175,7 @@ module hub75_corner_edge_coupler_rear_fit_section(
             cube([
                 x_max - x_min,
                 slice_thickness,
-                crop_inward + crop_outward
+                crop_inward + outside_crop
             ]);
     }
 

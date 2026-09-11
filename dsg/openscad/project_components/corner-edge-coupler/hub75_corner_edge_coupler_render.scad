@@ -360,10 +360,15 @@ module hub75_corner_edge_coupler_design(view = "final") {
                 _hub75_corner_edge_design_outer_ridges_2d(coupler);
 
     } else if (view == "guide-taper") {
-        color(existing_transparent)
-            _hub75_corner_edge_design_straight_outer_ridges(coupler);
-        color(current)
+        // Disjoint solids expose the taper operation without coincident
+        // transparent surfaces hiding the thin panel-facing wedge.
+        color(existing)
             _hub75_corner_edge_coupler_outer_ridges(coupler);
+        color(current)
+            difference() {
+                _hub75_corner_edge_design_straight_outer_ridges(coupler);
+                _hub75_corner_edge_coupler_outer_ridges(coupler);
+            }
 
     } else if (view == "guide-reinforcement-relief") {
         detail_position = hub75_corner_edge_coupler_reinforcement_position(coupler);

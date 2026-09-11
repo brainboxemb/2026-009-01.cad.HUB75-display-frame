@@ -581,9 +581,11 @@ The horizontal ridge must therefore move only its **panel-facing Z edge**; the
 vertical ridge must move only its **panel-facing X edge**. Their exposed outside
 coupler contour stays stationary.
 
-Gray in the next image is the old documentation-only straight extrusion. Red is
-the actual production geometry with the two panel-facing edges following the
-physical X/Z taper.
+Gray in the next image is the finished production ridge geometry. Red is only
+the material removed from the old straight extrusion to accommodate the physical
+X/Z taper. The two solids do not overlap, so the thin panel-facing wedges remain
+visible without coincident transparent surfaces. This subtraction view explains
+the change; production constructs the tapered ridges directly.
 
 <!-- scad-render
 view: guide-taper
