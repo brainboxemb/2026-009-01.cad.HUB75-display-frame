@@ -46,7 +46,17 @@ render_png() {
   local source="$3"
   local output="$4"
 
-  run_checked     "${label}"     xvfb-run -a       openscad         --enable=object-function         --render         --projection=o         --imgsize=2560,1440         -D "size=\"${size}\""         -o "${output}"         "${source}"
+  run_checked \
+    "${label}" \
+    xvfb-run -a \
+      openscad \
+        --enable=object-function \
+        --render \
+        --projection=o \
+        --imgsize=2560,1440 \
+        -D "size=\"${size}\"" \
+        -o "${output}" \
+        "${source}"
 
   if [[ ! -s "${output}" ]]; then
     echo "ERROR: ${label} did not create a non-empty PNG" >&2
@@ -60,7 +70,13 @@ export_stl() {
   local source="$3"
   local output="$4"
 
-  run_checked     "${label}"     openscad       --enable=object-function       -D "size=\"${size}\""       -o "${output}"       "${source}"
+  run_checked \
+    "${label}" \
+    openscad \
+      --enable=object-function \
+      -D "size=\"${size}\"" \
+      -o "${output}" \
+      "${source}"
 
   if [[ ! -s "${output}" ]]; then
     echo "ERROR: ${label} did not create a non-empty STL" >&2
@@ -68,46 +84,151 @@ export_stl() {
   fi
 }
 
+verify_interactive_main() {
+  local tmp_dir
+  tmp_dir="$(mktemp -d)"
+
+  run_checked \
+    "Interactive main default assembly" \
+    xvfb-run -a \
+      openscad \
+        --enable=object-function \
+        --render \
+        --projection=o \
+        --imgsize=1000,600 \
+        -o "${tmp_dir}/main-default.png" \
+        "${ROOT_DIR}/dsg/openscad/main.scad"
+
+  if [[ ! -s "${tmp_dir}/main-default.png" ]]; then
+    echo "ERROR: interactive main default did not create a non-empty PNG" >&2
+    rm -rf "${tmp_dir}"
+    exit 1
+  fi
+
+  run_checked \
+    "Interactive main custom couplers view" \
+    xvfb-run -a \
+      openscad \
+        --enable=object-function \
+        --render \
+        --projection=o \
+        --imgsize=1000,600 \
+        -D 'view_mode="couplers"' \
+        -D 'coupler_profile="custom"' \
+        -D 'profile_size=88' \
+        -D 'wall_thickness=4' \
+        -D 'guide_height=6' \
+        -D 'base_thickness=3' \
+        -o "${tmp_dir}/main-custom.png" \
+        "${ROOT_DIR}/dsg/openscad/main.scad"
+
+  if [[ ! -s "${tmp_dir}/main-custom.png" ]]; then
+    echo "ERROR: interactive main custom view did not create a non-empty PNG" >&2
+    rm -rf "${tmp_dir}"
+    exit 1
+  fi
+
+  rm -rf "${tmp_dir}"
+}
+
 verify_middle_coupler() {
   local size="$1"
 
-  render_png     "Middle coupler ${size} standalone"     "${size}"     "${ROOT_DIR}/dsg/openscad/render/middle-coupler.scad"     "${PNG_DIR}/middle-coupler-${size}.png"
+  render_png \
+    "Middle coupler ${size} standalone" \
+    "${size}" \
+    "${ROOT_DIR}/dsg/openscad/render/middle-coupler.scad" \
+    "${PNG_DIR}/middle-coupler-${size}.png"
 
-  export_stl     "Middle coupler ${size} STL"     "${size}"     "${ROOT_DIR}/dsg/openscad/export/middle-coupler.scad"     "${STL_DIR}/middle-coupler-${size}.stl"
+  export_stl \
+    "Middle coupler ${size} STL" \
+    "${size}" \
+    "${ROOT_DIR}/dsg/openscad/export/middle-coupler.scad" \
+    "${STL_DIR}/middle-coupler-${size}.stl"
 
-  render_png     "Middle coupler ${size} angled fit detail"     "${size}"     "${ROOT_DIR}/vrf/openscad/middle-coupler-fit-detail.scad"     "${PNG_DIR}/middle-coupler-${size}-fit-detail.png"
+  render_png \
+    "Middle coupler ${size} angled fit detail" \
+    "${size}" \
+    "${ROOT_DIR}/vrf/openscad/middle-coupler-fit-detail.scad" \
+    "${PNG_DIR}/middle-coupler-${size}-fit-detail.png"
 
-  render_png     "Middle coupler ${size} rear fit section"     "${size}"     "${ROOT_DIR}/vrf/openscad/middle-coupler-rear-fit-section.scad"     "${PNG_DIR}/middle-coupler-${size}-rear-fit-section.png"
+  render_png \
+    "Middle coupler ${size} rear fit section" \
+    "${size}" \
+    "${ROOT_DIR}/vrf/openscad/middle-coupler-rear-fit-section.scad" \
+    "${PNG_DIR}/middle-coupler-${size}-rear-fit-section.png"
 
-  render_png     "Middle coupler ${size} XY seam section"     "${size}"     "${ROOT_DIR}/vrf/openscad/middle-coupler-xy-seam-section.scad"     "${PNG_DIR}/middle-coupler-${size}-xy-seam-section.png"
+  render_png \
+    "Middle coupler ${size} XY seam section" \
+    "${size}" \
+    "${ROOT_DIR}/vrf/openscad/middle-coupler-xy-seam-section.scad" \
+    "${PNG_DIR}/middle-coupler-${size}-xy-seam-section.png"
 }
 
 verify_horizontal_edge_coupler() {
   local size="$1"
 
-  render_png     "Horizontal-edge coupler ${size} standalone"     "${size}"     "${ROOT_DIR}/dsg/openscad/render/horizontal-edge-coupler.scad"     "${PNG_DIR}/horizontal-edge-coupler-${size}.png"
+  render_png \
+    "Horizontal-edge coupler ${size} standalone" \
+    "${size}" \
+    "${ROOT_DIR}/dsg/openscad/render/horizontal-edge-coupler.scad" \
+    "${PNG_DIR}/horizontal-edge-coupler-${size}.png"
 
-  export_stl     "Horizontal-edge coupler ${size} STL"     "${size}"     "${ROOT_DIR}/dsg/openscad/export/horizontal-edge-coupler.scad"     "${STL_DIR}/horizontal-edge-coupler-${size}.stl"
+  export_stl \
+    "Horizontal-edge coupler ${size} STL" \
+    "${size}" \
+    "${ROOT_DIR}/dsg/openscad/export/horizontal-edge-coupler.scad" \
+    "${STL_DIR}/horizontal-edge-coupler-${size}.stl"
 
-  render_png     "Horizontal-edge coupler ${size} angled fit detail"     "${size}"     "${ROOT_DIR}/vrf/openscad/horizontal-edge-coupler-fit-detail.scad"     "${PNG_DIR}/horizontal-edge-coupler-${size}-fit-detail.png"
+  render_png \
+    "Horizontal-edge coupler ${size} angled fit detail" \
+    "${size}" \
+    "${ROOT_DIR}/vrf/openscad/horizontal-edge-coupler-fit-detail.scad" \
+    "${PNG_DIR}/horizontal-edge-coupler-${size}-fit-detail.png"
 
-  render_png     "Horizontal-edge coupler ${size} rear fit section"     "${size}"     "${ROOT_DIR}/vrf/openscad/horizontal-edge-coupler-rear-fit-section.scad"     "${PNG_DIR}/horizontal-edge-coupler-${size}-rear-fit-section.png"
+  render_png \
+    "Horizontal-edge coupler ${size} rear fit section" \
+    "${size}" \
+    "${ROOT_DIR}/vrf/openscad/horizontal-edge-coupler-rear-fit-section.scad" \
+    "${PNG_DIR}/horizontal-edge-coupler-${size}-rear-fit-section.png"
 
-  render_png     "Horizontal-edge coupler ${size} YZ edge section"     "${size}"     "${ROOT_DIR}/vrf/openscad/horizontal-edge-coupler-yz-edge-section.scad"     "${PNG_DIR}/horizontal-edge-coupler-${size}-yz-edge-section.png"
+  render_png \
+    "Horizontal-edge coupler ${size} YZ edge section" \
+    "${size}" \
+    "${ROOT_DIR}/vrf/openscad/horizontal-edge-coupler-yz-edge-section.scad" \
+    "${PNG_DIR}/horizontal-edge-coupler-${size}-yz-edge-section.png"
 }
 
 verify_corner_edge_coupler() {
   local side="$1"
   local size="$2"
 
-  render_png     "Corner-edge ${side} coupler ${size} standalone"     "${size}"     "${ROOT_DIR}/dsg/openscad/render/corner-edge-coupler-${side}.scad"     "${PNG_DIR}/corner-edge-coupler-${side}-${size}.png"
+  render_png \
+    "Corner-edge ${side} coupler ${size} standalone" \
+    "${size}" \
+    "${ROOT_DIR}/dsg/openscad/render/corner-edge-coupler-${side}.scad" \
+    "${PNG_DIR}/corner-edge-coupler-${side}-${size}.png"
 
-  export_stl     "Corner-edge ${side} coupler ${size} STL"     "${size}"     "${ROOT_DIR}/dsg/openscad/export/corner-edge-coupler-${side}.scad"     "${STL_DIR}/corner-edge-coupler-${side}-${size}.stl"
+  export_stl \
+    "Corner-edge ${side} coupler ${size} STL" \
+    "${size}" \
+    "${ROOT_DIR}/dsg/openscad/export/corner-edge-coupler-${side}.scad" \
+    "${STL_DIR}/corner-edge-coupler-${side}-${size}.stl"
 
-  render_png     "Corner-edge ${side} coupler ${size} angled fit detail"     "${size}"     "${ROOT_DIR}/vrf/openscad/corner-edge-coupler-${side}-fit-detail.scad"     "${PNG_DIR}/corner-edge-coupler-${side}-${size}-fit-detail.png"
+  render_png \
+    "Corner-edge ${side} coupler ${size} angled fit detail" \
+    "${size}" \
+    "${ROOT_DIR}/vrf/openscad/corner-edge-coupler-${side}-fit-detail.scad" \
+    "${PNG_DIR}/corner-edge-coupler-${side}-${size}-fit-detail.png"
 
-  render_png     "Corner-edge ${side} coupler ${size} rear fit section"     "${size}"     "${ROOT_DIR}/vrf/openscad/corner-edge-coupler-${side}-rear-fit-section.scad"     "${PNG_DIR}/corner-edge-coupler-${side}-${size}-rear-fit-section.png"
+  render_png \
+    "Corner-edge ${side} coupler ${size} rear fit section" \
+    "${size}" \
+    "${ROOT_DIR}/vrf/openscad/corner-edge-coupler-${side}-rear-fit-section.scad" \
+    "${PNG_DIR}/corner-edge-coupler-${side}-${size}-rear-fit-section.png"
 }
+
+verify_interactive_main
 
 for size in small medium large; do
   verify_middle_coupler "${size}"
