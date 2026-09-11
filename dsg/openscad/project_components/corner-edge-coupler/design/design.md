@@ -615,9 +615,14 @@ and unions them only afterwards in:
 _hub75_corner_edge_coupler_outer_ridges(coupler)
 ```
 
-That separation is important. An earlier corner experiment hulled disconnected
-horizontal and vertical ridge patches together and could create a diagonal sheet
-between them. The current construction cannot make that bridge.
+Each ridge starts as a straight extrusion of its unchanged rear footprint.
+An intersection with a panel-derived taper prism removes material only from the
+panel-facing edge. The horizontal prism is a YZ polygon extruded along X; the
+vertical prism is an XY polygon extruded along Z.
+
+Do not hull the ridges, either together or individually: even one ridge has a
+concave family outline, and its convex hull would fill that outline with unwanted
+diagonal material. Intersecting the original extrusion preserves that outline.
 
 ## 14. Preserve a full wall around the corner reinforcement
 

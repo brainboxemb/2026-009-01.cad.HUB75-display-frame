@@ -1218,88 +1218,61 @@ module _hub75_corner_edge_coupler_guide_walls(coupler) {
     }
 }
 
+// Clip a straight ridge with the actual linear panel taper. A hull of even
+// one ridge would convexify its concave family outline and add diagonal material.
 module _hub75_corner_edge_coupler_horizontal_outer_ridge(coupler) {
     ridge_h = coupler.guide_height;
     taper_h = min(ridge_h, coupler.panel_taper_depth);
-    taper_shift_z = hub75_panel_taper_shift_at_depth(
-        taper_h,
-        coupler.panel_taper_depth,
-        coupler.panel_rear_outer_inset_z
+    shift = hub75_panel_taper_shift_at_depth(
+        taper_h, coupler.panel_taper_depth, coupler.panel_rear_outer_inset_z
     );
+    boundary = coupler.rear_outer_edge_z + coupler.fit_clearance;
+    span = 2 * coupler.profile_size + 80;
+    eps = _HUB75_CORNER_EDGE_COUPLER_EPS;
 
-    union() {
-        hull() {
-            _hub75_corner_edge_coupler_extrude_xz_y(
-                -_HUB75_CORNER_EDGE_COUPLER_EPS,
-                _HUB75_CORNER_EDGE_COUPLER_EPS
-            )
-                _hub75_corner_edge_coupler_horizontal_outer_ridge_2d(
-                    coupler,
-                    0
-                );
-
-            _hub75_corner_edge_coupler_extrude_xz_y(
-                -taper_h - _HUB75_CORNER_EDGE_COUPLER_EPS,
-                -taper_h + _HUB75_CORNER_EDGE_COUPLER_EPS
-            )
-                _hub75_corner_edge_coupler_horizontal_outer_ridge_2d(
-                    coupler,
-                    taper_shift_z
-                );
-        }
-
-        if (ridge_h > taper_h)
-            _hub75_corner_edge_coupler_extrude_xz_y(
-                -ridge_h - _HUB75_CORNER_EDGE_COUPLER_EPS,
-                -taper_h + _HUB75_CORNER_EDGE_COUPLER_EPS
-            )
-                _hub75_corner_edge_coupler_horizontal_outer_ridge_2d(
-                    coupler,
-                    taper_shift_z
-                );
+    intersection() {
+        _hub75_corner_edge_coupler_extrude_xz_y(-ridge_h, 0)
+            _hub75_corner_edge_coupler_horizontal_outer_ridge_2d(coupler);
+        // Polygon coordinates are [Y, Z]; extrude along X.
+        multmatrix([[0,0,1,0], [1,0,0,0], [0,1,0,0], [0,0,0,1]])
+            linear_extrude(height = 2 * span, center = true)
+                polygon([
+                    [eps, boundary],
+                    [0, boundary],
+                    [-taper_h, boundary + shift],
+                    [-ridge_h - eps, boundary + shift],
+                    [-ridge_h - eps, span],
+                    [eps, span]
+                ]);
     }
 }
-
 
 module _hub75_corner_edge_coupler_vertical_outer_ridge(coupler) {
     ridge_h = coupler.guide_height;
     taper_h = min(ridge_h, coupler.panel_taper_depth);
-    taper_shift_x = hub75_panel_taper_shift_at_depth(
-        taper_h,
-        coupler.panel_taper_depth,
-        coupler.panel_rear_outer_inset_x
+    shift = hub75_panel_taper_shift_at_depth(
+        taper_h, coupler.panel_taper_depth, coupler.panel_rear_outer_inset_x
     );
+    boundary = coupler.rear_outer_edge_x
+        - coupler.x_inward * coupler.fit_clearance;
+    front_boundary = boundary - coupler.x_inward * shift;
+    span = 2 * coupler.profile_size + 80;
+    outside_x = -coupler.x_inward * span;
+    eps = _HUB75_CORNER_EDGE_COUPLER_EPS;
 
-    union() {
-        hull() {
-            _hub75_corner_edge_coupler_extrude_xz_y(
-                -_HUB75_CORNER_EDGE_COUPLER_EPS,
-                _HUB75_CORNER_EDGE_COUPLER_EPS
-            )
-                _hub75_corner_edge_coupler_vertical_outer_ridge_2d(
-                    coupler,
-                    0
-                );
-
-            _hub75_corner_edge_coupler_extrude_xz_y(
-                -taper_h - _HUB75_CORNER_EDGE_COUPLER_EPS,
-                -taper_h + _HUB75_CORNER_EDGE_COUPLER_EPS
-            )
-                _hub75_corner_edge_coupler_vertical_outer_ridge_2d(
-                    coupler,
-                    taper_shift_x
-                );
-        }
-
-        if (ridge_h > taper_h)
-            _hub75_corner_edge_coupler_extrude_xz_y(
-                -ridge_h - _HUB75_CORNER_EDGE_COUPLER_EPS,
-                -taper_h + _HUB75_CORNER_EDGE_COUPLER_EPS
-            )
-                _hub75_corner_edge_coupler_vertical_outer_ridge_2d(
-                    coupler,
-                    taper_shift_x
-                );
+    intersection() {
+        _hub75_corner_edge_coupler_extrude_xz_y(-ridge_h, 0)
+            _hub75_corner_edge_coupler_vertical_outer_ridge_2d(coupler);
+        // Polygon coordinates are [X, Y]; extrude along Z.
+        linear_extrude(height = 2 * span, center = true)
+            polygon([
+                [boundary, eps],
+                [boundary, 0],
+                [front_boundary, -taper_h],
+                [front_boundary, -ridge_h - eps],
+                [outside_x, -ridge_h - eps],
+                [outside_x, eps]
+            ]);
     }
 }
 
