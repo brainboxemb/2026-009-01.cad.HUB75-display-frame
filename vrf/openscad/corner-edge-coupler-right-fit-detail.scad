@@ -1,5 +1,4 @@
 // Angled top-right panel-corner fit detail.
-// Selective verification cache probe: no geometry change.
 
 use <../../dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad>
 use <../../dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
