@@ -74,6 +74,27 @@ module _hub75_middle_coupler_design_vertical_rib_2d(coupler) {
 }
 
 
+module _hub75_middle_coupler_design_after_reference_pockets(coupler) {
+    // Construction state used only by the documentation: the complete
+    // functional coupler with the blind reference pockets already cut, but
+    // before the centre cross and distance ticks are added.
+    union() {
+        difference() {
+            _hub75_middle_coupler_base_after_pockets(coupler);
+            _hub75_middle_coupler_reference_pocket_cutters(coupler);
+        }
+
+        if (coupler.guide_height > 0)
+            _hub75_middle_coupler_guide_walls(coupler);
+
+        _hub75_middle_coupler_reinforcement_locators(coupler);
+
+        if (coupler.seam_locator_height > 0)
+            _hub75_middle_coupler_seam_locator(coupler);
+    }
+}
+
+
 // Module: hub75_middle_coupler_design()
 // Description:
 //   Creates the default medium-sized coupler and renders one named design view.
@@ -82,44 +103,50 @@ module _hub75_middle_coupler_design_vertical_rib_2d(coupler) {
 module hub75_middle_coupler_design(view = "final") {
     coupler = hub75_middle_coupler_create();
 
-    existing = [0.72, 0.72, 0.72, 1.0];
-    existing_transparent = [0.72, 0.72, 0.72, 0.38];
+    // Construction diagrams deliberately use a darker grey than the normal
+    // 3D debug render. It must remain legible against both the light page
+    // background and the red current-operation geometry.
+    existing = [0.56, 0.56, 0.56, 1.0];
+    existing_transparent = [0.56, 0.56, 0.56, 0.42];
     current = [0.88, 0.08, 0.06, 0.68];
 
     if (view == "mating-reference") {
-        // Grey: actual rear rib cross. Red: printable clearance envelope around
-        // the panel material. This is the physical reference from which both
-        // PLUS-arm thicknesses are derived.
-        color(existing)
-            _hub75_middle_coupler_design_thin(-0.40, 0.0)
-                _hub75_middle_coupler_rib_cross_keepout_2d(coupler);
-
+        // Red expanded envelope is placed behind the physical grey keep-out.
+        // The grey reference therefore remains readable while the red border
+        // still exposes the added fit clearance on every outside edge.
         color(current)
-            _hub75_middle_coupler_design_thin(0.02, 0.42)
+            _hub75_middle_coupler_design_thin(-0.42, -0.02)
                 offset(delta = coupler.fit_clearance)
                     _hub75_middle_coupler_rib_cross_keepout_2d(coupler);
 
-    } else if (view == "profile-horizontal-arm") {
-        // The horizontal arm is the physical crossbar plus clearance and wall
-        // material on both Z sides.
         color(existing)
-            _hub75_middle_coupler_design_thin(-0.40, 0.0)
-                _hub75_middle_coupler_design_horizontal_rib_2d(coupler);
-
-        color(current)
             _hub75_middle_coupler_design_thin(0.02, 0.42)
+                _hub75_middle_coupler_rib_cross_keepout_2d(coupler);
+
+    } else if (view == "profile-horizontal-arm") {
+        // Red: complete printable arm envelope. Grey: the physical crossbar
+        // reference used to derive its height. Put the reference in front so
+        // it cannot disappear inside the larger red rectangle.
+        color(current)
+            _hub75_middle_coupler_design_thin(-0.42, -0.02)
                 _hub75_middle_coupler_design_horizontal_arm_2d(coupler);
+
+        color(existing)
+            _hub75_middle_coupler_design_thin(0.02, 0.42)
+                _hub75_middle_coupler_design_horizontal_rib_2d(coupler);
 
     } else if (view == "profile-vertical-arm") {
         // Grey: the already established horizontal arm. Red: the vertical arm
-        // around the two side rails and the seam between the panels.
-        color(existing)
-            _hub75_middle_coupler_design_thin(-0.40, 0.0)
-                _hub75_middle_coupler_design_horizontal_arm_2d(coupler);
-
+        // around the two side rails and the seam between the panels. Keeping
+        // grey in front preserves the visible previous construction state in
+        // the overlap region.
         color(current)
-            _hub75_middle_coupler_design_thin(0.02, 0.42)
+            _hub75_middle_coupler_design_thin(-0.42, -0.02)
                 _hub75_middle_coupler_design_vertical_arm_2d(coupler);
+
+        color(existing)
+            _hub75_middle_coupler_design_thin(0.02, 0.42)
+                _hub75_middle_coupler_design_horizontal_arm_2d(coupler);
 
     } else if (view == "profile-raw-plus") {
         color(current)
@@ -151,8 +178,15 @@ module hub75_middle_coupler_design(view = "final") {
                     _hub75_middle_coupler_rib_cross_keepout_2d(coupler);
 
     } else if (view == "guide-raw-shell") {
+        // Keep the starting printable footprint visible behind the subtraction
+        // result. Grey is the rounded PLUS; red is the material that remains
+        // after the clearance-expanded rib cross has been removed.
+        color(existing_transparent)
+            _hub75_middle_coupler_design_thin(-0.42, -0.02)
+                _hub75_middle_coupler_profile_2d(coupler);
+
         color(current)
-            _hub75_middle_coupler_design_thin()
+            _hub75_middle_coupler_design_thin(0.02, 0.42)
                 _hub75_middle_coupler_raw_guide_shell_2d(coupler);
 
     } else if (view == "guide-rounded-shell") {
@@ -174,6 +208,16 @@ module hub75_middle_coupler_design(view = "final") {
 
         color(current)
             _hub75_middle_coupler_reinforcement_relief_cutters(coupler);
+
+    } else if (view == "center-marks") {
+        // The reference pockets belong to the previous stage. Render them as
+        // actual recesses in the grey coupler and highlight only the newly
+        // introduced centre cross and distance-tick cutters in red.
+        color(existing)
+            _hub75_middle_coupler_design_after_reference_pockets(coupler);
+
+        color(current)
+            _hub75_middle_coupler_center_mark_cutters(coupler);
 
     } else {
         hub75_middle_coupler_render(
