@@ -185,9 +185,15 @@ module _hub75_horizontal_edge_design_locator_crop(coupler, width = 34) {
         cube([width, coupler.base_thickness + 5, width]);
 }
 
-module _hub75_horizontal_edge_design_outer_ridge_detail_2d(coupler) {
+module _hub75_horizontal_edge_design_outer_ridge_detail_2d(
+    coupler,
+    panel_shift_z = 0
+) {
     intersection() {
-        _hub75_horizontal_edge_coupler_outer_ridge_2d(coupler);
+        _hub75_horizontal_edge_coupler_outer_ridge_2d(
+            coupler,
+            panel_shift_z
+        );
         square([18, 32], center = true);
     }
 }
@@ -325,14 +331,19 @@ module hub75_horizontal_edge_coupler_design(view = "final") {
             scale([2.0, 2.0, 2.0]) {
                 color(existing)
                     _hub75_horizontal_edge_coupler_extrude_xz_y(-0.08, 0.08)
-                        _hub75_horizontal_edge_design_outer_ridge_detail_2d(coupler);
+                        _hub75_horizontal_edge_design_outer_ridge_detail_2d(
+                            coupler,
+                            0
+                        );
                 color(current)
-                    translate([0, 0, taper_shift_z])
-                        _hub75_horizontal_edge_coupler_extrude_xz_y(
-                            -taper_h - 0.08,
-                            -taper_h + 0.08
-                        )
-                            _hub75_horizontal_edge_design_outer_ridge_detail_2d(coupler);
+                    _hub75_horizontal_edge_coupler_extrude_xz_y(
+                        -taper_h - 0.08,
+                        -taper_h + 0.08
+                    )
+                        _hub75_horizontal_edge_design_outer_ridge_detail_2d(
+                            coupler,
+                            taper_shift_z
+                        );
             }
 
     } else if (view == "guide-reinforcement-reliefs") {
