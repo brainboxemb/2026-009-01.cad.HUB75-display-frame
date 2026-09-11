@@ -272,6 +272,22 @@ verify_corner_edge_coupler() {
     "${PNG_DIR}/corner-edge-coupler-${side}-${size}-xy-side-edge-section.png"
 }
 
+verify_corner_edge_profile_sections() {
+  local size="$1"
+
+  render_png \
+    "Corner-edge coupler ${size} horizontal profile section" \
+    "${size}" \
+    "${ROOT_DIR}/vrf/openscad/corner-edge-coupler-horizontal-profile-section.scad" \
+    "${PNG_DIR}/corner-edge-coupler-${size}-horizontal-profile-section.png"
+
+  render_png \
+    "Corner-edge coupler ${size} vertical profile section" \
+    "${size}" \
+    "${ROOT_DIR}/vrf/openscad/corner-edge-coupler-vertical-profile-section.scad" \
+    "${PNG_DIR}/corner-edge-coupler-${size}-vertical-profile-section.png"
+}
+
 verify_interactive_main
 
 for size in small medium large; do
@@ -279,6 +295,7 @@ for size in small medium large; do
   verify_horizontal_edge_coupler "${size}"
   verify_corner_edge_coupler "left" "${size}"
   verify_corner_edge_coupler "right" "${size}"
+  verify_corner_edge_profile_sections "${size}"
 done
 
 echo "Verification output written to ${OUT_DIR}"
