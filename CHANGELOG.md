@@ -27,6 +27,12 @@ verification evidence and open physical-fit work.
 - Upgrade repository tooling from `tool.scad-project` v0.9.11 to v0.9.12 and
   align `project.yml`, the tool gitlink and Build/Verify/Release/PR-cleanup
   workflow callers to the exact v0.9.12 source commit.
+- Upgrade the repository tooling again to `tool.scad-project` v0.9.13 so
+  verification-only OpenSCAD targets can use dependency-aware SCons selection
+  with a cache that is separate from normal Build output.
+- Move fit/section verification renders under the reusable verification target
+  engine at 1280 x 720 and stop duplicating normal standalone PNG/STL build
+  products into `vrf`; project scripts now retain only cheap smoke/index checks.
 - Defer generic branch, pull-request and publication workflow guidance to the
   pinned `tools/tool.scad-project/AGENTS.md`; keep the root `AGENTS.md` focused
   on HUB75 display-frame project-specific policy.
