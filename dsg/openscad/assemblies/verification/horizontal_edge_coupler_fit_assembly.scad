@@ -223,3 +223,66 @@ module hub75_horizontal_edge_coupler_yz_edge_section(
             _slice_volume();
         }
 }
+
+
+// Module: hub75_horizontal_edge_coupler_xy_seam_section()
+// Description:
+//   Thin XY slice through the vertical panel seam, inward from the top edge.
+//   This is the orthogonal companion to the YZ edge section and shows how the
+//   vertical T arm fits around both panel side rails and the tapered seam.
+module hub75_horizontal_edge_coupler_xy_seam_section(
+    panel = hub75_p5_64x32_panel_create(),
+    coupler = undef,
+    slice_inward = 22,
+    slice_thickness = 0.50,
+    crop_width = 90
+) {
+    active_coupler =
+        is_undef(coupler)
+            ? hub75_horizontal_edge_coupler_create(panel = panel)
+            : coupler;
+
+    mounting_y =
+        hub75_p5_64x32_panel_mounting_plane_y(panel);
+    edge_z =
+        _hub75_horizontal_edge_fit_edge_z(panel);
+    slice_z =
+        edge_z - slice_inward;
+    y_max =
+        mounting_y
+        + active_coupler.base_thickness
+        + 2;
+
+    assert(slice_inward > 0, "XY seam section must be inward from the edge");
+    assert(slice_thickness > 0, "XY seam slice thickness must be > 0");
+    assert(
+        slice_inward < hub75_horizontal_edge_coupler_inward_reach(active_coupler),
+        "XY seam section must remain inside the vertical coupler arm"
+    );
+
+    module _slice_volume() {
+        translate([
+            -crop_width / 2,
+            -0.5,
+            slice_z - slice_thickness / 2
+        ])
+            cube([
+                crop_width,
+                y_max + 1,
+                slice_thickness
+            ]);
+    }
+
+    intersection() {
+        _hub75_horizontal_edge_fit_panel_pair(panel);
+        _slice_volume();
+    }
+
+    color([0.72, 0.05, 0.04, 1])
+        intersection() {
+            translate([0, mounting_y, edge_z])
+                hub75_horizontal_edge_coupler_build(active_coupler);
+
+            _slice_volume();
+        }
+}
