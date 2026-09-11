@@ -555,12 +555,42 @@ panel reinforcement outside diameter
 + 2 × reinforcement clearance
 ```
 
-The gray volume is the still-unrelieved guide shell. The red cylinders are the
-material that will be removed.
+First keep the normal **coupler construction view**. The gray volume is the
+still-unrelieved guide shell; the two red cylinders are the material-removal
+volumes used at the two reinforcement positions.
 
 <!-- scad-render
 view: guide-reinforcement-reliefs
+alt: Full coupler guide reinforcement relief construction
 -->
+
+That overview shows *what changes on the coupler*, but by itself it does not
+explain *why those two circular cuts are needed*. The second image therefore
+zooms into one of the two identical physical interfaces.
+
+In the close-up:
+
+```text
+dark gray        physical HUB75 side-rail reinforcement
+light gray       guide before the relief is cut
+transparent red  required clearance around the reinforcement
+bright red       guide material that intrudes into that clearance
+```
+
+The panel fragment is reconstructed only from dimensions already captured from
+`lib.scad.hub75`; it introduces no duplicate panel measurements. The same relief
+operation is applied at the mirrored reinforcement position on the other panel.
+
+<!-- scad-render
+view: guide-reinforcement-detail
+alt: HUB75 reinforcement and guide clearance detail
+size: [480, 360]
+-->
+
+The two images intentionally answer two different questions: the first preserves
+the step-by-step coupler construction sequence, while the second makes the
+physical reason for the operation understandable before reading the surrounding
+text.
 
 ## 13. Extrude the finished raised guides
 
