@@ -1,66 +1,23 @@
+schema_version: 1
+
 project:
   name: 2026-009-01.cad.HUB75-display-frame
 
-tooling:
-  tool_scad_project:
+profiles:
+  - type: scad
+    config: project.scad.yml
+
+dependencies:
+  - name: tool.scad-project
+    role: tooling
     type: git-submodule
     url: https://github.com/brainboxemb/tool.scad-project.git
     path: tools/tool.scad-project
-    ref: v0.9.13
+    ref: 40694891d3239401cb0ba4bfb35a3812d6584ab7
 
-paths:
-  design_root: dsg
-  build_root: bld
-  render_root: dsg/openscad/render
-  export_root: dsg/openscad/export
-
-design:
-  include_externals: false
-
-build_engine:
-  engine: scons
-
-openscad:
-  common_flags:
-    - --enable=object-function
-  render_flags:
-    - --render
-    - --projection=o
-  image_size: [2560, 1440]
-  design_image_size: [640, 480]
-
-rendering:
-  watermark:
-    text: "© 2026 brainboxemb"
-
-externals:
   - name: lib.scad.hub75
+    role: external
     type: git-submodule
     url: https://github.com/brainboxemb/lib.scad.hub75.git
     path: dsg/openscad/ext/lib.scad.hub75
     ref: v0.1.2
-    required_file: openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad
-
-verification:
-  render_root: vrf/openscad
-  image_size: [1280, 720]
-  commands:
-    - [bash, scripts/run-verification.sh]
-    - [bash, scripts/build-verification-index.sh]
-  output_root: vrf/out
-
-publication:
-  production:
-    source_branch: main
-    build_branch: prod/build
-    verification_branch: prod/verification
-
-  development:
-    pr_branch_prefix: dev/pr
-
-  tags:
-    pattern: "v*"
-
-  release:
-    branch_prefix: rel
-    tag_pattern: "v*"
