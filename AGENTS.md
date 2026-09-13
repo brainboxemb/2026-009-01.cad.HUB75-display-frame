@@ -5,13 +5,17 @@ Persistent guidance for automated coding agents working in
 
 ## Generic workflow policy
 
-Before branch, pull-request, publication or release work, read the pinned
+Before SCAD branch, pull-request, publication or release work, read the pinned
 `tools/tool.scad-project/AGENTS.md`. Its pull-request-first change workflow and
 publication lifecycle are authoritative for this consumer.
 
+Generic repository bootstrap, dependency gitlink registration/status/update and
+ref resolution belong to the pinned `tools/tool.git-project`. Do not duplicate
+that logic here or in SCAD-specific scripts.
+
 This root file adds HUB75-frame-specific CAD and documentation guidance only. It
-must not contradict or duplicate changing generic branch/PR/publication rules
-from the pinned tool policy.
+must not contradict or duplicate changing generic workflow rules from the pinned
+tools.
 
 ## Project purpose
 
@@ -30,12 +34,15 @@ Use these in order:
 ```text
 current component source + generated design evidence
 lib.scad.hub75 public geometry/mating API
-project.yml for tooling/build/publication policy
+project.yml for generic profile/dependency policy
+project.scad.yml for SCAD build/verification/publication policy
 CHANGELOG.md for completed milestone history
 ```
 
 Do not duplicate volatile tool versions in this file. `project.yml`, gitlinks
-and reusable workflow refs define the active tooling release.
+and reusable workflow refs define the active dependency/tooling pins.
+`tools/tool.git-project` is the bootstrap special case: its parent gitlink is the
+authoritative exact pin and it must not recursively list itself in `project.yml`.
 
 ## Panel orientation and coordinate system
 
@@ -205,11 +212,24 @@ changed SCAD dependency must rebuild only the affected target graph. Do not
 replace dependency checking with a broad unconditional cache hit.
 
 Generated design documentation has its own cache and is separate from normal
-per-target SCons selection.
+per-target SCons selection. Both `project.yml` and `project.scad.yml` are cache
+inputs.
 
-Direct project submodules are the project tool and `lib.scad.hub75`. Normal
-checkout is direct-only; do not recursively initialize development dependencies
-owned by those submodules.
+Direct project gitlinks are the generic bootstrap engine, the SCAD project tool
+and `lib.scad.hub75`:
+
+```text
+tools/tool.git-project
+tools/tool.scad-project
+dsg/openscad/ext/lib.scad.hub75
+```
+
+Normal checkout is direct-only; do not recursively initialize development
+dependencies owned by those submodules. Root `bootstrap.*` launchers must remain
+exact copies of `tool.git-project` consumer bootstrap launchers. Root
+`update-repo.*` launchers must remain exact copies of the thin SCAD update
+wrappers from `tool.scad-project`; generic Git/ref handling still belongs to
+`tool.git-project`.
 
 ## Render and verification policy
 
@@ -222,7 +242,7 @@ Official full-display cameras and orthographic projection are part of the
 project's documentation contract. Do not compensate for coordinate mistakes by
 changing camera targets or projection.
 
-Default build PNGs use the watermark configured in `project.yml`. Image
+Default build PNGs use the watermark configured in `project.scad.yml`. Image
 post-processing belongs to `docker.scad-toolchain`; orchestration belongs to
 `tool.scad-project`; do not add project-local watermark code.
 
@@ -234,8 +254,8 @@ small enough to diagnose the relevant interface.
 ## Publication
 
 Generic branch naming, pull-request previews, cleanup and release lifecycle are
-defined by the pinned tool policy and `project.yml`; do not duplicate changing
-branch/version details here.
+defined by the pinned SCAD tool policy and `project.scad.yml`; do not duplicate
+changing branch/version details here.
 
 Generated build and verification snapshots do not belong on `main`. Do not create
 a project version tag merely because release infrastructure exists.
