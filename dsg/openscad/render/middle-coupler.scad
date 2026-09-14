@@ -1,5 +1,4 @@
 // Official detail render for the middle coupler.
-// T6 selective rebuild probe: entrypoint-only source change.
 
 use <../project_components/middle-coupler/hub75_middle_coupler.scad>
 
