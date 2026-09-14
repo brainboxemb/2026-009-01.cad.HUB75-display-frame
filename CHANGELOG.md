@@ -10,6 +10,12 @@ verification evidence and open physical-fit work.
 
 ### Changed
 
+- Update the repository tooling baseline to released `tool.scad-project v0.12.0`
+  and align the tool gitlink, release workflow and production evidence assertions
+  to its exact source commit.
+- Update the reusable HUB75 panel dependency from `lib.scad.hub75 v0.1.2` to
+  released `v0.1.3`, keeping the frame/coupler geometry unchanged while
+  requalifying the complete Build/Verify and publication graph.
 - Apply the horizontal-edge fit refinements to the corner-edge family: the top
   and side outside ridges now follow the real HUB75 Z/X taper only on their
   panel-facing edges while the exposed coupler contour stays straight; each
