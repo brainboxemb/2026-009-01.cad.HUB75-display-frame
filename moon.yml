@@ -92,7 +92,6 @@ tasks:
       - 'dsg/**'
       - 'vrf/openscad/**'
       - 'vrf/templates/**'
-      - 'vrf/render.yml'
       - 'scripts/**'
       - 'bootstrap.sh'
       - 'bootstrap.ps1'
