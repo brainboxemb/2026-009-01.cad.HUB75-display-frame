@@ -4,12 +4,16 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "${ROOT_DIR}"
 
+EXPECTED_GIT_TOOL_SHA="5db2b23b95ad0a230ab5d5d2bed725927328fcfe"
+EXPECTED_SCAD_TOOL_SHA="8e0bd8f3b31e421586554f2bc7cbd914d05836b6"
+EXPECTED_SCAD_TOOL_REF="v0.11.0"
+
 OUT_DIR="${ROOT_DIR}/vrf/out"
 PNG_DIR="${OUT_DIR}/png"
 
-# Step 0.5 repository/tooling boundary checks. These deliberately run before
-# the existing CAD evidence checks so a broken bootstrap/config migration cannot
-# hide behind successful geometry renders.
+# Repository/tooling boundary checks. These deliberately run before the CAD
+# evidence checks so stale orchestration or ownership assumptions cannot hide
+# behind successful geometry renders.
 if ! grep -Fq 'type: scad' project.yml || ! grep -Fq 'config: project.scad.yml' project.yml; then
   echo "ERROR: project.yml must declare project.scad.yml as the SCAD profile" >&2
   exit 1
@@ -31,23 +35,96 @@ TOOL_REF="$(awk '
   $1 == "-" && $2 == "name:" { in_tool = ($3 == "tool.scad-project"); next }
   in_tool && $1 == "ref:" { print $2; exit }
 ' project.yml)"
+GIT_TOOL_SHA="$(git -C tools/tool.git-project rev-parse HEAD)"
 TOOL_SHA="$(git -C tools/tool.scad-project rev-parse HEAD)"
 RESOLVED_REF_SHA="$(git -C tools/tool.scad-project rev-parse "${TOOL_REF}^{commit}" 2>/dev/null || true)"
-if [[ -z "$TOOL_REF" || "$RESOLVED_REF_SHA" != "$TOOL_SHA" ]]; then
+
+if [[ "$TOOL_REF" != "$EXPECTED_SCAD_TOOL_REF" ]]; then
+  echo "ERROR: tool.scad-project must use released ref ${EXPECTED_SCAD_TOOL_REF}; got ${TOOL_REF:-<missing>}" >&2
+  exit 1
+fi
+if [[ "$GIT_TOOL_SHA" != "$EXPECTED_GIT_TOOL_SHA" ]]; then
+  echo "ERROR: tool.git-project must resolve to ${EXPECTED_GIT_TOOL_SHA}; got ${GIT_TOOL_SHA}" >&2
+  exit 1
+fi
+if [[ "$TOOL_SHA" != "$EXPECTED_SCAD_TOOL_SHA" ]]; then
+  echo "ERROR: tool.scad-project must resolve to ${EXPECTED_SCAD_TOOL_SHA}; got ${TOOL_SHA}" >&2
+  exit 1
+fi
+if [[ "$RESOLVED_REF_SHA" != "$TOOL_SHA" ]]; then
   echo "ERROR: project.yml tool.scad-project ref and gitlink are not aligned" >&2
   exit 1
 fi
 
-for mapping in \
-  "build.yml:project-build" \
-  "verify.yml:project-verify" \
-  "release.yml:project-release" \
-  "pr-cleanup.yml:project-pr-cleanup"; do
-  caller="${mapping%%:*}"
-  reusable="${mapping#*:}"
-  expected="brainboxemb/tool.scad-project/.github/workflows/${reusable}.yml@${TOOL_SHA}"
-  if ! grep -Fq "$expected" ".github/workflows/${caller}"; then
-    echo "ERROR: .github/workflows/${caller} is not pinned to exact tooling commit ${TOOL_SHA}" >&2
+if [[ -e .github/workflows/build.yml || -e .github/workflows/verify.yml ]]; then
+  echo "ERROR: standalone Build/Verify callers must not coexist with the production Moon graph" >&2
+  exit 1
+fi
+
+SCAD_WORKFLOW=.github/workflows/scad.yml
+for required in \
+  'brainboxemb/tool.git-project/moon@v0.2.3' \
+  'brainboxemb/tool.git-project/.github/workflows/reusable-generated-output-publish.yml@v0.2.3' \
+  'task: consumer:scad.ci' \
+  'cache-namespace: hub75-frame-scad-production-t6-v2' \
+  'SCAD_PROJECT_SOURCE_SHA:' \
+  "$EXPECTED_SCAD_TOOL_SHA" \
+  'bld/evidence/executions/scad-docs/execution.json' \
+  'bld/evidence/executions/scad-build/execution.json' \
+  'vrf/out/evidence/executions/scad-verify/execution.json'; do
+  if ! grep -Fq "$required" "$SCAD_WORKFLOW"; then
+    echo "ERROR: ${SCAD_WORKFLOW} is missing production orchestration contract: ${required}" >&2
+    exit 1
+  fi
+done
+
+if grep -Fq 'task: consumer:scad.build' "$SCAD_WORKFLOW" || \
+   grep -Fq 'moon-project.sh run consumer:scad.verify' "$SCAD_WORKFLOW"; then
+  echo "ERROR: workflow must invoke one SCAD Moon graph instead of separate build/verify roots" >&2
+  exit 1
+fi
+
+if ! grep -Fq "project-release.yml@${EXPECTED_SCAD_TOOL_SHA}" .github/workflows/release.yml; then
+  echo "ERROR: release.yml is not pinned to released tool.scad-project ${EXPECTED_SCAD_TOOL_SHA}" >&2
+  exit 1
+fi
+if ! grep -Fq 'reusable-pr-preview-cleanup.yml@v0.2.3' .github/workflows/pr-cleanup.yml; then
+  echo "ERROR: pr-cleanup.yml must use released generic cleanup owned by tool.git-project" >&2
+  exit 1
+fi
+for suffix in build verification; do
+  if ! grep -Eq "^[[:space:]]+${suffix}$" .github/workflows/pr-cleanup.yml; then
+    echo "ERROR: pr-cleanup.yml must clean the ${suffix} preview" >&2
+    exit 1
+  fi
+done
+
+for required in \
+  'scad.docs:' \
+  'scad-project.sh design-build' \
+  'bld/evidence/executions/scad-docs/**' \
+  'scad.build:' \
+  'scad-project.sh build' \
+  'bld/evidence/executions/scad-build/**' \
+  'scad.build-index:' \
+  'scad-project.sh build-index' \
+  'scad.build-provenance:' \
+  'scad-project.sh publication-info-build' \
+  'scad.verify:' \
+  'scad-project.sh verify' \
+  'vrf/out/evidence/executions/scad-verify/**' \
+  'scad.verification-provenance:' \
+  'scad-project.sh publication-info-verification' \
+  'scad.ci:'; do
+  if ! grep -Fq "$required" moon.yml; then
+    echo "ERROR: moon.yml is missing explicit SCAD production/evidence stage contract: ${required}" >&2
+    exit 1
+  fi
+done
+
+for coarse in produce-build produce-verification; do
+  if grep -Fq "$coarse" moon.yml; then
+    echo "ERROR: moon.yml must expose meaningful production stages instead of coarse ${coarse}" >&2
     exit 1
   fi
 done
@@ -69,7 +146,7 @@ if ! cmp -s update-repo.ps1 tools/tool.scad-project/bootstrap/consumer-update.ps
   exit 1
 fi
 
-echo "Repository bootstrap ownership: OK"
+echo "Repository bootstrap and production ownership: OK"
 
 run_checked() {
   local label="$1"
