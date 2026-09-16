@@ -1,0 +1,51 @@
+SCAD producer execution
+=======================
+
+Capability: scad.build
+Action: build
+Source revision: 18f7900bed31345b8123571ade152af6914e18d6
+Owner: brainboxemb/tool.scad-project
+Owner revision: 85781a6b21a0f6a06d37be154fd9eb475ecaa2a4
+tool.scad-project version: 0.14.8
+Status: success
+
+Domain evidence: ../../domain/last-build.json
+
+Decision report kind: build
+Build engine: scons
+Targets: 32
+Outcomes: BUILT=32, CACHE_RESTORED=0, CURRENT=0, ERROR=0
+
+Target decisions:
+- BUILT: bld/png/corner-edge-coupler-left-small.png
+- BUILT: bld/png/corner-edge-coupler-left-medium.png
+- BUILT: bld/png/corner-edge-coupler-left-large.png
+- BUILT: bld/png/corner-edge-coupler-right-small.png
+- BUILT: bld/png/corner-edge-coupler-right-medium.png
+- BUILT: bld/png/corner-edge-coupler-right-large.png
+- BUILT: bld/png/front-angled.png
+- BUILT: bld/png/front.png
+- BUILT: bld/png/horizontal-edge-coupler-small.png
+- BUILT: bld/png/horizontal-edge-coupler-medium.png
+- BUILT: bld/png/horizontal-edge-coupler-large.png
+- BUILT: bld/png/middle-coupler-small.png
+- BUILT: bld/png/middle-coupler-medium.png
+- BUILT: bld/png/middle-coupler-large.png
+- BUILT: bld/png/rear-angled-couplers-only.png
+- BUILT: bld/png/rear-angled-couplers.png
+- BUILT: bld/png/rear-angled-exploded.png
+- BUILT: bld/png/rear-angled.png
+- BUILT: bld/png/rear.png
+- BUILT: bld/stl/corner-edge-coupler-left-small.stl
+- BUILT: bld/stl/corner-edge-coupler-left-medium.stl
+- BUILT: bld/stl/corner-edge-coupler-left-large.stl
+- BUILT: bld/stl/corner-edge-coupler-right-small.stl
+- BUILT: bld/stl/corner-edge-coupler-right-medium.stl
+- BUILT: bld/stl/corner-edge-coupler-right-large.stl
+- BUILT: bld/stl/horizontal-edge-coupler-small.stl
+- BUILT: bld/stl/horizontal-edge-coupler-medium.stl
+- BUILT: bld/stl/horizontal-edge-coupler-large.stl
+- BUILT: bld/stl/middle-coupler-small.stl
+- BUILT: bld/stl/middle-coupler-medium.stl
+- BUILT: bld/stl/middle-coupler-large.stl
+- BUILT: bld/stl/panels-assembly.stl

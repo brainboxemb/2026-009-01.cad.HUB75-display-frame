@@ -1,0 +1,87 @@
+SCAD producer execution
+=======================
+
+Capability: scad.docs
+Action: design-build
+Source revision: 18f7900bed31345b8123571ade152af6914e18d6
+Owner: brainboxemb/tool.scad-project
+Owner revision: 85781a6b21a0f6a06d37be154fd9eb475ecaa2a4
+tool.scad-project version: 0.14.8
+Status: success
+
+Domain evidence: ../../domain/last-design-build.json
+
+Decision report kind: design
+Build engine: scons
+Targets: 68
+Outcomes: BUILT=68, CACHE_RESTORED=0, CURRENT=0, ERROR=0
+
+Target decisions:
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/corner-edge-coupler/design/img/01-mating-reference.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/corner-edge-coupler/design/img/02-profile-horizontal-arm.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/corner-edge-coupler/design/img/03-profile-vertical-arm.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/corner-edge-coupler/design/img/04-profile-raw-cross.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/corner-edge-coupler/design/img/05-profile-rounded.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/corner-edge-coupler/design/img/06-reinforcement-support-profile.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/corner-edge-coupler/design/img/07-base.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/corner-edge-coupler/design/img/08-screw-hole.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/corner-edge-coupler/design/img/09-tube-pocket.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/corner-edge-coupler/design/img/10-locator-pin-clearance.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/corner-edge-coupler/design/img/11-guide-keepout.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/corner-edge-coupler/design/img/12-guide-raw-shell.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/corner-edge-coupler/design/img/13-guide-end-mask.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/corner-edge-coupler/design/img/14-guide-zones.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/corner-edge-coupler/design/img/15-guide-taper.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/corner-edge-coupler/design/img/16-guide-reinforcement-relief.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/corner-edge-coupler/design/img/17-guide-reinforcement-detail.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/corner-edge-coupler/design/img/18-guides.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/corner-edge-coupler/design/img/19-reinforcement-locator.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/corner-edge-coupler/design/img/20-functional.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/corner-edge-coupler/design/img/21-reference-pockets.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/corner-edge-coupler/design/img/22-center-marks.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/corner-edge-coupler/design/img/23-final.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/corner-edge-coupler/design/img/24-right-final.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/horizontal-edge-coupler/design/img/01-mating-reference.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/horizontal-edge-coupler/design/img/02-profile-horizontal-arm.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/horizontal-edge-coupler/design/img/03-profile-vertical-arm.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/horizontal-edge-coupler/design/img/04-profile-raw-cross.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/horizontal-edge-coupler/design/img/05-profile-rounded-cross.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/horizontal-edge-coupler/design/img/06-profile-t.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/horizontal-edge-coupler/design/img/07-reinforcement-support-profile.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/horizontal-edge-coupler/design/img/08-screw-holes.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/horizontal-edge-coupler/design/img/09-tube-pockets.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/horizontal-edge-coupler/design/img/10-locator-pin-clearance.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/horizontal-edge-coupler/design/img/11-guide-keepout.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/horizontal-edge-coupler/design/img/12-guide-raw-shell.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/horizontal-edge-coupler/design/img/13-guide-rounded-shell.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/horizontal-edge-coupler/design/img/14-guide-zones.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/horizontal-edge-coupler/design/img/15-guide-outer-taper.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/horizontal-edge-coupler/design/img/16-guide-reinforcement-reliefs.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/horizontal-edge-coupler/design/img/17-guide-reinforcement-detail.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/horizontal-edge-coupler/design/img/18-guides.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/horizontal-edge-coupler/design/img/19-reinforcement-locators.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/horizontal-edge-coupler/design/img/20-seam-locator.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/horizontal-edge-coupler/design/img/21-functional.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/horizontal-edge-coupler/design/img/22-reference-pockets.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/horizontal-edge-coupler/design/img/23-center-marks.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/horizontal-edge-coupler/design/img/24-final.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/middle-coupler/design/img/01-mating-reference.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/middle-coupler/design/img/02-profile-horizontal-arm.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/middle-coupler/design/img/03-profile-vertical-arm.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/middle-coupler/design/img/04-profile-raw-plus.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/middle-coupler/design/img/05-profile-rounded.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/middle-coupler/design/img/06-base.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/middle-coupler/design/img/07-screw-holes.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/middle-coupler/design/img/08-tube-pockets.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/middle-coupler/design/img/09-guide-keepout.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/middle-coupler/design/img/10-guide-raw-shell.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/middle-coupler/design/img/11-guide-rounded-shell.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/middle-coupler/design/img/12-guide-reinforcement-reliefs.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/middle-coupler/design/img/13-guide-reinforcement-detail.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/middle-coupler/design/img/14-guides.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/middle-coupler/design/img/15-reinforcement-locators.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/middle-coupler/design/img/16-seam-locator.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/middle-coupler/design/img/17-functional.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/middle-coupler/design/img/18-reference-pockets.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/middle-coupler/design/img/19-center-marks.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/project_components/middle-coupler/design/img/20-final.png

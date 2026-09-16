@@ -1,0 +1,45 @@
+Publication context : release
+Publication kind    : build
+Publication branch  : rel/v0.0.2/build
+
+Source
+------
+Repository          : brainboxemb/2026-009-01.cad.HUB75-display-frame
+Ref type            : tag
+Ref                 : v0.0.2
+Commit              : 18f7900bed31345b8123571ade152af6914e18d6
+Triggered by        : brainboxemb
+Workflow run        : https://github.com/brainboxemb/2026-009-01.cad.HUB75-display-frame/actions/runs/35099609270
+
+Tooling
+-------
+SCAD toolchain image: ghcr.io/brainboxemb/scad-toolchain-openscad:v0.5.0
+SCAD toolchain ver. : v0.5.0
+tool.scad-project   : v0.14.8
+
+Git submodules
+--------------
+dsg/openscad/ext/lib.scad.hub75 : e0432a9533a08a1c0d9e87225c22f3f66b632531
+dsg/openscad/ext/lib.scad.hub75/tools/tool.git-project : 7c43f37e7b07cfb57638a1d1dad2501de09ba7eb
+dsg/openscad/ext/lib.scad.hub75/tools/tool.scad-project : b86b2be325f64847b8d91b7f2596bfd4e4ffb7f2
+tools/tool.git-project : 7c43f37e7b07cfb57638a1d1dad2501de09ba7eb
+tools/tool.scad-project : 85781a6b21a0f6a06d37be154fd9eb475ecaa2a4
+
+Runtime components
+------------------
+SCAD toolchain
+==============
+Profile    : openscad
+OpenSCAD   : OpenSCAD version 2026.09.12.nightly
+PythonSCAD : not installed
+Python     : Python 3.12.3
+Git        : git version 2.43.0
+SCons      : 4.11.1
+BOSL2      : v2.0.752
+pybosl2    : not installed
+Shapely    : not installed
+docsgen    : 2.0.55
+Pillow     : 12.3.0
+OPENSCADPATH: /opt/openscad-libraries
+BOSL2_ROOT  : /opt/openscad-libraries/BOSL2
+PYTHONPATH : /__w/2026-009-01.cad.HUB75-display-frame/2026-009-01.cad.HUB75-display-frame/tools/tool.scad-project/src
