@@ -211,19 +211,31 @@ inside the shell script.
 
 ## Tooling
 
-The project pins:
+The project pins the Migration-005 shared execution architecture:
 
 ```text
-tool.scad-project v0.9.8 (semantic dependency in project.yml)
-workflow callers  360b6aa950288adfad845fffccd0ffa41becd45c
-SCAD toolchain     v0.4.1 (through the reusable workflow)
-lib.scad.hub75     main, locked by the project gitlink
+tool.scad-project  v0.14.3 / b86b2be325f64847b8d91b7f2596bfd4e4ffb7f2
+tool.git-project   v0.2.8  / 7c43f37e7b07cfb57638a1d1dad2501de09ba7eb
+SCAD toolchain     ghcr.io/brainboxemb/scad-toolchain-openscad:v0.5.0
+lib.scad.hub75     v0.1.5  / e0432a9533a08a1c0d9e87225c22f3f66b632531
 ```
 
-The tool submodule gitlink resolves the semantic v0.9.8 dependency to the same
-commit used by the Build, Verify and Release workflow callers. Exact workflow
-SHA pinning avoids ambiguity in nested reusable workflows while `project.yml`
-remains human-readable.
+`project.yml` keeps the human-readable semantic versions while the tool and
+library gitlinks plus reusable workflow callers resolve them to immutable source
+commits. Exact workflow SHA pinning avoids ambiguity in nested reusable workflows.
+
+The root `moon.yml` selects the project capabilities `scad.docs`, `scad.build`
+and `scad.verify` and owns only project-specific source-family impact boundaries.
+`.moon/tasks/scad.yml` inherits the shared capability implementation from the
+pinned `tool.scad-project`; this repository no longer carries its own duplicate
+Build/Verify lifecycle graph.
+
+This repository is OpenSCAD-only, so production selects the focused v0.5.0
+OpenSCAD runtime. Normal Build and Verification both have configured SCons
+targets, so their caches are transported independently. Moon determines which
+capabilities are source-affected; the shared planner separately determines the
+complete materialization scope needed for publication-safe Build/Verification
+snapshots.
 
 Normal project renders and exports are discovered from `dsg/openscad/render`
 and `dsg/openscad/export`. The configured SCons build engine tracks their SCAD
@@ -271,7 +283,7 @@ bld/png/corner-edge-coupler-left-<size>.png
 bld/png/corner-edge-coupler-right-<size>.png
 ```
 
-`tool.scad-project v0.9.8` also generates `bld/png/README.md` as a browseable,
+The shared tooling also generates `bld/png/README.md` as a browseable,
 deterministically ordered gallery for the normal build PNGs. The generated
 `bld/README.md` links directly to that gallery.
 
