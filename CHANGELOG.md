@@ -6,6 +6,15 @@ Tagged releases summarize reproducible project snapshots. The milestone entries
 remain the detailed design history and continue to document geometry decisions,
 verification evidence and open physical-fit work.
 
+## v0.0.3
+
+### Changed
+
+- Align the final Migration-005 technical-namespace baseline to released `tool.scad-project v0.14.9`, with exact tool gitlink `a140b22858ac1899e7f2fa71b679639a70d819c3` and matching semantic Production/Release callers.
+- Normalize persistent generated-output publication to the canonical technical `bld` / `vrf` namespaces: `dev/pr-N/{bld,vrf}`, `prod/{bld,vrf}` and `rel/vX.Y.Z/{bld,vrf}` while retaining human-facing Build/Verification terminology.
+- Requalify the affected rollout PR (`35127778978`) and merged-main Production (`35128211708`) with both normal Build and Verification SCons cache restore/save paths active.
+- Keep project geometry, verification content and the existing `lib.scad.hub75 v0.1.5` geometry dependency / exact gitlink `e0432a9533a08a1c0d9e87225c22f3f66b632531` unchanged.
+
 ## v0.0.2
 
 ### Changed
