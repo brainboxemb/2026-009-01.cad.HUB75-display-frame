@@ -214,7 +214,7 @@ inside the shell script.
 The project pins the Migration-005 shared execution architecture:
 
 ```text
-tool.scad-project  v0.14.3 / b86b2be325f64847b8d91b7f2596bfd4e4ffb7f2
+tool.scad-project  v0.14.8 / 85781a6b21a0f6a06d37be154fd9eb475ecaa2a4
 tool.git-project   v0.2.8  / 7c43f37e7b07cfb57638a1d1dad2501de09ba7eb
 SCAD toolchain     ghcr.io/brainboxemb/scad-toolchain-openscad:v0.5.0
 lib.scad.hub75     v0.1.5  / e0432a9533a08a1c0d9e87225c22f3f66b632531
@@ -222,7 +222,7 @@ lib.scad.hub75     v0.1.5  / e0432a9533a08a1c0d9e87225c22f3f66b632531
 
 `project.yml` keeps the human-readable semantic versions while the tool and
 library gitlinks plus reusable workflow callers resolve them to immutable source
-commits. Exact workflow SHA pinning avoids ambiguity in nested reusable workflows.
+commits. Reusable workflow callers use the same released semantic tool ref, while the committed tool gitlink records the exact source commit.
 
 The root `moon.yml` selects the project capabilities `scad.docs`, `scad.build`
 and `scad.verify` and owns only project-specific source-family impact boundaries.

@@ -6,10 +6,12 @@ Tagged releases summarize reproducible project snapshots. The milestone entries
 remain the detailed design history and continue to document geometry decisions,
 verification evidence and open physical-fit work.
 
-## Unreleased
+## v0.0.2
 
 ### Changed
 
+- Finalize Migration 005 on released `tool.scad-project v0.14.8`, with the committed tool gitlink on exact source `85781a6b21a0f6a06d37be154fd9eb475ecaa2a4` and thin semantic Production/Release callers.
+- Retain `lib.scad.hub75 v0.1.5` while qualifying affected production, exact provenance, durable timing evidence, the README-only zero-runtime path and the immutable project-release flow.
 - Update the repository tooling baseline to released `tool.scad-project v0.12.0`
   and align the tool gitlink, release workflow and production evidence assertions
   to its exact source commit.
