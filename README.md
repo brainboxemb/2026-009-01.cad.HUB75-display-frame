@@ -7,6 +7,8 @@ This repository is a clean restart of the display-frame design. It deliberately
 does not copy the old frame/coupler implementation. Complexity is added only
 after each smaller assembly is understood and verified.
 
+<!-- Migration 005 zero-runtime probe: documentation-only change. -->
+
 ## Preview
 
 ### Front angled
