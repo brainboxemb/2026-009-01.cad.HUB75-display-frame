@@ -11,44 +11,44 @@ after each smaller assembly is understood and verified.
 
 ### Front angled
 
-[![Front angled view](../../raw/prod/build/png/front-angled.png)](../../blob/prod/build/png/front-angled.png)
+[![Front angled view](../../raw/prod/bld/png/front-angled.png)](../../blob/prod/bld/png/front-angled.png)
 
 ### Rear angled
 
 **Panels only**
 
-[![Rear angled panel view](../../raw/prod/build/png/rear-angled.png)](../../blob/prod/build/png/rear-angled.png)
+[![Rear angled panel view](../../raw/prod/bld/png/rear-angled.png)](../../blob/prod/bld/png/rear-angled.png)
 
 **With couplers**
 
-[![Rear angled view with couplers](../../raw/prod/build/png/rear-angled-couplers.png)](../../blob/prod/build/png/rear-angled-couplers.png)
+[![Rear angled view with couplers](../../raw/prod/bld/png/rear-angled-couplers.png)](../../blob/prod/bld/png/rear-angled-couplers.png)
 
-These images are generated from the current `prod/build` branch.
+These images are generated from the current `prod/bld` branch.
 
 ## Quick links
 
 - [Changelog](CHANGELOG.md)
 - [Project releases](../../releases)
-- [Generated build branch](../../tree/prod/build)
-- [Build overview](../../blob/prod/build/README.md)
-- [Build PNG gallery](../../blob/prod/build/png/README.md)
-- [Build provenance](../../blob/prod/build/publication-info.txt)
-- [Generated design documentation](../../blob/prod/build/design/README.md)
+- [Generated build branch](../../tree/prod/bld)
+- [Build overview](../../blob/prod/bld/README.md)
+- [Build PNG gallery](../../blob/prod/bld/png/README.md)
+- [Build provenance](../../blob/prod/bld/publication-info.txt)
+- [Generated design documentation](../../blob/prod/bld/design/README.md)
 - [Middle coupler design source](dsg/openscad/project_components/middle-coupler/design/design.md)
 - [Horizontal-edge coupler design source](dsg/openscad/project_components/horizontal-edge-coupler/design/design.md)
 - [Corner-edge coupler design source](dsg/openscad/project_components/corner-edge-coupler/design/design.md)
-- [Generated middle coupler design](../../blob/prod/build/design/project/openscad/project_components/middle-coupler/design/design.md)
-- [Generated horizontal-edge coupler design](../../blob/prod/build/design/project/openscad/project_components/horizontal-edge-coupler/design/design.md)
-- [Generated corner-edge coupler design](../../blob/prod/build/design/project/openscad/project_components/corner-edge-coupler/design/design.md)
-- [Verification branch](../../tree/prod/verification)
-- [Verification overview](../../blob/prod/verification/README.md)
-- [Verification PNG gallery](../../blob/prod/verification/png/README.md)
-- [Middle medium rear fit section](../../blob/prod/verification/png/middle-coupler-medium-rear-fit-section.png)
-- [Horizontal-edge medium fit detail](../../blob/prod/verification/png/horizontal-edge-coupler-medium-fit-detail.png)
-- [Horizontal-edge medium rear fit section](../../blob/prod/verification/png/horizontal-edge-coupler-medium-rear-fit-section.png)
-- [PNG renders](../../tree/prod/build/png)
-- [Five-panel STL](../../blob/prod/build/stl/panels-assembly.stl)
-- [Connector STLs](../../tree/prod/build/stl)
+- [Generated middle coupler design](../../blob/prod/bld/design/project/openscad/project_components/middle-coupler/design/design.md)
+- [Generated horizontal-edge coupler design](../../blob/prod/bld/design/project/openscad/project_components/horizontal-edge-coupler/design/design.md)
+- [Generated corner-edge coupler design](../../blob/prod/bld/design/project/openscad/project_components/corner-edge-coupler/design/design.md)
+- [Verification branch](../../tree/prod/vrf)
+- [Verification overview](../../blob/prod/vrf/README.md)
+- [Verification PNG gallery](../../blob/prod/vrf/png/README.md)
+- [Middle medium rear fit section](../../blob/prod/vrf/png/middle-coupler-medium-rear-fit-section.png)
+- [Horizontal-edge medium fit detail](../../blob/prod/vrf/png/horizontal-edge-coupler-medium-fit-detail.png)
+- [Horizontal-edge medium rear fit section](../../blob/prod/vrf/png/horizontal-edge-coupler-medium-rear-fit-section.png)
+- [PNG renders](../../tree/prod/bld/png)
+- [Five-panel STL](../../blob/prod/bld/stl/panels-assembly.stl)
+- [Connector STLs](../../tree/prod/bld/stl)
 
 ## Project status
 
@@ -214,7 +214,7 @@ inside the shell script.
 The project pins the Migration-005 shared execution architecture:
 
 ```text
-tool.scad-project  v0.14.8 / 85781a6b21a0f6a06d37be154fd9eb475ecaa2a4
+tool.scad-project  v0.14.9 / a140b22858ac1899e7f2fa71b679639a70d819c3
 tool.git-project   v0.2.8  / 7c43f37e7b07cfb57638a1d1dad2501de09ba7eb
 SCAD toolchain     ghcr.io/brainboxemb/scad-toolchain-openscad:v0.5.0
 lib.scad.hub75     v0.1.5  / e0432a9533a08a1c0d9e87225c22f3f66b632531
@@ -242,10 +242,10 @@ and `dsg/openscad/export`. The configured SCons build engine tracks their SCAD
 dependencies and reuses compatible cached targets rather than blindly rebuilding
 every output on every workflow run.
 
-Production output from `main` is published to `prod/build` and
-`prod/verification`. Version releases are coordinated by the Release workflow
-and publish immutable snapshots under `rel/vX.Y.Z/build` and
-`rel/vX.Y.Z/verification`.
+Production output from `main` is published to `prod/bld` and
+`prod/vrf`. Version releases are coordinated by the Release workflow
+and publish immutable snapshots under `rel/vX.Y.Z/bld` and
+`rel/vX.Y.Z/vrf`.
 
 The five configured full-display PNG renders use 2560x1440. Complete-display
 presentation uses the library's `light_gray` colour scheme explicitly, rather
@@ -287,7 +287,7 @@ The shared tooling also generates `bld/png/README.md` as a browseable,
 deterministically ordered gallery for the normal build PNGs. The generated
 `bld/README.md` links directly to that gallery.
 
-Fit evidence is intentionally published on the separate `prod/verification`
+Fit evidence is intentionally published on the separate `prod/vrf`
 branch:
 
 ```text
@@ -325,11 +325,11 @@ bld/stl/corner-edge-coupler-left-<size>.stl
 bld/stl/corner-edge-coupler-right-<size>.stl
 ```
 
-The generated design walkthrough is published under the `prod/build` branch's
+The generated design walkthrough is published under the `prod/bld` branch's
 `design/` tree.
 
-Generated files are published to the mutable `prod/build` and
-`prod/verification` branches and are not stored on `main`.
+Generated files are published to the mutable `prod/bld` and
+`prod/vrf` branches and are not stored on `main`.
 
 ## Local setup
 
