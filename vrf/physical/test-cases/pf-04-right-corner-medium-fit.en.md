@@ -28,7 +28,7 @@ render is not a physical result.
 
 **Before**
 
-Place the panel rear-side up and start at the physical top-right corner. The current panel API has no locator-pin interface at this chiral corner, so this part must not depend on a locator that is not physically present.
+Place the panel rear-side up and start at the physical top-right corner. The current panel model predicts no locator pin at this chiral corner. Check that explicitly on the real panel; a different physical feature is `investigate`.
 
 Print the STL at 100% scale. Remove only normal brim/support where that does not
 change mating geometry. Do not sand or enlarge mating faces, guides, locators or
@@ -38,7 +38,7 @@ holes before the first test.
 | ---: | --- | --- |
 | 1 | Place the coupler without a screw at top-right using light hand pressure. | Top and side guides plus the reinforcement locator find their features without force. |
 | 2 | Inspect the base, both outside edges and the 19.5 mm outside projection visually. | The base sits flat, both ridges follow the panel edges and nothing pulls the part out of square. |
-| 3 | Check screw/tube/reinforcement interfaces and the area where the left variant has locator clearance; insert an available screw loosely only. | No unexpected locator collision; the screw starts without pulling the part into place. |
+| 3 | Check screw/tube/reinforcement interfaces and the area where the left variant has locator clearance; insert an available screw loosely only. | The real locator situation agrees with the model and causes no collision; an unexpected physical feature is `investigate`. The screw starts without pulling the part into place. |
 | 4 | Remove and reseat the coupler three times at top-right. | The same natural seating is repeatable without snagging or rocking. |
 | 5 | Rotate the coupler 180° about Y and place the same part at bottom-left. | The documented second chiral position also seats naturally without new interference. |
 | 6 | Take one clear photo of at least the top-right seating and record any marks/stress. | No visible damage or stress; evidence shows both outside edges and the reinforcement area. |

@@ -28,7 +28,7 @@ render is not a physical result.
 
 **Before**
 
-Place the panel rear-side up and start at the physical top-left corner. This left variant contains the locator-pin clearance that belongs to this corner.
+Place the panel rear-side up and start at the physical top-left corner. The current panel model predicts a locator pin at this chiral corner; the left coupler contains clearance for it. The testcase must verify that the real panel actually agrees.
 
 Print the STL at 100% scale. Remove only normal brim/support where that does not
 change mating geometry. Do not sand or enlarge mating faces, guides, locators or
@@ -38,9 +38,9 @@ holes before the first test.
 | ---: | --- | --- |
 | 1 | Place the coupler without a screw at top-left using light hand pressure. | Top and side guides, reinforcement locator and locator-pin clearance find their features without force. |
 | 2 | Inspect the base, both outside edges and the 19.5 mm outside projection visually. | The base sits flat, both ridges follow the panel edges and nothing pulls the part out of square. |
-| 3 | Check screw/tube/reinforcement/locator interfaces and insert an available screw loosely only. | The physical locator pin moves freely in its clearance and the screw starts without pulling the part into place. |
+| 3 | Check screw/tube/reinforcement/locator interfaces and insert an available screw loosely only. | If the real locator pin is present as the model predicts, it moves freely in its clearance; a missing/different feature is `investigate`. The screw starts without pulling the part into place. |
 | 4 | Remove and reseat the coupler three times at top-left. | The same natural seating is repeatable without snagging or rocking. |
-| 5 | Rotate the coupler 180° about Y and place the same part at bottom-right. | The documented second chiral position also seats naturally and the locator interface meets the corresponding physical feature. |
+| 5 | Rotate the coupler 180° about Y and place the same part at bottom-right. | The documented second chiral position also seats naturally. The real locator situation agrees with the model; any mismatch is `investigate`. |
 | 6 | Take one clear photo of at least the top-left seating and record any marks/stress. | No visible damage or stress; evidence shows seating and the locator area. |
 
 **Record**

@@ -28,7 +28,7 @@ digitale render telt niet als fysiek resultaat.
 
 **Vooraf**
 
-Leg het paneel met de achterzijde naar je toe en begin bij de fysieke top-left hoek. Deze linker variant bevat de locator-pin clearance die bij deze hoek hoort.
+Leg het paneel met de achterzijde naar je toe en begin bij de fysieke top-left hoek. Het huidige panelmodel voorspelt op deze chirale hoek een locator pin; de linker coupler bevat daarvoor de clearance. De testcase moet juist controleren of het echte paneel daarmee overeenkomt.
 
 Print de STL op 100% schaal. Verwijder alleen normale printbrim/support waar dat
 geen mating-geometrie verandert. Schuur of ruim pasvlakken, geleiders, locators
@@ -38,9 +38,9 @@ of gaten niet op vóór de eerste test.
 | ---: | --- | --- |
 | 1 | Plaats de coupler zonder schroef op top-left met lichte handdruk. | Top- en side-guide, reinforcement locator en locator-pin clearance vinden hun features zonder forceren. |
 | 2 | Controleer de base, beide buitenranden en de 19,5 mm buitenprojectie visueel. | De base zit vlak; beide ridges volgen de panelranden en niets trekt de part scheef. |
-| 3 | Controleer screw/tube/reinforcement/locator interfaces en steek een beschikbare schroef alleen los in. | De fysieke locator pin loopt vrij in zijn clearance en de schroef start zonder de part in positie te trekken. |
+| 3 | Controleer screw/tube/reinforcement/locator interfaces en steek een beschikbare schroef alleen los in. | Als de echte locator pin aanwezig is zoals het model voorspelt, loopt hij vrij in zijn clearance; een ontbrekende/afwijkende feature wordt `investigate`. De schroef start zonder de part in positie te trekken. |
 | 4 | Neem de coupler weg en plaats hem drie keer opnieuw op top-left. | Dezelfde natuurlijke seating is herhaalbaar zonder haken of rocking. |
-| 5 | Draai de coupler 180° om Y en plaats dezelfde part op bottom-right. | De gedocumenteerde tweede chirale positie past eveneens natuurlijk en de locator interface komt op de overeenkomstige fysieke feature. |
+| 5 | Draai de coupler 180° om Y en plaats dezelfde part op bottom-right. | De gedocumenteerde tweede chirale positie past eveneens natuurlijk. De echte locator-situatie komt overeen met het model; een afwijking wordt `investigate`. |
 | 6 | Maak een duidelijke foto van ten minste de top-left seating en noteer eventuele afdrukken/stress. | Geen zichtbare schade of spanning; bewijs maakt seating en locatorgebied zichtbaar. |
 
 **Registratie**
