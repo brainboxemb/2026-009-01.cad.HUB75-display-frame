@@ -28,6 +28,8 @@ These images are generated from the current `prod/bld` branch.
 ## Quick links
 
 - [Changelog](CHANGELOG.md)
+- [Project plan](docs/01-project-plan.md)
+- [New-chat / agent handoff](docs/00-new-chat-handoff.md)
 - [Project releases](../../releases)
 - [Generated build branch](../../tree/prod/bld)
 - [Build overview](../../blob/prod/bld/README.md)
@@ -353,17 +355,12 @@ dsg/openscad/main.scad
 
 ## Next design step
 
-Inspect the complete connector family before introducing tube reinforcement:
+The forward-looking design sequence, current step and acceptance criteria now live
+in the [project plan](docs/01-project-plan.md). Keeping that information in one
+place avoids a second project backlog drifting inside this README.
 
-1. compare middle, horizontal-edge and corner small/medium/large proportions;
-2. use the blue datum pin to confirm every engraved `+` against the real HUB75 frame;
-3. inspect rear-fit sections for guide clearance and continuity;
-4. compare left/right corner chirality and the large left locator-pin clearance;
-5. rotate/zoom all standalone STLs;
-6. preferably print at least the medium middle, horizontal-edge and both corner variants against real panels.
-
-Only after these core connector geometries are accepted should the aluminium
-reinforcement tube and C-clips be introduced. That keeps tube-system geometry
-separate from panel-fit geometry.
+The plan still preserves the key design boundary established here: core
+panel/coupler interfaces must be digitally and physically accepted before the
+aluminium reinforcement tube and attachment system are introduced.
 
 The model and documentation were developed with the assistance of ChatGPT.
