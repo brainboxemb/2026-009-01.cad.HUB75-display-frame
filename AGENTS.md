@@ -27,6 +27,24 @@ must then be captured in current source/design documentation.
 Develop through small, verifiable assemblies. Do not mix new reinforcement or
 mounting layers into unresolved basic panel-fit geometry.
 
+## Project coordination
+
+Project-local coordination lives in:
+
+- [`docs/00-new-chat-handoff.md`](docs/00-new-chat-handoff.md) for the reusable
+  fresh-session instruction;
+- [`docs/01-project-plan.md`](docs/01-project-plan.md) for current/future HUB75
+  design work and step acceptance.
+
+Generic brainboxemb project/tooling conventions are owned by
+[`brainboxemb/brainboxemb.meta`](https://github.com/brainboxemb/brainboxemb.meta)
+and the relevant pinned tool repositories. Do not copy changing generic workflow,
+publication or cross-project coordination rules into this project plan.
+
+For a project-local design task, use this repository's plan. Consult
+`brainboxemb.meta/STATUS.md` only when a current cross-project work track actually
+changes or constrains this project.
+
 ## Sources of truth
 
 Use these in order:
