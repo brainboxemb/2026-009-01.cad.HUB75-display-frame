@@ -39,8 +39,8 @@ not a geometry to copy blindly. The exact groove, snap, slide or locking geometr
 is still an open design question.
 
 The coordination plan/handoff prerequisite was merged in PR #40. **Step 1 is
-now active in draft PR #31**; later coupler-acceptance and reinforcement work
-remains blocked on the Step 1 exit criteria.
+complete in PR #31**. Step 2 is the next project-design step; reinforcement work
+remains blocked until the core coupler-family acceptance steps are complete.
 
 ## Step 0 — Establish project handoff and forward plan
 
@@ -67,7 +67,7 @@ repository itself.
 
 ## Step 1 — Correct alternating HUB75 panel orientation
 
-**Status:** active — draft PR #31.
+**Status:** complete in PR #31.
 
 **Tracking:** issue / draft PR
 [#31](https://github.com/brainboxemb/2026-009-01.cad.HUB75-display-frame/pull/31)
@@ -85,17 +85,25 @@ alternate orientation, instead of rendering all five with the same orientation.
 - check the effect on existing middle, edge and corner coupler placement rather
   than treating this as a presentation-only rotation.
 
-**Required evidence**
+**Acceptance evidence**
 
-- front/rear complete-display renders show the intended alternating pattern;
-- coupler assembly views remain mechanically coherent;
-- affected fit/section verification remains valid or is deliberately updated;
-- Build and Verification are green for the changed dependency graph.
+- final functional PR run `35329401938` is green;
+- Build and Verification publication both identify PR head
+  `c953aae6ce9668c6aa4f6634d8f9fcebebfaad04`;
+- `rear.png` changes only in the two alternating-panel regions: 18,828 of
+  3,686,400 pixels (0.51%), with no change outside the panel area;
+- front/front-angled renders remain byte-identical, as expected for the
+  symmetric front face;
+- middle and horizontal-edge fit-detail renders change where panel-local rear
+  features move, while geometry-only mating sections remain identical where the
+  global mating cross-section is preserved;
+- the horizontal-edge fixture explicitly exercises the connector-heavy seam
+  parity.
 
 **Exit criteria**
 
-Issue #31 is resolved and the complete display plus coupler evidence represents
-the intended alternating physical layout.
+PR #31 is merged and the complete display plus coupler evidence represents the
+intended alternating physical layout.
 
 ## Step 2 — Digital acceptance of the core coupler family
 
