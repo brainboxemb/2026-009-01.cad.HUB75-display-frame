@@ -144,22 +144,26 @@ replace physical print-fit acceptance in Step 3.
 
 ## Step 3 — Physical fit acceptance of the core couplers
 
-**Status:** next after PR #41 merges.
+**Status:** active — procedures prepared in PR #42; physical execution tracked
+in issue [#43](https://github.com/brainboxemb/2026-009-01.cad.HUB75-display-frame/issues/43).
+
+**Procedures:** [Physical core-coupler verification](../vrf/physical/README.md)
 
 **Goal**
 
 Validate the core panel/coupler interfaces against real HUB75 hardware before
 their geometry becomes the foundation for reinforcement.
 
-**Minimum useful physical set**
+**Minimum physical set**
 
-- medium middle coupler;
-- medium horizontal-edge coupler;
-- medium left corner;
-- medium right corner.
+- PF-01 — medium middle coupler;
+- PF-02 — medium horizontal-edge coupler;
+- PF-03 — medium left corner;
+- PF-04 — medium right corner.
 
-Additional sizes should only be printed when the medium parts or a specific
-design question make them useful.
+The four cases use exact existing production STL revisions and ask one physical
+fit question each. Additional sizes should only be printed when a medium result
+or a specific design question makes them useful.
 
 **Check**
 
@@ -172,8 +176,9 @@ design question make them useful.
 
 **Exit criteria**
 
-Physical observations are recorded, required geometry corrections are merged and
-the four core medium variants are accepted against real panels.
+All four PF cases are executed on identified real panel samples and record
+`agrees`. Any `investigate` result is resolved by a focused correction and
+retest. Only then may Step 4 freeze the core interface baseline.
 
 ## Step 4 — Freeze the core coupler interface baseline
 
