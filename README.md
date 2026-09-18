@@ -374,8 +374,11 @@ The forward-looking design sequence, current step and acceptance criteria now li
 in the [project plan](docs/01-project-plan.md). Keeping that information in one
 place avoids a second project backlog drifting inside this README.
 
-The plan still preserves the key design boundary established here: core
-panel/coupler interfaces must be digitally and physically accepted before the
-aluminium reinforcement tube and attachment system are introduced.
+The plan preserves the key production boundary established here: core
+panel/coupler interfaces must be digitally and physically accepted before a new
+reinforcement attachment is integrated into the production couplers. A separate
+detachable-attachment PoP may run in parallel on neutral/surrogate geometry so
+that clip research does not wait on the unfinished physical panel-verification
+baseline.
 
 The model and documentation were developed with the assistance of ChatGPT.
