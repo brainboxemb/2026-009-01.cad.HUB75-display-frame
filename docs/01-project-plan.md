@@ -253,7 +253,7 @@ panel-fit geometry by accident.
 
 ## Step 5 — Establish the detachable-attachment PoP environment
 
-**Status:** active in parallel with Track A preparation; tracked by issue #44.
+**Status:** environment established; OG-01 complete in experiment PR #1. AT-01 is next.
 
 **Goal**
 
@@ -334,12 +334,16 @@ GitHub confirms it is a real fork of `AndyLevesque/QuackWorks`; its current
 brainboxemb/exp.2026-005.scad-detachable-clip-interface
 ```
 
-The experiment repository now exists. Its first work item is
+The experiment repository now exists. Its first work item,
 [PR #1](https://github.com/brainboxemb/exp.2026-005.scad-detachable-clip-interface/pull/1),
-which pins the fork as `dsg/openscad/ext/quackworks` on that exact commit and
-builds OG-01 reference PNG/STL evidence. Experiment-owned analysis and later
-coupon geometry remain in that repository; the fork remains an external-source
-boundary.
+is merged as `ceaaaef95d3592a0d3ee5a8b1199d274bbdb8c7c`. It pins the fork as
+`dsg/openscad/ext/quackworks` at the exact source above and qualifies OG-01
+with assembled/exploded/section PNGs plus separate receiver/snap STLs.
+
+AT-01 is the next experiment step: reduce the observed relationship to a neutral
+fixed/removable coupon before introducing a tube clamp or production HUB75
+geometry. Experiment-owned analysis and coupon geometry remain in that
+repository; the fork remains an external-source boundary.
 
 **Exit criteria**
 
