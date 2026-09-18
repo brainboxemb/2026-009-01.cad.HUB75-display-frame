@@ -41,11 +41,23 @@ function while making the clips separate, replaceable parts that attach to the
 couplers.
 
 OpenGrid is a design reference for the detachable interface principle, not a
-geometry to copy blindly. Initial source inspection identified
-`jp-embedded/opengrid` as the most useful current OpenSCAD implementation for
-the PoP because it contains explicit snap/lock geometry and an explicit GPL-3.0
-license. The official `openGrid-3D/openGrid-openSCAD` repository and OpenGrid
-documentation remain useful references for the intended ecosystem behaviour.
+geometry to copy blindly. Initial source inspection now puts
+`AndyLevesque/QuackWorks` first for this PoP: its
+`openGrid/opengrid-snap.scad` is a dedicated 24.8 mm removable OpenGrid snap
+with compliant click geometry and optional directional retention, while
+`openGrid/openGrid.scad` provides the fixed receiving board geometry. That
+fixed-side/removable-side split is much closer to the intended HUB75 attachment
+problem than tile-to-tile connectors.
+
+`jp-embedded/opengrid` remains a useful comparison source for alternative
+snap/socket and lock mechanisms. `dnnsmnstrr/connector-foundry` is also a
+valuable verification reference because it wraps the QuackWorks OpenGrid board
+and snap as externally sourced parts and checks reference shape/fit behaviour.
+
+QuackWorks is licensed CC BY-NC-SA 4.0 at repository level and its snap source
+contains additional licensing wording. The PoP must therefore keep source
+provenance and licensing explicit and distinguish studying/qualifying the
+mechanical principle from directly copying that implementation into production.
 
 The coordination plan/handoff prerequisite was merged in PR #40. **Step 1 is
 complete in PR #31** and **Step 2 is digitally accepted in PR #41**. Step 3 is
@@ -262,21 +274,51 @@ Use three separate repository roles:
 The fork is not the experiment repository, and this project should not develop
 the PoP directly in production coupler source.
 
-**Initial external source**
+**External-source candidates**
 
-The current preferred source is:
+Primary mechanism reference after inspection:
 
 ```text
-upstream: jp-embedded/opengrid
-baseline: 7f440110f003216190c8525503168aa5a41c5524
-license:  GPL-3.0
+upstream: AndyLevesque/QuackWorks
+baseline: e0c1cb7ec78dd9e9a8476ed739bd3402074354f3
+files:
+  openGrid/openGrid.scad
+  openGrid/opengrid-snap.scad
+repository license: CC BY-NC-SA 4.0
 ```
 
-It is preferred over `openGrid-3D/openGrid-openSCAD` for this specific PoP
-because the inspected source already contains `snap.scad`, `snap-lock.scad`
-and grid-side snap/socket implementations. The official OpenGrid sources/docs
-remain design references and must still be cited when the experiment describes
-OpenGrid behaviour.
+Why it is first:
+
+- the board/cell is the fixed receiver and `openGridSnap()` is the removable
+  part;
+- the snap is a compact 24.8 mm square insert rather than a whole tile;
+- retention comes from small perimeter nubs plus compliant click-hole regions;
+- a directional mode demonstrates asymmetric retention without changing the
+  overall fixed receiver;
+- the recent repository history includes fixes specifically for printable snap
+  connectivity.
+
+Comparison/reference sources:
+
+```text
+jp-embedded/opengrid
+  alternative tile snap/socket + lock mechanisms
+  GPL-3.0
+
+dnnsmnstrr/connector-foundry
+  wraps QuackWorks board/snap
+  reference-shape + assembled-fit verification model
+  own code MIT; OpenGrid wrapper retains upstream CC BY-NC-SA terms
+
+openGrid-3D/openGrid-openSCAD
+  official ecosystem/OpenGrid reference
+  currently less complete for this particular removable-snap question
+```
+
+Step 5 should not lock the fork source until the QuackWorks licensing/provenance
+and the exact snap/receiver dependency are recorded. If QuackWorks remains the
+chosen source, the planned fork name under the proposed generic convention is
+`brainboxemb/fork.andylevesque.quackworks`.
 
 **Planned experiment repository**
 
@@ -290,6 +332,8 @@ following the generic PoP model in `brainboxemb.meta`.
 
 **Exit criteria**
 
+- the source survey records why the selected OpenGrid implementation is the
+  right mechanical reference;
 - the external source fork exists with clear upstream provenance;
 - the experiment repository exists with a minimal reproducible SCAD fixture;
 - the exact upstream/fork revision and license are recorded;
