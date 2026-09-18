@@ -274,7 +274,7 @@ Use three separate repository roles:
 The fork is not the experiment repository, and this project should not develop
 the PoP directly in production coupler source.
 
-**External-source candidates**
+**Selected external mechanism reference**
 
 Primary mechanism reference after inspection:
 
@@ -301,6 +301,9 @@ Why it is first:
 Comparison/reference sources:
 
 ```text
+nnarain/opengrid-snap-mount-generator
+  application example: QuackWorks-style snap + arbitrary mounting plate
+
 jp-embedded/opengrid
   alternative tile snap/socket + lock mechanisms
   GPL-3.0
@@ -315,20 +318,28 @@ openGrid-3D/openGrid-openSCAD
   currently less complete for this particular removable-snap question
 ```
 
-Step 5 should not lock the fork source until the QuackWorks licensing/provenance
-and the exact snap/receiver dependency are recorded. If QuackWorks remains the
-chosen source, the planned fork name under the proposed generic convention is
-`brainboxemb/fork.andylevesque.quackworks`.
+The retained source fork now exists as:
 
-**Planned experiment repository**
+```text
+brainboxemb/fork.andylevesque.quackworks
+```
+
+GitHub confirms it is a real fork of `AndyLevesque/QuackWorks`; its current
+`main` is exactly
+`e0c1cb7ec78dd9e9a8476ed739bd3402074354f3`.
+
+**Experiment repository**
 
 ```text
 brainboxemb/exp.2026-005.scad-detachable-clip-interface
 ```
 
-The experiment should pin the selected fork/source revision explicitly and keep
-ordered supporting documents under `docs/00-...`, `docs/01-...`, and so on,
-following the generic PoP model in `brainboxemb.meta`.
+The experiment repository now exists. Its first work item is
+[PR #1](https://github.com/brainboxemb/exp.2026-005.scad-detachable-clip-interface/pull/1),
+which pins the fork as `dsg/openscad/ext/quackworks` on that exact commit and
+builds OG-01 reference PNG/STL evidence. Experiment-owned analysis and later
+coupon geometry remain in that repository; the fork remains an external-source
+boundary.
 
 **Exit criteria**
 
