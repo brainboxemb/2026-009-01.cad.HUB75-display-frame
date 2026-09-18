@@ -123,6 +123,21 @@ X = -320, -160, 0, +160, +320 mm
 Z = 0
 ```
 
+Adjacent panels alternate physical orientation. From left to right the current
+five-panel rule is:
+
+```text
+panel 0   native
+panel 1   180° about Y
+panel 2   native
+panel 3   180° about Y
+panel 4   native
+```
+
+The Y-axis rotation keeps the front/rear datum unchanged while swapping each
+rotated panel's local left/right and top/bottom features. This is an assembly
+choice; the reusable panel geometry itself remains owned by `lib.scad.hub75`.
+
 Future frame/coupler geometry should reference explicit mechanical datums such
 as the front face and rear mounting plane instead of assuming symmetry in Y.
 
