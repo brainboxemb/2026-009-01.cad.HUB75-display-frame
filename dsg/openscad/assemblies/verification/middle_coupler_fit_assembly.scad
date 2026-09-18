@@ -16,9 +16,8 @@ function _hub75_middle_coupler_fit_panel_pitch(panel) =
 
 // Use the real project alternation rule: left panel normal, right panel
 // rotated 180 degrees about Y. This is the local form of seams 0 and 2 in the
-// five-panel assembly; the opposite seam parity is mechanically equivalent
-// under the panel's 180-degree mating symmetry and remains visible in the full
-// display evidence.
+// five-panel assembly; the complete-display evidence also exposes seams 1 and 3
+// with the opposite left/right orientation order.
 module _hub75_middle_coupler_fit_panel_pair(panel) {
     hub75_panels_assembly(
         panel = panel,
