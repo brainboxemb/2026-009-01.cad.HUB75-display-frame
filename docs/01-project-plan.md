@@ -39,8 +39,9 @@ not a geometry to copy blindly. The exact groove, snap, slide or locking geometr
 is still an open design question.
 
 The coordination plan/handoff prerequisite was merged in PR #40. **Step 1 is
-complete in PR #31**. Step 2 is the next project-design step; reinforcement work
-remains blocked until the core coupler-family acceptance steps are complete.
+complete in PR #31** and **Step 2 is digitally accepted in PR #41**. Step 3
+physical fit acceptance is the next project step. Reinforcement work remains
+blocked until the physical core coupler interfaces are accepted and frozen.
 
 ## Step 0 — Establish project handoff and forward plan
 
@@ -107,12 +108,16 @@ intended alternating physical layout.
 
 ## Step 2 — Digital acceptance of the core coupler family
 
+**Status:** complete in PR #41.
+
+**Acceptance record:** [Core coupler digital acceptance](02-core-coupler-digital-acceptance.md)
+
 **Goal**
 
 Finish the digital review of the panel-facing connector geometry before adding a
 new structural layer.
 
-**Review**
+**Reviewed**
 
 - middle, horizontal-edge and corner families at small/medium/large sizes;
 - engraved datum `+` positions against the panel geometry;
@@ -120,13 +125,26 @@ new structural layer.
 - left/right corner chirality and locator-pin clearance;
 - standalone printable STL geometry and the project-wide projection constraints.
 
+**Acceptance evidence**
+
+- production run `35330842746` is green on main commit
+  `a85c3f31b508a3d761011328768d6ca99f6f3a33`;
+- Build contains 12 non-empty core coupler STLs;
+- Verification contains all 51 configured fit/section PNG targets;
+- current OpenSCAD/CGAL output reports manifold top-level 3D objects and no
+  non-manifold geometry warning was found;
+- datum marks, chirality, locator clearance and projection constraints are
+  traceable to current source and verification fixtures;
+- no known digital panel-fit blocker remains.
+
 **Exit criteria**
 
-Any discovered digital geometry defects are resolved, generated design/build/
-verification evidence is understandable, and there is no known digital panel-fit
-blocker for the core connector family.
+Met. The detailed evidence is kept in the acceptance record above. This does not
+replace physical print-fit acceptance in Step 3.
 
 ## Step 3 — Physical fit acceptance of the core couplers
+
+**Status:** next after PR #41 merges.
 
 **Goal**
 
