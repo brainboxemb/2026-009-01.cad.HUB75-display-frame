@@ -5,6 +5,7 @@
 // development fixture, not the complete display assembly.
 
 use <../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
+use <../panels_assembly.scad>
 use <../../project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad>
 use <../helpers/verification_datum_pin.scad>
 
@@ -17,16 +18,18 @@ function _hub75_horizontal_edge_fit_edge_z(panel) =
 
 
 module _hub75_horizontal_edge_fit_panel_pair(panel) {
-    pitch =
-        _hub75_horizontal_edge_fit_panel_pitch(panel);
-
-    for (x = [-pitch / 2, pitch / 2])
-        translate([x, 0, 0])
-            hub75_p5_64x32_panel_render(
-                panel,
-                view = hub75_p5_64x32_panel_view_id("final"),
-                color_scheme = "light_gray"
-            );
+    // Reuse the actual project orientation rule rather than duplicating panel
+    // placement in this fixture. A two-panel row represents seam parity 0/2:
+    // native on the left, 180-degree-Y rotated on the right. Because the HUB75
+    // data connectors live on one local side, this is also the connector-heavy
+    // seam where both adjacent panels present their connectors at the seam.
+    // The opposite parity (seams 1/3) has no seam-side data connectors and
+    // remains visible in the complete five-panel assembly evidence.
+    hub75_panels_assembly(
+        panel = panel,
+        panel_count = 2,
+        color_scheme = "light_gray"
+    );
 }
 
 

@@ -5,12 +5,26 @@
 // not the final five-panel display assembly.
 
 use <../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
+use <../panels_assembly.scad>
 use <../../project_components/middle-coupler/hub75_middle_coupler.scad>
 use <../helpers/verification_datum_pin.scad>
 
 
 function _hub75_middle_coupler_fit_panel_pitch(panel) =
     hub75_p5_64x32_panel_nominal_width(panel);
+
+
+// Use the real project alternation rule: left panel normal, right panel
+// rotated 180 degrees about Y. This is the local form of seams 0 and 2 in the
+// five-panel assembly; the complete-display evidence also exposes seams 1 and 3
+// with the opposite left/right orientation order.
+module _hub75_middle_coupler_fit_panel_pair(panel) {
+    hub75_panels_assembly(
+        panel = panel,
+        panel_count = 2,
+        color_scheme = "light_gray"
+    );
+}
 
 
 function _hub75_middle_coupler_fit_section_z(coupler) =
@@ -38,17 +52,6 @@ module hub75_middle_coupler_fit_detail(
     mounting_y =
         hub75_p5_64x32_panel_mounting_plane_y(panel);
 
-    module _panel_pair() {
-        for (x = [-pitch / 2, pitch / 2])
-            translate([x, 0, 0])
-                hub75_p5_64x32_panel_render(
-                    panel,
-                    view =
-                        hub75_p5_64x32_panel_view_id("final"),
-                    color_scheme = "light_gray"
-                );
-    }
-
     module _crop_volume() {
         y_max =
             mounting_y
@@ -68,7 +71,7 @@ module hub75_middle_coupler_fit_detail(
     }
 
     intersection() {
-        _panel_pair();
+        _hub75_middle_coupler_fit_panel_pair(panel);
         _crop_volume();
     }
 
@@ -115,17 +118,6 @@ module hub75_middle_coupler_fit_cross_section(
             active_coupler
         );
 
-    module _panel_pair() {
-        for (x = [-pitch / 2, pitch / 2])
-            translate([x, 0, 0])
-                hub75_p5_64x32_panel_render(
-                    panel,
-                    view =
-                        hub75_p5_64x32_panel_view_id("final"),
-                    color_scheme = "light_gray"
-                );
-    }
-
     module _slice_volume() {
         y_max =
             mounting_y
@@ -145,7 +137,7 @@ module hub75_middle_coupler_fit_cross_section(
     }
 
     intersection() {
-        _panel_pair();
+        _hub75_middle_coupler_fit_panel_pair(panel);
         _slice_volume();
     }
 

@@ -18,7 +18,10 @@
 //
 // Each library panel is already modeled in portrait orientation:
 // nominal 160 mm in X x 320 mm in Z.
-// Five panels are therefore placed side by side without rotation.
+// The physical display alternates panel orientation across the row. Even
+// indices keep the library orientation; odd indices rotate 180 degrees about Y.
+// This swaps panel-local left/right and top/bottom while preserving the same
+// nominal placement cell and the project front/rear Y datum.
 
 use <../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
 
@@ -53,6 +56,29 @@ function _hub75_display_panel_center_x(
     panel_count = HUB75_DISPLAY_PANEL_COUNT
 ) =
     (index - (panel_count - 1) / 2) * _hub75_display_panel_pitch_x(panel);
+
+function _hub75_display_panel_rotated(index) =
+    index % 2 == 1;
+
+module _hub75_display_panel_render(
+    panel,
+    index,
+    color_scheme
+) {
+    if (_hub75_display_panel_rotated(index))
+        rotate([0, 180, 0])
+            hub75_p5_64x32_panel_render(
+                panel,
+                view = hub75_p5_64x32_panel_view_id("final"),
+                color_scheme = color_scheme
+            );
+    else
+        hub75_p5_64x32_panel_render(
+            panel,
+            view = hub75_p5_64x32_panel_view_id("final"),
+            color_scheme = color_scheme
+        );
+}
 
 module hub75_display_verify_nominal_size(
     panel = hub75_display_panel_create(),
@@ -105,10 +131,9 @@ module hub75_panels_assembly(
             0,
             0
         ])
-            hub75_p5_64x32_panel_render(
-                panel,
-                view =
-                    hub75_p5_64x32_panel_view_id("final"),
+            _hub75_display_panel_render(
+                panel = panel,
+                index = index,
                 color_scheme = color_scheme
             );
 }
