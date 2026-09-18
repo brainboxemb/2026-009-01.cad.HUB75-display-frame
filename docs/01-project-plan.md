@@ -38,13 +38,13 @@ couplers. OpenGrid is a design reference for the detachable interface principle,
 not a geometry to copy blindly. The exact groove, snap, slide or locking geometry
 is still an open design question.
 
-This coordination plan is being introduced by issue/PR #40. While that change is
-open, it is the coordination prerequisite. After it merges, **Step 1** is the
-first project-design step unless current repository evidence shows a new blocker.
+The coordination plan/handoff prerequisite was merged in PR #40. **Step 1 is
+now active in draft PR #31**; later coupler-acceptance and reinforcement work
+remains blocked on the Step 1 exit criteria.
 
 ## Step 0 — Establish project handoff and forward plan
 
-**Status:** active only while #40 is open.
+**Status:** complete — PR #40 merged.
 
 **Goal**
 
@@ -67,8 +67,10 @@ repository itself.
 
 ## Step 1 — Correct alternating HUB75 panel orientation
 
-**Tracking:** issue
-[#31](https://github.com/brainboxemb/2026-009-01.cad.HUB75-display-frame/issues/31)
+**Status:** active — draft PR #31.
+
+**Tracking:** issue / draft PR
+[#31](https://github.com/brainboxemb/2026-009-01.cad.HUB75-display-frame/pull/31)
 
 **Goal**
 
