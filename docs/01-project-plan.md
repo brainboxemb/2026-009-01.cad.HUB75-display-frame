@@ -29,6 +29,15 @@ digitally build/fit verified. The current README deliberately postpones
 reinforcement-tube and clip geometry until the core panel/coupler interfaces are
 accepted.
 
+The next structural layer has one important design direction already identified:
+the old frame proved the useful function of clips around the horizontal aluminium
+reinforcement tube, but those clips were integrated into the couplers and were
+therefore awkward to print. The new design should keep the tube-retention
+function while making the clips separate, replaceable parts that attach to the
+couplers. OpenGrid is a design reference for the detachable interface principle,
+not a geometry to copy blindly. The exact groove, snap, slide or locking geometry
+is still an open design question.
+
 This coordination plan is being introduced by issue/PR #40. While that change is
 open, it is the coordination prerequisite. After it merges, **Step 1** is the
 first project-design step unless current repository evidence shows a new blocker.
@@ -157,59 +166,159 @@ The project has a documented, digitally and physically accepted core connector
 baseline from which reinforcement can be designed without reopening basic
 panel-fit geometry by accident.
 
-## Step 5 — Define aluminium reinforcement-tube architecture
+## Step 5 — Recover the reinforcement functional baseline
 
 **Status:** provisional until Steps 1–4 are complete.
 
 **Goal**
 
-Define how the reinforcement tube relates to the accepted couplers and full
-five-panel assembly before designing attachment details.
+Define what must be preserved from the older reinforced frame without treating
+the old integrated clip geometry as design authority.
 
-**Questions**
+**Use the old design only to establish**
 
-- tube section and project-owned dimensions;
-- tube datum/location relative to panel rear mounting geometry;
-- which couplers locate/support the tube;
-- assembly/service clearance;
-- allowable projection and print/build constraints.
+- the horizontal aluminium tube location and orientation;
+- which coupler positions retained the tube;
+- how many retention points were useful;
+- required tube clearance and assembly access;
+- the functional load path from tube to coupler.
+
+The old integrated clip shape itself is not the target. Its main lesson is the
+required function; the new solution should be easier to print and service.
 
 **Exit criteria**
 
-A minimal tube-plus-core-coupler assembly and focused verification views prove
-the intended structural interface without yet depending on a complex clip
-system.
+The project has a small reference sketch/assembly and written interface
+requirements that describe the required tube/coupler relationship independently
+of the old integrated clip geometry.
 
-## Step 6 — Develop tube attachment / clip system
+## Step 6 — Analyse OpenGrid and design the detachable coupler interface
 
 **Status:** provisional.
 
 **Goal**
 
-Add the smallest printable attachment mechanism needed to retain the
-reinforcement tube.
+Understand the OpenGrid attachment principle first and then translate the useful
+mechanical idea to the HUB75 couplers.
 
-Develop attachment geometry independently enough that tube retention can be
-verified without obscuring the already accepted panel-fit interfaces.
+This is a design step, not an implementation of a preselected shape.
+
+**Questions to answer**
+
+- what geometry in OpenGrid is fixed and what geometry belongs to the removable
+  part;
+- how the removable part is inserted, retained and removed;
+- which surfaces carry load and which features merely locate the part;
+- how print direction, flexure and tolerances influence the snap/slide behaviour;
+- which parts of that principle are useful for a solid HUB75 coupler rather than
+  an OpenGrid panel;
+- whether the HUB75 coupler should expose one common attachment feature that can
+  accept several clip variants;
+- whether the interface should be snap-on, slide-on, keyed, latched, screwed, or
+  a combination after comparing the simplest credible concepts.
+
+**Design target**
+
+Prefer a small, repeatable coupler-side interface that can be added to the
+middle, horizontal-edge and corner families without rebuilding the complete
+coupler around the clip. The separate clip should carry the tube-clamping
+profile.
+
+A useful concept should allow the same coupler to exist:
+
+- without a reinforcement clip;
+- with the normal tube clip;
+- potentially with a later alternative clip using the same coupler interface.
+
+**Required evidence**
+
+- a simplified OpenGrid principle drawing or section based on the actual
+  mechanism being referenced;
+- at least two or three HUB75 interface concepts compared at the same scale;
+- print orientation and expected flex/load direction shown explicitly;
+- the aluminium tube shown in its real horizontal orientation relative to the
+  coupler;
+- no full-frame render used as a substitute for understanding the local
+  attachment interface.
 
 **Exit criteria**
 
-The attachment mechanism is printable, inspectable, does not regress core fit
-and has focused digital verification plus physical checking where the interface
-requires it.
+One coupler-side attachment principle is selected for prototyping, with the
+reasoning, load path, insertion/removal direction, printability assumptions and
+critical tolerances documented. Selecting the principle does not yet freeze the
+final clip dimensions.
 
-## Step 7 — Complete reinforced display-frame assembly
+## Step 7 — Develop the separate aluminium-tube clip
 
 **Status:** provisional.
 
 **Goal**
 
-Integrate all accepted connector, tube and attachment parts into the full
+Turn the selected interface from Step 6 into a printable, removable clip that
+retains the horizontal aluminium reinforcement tube.
+
+**Work**
+
+- reproduce the required tube-clamping function from the old design as a
+  separate part;
+- derive the clip-to-coupler attachment from the selected common interface;
+- keep tube clamping and coupler attachment understandable as two distinct
+  functions in the geometry;
+- develop only the minimum variants needed to answer real design questions;
+- add focused section/fit views before propagating the feature to every coupler
+  family.
+
+**Check**
+
+- tube diameter/clearance and insertion;
+- clip retention on the coupler;
+- removal/serviceability without damaging the coupler;
+- print orientation and support requirements;
+- flexing/stress concentration around snap or locking features;
+- whether the coupler-side interface remains compact when no clip is fitted.
+
+**Exit criteria**
+
+A representative coupler + detachable clip + horizontal tube assembly is
+digitally verified and physically prototyped sufficiently to decide whether the
+attachment concept is viable.
+
+## Step 8 — Propagate the modular clip interface across the coupler family
+
+**Status:** provisional.
+
+**Goal**
+
+Apply the accepted detachable interface only where reinforcement is required,
+while preserving the already accepted panel-fit geometry.
+
+**Check**
+
+- middle, horizontal-edge and corner placement;
+- left/right chirality where relevant;
+- consistent insertion/removal access;
+- no collision with panel features, screws or existing guides;
+- common clip geometry where practical instead of unnecessary coupler-specific
+  clip variants.
+
+**Exit criteria**
+
+The required coupler variants expose a consistent modular attachment interface
+and use the smallest sensible set of detachable tube clips.
+
+## Step 9 — Complete reinforced display-frame assembly
+
+**Status:** provisional.
+
+**Goal**
+
+Integrate all accepted connector, tube and detachable-clip parts into the full
 five-panel frame.
 
 **Check**
 
 - complete assembly consistency;
+- horizontal tube continuity and location;
 - service/access clearances;
 - repeated-part orientation and chirality;
 - useful STL/export set;
@@ -220,7 +329,7 @@ five-panel frame.
 The complete reinforced assembly is digitally coherent and no local interface is
 being justified only by the full assembly render.
 
-## Step 8 — Full physical prototype and release candidate
+## Step 10 — Full physical prototype and release candidate
 
 **Status:** provisional.
 
@@ -234,6 +343,7 @@ satisfactory.
 
 - required physical corrections are incorporated;
 - current design/build/verification documentation matches the physical baseline;
+- the detachable clip system is physically usable and serviceable;
 - the release scope is explicit and reproducible.
 
 ## Later ideas
