@@ -25,23 +25,60 @@ alone is not visual or physical acceptance.
 ## Current position
 
 The core middle, horizontal-edge and corner-edge coupler families exist and are
-digitally build/fit verified. The current README deliberately postpones
-reinforcement-tube and clip geometry until the core panel/coupler interfaces are
-accepted.
+digitally build/fit verified. Their physical acceptance is not ready to close
+yet, because the underlying `lib.scad.hub75` panel model still has unfinished
+physical verification against real HUB75 hardware.
+
+That changes the sequencing. Physical panel/coupler acceptance remains a hard
+gate before the panel-facing coupler interface can be frozen, but it does not
+need to block independent research into a detachable reinforcement attachment.
 
 The next structural layer has one important design direction already identified:
 the old frame proved the useful function of clips around the horizontal aluminium
 reinforcement tube, but those clips were integrated into the couplers and were
 therefore awkward to print. The new design should keep the tube-retention
 function while making the clips separate, replaceable parts that attach to the
-couplers. OpenGrid is a design reference for the detachable interface principle,
-not a geometry to copy blindly. The exact groove, snap, slide or locking geometry
-is still an open design question.
+couplers.
+
+OpenGrid is a design reference for the detachable interface principle, not a
+geometry to copy blindly. Initial source inspection identified
+`jp-embedded/opengrid` as the most useful current OpenSCAD implementation for
+the PoP because it contains explicit snap/lock geometry and an explicit GPL-3.0
+license. The official `openGrid-3D/openGrid-openSCAD` repository and OpenGrid
+documentation remain useful references for the intended ecosystem behaviour.
 
 The coordination plan/handoff prerequisite was merged in PR #40. **Step 1 is
-complete in PR #31** and **Step 2 is digitally accepted in PR #41**. Step 3
-physical fit acceptance is the next project step. Reinforcement work remains
-blocked until the physical core coupler interfaces are accepted and frozen.
+complete in PR #31** and **Step 2 is digitally accepted in PR #41**. Step 3 is
+prepared but waiting on the physical panel-verification baseline. In parallel,
+Step 5 may now establish the detachable-attachment PoP. Production integration
+of that result remains blocked until Steps 3 and 4 are complete.
+
+## Parallel work model
+
+Two project tracks may now progress independently:
+
+```text
+Track A — physical core acceptance
+    lib.scad.hub75 physical panel verification
+        -> Step 3 physical coupler fit
+        -> Step 4 core-interface freeze
+
+Track B — detachable reinforcement research
+    Step 5 PoP environment
+        -> Step 6 principle / requirement analysis
+        -> Step 7 detachable clip qualification
+
+Integration gate
+    Step 4 complete
+    AND
+    Step 7 qualified
+        -> Step 8 production coupler integration
+```
+
+Track B must use neutral or surrogate attachment geometry while Track A is open.
+It may qualify insertion, retention, printability, flexure, tolerances and the
+tube-clamp concept, but it must not silently redefine the still-unfrozen
+panel-facing HUB75 mating geometry.
 
 ## Step 0 — Establish project handoff and forward plan
 
@@ -144,8 +181,11 @@ replace physical print-fit acceptance in Step 3.
 
 ## Step 3 — Physical fit acceptance of the core couplers
 
-**Status:** active — procedures prepared in PR #42; physical execution tracked
-in issue [#43](https://github.com/brainboxemb/2026-009-01.cad.HUB75-display-frame/issues/43).
+**Status:** prepared / waiting — procedures were prepared in PR #42 and physical
+execution is tracked in issue
+[#43](https://github.com/brainboxemb/2026-009-01.cad.HUB75-display-frame/issues/43).
+Execution remains downstream of the relevant physical panel verification in
+`lib.scad.hub75`.
 
 **Procedures:** [Physical core-coupler verification](../vrf/physical/README.md)
 
@@ -199,126 +239,169 @@ The project has a documented, digitally and physically accepted core connector
 baseline from which reinforcement can be designed without reopening basic
 panel-fit geometry by accident.
 
-## Step 5 — Recover the reinforcement functional baseline
+## Step 5 — Establish the detachable-attachment PoP environment
 
-**Status:** provisional until Steps 1–4 are complete.
+**Status:** active in parallel with Track A preparation; tracked by issue #44.
 
 **Goal**
 
-Define what must be preserved from the older reinforced frame without treating
-the old integrated clip geometry as design authority.
+Create a controlled experiment environment for the removable coupler/clip
+interface without depending on unresolved HUB75 panel-fit geometry.
 
-**Use the old design only to establish**
+**Repository model**
 
-- the horizontal aluminium tube location and orientation;
+Use three separate repository roles:
+
+1. external-source fork — retained OpenGrid/OpenSCAD source and upstream
+   provenance;
+2. dedicated experiment/PoP repository — neutral fixtures, adapters, candidate
+   attachment geometry, testcases and evidence;
+3. this HUB75 project — production owner that consumes only a qualified design
+   decision later.
+
+The fork is not the experiment repository, and this project should not develop
+the PoP directly in production coupler source.
+
+**Initial external source**
+
+The current preferred source is:
+
+```text
+upstream: jp-embedded/opengrid
+baseline: 7f440110f003216190c8525503168aa5a41c5524
+license:  GPL-3.0
+```
+
+It is preferred over `openGrid-3D/openGrid-openSCAD` for this specific PoP
+because the inspected source already contains `snap.scad`, `snap-lock.scad`
+and grid-side snap/socket implementations. The official OpenGrid sources/docs
+remain design references and must still be cited when the experiment describes
+OpenGrid behaviour.
+
+**Planned experiment repository**
+
+```text
+brainboxemb/exp.2026-005.scad-detachable-clip-interface
+```
+
+The experiment should pin the selected fork/source revision explicitly and keep
+ordered supporting documents under `docs/00-...`, `docs/01-...`, and so on,
+following the generic PoP model in `brainboxemb.meta`.
+
+**Exit criteria**
+
+- the external source fork exists with clear upstream provenance;
+- the experiment repository exists with a minimal reproducible SCAD fixture;
+- the exact upstream/fork revision and license are recorded;
+- the PoP can render/export a neutral fixed-side + removable-side attachment
+  coupon without importing HUB75 panel mating geometry.
+
+## Step 6 — Recover requirements and analyse the detachable principle
+
+**Status:** may start once Step 5 has a reproducible fixture.
+
+**Goal**
+
+Separate the *function* required by the HUB75 frame from the *mechanism*
+demonstrated by OpenGrid before designing a production interface.
+
+**Recover from the older HUB75 frame**
+
+Use the old design only to establish:
+
+- horizontal aluminium tube location and orientation;
 - which coupler positions retained the tube;
 - how many retention points were useful;
 - required tube clearance and assembly access;
-- the functional load path from tube to coupler.
+- functional load path from tube to coupler.
 
-The old integrated clip shape itself is not the target. Its main lesson is the
-required function; the new solution should be easier to print and service.
+The old integrated clip shape itself is not design authority.
 
-**Exit criteria**
+**Analyse from OpenGrid/OpenSCAD**
 
-The project has a small reference sketch/assembly and written interface
-requirements that describe the required tube/coupler relationship independently
-of the old integrated clip geometry.
+At minimum inspect the relevant snap/lock implementation and document:
 
-## Step 6 — Analyse OpenGrid and design the detachable coupler interface
+- fixed-side versus removable-side geometry;
+- insertion and removal direction;
+- locating surfaces versus load-carrying surfaces;
+- compliant/flexing regions;
+- retention/locking features;
+- print direction assumptions;
+- nominal part gap / clearance strategy;
+- behaviour that is essential to the principle versus geometry specific to the
+  28 mm OpenGrid tile.
 
-**Status:** provisional.
+Do not copy a complete OpenGrid tile into the HUB75 design merely because it is
+available.
 
-**Goal**
+**Concept comparison**
 
-Understand the OpenGrid attachment principle first and then translate the useful
-mechanical idea to the HUB75 couplers.
+Use the PoP fixture to compare the smallest credible concepts only when a real
+design question requires it, for example:
 
-This is a design step, not an implementation of a preselected shape.
-
-**Questions to answer**
-
-- what geometry in OpenGrid is fixed and what geometry belongs to the removable
-  part;
-- how the removable part is inserted, retained and removed;
-- which surfaces carry load and which features merely locate the part;
-- how print direction, flexure and tolerances influence the snap/slide behaviour;
-- which parts of that principle are useful for a solid HUB75 coupler rather than
-  an OpenGrid panel;
-- whether the HUB75 coupler should expose one common attachment feature that can
-  accept several clip variants;
-- whether the interface should be snap-on, slide-on, keyed, latched, screwed, or
-  a combination after comparing the simplest credible concepts.
-
-**Design target**
-
-Prefer a small, repeatable coupler-side interface that can be added to the
-middle, horizontal-edge and corner families without rebuilding the complete
-coupler around the clip. The separate clip should carry the tube-clamping
-profile.
-
-A useful concept should allow the same coupler to exist:
-
-- without a reinforcement clip;
-- with the normal tube clip;
-- potentially with a later alternative clip using the same coupler interface.
-
-**Required evidence**
-
-- a simplified OpenGrid principle drawing or section based on the actual
-  mechanism being referenced;
-- at least two or three HUB75 interface concepts compared at the same scale;
-- print orientation and expected flex/load direction shown explicitly;
-- the aluminium tube shown in its real horizontal orientation relative to the
-  coupler;
-- no full-frame render used as a substitute for understanding the local
-  attachment interface.
+- direct snap-in;
+- short slide/key + retention detent;
+- keyed slide with separate lock;
+- another concept only if the first principles expose a concrete need.
 
 **Exit criteria**
 
-One coupler-side attachment principle is selected for prototyping, with the
-reasoning, load path, insertion/removal direction, printability assumptions and
-critical tolerances documented. Selecting the principle does not yet freeze the
-final clip dimensions.
+One attachment principle is selected for prototyping, with its load path,
+insertion/removal direction, expected flexure, tolerances, print orientation and
+reasons documented independently of the HUB75 coupler body.
 
-## Step 7 — Develop the separate aluminium-tube clip
+## Step 7 — Qualify the detachable aluminium-tube clip in the PoP
 
-**Status:** provisional.
+**Status:** provisional until Step 6 selects a principle.
 
 **Goal**
 
-Turn the selected interface from Step 6 into a printable, removable clip that
-retains the horizontal aluminium reinforcement tube.
+Prove that the selected removable interface can carry a separate printable clip
+for the horizontal aluminium reinforcement tube before touching production
+couplers.
 
-**Work**
+**PoP fixture**
 
-- reproduce the required tube-clamping function from the old design as a
-  separate part;
-- derive the clip-to-coupler attachment from the selected common interface;
-- keep tube clamping and coupler attachment understandable as two distinct
-  functions in the geometry;
-- develop only the minimum variants needed to answer real design questions;
-- add focused section/fit views before propagating the feature to every coupler
-  family.
+Use a neutral coupler-side coupon plus a removable clip-side coupon. Add the real
+tube diameter/orientation only after the attachment interface itself is readable
+and testable.
+
+Keep these functions distinct:
+
+```text
+fixed attachment interface
+        +
+removable attachment interface
+        +
+tube-clamping profile
+```
 
 **Check**
 
-- tube diameter/clearance and insertion;
-- clip retention on the coupler;
-- removal/serviceability without damaging the coupler;
+- insertion/removal direction and required access;
+- retention under representative pull/shear directions;
 - print orientation and support requirements;
 - flexing/stress concentration around snap or locking features;
-- whether the coupler-side interface remains compact when no clip is fitted.
+- dimensional/tolerance sensitivity;
+- repeated attach/remove behaviour;
+- whether the fixed-side feature remains compact when no clip is installed;
+- tube insertion, retention and serviceability.
+
+Digital evidence should use focused sections and local assemblies. Physical
+coupon prints should be used where snap/flex/tolerance behaviour cannot be
+established credibly from CAD alone.
 
 **Exit criteria**
 
-A representative coupler + detachable clip + horizontal tube assembly is
-digitally verified and physically prototyped sufficiently to decide whether the
-attachment concept is viable.
+A neutral fixed-side interface + detachable clip + horizontal tube arrangement
+is digitally qualified and physically prototyped enough to support a production
+integration decision. The result defines an interface contract, not a finished
+HUB75 coupler.
 
 ## Step 8 — Propagate the modular clip interface across the coupler family
 
-**Status:** provisional.
+**Status:** blocked until Step 4 core-interface freeze and Step 7 PoP
+qualification are both complete.
 
 **Goal**
 
