@@ -1,0 +1,186 @@
+[ WARN 2026-09-18 09:42:01.266] moon_app::queries::changed_files  Detected a shallow checkout, unable to run Git commands to determine changed files. 
+[ WARN 09:42:01.266] moon_app::queries::changed_files  A full Git history is required for affected checks, falling back to an empty files list. 
+▮▮▮▮ consumer:scad.build (f5fbde62)
+SCons build engine: 32 target(s), cache=/work/.cache/scad-project/scons
++ scons -Q -f /work/tools/tool.scad-project/src/scad_project/scons_driver.py SCAD_PROJECT_MANIFEST=/work/.cache/scad-project/state/build-manifest.json
+Retrieved `bld/png/corner-edge-coupler-left-small.png' from cache
+Retrieved `bld/png/corner-edge-coupler-left-medium.png' from cache
+Retrieved `bld/png/corner-edge-coupler-left-large.png' from cache
+Retrieved `bld/png/corner-edge-coupler-right-small.png' from cache
+Retrieved `bld/png/corner-edge-coupler-right-medium.png' from cache
+Retrieved `bld/png/corner-edge-coupler-right-large.png' from cache
+_action(["bld/png/front-angled.png"], ["dsg/openscad/render/front-angled.scad", "dsg/openscad/assemblies/panels_assembly.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o --autocenter --viewall --imgsize=2560,1440 -o /work/bld/png/.front-angled.unwatermarked.png /work/dsg/openscad/render/front-angled.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 176
+Geometry cache size in bytes: 980192
+CGAL Polyhedrons in cache: 46
+CGAL cache size in bytes: 27877750
+Total rendering time: 0:00:00.548
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -19
+   Vertices:    26825
+   Facets:      53570
++ scad-image-watermark /work/bld/png/.front-angled.unwatermarked.png /work/bld/png/front-angled.png --text © 2026 brainboxemb
+SCons built: bld/png/front-angled.png
+_action(["bld/png/front.png"], ["dsg/openscad/render/front.scad", "dsg/openscad/assemblies/panels_assembly.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o --autocenter --viewall --imgsize=2560,1440 -o /work/bld/png/.front.unwatermarked.png /work/dsg/openscad/render/front.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 176
+Geometry cache size in bytes: 980192
+CGAL Polyhedrons in cache: 46
+CGAL cache size in bytes: 27877750
+Total rendering time: 0:00:00.450
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -19
+   Vertices:    26825
+   Facets:      53570
++ scad-image-watermark /work/bld/png/.front.unwatermarked.png /work/bld/png/front.png --text © 2026 brainboxemb
+SCons built: bld/png/front.png
+Retrieved `bld/png/horizontal-edge-coupler-small.png' from cache
+Retrieved `bld/png/horizontal-edge-coupler-medium.png' from cache
+Retrieved `bld/png/horizontal-edge-coupler-large.png' from cache
+Retrieved `bld/png/middle-coupler-small.png' from cache
+Retrieved `bld/png/middle-coupler-medium.png' from cache
+Retrieved `bld/png/middle-coupler-large.png' from cache
+_action(["bld/png/rear-angled-couplers-only.png"], ["dsg/openscad/render/rear-angled-couplers-only.scad", "dsg/openscad/assemblies/display_frame_assembly.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/assemblies/panels_assembly.scad", "dsg/openscad/project_components/middle-coupler/hub75_middle_coupler.scad", "dsg/openscad/project_components/hub75_panel_mating.scad", "dsg/openscad/project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad", "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o --autocenter --viewall --imgsize=2560,1440 -o /work/bld/png/.rear-angled-couplers-only.unwatermarked.png /work/dsg/openscad/render/rear-angled-couplers-only.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 288
+Geometry cache size in bytes: 7605792
+CGAL Polyhedrons in cache: 18
+CGAL cache size in bytes: 102212250
+Total rendering time: 0:00:03.122
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      13
+   Vertices:   224162
+   Facets:     448372
++ scad-image-watermark /work/bld/png/.rear-angled-couplers-only.unwatermarked.png /work/bld/png/rear-angled-couplers-only.png --text © 2026 brainboxemb
+SCons built: bld/png/rear-angled-couplers-only.png
+_action(["bld/png/rear-angled-couplers.png"], ["dsg/openscad/render/rear-angled-couplers.scad", "dsg/openscad/assemblies/display_frame_assembly.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/assemblies/panels_assembly.scad", "dsg/openscad/project_components/middle-coupler/hub75_middle_coupler.scad", "dsg/openscad/project_components/hub75_panel_mating.scad", "dsg/openscad/project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad", "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o --autocenter --viewall --imgsize=2560,1440 -o /work/bld/png/.rear-angled-couplers.unwatermarked.png /work/dsg/openscad/render/rear-angled-couplers.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 464
+Geometry cache size in bytes: 8585984
+CGAL Polyhedrons in cache: 7
+CGAL cache size in bytes: 103370000
+Total rendering time: 0:00:03.718
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -27
+   Vertices:   250560
+   Facets:     501008
++ scad-image-watermark /work/bld/png/.rear-angled-couplers.unwatermarked.png /work/bld/png/rear-angled-couplers.png --text © 2026 brainboxemb
+SCons built: bld/png/rear-angled-couplers.png
+_action(["bld/png/rear-angled-exploded.png"], ["dsg/openscad/render/rear-angled-exploded.scad", "dsg/openscad/assemblies/display_frame_assembly.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/assemblies/panels_assembly.scad", "dsg/openscad/project_components/middle-coupler/hub75_middle_coupler.scad", "dsg/openscad/project_components/hub75_panel_mating.scad", "dsg/openscad/project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad", "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o --autocenter --viewall --imgsize=2560,1440 -o /work/bld/png/.rear-angled-exploded.unwatermarked.png /work/dsg/openscad/render/rear-angled-exploded.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 464
+Geometry cache size in bytes: 8585984
+CGAL Polyhedrons in cache: 7
+CGAL cache size in bytes: 103476750
+Total rendering time: 0:00:03.409
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -7
+   Vertices:   250987
+   Facets:     501942
++ scad-image-watermark /work/bld/png/.rear-angled-exploded.unwatermarked.png /work/bld/png/rear-angled-exploded.png --text © 2026 brainboxemb
+SCons built: bld/png/rear-angled-exploded.png
+_action(["bld/png/rear-angled.png"], ["dsg/openscad/render/rear-angled.scad", "dsg/openscad/assemblies/panels_assembly.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o --autocenter --viewall --imgsize=2560,1440 -o /work/bld/png/.rear-angled.unwatermarked.png /work/dsg/openscad/render/rear-angled.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 176
+Geometry cache size in bytes: 980192
+CGAL Polyhedrons in cache: 46
+CGAL cache size in bytes: 27877750
+Total rendering time: 0:00:00.497
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -19
+   Vertices:    26825
+   Facets:      53570
++ scad-image-watermark /work/bld/png/.rear-angled.unwatermarked.png /work/bld/png/rear-angled.png --text © 2026 brainboxemb
+SCons built: bld/png/rear-angled.png
+_action(["bld/png/rear.png"], ["dsg/openscad/render/rear.scad", "dsg/openscad/assemblies/panels_assembly.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o --autocenter --viewall --imgsize=2560,1440 -o /work/bld/png/.rear.unwatermarked.png /work/dsg/openscad/render/rear.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 176
+Geometry cache size in bytes: 980192
+CGAL Polyhedrons in cache: 46
+CGAL cache size in bytes: 27877750
+Total rendering time: 0:00:00.461
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -19
+   Vertices:    26825
+   Facets:      53570
++ scad-image-watermark /work/bld/png/.rear.unwatermarked.png /work/bld/png/rear.png --text © 2026 brainboxemb
+SCons built: bld/png/rear.png
+Retrieved `bld/stl/corner-edge-coupler-left-small.stl' from cache
+Retrieved `bld/stl/corner-edge-coupler-left-medium.stl' from cache
+Retrieved `bld/stl/corner-edge-coupler-left-large.stl' from cache
+Retrieved `bld/stl/corner-edge-coupler-right-small.stl' from cache
+Retrieved `bld/stl/corner-edge-coupler-right-medium.stl' from cache
+Retrieved `bld/stl/corner-edge-coupler-right-large.stl' from cache
+Retrieved `bld/stl/horizontal-edge-coupler-small.stl' from cache
+Retrieved `bld/stl/horizontal-edge-coupler-medium.stl' from cache
+Retrieved `bld/stl/horizontal-edge-coupler-large.stl' from cache
+Retrieved `bld/stl/middle-coupler-small.stl' from cache
+Retrieved `bld/stl/middle-coupler-medium.stl' from cache
+Retrieved `bld/stl/middle-coupler-large.stl' from cache
+_action(["bld/stl/panels-assembly.stl"], ["dsg/openscad/export/panels-assembly.scad", "dsg/openscad/assemblies/panels_assembly.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"])
++ openscad --enable=object-function -o /work/bld/stl/panels-assembly.stl /work/dsg/openscad/export/panels-assembly.scad
+Geometries in cache: 176
+Geometry cache size in bytes: 980192
+CGAL Polyhedrons in cache: 46
+CGAL cache size in bytes: 27877750
+Total rendering time: 0:00:00.203
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -19
+   Vertices:    26825
+   Facets:      53570
+SCons built: bld/stl/panels-assembly.stl
+SCons summary: targets=32 built=8 cache-restored=24 current=0 error=0
+  cache_restored: bld/png/corner-edge-coupler-left-small.png
+  cache_restored: bld/png/corner-edge-coupler-left-medium.png
+  cache_restored: bld/png/corner-edge-coupler-left-large.png
+  cache_restored: bld/png/corner-edge-coupler-right-small.png
+  cache_restored: bld/png/corner-edge-coupler-right-medium.png
+  cache_restored: bld/png/corner-edge-coupler-right-large.png
+  built: bld/png/front-angled.png
+  built: bld/png/front.png
+  cache_restored: bld/png/horizontal-edge-coupler-small.png
+  cache_restored: bld/png/horizontal-edge-coupler-medium.png
+  cache_restored: bld/png/horizontal-edge-coupler-large.png
+  cache_restored: bld/png/middle-coupler-small.png
+  cache_restored: bld/png/middle-coupler-medium.png
+  cache_restored: bld/png/middle-coupler-large.png
+  built: bld/png/rear-angled-couplers-only.png
+  built: bld/png/rear-angled-couplers.png
+  built: bld/png/rear-angled-exploded.png
+  built: bld/png/rear-angled.png
+  built: bld/png/rear.png
+  cache_restored: bld/stl/corner-edge-coupler-left-small.stl
+  cache_restored: bld/stl/corner-edge-coupler-left-medium.stl
+  cache_restored: bld/stl/corner-edge-coupler-left-large.stl
+  cache_restored: bld/stl/corner-edge-coupler-right-small.stl
+  cache_restored: bld/stl/corner-edge-coupler-right-medium.stl
+  cache_restored: bld/stl/corner-edge-coupler-right-large.stl
+  cache_restored: bld/stl/horizontal-edge-coupler-small.stl
+  cache_restored: bld/stl/horizontal-edge-coupler-medium.stl
+  cache_restored: bld/stl/horizontal-edge-coupler-large.stl
+  cache_restored: bld/stl/middle-coupler-small.stl
+  cache_restored: bld/stl/middle-coupler-medium.stl
+  cache_restored: bld/stl/middle-coupler-large.stl
+  built: bld/stl/panels-assembly.stl
+build: OK
+▮▮▮▮ consumer:scad.build (17s 689ms, f5fbde62)
+
+Tasks: 1 completed
+ Time: 18s 449ms
+

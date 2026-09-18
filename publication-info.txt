@@ -1,0 +1,26 @@
+Publication context : production
+Publication kind    : build
+Publication branch  : prod/bld
+
+Source
+------
+Repository          : brainboxemb/2026-009-01.cad.HUB75-display-frame
+Ref type            : branch
+Ref                 : main
+Commit              : a85c3f31b508a3d761011328768d6ca99f6f3a33
+Triggered by        : brainboxemb
+Workflow run        : https://github.com/brainboxemb/2026-009-01.cad.HUB75-display-frame/actions/runs/35330842746
+
+Tooling
+-------
+SCAD toolchain image: ghcr.io/brainboxemb/scad-toolchain-openscad:v0.5.0
+SCAD toolchain ver. : v0.5.0
+tool.scad-project   : v0.14.9
+
+Git submodules
+--------------
+dsg/openscad/ext/lib.scad.hub75 : e0432a9533a08a1c0d9e87225c22f3f66b632531
+dsg/openscad/ext/lib.scad.hub75/tools/tool.git-project : 7c43f37e7b07cfb57638a1d1dad2501de09ba7eb
+dsg/openscad/ext/lib.scad.hub75/tools/tool.scad-project : b86b2be325f64847b8d91b7f2596bfd4e4ffb7f2
+tools/tool.git-project : 7c43f37e7b07cfb57638a1d1dad2501de09ba7eb
+tools/tool.scad-project : a140b22858ac1899e7f2fa71b679639a70d819c3

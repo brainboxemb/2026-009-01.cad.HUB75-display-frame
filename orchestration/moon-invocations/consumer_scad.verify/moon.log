@@ -1,0 +1,470 @@
+[ WARN 2026-09-18 09:42:19.854] moon_app::queries::changed_files  Detected a shallow checkout, unable to run Git commands to determine changed files. 
+[ WARN 09:42:19.854] moon_app::queries::changed_files  A full Git history is required for affected checks, falling back to an empty files list. 
+▮▮▮▮ consumer:scad.verify (a05ee1d6)
+▮▮▮▮ consumer:scad.verify (running for 30s)
++ openscad-docsgen -m -T /work/dsg/openscad/assemblies/display_frame_assembly.scad
+Parsing...
+  /work/dsg/openscad/assemblies/display_frame_assembly.scad
+No log requests to process
++ openscad-docsgen -m -T /work/dsg/openscad/assemblies/panels_assembly.scad
+Parsing...
+  /work/dsg/openscad/assemblies/panels_assembly.scad
+No log requests to process
++ openscad-docsgen -m -T /work/dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad
+Parsing...
+  /work/dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad
+No log requests to process
++ openscad-docsgen -m -T /work/dsg/openscad/assemblies/verification/corner_edge_coupler_profile_sections.scad
+Parsing...
+  /work/dsg/openscad/assemblies/verification/corner_edge_coupler_profile_sections.scad
+No log requests to process
++ openscad-docsgen -m -T /work/dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad
+Parsing...
+  /work/dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad
+No log requests to process
++ openscad-docsgen -m -T /work/dsg/openscad/assemblies/verification/middle_coupler_fit_assembly.scad
+Parsing...
+  /work/dsg/openscad/assemblies/verification/middle_coupler_fit_assembly.scad
+No log requests to process
++ openscad-docsgen -m -T /work/dsg/openscad/project_components/hub75_panel_mating.scad
+Parsing...
+  /work/dsg/openscad/project_components/hub75_panel_mating.scad
+No log requests to process
++ openscad-docsgen -m -T /work/dsg/openscad/project_components/middle-coupler/hub75_middle_coupler.scad
+Parsing...
+  /work/dsg/openscad/project_components/middle-coupler/hub75_middle_coupler.scad
+No log requests to process
++ openscad-docsgen -m -T /work/dsg/openscad/project_components/middle-coupler/hub75_middle_coupler_render.scad
+Parsing...
+  /work/dsg/openscad/project_components/middle-coupler/hub75_middle_coupler_render.scad
+No log requests to process
+Verification SCons engine: 51 target(s), cache=/work/.cache/scad-project/verification-scons
++ scons -Q -f /work/tools/tool.scad-project/src/scad_project/scons_driver.py SCAD_PROJECT_MANIFEST=/work/.cache/scad-project/verification-state/verification-manifest.json
+Retrieved `vrf/out/png/corner-edge-coupler-small-horizontal-profile-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-medium-horizontal-profile-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-large-horizontal-profile-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-left-small-fit-detail.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-left-medium-fit-detail.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-left-large-fit-detail.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-left-small-rear-fit-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-left-medium-rear-fit-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-left-large-rear-fit-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-left-small-xy-side-edge-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-left-medium-xy-side-edge-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-left-large-xy-side-edge-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-left-small-yz-top-edge-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-left-medium-yz-top-edge-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-left-large-yz-top-edge-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-right-small-fit-detail.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-right-medium-fit-detail.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-right-large-fit-detail.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-right-small-rear-fit-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-right-medium-rear-fit-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-right-large-rear-fit-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-right-small-xy-side-edge-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-right-medium-xy-side-edge-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-right-large-xy-side-edge-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-right-small-yz-top-edge-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-right-medium-yz-top-edge-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-right-large-yz-top-edge-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-small-vertical-profile-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-medium-vertical-profile-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-large-vertical-profile-section.png' from cache
+_action(["vrf/out/png/horizontal-edge-coupler-small-fit-detail.png"], ["vrf/openscad/horizontal-edge-coupler-fit-detail.scad", "dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/assemblies/panels_assembly.scad", "dsg/openscad/project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad", "dsg/openscad/project_components/hub75_panel_mating.scad", "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o -D size="small" --autocenter --viewall --imgsize=1280,720 -o /work/vrf/out/png/.horizontal-edge-coupler-small-fit-detail.unwatermarked.png /work/vrf/openscad/horizontal-edge-coupler-fit-detail.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 319
+Geometry cache size in bytes: 3796576
+CGAL Polyhedrons in cache: 92
+CGAL cache size in bytes: 51370750
+Total rendering time: 0:00:00.700
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:    12619
+   Facets:      25230
++ scad-image-watermark /work/vrf/out/png/.horizontal-edge-coupler-small-fit-detail.unwatermarked.png /work/vrf/out/png/horizontal-edge-coupler-small-fit-detail.png --text © 2026 brainboxemb
+SCons built: vrf/out/png/horizontal-edge-coupler-small-fit-detail.png
+_action(["vrf/out/png/horizontal-edge-coupler-medium-fit-detail.png"], ["vrf/openscad/horizontal-edge-coupler-fit-detail.scad", "dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/assemblies/panels_assembly.scad", "dsg/openscad/project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad", "dsg/openscad/project_components/hub75_panel_mating.scad", "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o -D size="medium" --autocenter --viewall --imgsize=1280,720 -o /work/vrf/out/png/.horizontal-edge-coupler-medium-fit-detail.unwatermarked.png /work/vrf/openscad/horizontal-edge-coupler-fit-detail.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 327
+Geometry cache size in bytes: 3842592
+CGAL Polyhedrons in cache: 92
+CGAL cache size in bytes: 56326750
+Total rendering time: 0:00:00.952
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:    15963
+   Facets:      31918
++ scad-image-watermark /work/vrf/out/png/.horizontal-edge-coupler-medium-fit-detail.unwatermarked.png /work/vrf/out/png/horizontal-edge-coupler-medium-fit-detail.png --text © 2026 brainboxemb
+SCons built: vrf/out/png/horizontal-edge-coupler-medium-fit-detail.png
+_action(["vrf/out/png/horizontal-edge-coupler-large-fit-detail.png"], ["vrf/openscad/horizontal-edge-coupler-fit-detail.scad", "dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/assemblies/panels_assembly.scad", "dsg/openscad/project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad", "dsg/openscad/project_components/hub75_panel_mating.scad", "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o -D size="large" --autocenter --viewall --imgsize=1280,720 -o /work/vrf/out/png/.horizontal-edge-coupler-large-fit-detail.unwatermarked.png /work/vrf/openscad/horizontal-edge-coupler-fit-detail.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 335
+Geometry cache size in bytes: 3925024
+CGAL Polyhedrons in cache: 92
+CGAL cache size in bytes: 61807500
+Total rendering time: 0:00:01.002
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:    19904
+   Facets:      39800
++ scad-image-watermark /work/vrf/out/png/.horizontal-edge-coupler-large-fit-detail.unwatermarked.png /work/vrf/out/png/horizontal-edge-coupler-large-fit-detail.png --text © 2026 brainboxemb
+SCons built: vrf/out/png/horizontal-edge-coupler-large-fit-detail.png
+_action(["vrf/out/png/horizontal-edge-coupler-small-rear-fit-section.png"], ["vrf/openscad/horizontal-edge-coupler-rear-fit-section.scad", "dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/assemblies/panels_assembly.scad", "dsg/openscad/project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad", "dsg/openscad/project_components/hub75_panel_mating.scad", "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o -D size="small" --autocenter --viewall --imgsize=1280,720 -o /work/vrf/out/png/.horizontal-edge-coupler-small-rear-fit-section.unwatermarked.png /work/vrf/openscad/horizontal-edge-coupler-rear-fit-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 278
+Geometry cache size in bytes: 3755984
+CGAL Polyhedrons in cache: 86
+CGAL cache size in bytes: 47221250
+Total rendering time: 0:00:00.650
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -2
+   Vertices:     3944
+   Facets:       7876
++ scad-image-watermark /work/vrf/out/png/.horizontal-edge-coupler-small-rear-fit-section.unwatermarked.png /work/vrf/out/png/horizontal-edge-coupler-small-rear-fit-section.png --text © 2026 brainboxemb
+SCons built: vrf/out/png/horizontal-edge-coupler-small-rear-fit-section.png
+_action(["vrf/out/png/horizontal-edge-coupler-medium-rear-fit-section.png"], ["vrf/openscad/horizontal-edge-coupler-rear-fit-section.scad", "dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/assemblies/panels_assembly.scad", "dsg/openscad/project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad", "dsg/openscad/project_components/hub75_panel_mating.scad", "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o -D size="medium" --autocenter --viewall --imgsize=1280,720 -o /work/vrf/out/png/.horizontal-edge-coupler-medium-rear-fit-section.unwatermarked.png /work/vrf/openscad/horizontal-edge-coupler-rear-fit-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 286
+Geometry cache size in bytes: 3802000
+CGAL Polyhedrons in cache: 86
+CGAL cache size in bytes: 49754500
+Total rendering time: 0:00:00.889
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:     2922
+   Facets:       5840
++ scad-image-watermark /work/vrf/out/png/.horizontal-edge-coupler-medium-rear-fit-section.unwatermarked.png /work/vrf/out/png/horizontal-edge-coupler-medium-rear-fit-section.png --text © 2026 brainboxemb
+SCons built: vrf/out/png/horizontal-edge-coupler-medium-rear-fit-section.png
+_action(["vrf/out/png/horizontal-edge-coupler-large-rear-fit-section.png"], ["vrf/openscad/horizontal-edge-coupler-rear-fit-section.scad", "dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/assemblies/panels_assembly.scad", "dsg/openscad/project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad", "dsg/openscad/project_components/hub75_panel_mating.scad", "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o -D size="large" --autocenter --viewall --imgsize=1280,720 -o /work/vrf/out/png/.horizontal-edge-coupler-large-rear-fit-section.unwatermarked.png /work/vrf/openscad/horizontal-edge-coupler-rear-fit-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 294
+Geometry cache size in bytes: 3884432
+CGAL Polyhedrons in cache: 86
+CGAL cache size in bytes: 53392000
+Total rendering time: 0:00:00.925
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:     3091
+   Facets:       6178
++ scad-image-watermark /work/vrf/out/png/.horizontal-edge-coupler-large-rear-fit-section.unwatermarked.png /work/vrf/out/png/horizontal-edge-coupler-large-rear-fit-section.png --text © 2026 brainboxemb
+SCons built: vrf/out/png/horizontal-edge-coupler-large-rear-fit-section.png
+_action(["vrf/out/png/horizontal-edge-coupler-small-xy-seam-section.png"], ["vrf/openscad/horizontal-edge-coupler-xy-seam-section.scad", "dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/assemblies/panels_assembly.scad", "dsg/openscad/project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad", "dsg/openscad/project_components/hub75_panel_mating.scad", "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o -D size="small" --autocenter --viewall --imgsize=1280,720 -o /work/vrf/out/png/.horizontal-edge-coupler-small-xy-seam-section.unwatermarked.png /work/vrf/openscad/horizontal-edge-coupler-xy-seam-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 315
+Geometry cache size in bytes: 3752832
+CGAL Polyhedrons in cache: 93
+CGAL cache size in bytes: 45255000
+Total rendering time: 0:00:00.626
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      2
+   Vertices:      178
+   Facets:        360
++ scad-image-watermark /work/vrf/out/png/.horizontal-edge-coupler-small-xy-seam-section.unwatermarked.png /work/vrf/out/png/horizontal-edge-coupler-small-xy-seam-section.png --text © 2026 brainboxemb
+SCons built: vrf/out/png/horizontal-edge-coupler-small-xy-seam-section.png
+_action(["vrf/out/png/horizontal-edge-coupler-medium-xy-seam-section.png"], ["vrf/openscad/horizontal-edge-coupler-xy-seam-section.scad", "dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/assemblies/panels_assembly.scad", "dsg/openscad/project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad", "dsg/openscad/project_components/hub75_panel_mating.scad", "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o -D size="medium" --autocenter --viewall --imgsize=1280,720 -o /work/vrf/out/png/.horizontal-edge-coupler-medium-xy-seam-section.unwatermarked.png /work/vrf/openscad/horizontal-edge-coupler-xy-seam-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 323
+Geometry cache size in bytes: 3798848
+CGAL Polyhedrons in cache: 93
+CGAL cache size in bytes: 48533000
+Total rendering time: 0:00:00.864
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      2
+   Vertices:      169
+   Facets:        342
++ scad-image-watermark /work/vrf/out/png/.horizontal-edge-coupler-medium-xy-seam-section.unwatermarked.png /work/vrf/out/png/horizontal-edge-coupler-medium-xy-seam-section.png --text © 2026 brainboxemb
+SCons built: vrf/out/png/horizontal-edge-coupler-medium-xy-seam-section.png
+_action(["vrf/out/png/horizontal-edge-coupler-large-xy-seam-section.png"], ["vrf/openscad/horizontal-edge-coupler-xy-seam-section.scad", "dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/assemblies/panels_assembly.scad", "dsg/openscad/project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad", "dsg/openscad/project_components/hub75_panel_mating.scad", "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o -D size="large" --autocenter --viewall --imgsize=1280,720 -o /work/vrf/out/png/.horizontal-edge-coupler-large-xy-seam-section.unwatermarked.png /work/vrf/openscad/horizontal-edge-coupler-xy-seam-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 331
+Geometry cache size in bytes: 3881280
+CGAL Polyhedrons in cache: 93
+CGAL cache size in bytes: 52044500
+Total rendering time: 0:00:00.891
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      2
+   Vertices:      170
+   Facets:        344
++ scad-image-watermark /work/vrf/out/png/.horizontal-edge-coupler-large-xy-seam-section.unwatermarked.png /work/vrf/out/png/horizontal-edge-coupler-large-xy-seam-section.png --text © 2026 brainboxemb
+SCons built: vrf/out/png/horizontal-edge-coupler-large-xy-seam-section.png
+_action(["vrf/out/png/horizontal-edge-coupler-small-yz-edge-section.png"], ["vrf/openscad/horizontal-edge-coupler-yz-edge-section.scad", "dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/assemblies/panels_assembly.scad", "dsg/openscad/project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad", "dsg/openscad/project_components/hub75_panel_mating.scad", "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o -D size="small" --autocenter --viewall --imgsize=1280,720 -o /work/vrf/out/png/.horizontal-edge-coupler-small-yz-edge-section.unwatermarked.png /work/vrf/openscad/horizontal-edge-coupler-yz-edge-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 315
+Geometry cache size in bytes: 3752832
+CGAL Polyhedrons in cache: 93
+CGAL cache size in bytes: 45237250
+Total rendering time: 0:00:00.631
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      2
+   Vertices:      155
+   Facets:        314
++ scad-image-watermark /work/vrf/out/png/.horizontal-edge-coupler-small-yz-edge-section.unwatermarked.png /work/vrf/out/png/horizontal-edge-coupler-small-yz-edge-section.png --text © 2026 brainboxemb
+SCons built: vrf/out/png/horizontal-edge-coupler-small-yz-edge-section.png
+_action(["vrf/out/png/horizontal-edge-coupler-medium-yz-edge-section.png"], ["vrf/openscad/horizontal-edge-coupler-yz-edge-section.scad", "dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/assemblies/panels_assembly.scad", "dsg/openscad/project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad", "dsg/openscad/project_components/hub75_panel_mating.scad", "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o -D size="medium" --autocenter --viewall --imgsize=1280,720 -o /work/vrf/out/png/.horizontal-edge-coupler-medium-yz-edge-section.unwatermarked.png /work/vrf/openscad/horizontal-edge-coupler-yz-edge-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 323
+Geometry cache size in bytes: 3798848
+CGAL Polyhedrons in cache: 93
+CGAL cache size in bytes: 48521000
+Total rendering time: 0:00:00.868
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      2
+   Vertices:      155
+   Facets:        314
++ scad-image-watermark /work/vrf/out/png/.horizontal-edge-coupler-medium-yz-edge-section.unwatermarked.png /work/vrf/out/png/horizontal-edge-coupler-medium-yz-edge-section.png --text © 2026 brainboxemb
+SCons built: vrf/out/png/horizontal-edge-coupler-medium-yz-edge-section.png
+_action(["vrf/out/png/horizontal-edge-coupler-large-yz-edge-section.png"], ["vrf/openscad/horizontal-edge-coupler-yz-edge-section.scad", "dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/assemblies/panels_assembly.scad", "dsg/openscad/project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad", "dsg/openscad/project_components/hub75_panel_mating.scad", "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o -D size="large" --autocenter --viewall --imgsize=1280,720 -o /work/vrf/out/png/.horizontal-edge-coupler-large-yz-edge-section.unwatermarked.png /work/vrf/openscad/horizontal-edge-coupler-yz-edge-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 331
+Geometry cache size in bytes: 3881280
+CGAL Polyhedrons in cache: 93
+CGAL cache size in bytes: 52028750
+Total rendering time: 0:00:00.907
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      2
+   Vertices:      151
+   Facets:        306
++ scad-image-watermark /work/vrf/out/png/.horizontal-edge-coupler-large-yz-edge-section.unwatermarked.png /work/vrf/out/png/horizontal-edge-coupler-large-yz-edge-section.png --text © 2026 brainboxemb
+SCons built: vrf/out/png/horizontal-edge-coupler-large-yz-edge-section.png
+_action(["vrf/out/png/middle-coupler-small-fit-detail.png"], ["vrf/openscad/middle-coupler-fit-detail.scad", "dsg/openscad/assemblies/verification/middle_coupler_fit_assembly.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/assemblies/panels_assembly.scad", "dsg/openscad/project_components/middle-coupler/hub75_middle_coupler.scad", "dsg/openscad/project_components/hub75_panel_mating.scad", "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o -D size="small" --autocenter --viewall --imgsize=1280,720 -o /work/vrf/out/png/.middle-coupler-small-fit-detail.unwatermarked.png /work/vrf/openscad/middle-coupler-fit-detail.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 289
+Geometry cache size in bytes: 3833880
+CGAL Polyhedrons in cache: 91
+CGAL cache size in bytes: 59003500
+Total rendering time: 0:00:00.835
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      4
+   Vertices:    16863
+   Facets:      33738
++ scad-image-watermark /work/vrf/out/png/.middle-coupler-small-fit-detail.unwatermarked.png /work/vrf/out/png/middle-coupler-small-fit-detail.png --text © 2026 brainboxemb
+SCons built: vrf/out/png/middle-coupler-small-fit-detail.png
+_action(["vrf/out/png/middle-coupler-medium-fit-detail.png"], ["vrf/openscad/middle-coupler-fit-detail.scad", "dsg/openscad/assemblies/verification/middle_coupler_fit_assembly.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/assemblies/panels_assembly.scad", "dsg/openscad/project_components/middle-coupler/hub75_middle_coupler.scad", "dsg/openscad/project_components/hub75_panel_mating.scad", "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o -D size="medium" --autocenter --viewall --imgsize=1280,720 -o /work/vrf/out/png/.middle-coupler-medium-fit-detail.unwatermarked.png /work/vrf/openscad/middle-coupler-fit-detail.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 297
+Geometry cache size in bytes: 3879032
+CGAL Polyhedrons in cache: 91
+CGAL cache size in bytes: 68597000
+Total rendering time: 0:00:00.975
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      4
+   Vertices:    23340
+   Facets:      46692
++ scad-image-watermark /work/vrf/out/png/.middle-coupler-medium-fit-detail.unwatermarked.png /work/vrf/out/png/middle-coupler-medium-fit-detail.png --text © 2026 brainboxemb
+SCons built: vrf/out/png/middle-coupler-medium-fit-detail.png
+_action(["vrf/out/png/middle-coupler-large-fit-detail.png"], ["vrf/openscad/middle-coupler-fit-detail.scad", "dsg/openscad/assemblies/verification/middle_coupler_fit_assembly.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/assemblies/panels_assembly.scad", "dsg/openscad/project_components/middle-coupler/hub75_middle_coupler.scad", "dsg/openscad/project_components/hub75_panel_mating.scad", "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o -D size="large" --autocenter --viewall --imgsize=1280,720 -o /work/vrf/out/png/.middle-coupler-large-fit-detail.unwatermarked.png /work/vrf/openscad/middle-coupler-fit-detail.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 305
+Geometry cache size in bytes: 3984504
+CGAL Polyhedrons in cache: 91
+CGAL cache size in bytes: 78234250
+Total rendering time: 0:00:01.128
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      4
+   Vertices:    30014
+   Facets:      60040
++ scad-image-watermark /work/vrf/out/png/.middle-coupler-large-fit-detail.unwatermarked.png /work/vrf/out/png/middle-coupler-large-fit-detail.png --text © 2026 brainboxemb
+SCons built: vrf/out/png/middle-coupler-large-fit-detail.png
+_action(["vrf/out/png/middle-coupler-small-rear-fit-section.png"], ["vrf/openscad/middle-coupler-rear-fit-section.scad", "dsg/openscad/assemblies/verification/middle_coupler_fit_assembly.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/assemblies/panels_assembly.scad", "dsg/openscad/project_components/middle-coupler/hub75_middle_coupler.scad", "dsg/openscad/project_components/hub75_panel_mating.scad", "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o -D size="small" --autocenter --viewall --imgsize=1280,720 -o /work/vrf/out/png/.middle-coupler-small-rear-fit-section.unwatermarked.png /work/vrf/openscad/middle-coupler-rear-fit-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 248
+Geometry cache size in bytes: 3793288
+CGAL Polyhedrons in cache: 85
+CGAL cache size in bytes: 53647000
+Total rendering time: 0:00:00.763
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -2
+   Vertices:     5206
+   Facets:      10400
++ scad-image-watermark /work/vrf/out/png/.middle-coupler-small-rear-fit-section.unwatermarked.png /work/vrf/out/png/middle-coupler-small-rear-fit-section.png --text © 2026 brainboxemb
+SCons built: vrf/out/png/middle-coupler-small-rear-fit-section.png
+_action(["vrf/out/png/middle-coupler-medium-rear-fit-section.png"], ["vrf/openscad/middle-coupler-rear-fit-section.scad", "dsg/openscad/assemblies/verification/middle_coupler_fit_assembly.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/assemblies/panels_assembly.scad", "dsg/openscad/project_components/middle-coupler/hub75_middle_coupler.scad", "dsg/openscad/project_components/hub75_panel_mating.scad", "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o -D size="medium" --autocenter --viewall --imgsize=1280,720 -o /work/vrf/out/png/.middle-coupler-medium-rear-fit-section.unwatermarked.png /work/vrf/openscad/middle-coupler-rear-fit-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 256
+Geometry cache size in bytes: 3838440
+CGAL Polyhedrons in cache: 85
+CGAL cache size in bytes: 59047250
+Total rendering time: 0:00:00.876
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:     3875
+   Facets:       7746
++ scad-image-watermark /work/vrf/out/png/.middle-coupler-medium-rear-fit-section.unwatermarked.png /work/vrf/out/png/middle-coupler-medium-rear-fit-section.png --text © 2026 brainboxemb
+SCons built: vrf/out/png/middle-coupler-medium-rear-fit-section.png
+_action(["vrf/out/png/middle-coupler-large-rear-fit-section.png"], ["vrf/openscad/middle-coupler-rear-fit-section.scad", "dsg/openscad/assemblies/verification/middle_coupler_fit_assembly.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/assemblies/panels_assembly.scad", "dsg/openscad/project_components/middle-coupler/hub75_middle_coupler.scad", "dsg/openscad/project_components/hub75_panel_mating.scad", "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o -D size="large" --autocenter --viewall --imgsize=1280,720 -o /work/vrf/out/png/.middle-coupler-large-rear-fit-section.unwatermarked.png /work/vrf/openscad/middle-coupler-rear-fit-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 264
+Geometry cache size in bytes: 3943912
+CGAL Polyhedrons in cache: 85
+CGAL cache size in bytes: 65551750
+Total rendering time: 0:00:01.003
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:     4147
+   Facets:       8290
++ scad-image-watermark /work/vrf/out/png/.middle-coupler-large-rear-fit-section.unwatermarked.png /work/vrf/out/png/middle-coupler-large-rear-fit-section.png --text © 2026 brainboxemb
+SCons built: vrf/out/png/middle-coupler-large-rear-fit-section.png
+_action(["vrf/out/png/middle-coupler-small-xy-seam-section.png"], ["vrf/openscad/middle-coupler-xy-seam-section.scad", "dsg/openscad/assemblies/verification/middle_coupler_fit_assembly.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/assemblies/panels_assembly.scad", "dsg/openscad/project_components/middle-coupler/hub75_middle_coupler.scad", "dsg/openscad/project_components/hub75_panel_mating.scad", "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o -D size="small" --autocenter --viewall --imgsize=1280,720 -o /work/vrf/out/png/.middle-coupler-small-xy-seam-section.unwatermarked.png /work/vrf/openscad/middle-coupler-xy-seam-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 285
+Geometry cache size in bytes: 3790136
+CGAL Polyhedrons in cache: 92
+CGAL cache size in bytes: 50726250
+Total rendering time: 0:00:00.738
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      3
+   Vertices:      108
+   Facets:        224
++ scad-image-watermark /work/vrf/out/png/.middle-coupler-small-xy-seam-section.unwatermarked.png /work/vrf/out/png/middle-coupler-small-xy-seam-section.png --text © 2026 brainboxemb
+SCons built: vrf/out/png/middle-coupler-small-xy-seam-section.png
+_action(["vrf/out/png/middle-coupler-medium-xy-seam-section.png"], ["vrf/openscad/middle-coupler-xy-seam-section.scad", "dsg/openscad/assemblies/verification/middle_coupler_fit_assembly.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/assemblies/panels_assembly.scad", "dsg/openscad/project_components/middle-coupler/hub75_middle_coupler.scad", "dsg/openscad/project_components/hub75_panel_mating.scad", "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o -D size="medium" --autocenter --viewall --imgsize=1280,720 -o /work/vrf/out/png/.middle-coupler-medium-xy-seam-section.unwatermarked.png /work/vrf/openscad/middle-coupler-xy-seam-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 293
+Geometry cache size in bytes: 3835288
+CGAL Polyhedrons in cache: 92
+CGAL cache size in bytes: 57268250
+Total rendering time: 0:00:00.855
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      2
+   Vertices:      356
+   Facets:        716
++ scad-image-watermark /work/vrf/out/png/.middle-coupler-medium-xy-seam-section.unwatermarked.png /work/vrf/out/png/middle-coupler-medium-xy-seam-section.png --text © 2026 brainboxemb
+SCons built: vrf/out/png/middle-coupler-medium-xy-seam-section.png
+_action(["vrf/out/png/middle-coupler-large-xy-seam-section.png"], ["vrf/openscad/middle-coupler-xy-seam-section.scad", "dsg/openscad/assemblies/verification/middle_coupler_fit_assembly.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/assemblies/panels_assembly.scad", "dsg/openscad/project_components/middle-coupler/hub75_middle_coupler.scad", "dsg/openscad/project_components/hub75_panel_mating.scad", "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o -D size="large" --autocenter --viewall --imgsize=1280,720 -o /work/vrf/out/png/.middle-coupler-large-xy-seam-section.unwatermarked.png /work/vrf/openscad/middle-coupler-xy-seam-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 301
+Geometry cache size in bytes: 3940760
+CGAL Polyhedrons in cache: 92
+CGAL cache size in bytes: 63377500
+Total rendering time: 0:00:00.968
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      2
+   Vertices:      101
+   Facets:        206
++ scad-image-watermark /work/vrf/out/png/.middle-coupler-large-xy-seam-section.unwatermarked.png /work/vrf/out/png/middle-coupler-large-xy-seam-section.png --text © 2026 brainboxemb
+SCons built: vrf/out/png/middle-coupler-large-xy-seam-section.png
+Verification SCons summary: targets=51 built=21 cache-restored=30 current=0 error=0
+  cache_restored: vrf/out/png/corner-edge-coupler-small-horizontal-profile-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-medium-horizontal-profile-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-large-horizontal-profile-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-left-small-fit-detail.png
+  cache_restored: vrf/out/png/corner-edge-coupler-left-medium-fit-detail.png
+  cache_restored: vrf/out/png/corner-edge-coupler-left-large-fit-detail.png
+  cache_restored: vrf/out/png/corner-edge-coupler-left-small-rear-fit-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-left-medium-rear-fit-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-left-large-rear-fit-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-left-small-xy-side-edge-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-left-medium-xy-side-edge-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-left-large-xy-side-edge-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-left-small-yz-top-edge-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-left-medium-yz-top-edge-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-left-large-yz-top-edge-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-right-small-fit-detail.png
+  cache_restored: vrf/out/png/corner-edge-coupler-right-medium-fit-detail.png
+  cache_restored: vrf/out/png/corner-edge-coupler-right-large-fit-detail.png
+  cache_restored: vrf/out/png/corner-edge-coupler-right-small-rear-fit-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-right-medium-rear-fit-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-right-large-rear-fit-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-right-small-xy-side-edge-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-right-medium-xy-side-edge-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-right-large-xy-side-edge-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-right-small-yz-top-edge-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-right-medium-yz-top-edge-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-right-large-yz-top-edge-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-small-vertical-profile-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-medium-vertical-profile-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-large-vertical-profile-section.png
+  built: vrf/out/png/horizontal-edge-coupler-small-fit-detail.png
+  built: vrf/out/png/horizontal-edge-coupler-medium-fit-detail.png
+  built: vrf/out/png/horizontal-edge-coupler-large-fit-detail.png
+  built: vrf/out/png/horizontal-edge-coupler-small-rear-fit-section.png
+  built: vrf/out/png/horizontal-edge-coupler-medium-rear-fit-section.png
+  built: vrf/out/png/horizontal-edge-coupler-large-rear-fit-section.png
+  built: vrf/out/png/horizontal-edge-coupler-small-xy-seam-section.png
+  built: vrf/out/png/horizontal-edge-coupler-medium-xy-seam-section.png
+  built: vrf/out/png/horizontal-edge-coupler-large-xy-seam-section.png
+  built: vrf/out/png/horizontal-edge-coupler-small-yz-edge-section.png
+  built: vrf/out/png/horizontal-edge-coupler-medium-yz-edge-section.png
+  built: vrf/out/png/horizontal-edge-coupler-large-yz-edge-section.png
+  built: vrf/out/png/middle-coupler-small-fit-detail.png
+  built: vrf/out/png/middle-coupler-medium-fit-detail.png
+  built: vrf/out/png/middle-coupler-large-fit-detail.png
+  built: vrf/out/png/middle-coupler-small-rear-fit-section.png
+  built: vrf/out/png/middle-coupler-medium-rear-fit-section.png
+  built: vrf/out/png/middle-coupler-large-rear-fit-section.png
+  built: vrf/out/png/middle-coupler-small-xy-seam-section.png
+  built: vrf/out/png/middle-coupler-medium-xy-seam-section.png
+  built: vrf/out/png/middle-coupler-large-xy-seam-section.png
++ bash scripts/run-verification.sh
+-- Interactive main default assembly
+Geometries in cache: 464
+Geometry cache size in bytes: 8585984
+CGAL Polyhedrons in cache: 7
+CGAL cache size in bytes: 103370000
+Total rendering time: 0:00:03.499
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -27
+   Vertices:   250560
+   Facets:     501008
+-- Interactive main custom couplers view
+Geometries in cache: 288
+Geometry cache size in bytes: 7597056
+CGAL Polyhedrons in cache: 2
+CGAL cache size in bytes: 93721000
+Total rendering time: 0:00:03.080
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      13
+   Vertices:   252556
+   Facets:     505160
+Verification evidence and interactive main smoke checks: OK
++ bash scripts/build-verification-index.sh
+verify: OK
+▮▮▮▮ consumer:scad.verify (35s 42ms, a05ee1d6)
+
+Tasks: 1 completed
+ Time: 35s 119ms
+

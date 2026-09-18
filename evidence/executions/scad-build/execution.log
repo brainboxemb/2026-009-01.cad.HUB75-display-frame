@@ -1,0 +1,54 @@
+SCAD producer execution
+=======================
+
+Capability: scad.build
+Action: build
+Source revision: a85c3f31b508a3d761011328768d6ca99f6f3a33
+Owner: brainboxemb/tool.scad-project
+Owner revision: a140b22858ac1899e7f2fa71b679639a70d819c3
+tool.scad-project version: 0.14.9
+Status: success
+Producer started (UTC): 2026-09-18T09:42:01Z
+Producer finished (UTC): 2026-09-18T09:42:19Z
+Producer duration: 17654 ms
+
+Domain evidence: ../../domain/last-build.json
+
+Decision report kind: build
+Build engine: scons
+Targets: 32
+Outcomes: BUILT=8, CACHE_RESTORED=24, CURRENT=0, ERROR=0
+
+Target decisions:
+- CACHE_RESTORED: bld/png/corner-edge-coupler-left-small.png
+- CACHE_RESTORED: bld/png/corner-edge-coupler-left-medium.png
+- CACHE_RESTORED: bld/png/corner-edge-coupler-left-large.png
+- CACHE_RESTORED: bld/png/corner-edge-coupler-right-small.png
+- CACHE_RESTORED: bld/png/corner-edge-coupler-right-medium.png
+- CACHE_RESTORED: bld/png/corner-edge-coupler-right-large.png
+- BUILT: bld/png/front-angled.png
+- BUILT: bld/png/front.png
+- CACHE_RESTORED: bld/png/horizontal-edge-coupler-small.png
+- CACHE_RESTORED: bld/png/horizontal-edge-coupler-medium.png
+- CACHE_RESTORED: bld/png/horizontal-edge-coupler-large.png
+- CACHE_RESTORED: bld/png/middle-coupler-small.png
+- CACHE_RESTORED: bld/png/middle-coupler-medium.png
+- CACHE_RESTORED: bld/png/middle-coupler-large.png
+- BUILT: bld/png/rear-angled-couplers-only.png
+- BUILT: bld/png/rear-angled-couplers.png
+- BUILT: bld/png/rear-angled-exploded.png
+- BUILT: bld/png/rear-angled.png
+- BUILT: bld/png/rear.png
+- CACHE_RESTORED: bld/stl/corner-edge-coupler-left-small.stl
+- CACHE_RESTORED: bld/stl/corner-edge-coupler-left-medium.stl
+- CACHE_RESTORED: bld/stl/corner-edge-coupler-left-large.stl
+- CACHE_RESTORED: bld/stl/corner-edge-coupler-right-small.stl
+- CACHE_RESTORED: bld/stl/corner-edge-coupler-right-medium.stl
+- CACHE_RESTORED: bld/stl/corner-edge-coupler-right-large.stl
+- CACHE_RESTORED: bld/stl/horizontal-edge-coupler-small.stl
+- CACHE_RESTORED: bld/stl/horizontal-edge-coupler-medium.stl
+- CACHE_RESTORED: bld/stl/horizontal-edge-coupler-large.stl
+- CACHE_RESTORED: bld/stl/middle-coupler-small.stl
+- CACHE_RESTORED: bld/stl/middle-coupler-medium.stl
+- CACHE_RESTORED: bld/stl/middle-coupler-large.stl
+- BUILT: bld/stl/panels-assembly.stl
