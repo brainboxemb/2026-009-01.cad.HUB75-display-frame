@@ -1,0 +1,73 @@
+SCAD producer execution
+=======================
+
+Capability: scad.verify
+Action: verify
+Source revision: 10269865ecb810ffe408eac21bf53ee6cf92d8a5
+Owner: brainboxemb/tool.scad-project
+Owner revision: a140b22858ac1899e7f2fa71b679639a70d819c3
+tool.scad-project version: 0.14.9
+Status: success
+Producer started (UTC): 2026-09-18T09:59:17Z
+Producer finished (UTC): 2026-09-18T09:59:24Z
+Producer duration: 7221 ms
+
+Domain evidence: ../../domain/last-verification-build.json
+
+Decision report kind: verification
+Build engine: scons
+Targets: 51
+Outcomes: BUILT=0, CACHE_RESTORED=51, CURRENT=0, ERROR=0
+
+Target decisions:
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-small-horizontal-profile-section.png
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-medium-horizontal-profile-section.png
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-large-horizontal-profile-section.png
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-left-small-fit-detail.png
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-left-medium-fit-detail.png
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-left-large-fit-detail.png
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-left-small-rear-fit-section.png
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-left-medium-rear-fit-section.png
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-left-large-rear-fit-section.png
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-left-small-xy-side-edge-section.png
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-left-medium-xy-side-edge-section.png
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-left-large-xy-side-edge-section.png
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-left-small-yz-top-edge-section.png
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-left-medium-yz-top-edge-section.png
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-left-large-yz-top-edge-section.png
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-right-small-fit-detail.png
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-right-medium-fit-detail.png
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-right-large-fit-detail.png
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-right-small-rear-fit-section.png
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-right-medium-rear-fit-section.png
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-right-large-rear-fit-section.png
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-right-small-xy-side-edge-section.png
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-right-medium-xy-side-edge-section.png
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-right-large-xy-side-edge-section.png
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-right-small-yz-top-edge-section.png
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-right-medium-yz-top-edge-section.png
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-right-large-yz-top-edge-section.png
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-small-vertical-profile-section.png
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-medium-vertical-profile-section.png
+- CACHE_RESTORED: vrf/out/png/corner-edge-coupler-large-vertical-profile-section.png
+- CACHE_RESTORED: vrf/out/png/horizontal-edge-coupler-small-fit-detail.png
+- CACHE_RESTORED: vrf/out/png/horizontal-edge-coupler-medium-fit-detail.png
+- CACHE_RESTORED: vrf/out/png/horizontal-edge-coupler-large-fit-detail.png
+- CACHE_RESTORED: vrf/out/png/horizontal-edge-coupler-small-rear-fit-section.png
+- CACHE_RESTORED: vrf/out/png/horizontal-edge-coupler-medium-rear-fit-section.png
+- CACHE_RESTORED: vrf/out/png/horizontal-edge-coupler-large-rear-fit-section.png
+- CACHE_RESTORED: vrf/out/png/horizontal-edge-coupler-small-xy-seam-section.png
+- CACHE_RESTORED: vrf/out/png/horizontal-edge-coupler-medium-xy-seam-section.png
+- CACHE_RESTORED: vrf/out/png/horizontal-edge-coupler-large-xy-seam-section.png
+- CACHE_RESTORED: vrf/out/png/horizontal-edge-coupler-small-yz-edge-section.png
+- CACHE_RESTORED: vrf/out/png/horizontal-edge-coupler-medium-yz-edge-section.png
+- CACHE_RESTORED: vrf/out/png/horizontal-edge-coupler-large-yz-edge-section.png
+- CACHE_RESTORED: vrf/out/png/middle-coupler-small-fit-detail.png
+- CACHE_RESTORED: vrf/out/png/middle-coupler-medium-fit-detail.png
+- CACHE_RESTORED: vrf/out/png/middle-coupler-large-fit-detail.png
+- CACHE_RESTORED: vrf/out/png/middle-coupler-small-rear-fit-section.png
+- CACHE_RESTORED: vrf/out/png/middle-coupler-medium-rear-fit-section.png
+- CACHE_RESTORED: vrf/out/png/middle-coupler-large-rear-fit-section.png
+- CACHE_RESTORED: vrf/out/png/middle-coupler-small-xy-seam-section.png
+- CACHE_RESTORED: vrf/out/png/middle-coupler-medium-xy-seam-section.png
+- CACHE_RESTORED: vrf/out/png/middle-coupler-large-xy-seam-section.png

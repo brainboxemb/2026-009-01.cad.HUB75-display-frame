@@ -1,0 +1,175 @@
+[ WARN 2026-09-18 09:59:16.469] moon_app::queries::changed_files  Detected a shallow checkout, unable to run Git commands to determine changed files. 
+[ WARN 09:59:16.469] moon_app::queries::changed_files  A full Git history is required for affected checks, falling back to an empty files list. 
+▮▮▮▮ consumer:scad.verify (7a91ce8d)
++ openscad-docsgen -m -T /work/dsg/openscad/assemblies/display_frame_assembly.scad
+Parsing...
+  /work/dsg/openscad/assemblies/display_frame_assembly.scad
+No log requests to process
++ openscad-docsgen -m -T /work/dsg/openscad/assemblies/panels_assembly.scad
+Parsing...
+  /work/dsg/openscad/assemblies/panels_assembly.scad
+No log requests to process
++ openscad-docsgen -m -T /work/dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad
+Parsing...
+  /work/dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad
+No log requests to process
++ openscad-docsgen -m -T /work/dsg/openscad/assemblies/verification/corner_edge_coupler_profile_sections.scad
+Parsing...
+  /work/dsg/openscad/assemblies/verification/corner_edge_coupler_profile_sections.scad
+No log requests to process
++ openscad-docsgen -m -T /work/dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad
+Parsing...
+  /work/dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad
+No log requests to process
++ openscad-docsgen -m -T /work/dsg/openscad/assemblies/verification/middle_coupler_fit_assembly.scad
+Parsing...
+  /work/dsg/openscad/assemblies/verification/middle_coupler_fit_assembly.scad
+No log requests to process
++ openscad-docsgen -m -T /work/dsg/openscad/project_components/hub75_panel_mating.scad
+Parsing...
+  /work/dsg/openscad/project_components/hub75_panel_mating.scad
+No log requests to process
++ openscad-docsgen -m -T /work/dsg/openscad/project_components/middle-coupler/hub75_middle_coupler.scad
+Parsing...
+  /work/dsg/openscad/project_components/middle-coupler/hub75_middle_coupler.scad
+No log requests to process
++ openscad-docsgen -m -T /work/dsg/openscad/project_components/middle-coupler/hub75_middle_coupler_render.scad
+Parsing...
+  /work/dsg/openscad/project_components/middle-coupler/hub75_middle_coupler_render.scad
+No log requests to process
+Verification SCons engine: 51 target(s), cache=/work/.cache/scad-project/verification-scons
++ scons -Q -f /work/tools/tool.scad-project/src/scad_project/scons_driver.py SCAD_PROJECT_MANIFEST=/work/.cache/scad-project/verification-state/verification-manifest.json
+Retrieved `vrf/out/png/corner-edge-coupler-small-horizontal-profile-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-medium-horizontal-profile-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-large-horizontal-profile-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-left-small-fit-detail.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-left-medium-fit-detail.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-left-large-fit-detail.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-left-small-rear-fit-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-left-medium-rear-fit-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-left-large-rear-fit-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-left-small-xy-side-edge-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-left-medium-xy-side-edge-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-left-large-xy-side-edge-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-left-small-yz-top-edge-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-left-medium-yz-top-edge-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-left-large-yz-top-edge-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-right-small-fit-detail.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-right-medium-fit-detail.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-right-large-fit-detail.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-right-small-rear-fit-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-right-medium-rear-fit-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-right-large-rear-fit-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-right-small-xy-side-edge-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-right-medium-xy-side-edge-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-right-large-xy-side-edge-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-right-small-yz-top-edge-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-right-medium-yz-top-edge-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-right-large-yz-top-edge-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-small-vertical-profile-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-medium-vertical-profile-section.png' from cache
+Retrieved `vrf/out/png/corner-edge-coupler-large-vertical-profile-section.png' from cache
+Retrieved `vrf/out/png/horizontal-edge-coupler-small-fit-detail.png' from cache
+Retrieved `vrf/out/png/horizontal-edge-coupler-medium-fit-detail.png' from cache
+Retrieved `vrf/out/png/horizontal-edge-coupler-large-fit-detail.png' from cache
+Retrieved `vrf/out/png/horizontal-edge-coupler-small-rear-fit-section.png' from cache
+Retrieved `vrf/out/png/horizontal-edge-coupler-medium-rear-fit-section.png' from cache
+Retrieved `vrf/out/png/horizontal-edge-coupler-large-rear-fit-section.png' from cache
+Retrieved `vrf/out/png/horizontal-edge-coupler-small-xy-seam-section.png' from cache
+Retrieved `vrf/out/png/horizontal-edge-coupler-medium-xy-seam-section.png' from cache
+Retrieved `vrf/out/png/horizontal-edge-coupler-large-xy-seam-section.png' from cache
+Retrieved `vrf/out/png/horizontal-edge-coupler-small-yz-edge-section.png' from cache
+Retrieved `vrf/out/png/horizontal-edge-coupler-medium-yz-edge-section.png' from cache
+Retrieved `vrf/out/png/horizontal-edge-coupler-large-yz-edge-section.png' from cache
+Retrieved `vrf/out/png/middle-coupler-small-fit-detail.png' from cache
+Retrieved `vrf/out/png/middle-coupler-medium-fit-detail.png' from cache
+Retrieved `vrf/out/png/middle-coupler-large-fit-detail.png' from cache
+Retrieved `vrf/out/png/middle-coupler-small-rear-fit-section.png' from cache
+Retrieved `vrf/out/png/middle-coupler-medium-rear-fit-section.png' from cache
+Retrieved `vrf/out/png/middle-coupler-large-rear-fit-section.png' from cache
+Retrieved `vrf/out/png/middle-coupler-small-xy-seam-section.png' from cache
+Retrieved `vrf/out/png/middle-coupler-medium-xy-seam-section.png' from cache
+Retrieved `vrf/out/png/middle-coupler-large-xy-seam-section.png' from cache
+Verification SCons summary: targets=51 built=0 cache-restored=51 current=0 error=0
+  cache_restored: vrf/out/png/corner-edge-coupler-small-horizontal-profile-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-medium-horizontal-profile-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-large-horizontal-profile-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-left-small-fit-detail.png
+  cache_restored: vrf/out/png/corner-edge-coupler-left-medium-fit-detail.png
+  cache_restored: vrf/out/png/corner-edge-coupler-left-large-fit-detail.png
+  cache_restored: vrf/out/png/corner-edge-coupler-left-small-rear-fit-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-left-medium-rear-fit-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-left-large-rear-fit-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-left-small-xy-side-edge-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-left-medium-xy-side-edge-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-left-large-xy-side-edge-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-left-small-yz-top-edge-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-left-medium-yz-top-edge-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-left-large-yz-top-edge-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-right-small-fit-detail.png
+  cache_restored: vrf/out/png/corner-edge-coupler-right-medium-fit-detail.png
+  cache_restored: vrf/out/png/corner-edge-coupler-right-large-fit-detail.png
+  cache_restored: vrf/out/png/corner-edge-coupler-right-small-rear-fit-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-right-medium-rear-fit-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-right-large-rear-fit-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-right-small-xy-side-edge-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-right-medium-xy-side-edge-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-right-large-xy-side-edge-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-right-small-yz-top-edge-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-right-medium-yz-top-edge-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-right-large-yz-top-edge-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-small-vertical-profile-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-medium-vertical-profile-section.png
+  cache_restored: vrf/out/png/corner-edge-coupler-large-vertical-profile-section.png
+  cache_restored: vrf/out/png/horizontal-edge-coupler-small-fit-detail.png
+  cache_restored: vrf/out/png/horizontal-edge-coupler-medium-fit-detail.png
+  cache_restored: vrf/out/png/horizontal-edge-coupler-large-fit-detail.png
+  cache_restored: vrf/out/png/horizontal-edge-coupler-small-rear-fit-section.png
+  cache_restored: vrf/out/png/horizontal-edge-coupler-medium-rear-fit-section.png
+  cache_restored: vrf/out/png/horizontal-edge-coupler-large-rear-fit-section.png
+  cache_restored: vrf/out/png/horizontal-edge-coupler-small-xy-seam-section.png
+  cache_restored: vrf/out/png/horizontal-edge-coupler-medium-xy-seam-section.png
+  cache_restored: vrf/out/png/horizontal-edge-coupler-large-xy-seam-section.png
+  cache_restored: vrf/out/png/horizontal-edge-coupler-small-yz-edge-section.png
+  cache_restored: vrf/out/png/horizontal-edge-coupler-medium-yz-edge-section.png
+  cache_restored: vrf/out/png/horizontal-edge-coupler-large-yz-edge-section.png
+  cache_restored: vrf/out/png/middle-coupler-small-fit-detail.png
+  cache_restored: vrf/out/png/middle-coupler-medium-fit-detail.png
+  cache_restored: vrf/out/png/middle-coupler-large-fit-detail.png
+  cache_restored: vrf/out/png/middle-coupler-small-rear-fit-section.png
+  cache_restored: vrf/out/png/middle-coupler-medium-rear-fit-section.png
+  cache_restored: vrf/out/png/middle-coupler-large-rear-fit-section.png
+  cache_restored: vrf/out/png/middle-coupler-small-xy-seam-section.png
+  cache_restored: vrf/out/png/middle-coupler-medium-xy-seam-section.png
+  cache_restored: vrf/out/png/middle-coupler-large-xy-seam-section.png
++ bash scripts/run-verification.sh
+-- Interactive main default assembly
+Geometries in cache: 464
+Geometry cache size in bytes: 8585984
+CGAL Polyhedrons in cache: 7
+CGAL cache size in bytes: 103370000
+Total rendering time: 0:00:02.234
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -27
+   Vertices:   250560
+   Facets:     501008
+-- Interactive main custom couplers view
+Geometries in cache: 288
+Geometry cache size in bytes: 7597056
+CGAL Polyhedrons in cache: 2
+CGAL cache size in bytes: 93721000
+Total rendering time: 0:00:01.855
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      13
+   Vertices:   252556
+   Facets:     505160
+Verification evidence and interactive main smoke checks: OK
++ bash scripts/build-verification-index.sh
+verify: OK
+▮▮▮▮ consumer:scad.verify (7s 247ms, 7a91ce8d)
+
+Tasks: 1 completed
+ Time: 7s 294ms
+

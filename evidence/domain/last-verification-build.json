@@ -1,0 +1,862 @@
+{
+  "backend_signature": "4f2e79ff1520564d503ed8ac85f6175d21218f084c222e146044309a6c00e7b5",
+  "engine": "scons",
+  "kind": "verification",
+  "manifest_schema_version": 1,
+  "outcome_counts": {
+    "BUILT": 0,
+    "CACHE_RESTORED": 51,
+    "CURRENT": 0,
+    "ERROR": 0
+  },
+  "provenance": {
+    "cache": {
+      "exact_hit": null,
+      "matched_key": null,
+      "namespace": null,
+      "primary_key": null
+    },
+    "source_commit_sha": "10269865ecb810ffe408eac21bf53ee6cf92d8a5",
+    "tool_commit_sha": "a140b22858ac1899e7f2fa71b679639a70d819c3",
+    "tool_version": "0.14.9",
+    "toolchain_image": "ghcr.io/brainboxemb/scad-toolchain-openscad:v0.5.0",
+    "toolchain_version": "v0.5.0",
+    "workflow_version": "v0.14.9"
+  },
+  "schema": "scad-project.build-decisions",
+  "schema_version": 1,
+  "target_count": 51,
+  "targets": [
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-small-horizontal-profile-section.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-horizontal-profile-section.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_profile_sections.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "5b14bdd8367d92cd3d32cca53bca2aed3e36d84c4cfb70b8d66f211826747794"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-medium-horizontal-profile-section.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-horizontal-profile-section.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_profile_sections.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "8d8a4ed22af0812f6552e46b6c5b41edc68f3db62e543dc4e5226a1bed4323d4"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-large-horizontal-profile-section.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-horizontal-profile-section.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_profile_sections.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "fd1095d9f008df1de81fff206ab4c5a0d80f77da51f65bd3d338846fafe0de7c"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-left-small-fit-detail.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-left-fit-detail.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "eae536ac4d32e9bdfb03bf4d5aea98bd2fb51d44765788a883435c139d1e3120"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-left-medium-fit-detail.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-left-fit-detail.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "087625a00219a290f83205da4d6ec8062e369d0a204f00d9f7345fc260a89087"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-left-large-fit-detail.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-left-fit-detail.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "f651179ce573fdcac270c2951640f6ca28ea3aea748f73f097017825956ff393"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-left-small-rear-fit-section.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-left-rear-fit-section.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "425657a0413027407a3b8b22e8d6e2e62a8d33272f69d0eda790adbb0b451771"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-left-medium-rear-fit-section.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-left-rear-fit-section.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "a2d5c994d1ff1338ded6802a4e743bb3ba9a0c32d1900753cff432bc13b86777"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-left-large-rear-fit-section.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-left-rear-fit-section.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "bb8ddf377b289f718ceeee7778ef3d416a8e02ff43dcaebcabb5239b4d988339"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-left-small-xy-side-edge-section.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-left-xy-side-edge-section.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "d777ff1884d8efbd414c6d6b8ad7ea27ffcf86538375eeac3f791ec4077371bc"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-left-medium-xy-side-edge-section.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-left-xy-side-edge-section.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "bd61c8b03394e268f21c9c288ba7fe18671eafb4b75b34e5e8b4e96f89c732ad"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-left-large-xy-side-edge-section.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-left-xy-side-edge-section.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "fe6bab8c3d8680d101ddcef07ac6fccbb94073b3b2889b7db843173cc9000817"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-left-small-yz-top-edge-section.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-left-yz-top-edge-section.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "ad156926315ae7d21df6d25362e61093ff0728529e975c551ae515ff4ff06592"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-left-medium-yz-top-edge-section.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-left-yz-top-edge-section.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "e12c733852918edc4fda55bdbd31ac6c1e6456f1e3c71997d8863306c3b25a03"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-left-large-yz-top-edge-section.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-left-yz-top-edge-section.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "0428d17228c7123ff4a473a40462705b7b12f2b91104c303c27bc2dba962c338"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-right-small-fit-detail.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-right-fit-detail.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "6623833ac5c3269fce9679737090f1ce0e849701b9c416bdc94462550e3c1c08"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-right-medium-fit-detail.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-right-fit-detail.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "8ee530639b2c8b473f833048200bc8fc142e1b2e806420871e540f3e3dae2713"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-right-large-fit-detail.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-right-fit-detail.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "77a54dd87edefb28c01877118aba4cee2d64db87ed8098608e97f421f630caa7"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-right-small-rear-fit-section.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-right-rear-fit-section.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "084c853e363180105e42028b9d0d9e3911ba5c94e56c24f43dd2e5a58c7a9ff5"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-right-medium-rear-fit-section.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-right-rear-fit-section.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "2c6f50da633eea9f2f52e275084ebbdb561b01fdf279c4357867b6a47ceb1707"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-right-large-rear-fit-section.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-right-rear-fit-section.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "f0a105873ada24a67db5974c03b4a0a85b009734b01ba007ffc5202e010eb213"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-right-small-xy-side-edge-section.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-right-xy-side-edge-section.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "4d9416719e1a28f95e2ff7b2fabf3160c0e88c4846085e2054b31d1ce0681cbc"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-right-medium-xy-side-edge-section.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-right-xy-side-edge-section.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "a61eb97f6899830976c750a7dbdf600c28e6a901d82e8ee54ae0c541e88dd5ed"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-right-large-xy-side-edge-section.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-right-xy-side-edge-section.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "1a1273ec79ac5588b2922f6693572a822b6ccc2a76cb486d1647495dc2298e53"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-right-small-yz-top-edge-section.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-right-yz-top-edge-section.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "2ba9bfa36d3954f25582d65337c7acc6a68233a65d325a23004fec15c0a1e6a5"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-right-medium-yz-top-edge-section.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-right-yz-top-edge-section.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "d54a1d432601546f69a9c468a21b411f007de2a2cf969e7456e8bd61e993e28b"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-right-large-yz-top-edge-section.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-right-yz-top-edge-section.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "fec1f345248f89cdca4d9a5200abd5bf438ba988033db8863d079ada62d2ca40"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-small-vertical-profile-section.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-vertical-profile-section.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_profile_sections.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "cddf3ce56fe8f67777139bc57a8fd3198076a92d0236c725c1af61a010937425"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-medium-vertical-profile-section.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-vertical-profile-section.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_profile_sections.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "a3f882a229cdac0b2a017e4b8c69a64b8e43e6d66ecb78593b3b9c0ad387d954"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/corner-edge-coupler-large-vertical-profile-section.png",
+      "sources": [
+        "vrf/openscad/corner-edge-coupler-vertical-profile-section.scad",
+        "dsg/openscad/assemblies/verification/corner_edge_coupler_profile_sections.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "48b6eff806f49d22357bc64fd7edde804e08a3e216b248d89b35e74478fed9c7"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/horizontal-edge-coupler-small-fit-detail.png",
+      "sources": [
+        "vrf/openscad/horizontal-edge-coupler-fit-detail.scad",
+        "dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "18d013036d11ba5ba8bd9e6ae43e59b3aea3fc956c6707f3b89e3e036efd6059"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/horizontal-edge-coupler-medium-fit-detail.png",
+      "sources": [
+        "vrf/openscad/horizontal-edge-coupler-fit-detail.scad",
+        "dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "7eaf4b8e62efb04c9f03d01fbd2b598900e141ee8654fa90895d6c77bfa42841"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/horizontal-edge-coupler-large-fit-detail.png",
+      "sources": [
+        "vrf/openscad/horizontal-edge-coupler-fit-detail.scad",
+        "dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "ce543c4759490a2f99145af0eb5532ed1bf9af182ac11d2d5a0e23d4d21c2862"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/horizontal-edge-coupler-small-rear-fit-section.png",
+      "sources": [
+        "vrf/openscad/horizontal-edge-coupler-rear-fit-section.scad",
+        "dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "f7234b8f36b83639f1007aa52b97095f278dc7f61c446f9df83014f588030fb6"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/horizontal-edge-coupler-medium-rear-fit-section.png",
+      "sources": [
+        "vrf/openscad/horizontal-edge-coupler-rear-fit-section.scad",
+        "dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "a37cd67bd40fa272ecc34b3b27839647e0977b7763100af66e10a92aed4e429c"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/horizontal-edge-coupler-large-rear-fit-section.png",
+      "sources": [
+        "vrf/openscad/horizontal-edge-coupler-rear-fit-section.scad",
+        "dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "94389144a508d38401ad36df4fced71532df7d11d250c86f72580c3b7bb0549f"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/horizontal-edge-coupler-small-xy-seam-section.png",
+      "sources": [
+        "vrf/openscad/horizontal-edge-coupler-xy-seam-section.scad",
+        "dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "14cef0f93ae394ab0432a8b3567c05dee87487f50f33f176588d2eea5c6185e1"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/horizontal-edge-coupler-medium-xy-seam-section.png",
+      "sources": [
+        "vrf/openscad/horizontal-edge-coupler-xy-seam-section.scad",
+        "dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "0a20daa191f94b3f1d20bb8eb440f0a58e66182dc7f98ed81c50a6f091e5c3c8"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/horizontal-edge-coupler-large-xy-seam-section.png",
+      "sources": [
+        "vrf/openscad/horizontal-edge-coupler-xy-seam-section.scad",
+        "dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "9b1b17a9ef2d88744085a4a590a2c0278887897f986877728b4f82f12a843f48"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/horizontal-edge-coupler-small-yz-edge-section.png",
+      "sources": [
+        "vrf/openscad/horizontal-edge-coupler-yz-edge-section.scad",
+        "dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "5ef80e1b0d5ed11a104f8934b856d1501c771d4b80a7fd5e5b8ae312ea584b87"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/horizontal-edge-coupler-medium-yz-edge-section.png",
+      "sources": [
+        "vrf/openscad/horizontal-edge-coupler-yz-edge-section.scad",
+        "dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "b2adee019e7c2e81ecaa02e79e16993bc55136045b17564a682da3f27dbbf9a6"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/horizontal-edge-coupler-large-yz-edge-section.png",
+      "sources": [
+        "vrf/openscad/horizontal-edge-coupler-yz-edge-section.scad",
+        "dsg/openscad/assemblies/verification/horizontal_edge_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "64950e37bca0b6adf0c180a1b7b18ef024ef36ed2f3d31a3ebb379da95d996ca"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/middle-coupler-small-fit-detail.png",
+      "sources": [
+        "vrf/openscad/middle-coupler-fit-detail.scad",
+        "dsg/openscad/assemblies/verification/middle_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/project_components/middle-coupler/hub75_middle_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "2295815ae6e3d5270488f38a59a88c54714edb08f1b4499d388b1456fa7fe44d"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/middle-coupler-medium-fit-detail.png",
+      "sources": [
+        "vrf/openscad/middle-coupler-fit-detail.scad",
+        "dsg/openscad/assemblies/verification/middle_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/project_components/middle-coupler/hub75_middle_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "9c004d76bea582e84e82b71d97fee7f537558013631bcd9e851f846dfaa5fa39"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/middle-coupler-large-fit-detail.png",
+      "sources": [
+        "vrf/openscad/middle-coupler-fit-detail.scad",
+        "dsg/openscad/assemblies/verification/middle_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/project_components/middle-coupler/hub75_middle_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "42bb9305ec293aa4f75325da26e1f62254959e2428b45e65d31abf7498da7504"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/middle-coupler-small-rear-fit-section.png",
+      "sources": [
+        "vrf/openscad/middle-coupler-rear-fit-section.scad",
+        "dsg/openscad/assemblies/verification/middle_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/project_components/middle-coupler/hub75_middle_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "9fa7d5b922afbcdd14f3be93306921a876c80a44e17119119b8a45dc70bf3a58"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/middle-coupler-medium-rear-fit-section.png",
+      "sources": [
+        "vrf/openscad/middle-coupler-rear-fit-section.scad",
+        "dsg/openscad/assemblies/verification/middle_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/project_components/middle-coupler/hub75_middle_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "e705e3a9fd102347765e4ff8aa49dd7dfe51e4da0f8df09b8f5f351b8a9a92b1"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/middle-coupler-large-rear-fit-section.png",
+      "sources": [
+        "vrf/openscad/middle-coupler-rear-fit-section.scad",
+        "dsg/openscad/assemblies/verification/middle_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/project_components/middle-coupler/hub75_middle_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "ba2a6273d58dc88d1093ab87b3016278ad95e12b7233249957fc2a80fd9eb97b"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/middle-coupler-small-xy-seam-section.png",
+      "sources": [
+        "vrf/openscad/middle-coupler-xy-seam-section.scad",
+        "dsg/openscad/assemblies/verification/middle_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/project_components/middle-coupler/hub75_middle_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "2592773fdcbba1c8a25c8762d8b83791916bb9ed147e79d71024d194256f6e90"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/middle-coupler-medium-xy-seam-section.png",
+      "sources": [
+        "vrf/openscad/middle-coupler-xy-seam-section.scad",
+        "dsg/openscad/assemblies/verification/middle_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/project_components/middle-coupler/hub75_middle_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "62f64ccf217aee3418eda2440b52fb69f10490c4c795360d60891e9828f5af91"
+    },
+    {
+      "action_executed": false,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "CACHE_RESTORED",
+      "output": "vrf/out/png/middle-coupler-large-xy-seam-section.png",
+      "sources": [
+        "vrf/openscad/middle-coupler-xy-seam-section.scad",
+        "dsg/openscad/assemblies/verification/middle_coupler_fit_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/project_components/middle-coupler/hub75_middle_coupler.scad",
+        "dsg/openscad/project_components/hub75_panel_mating.scad",
+        "dsg/openscad/assemblies/helpers/verification_datum_pin.scad"
+      ],
+      "target_spec_digest": "e750d2814ba2b081f00badbf0a88be4b50f8cbfb4c954bfc1f83fea6a14cffd9"
+    }
+  ]
+}
