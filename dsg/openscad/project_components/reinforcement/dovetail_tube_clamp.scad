@@ -11,10 +11,9 @@
 //   - snap opening points away from the plate in -Y;
 //   - the compact clamp base faces the coupler in +Y.
 //
-// The project-specific lower mounting foot IS the male dovetail. It is not a
-// separate rail attached under a generic mounting plate. A short local web,
-// following the proven V1.2 support idea, joins that foot to the compact
-// lib.scad.clamps base.
+// The project-specific mounting foot IS the male dovetail. It sits directly
+// behind the compact lib.scad.clamps base around the tube centre line; there is
+// no secondary rail, lowered foot or separate support web.
 
 use <../../ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad>
 
@@ -35,9 +34,9 @@ function hub75_reinforcement_tube_clamp_create(
     compact_base_thickness = 0.2,
     transition_width = 8,
     transition_depth = 5,
-    dovetail_center_z = 3.5,
-    dovetail_root_width = 4.5,
-    dovetail_mouth_width = 3.0,
+    dovetail_center_z = 10,
+    dovetail_root_width = 9.0,
+    dovetail_mouth_width = 6.0,
     dovetail_clearance = 0.20,
     dovetail_axial_clearance = 0.25,
     render_fn = 192
@@ -162,6 +161,10 @@ module hub75_reinforcement_dovetail_groove_cutter(
 }
 
 // The clamp foot itself is the male dovetail.
+//
+// At Y≈0 the 6 mm mouth overlaps the compact library base directly. Deeper
+// toward +Y it opens to the wider root. In an end view this is therefore one
+// compact trapezoid immediately behind the C-clamp body.
 module _hub75_reinforcement_dovetail_foot(clamp) {
     half_length =
         hub75_reinforcement_tube_clamp_foot_length(clamp) / 2;
@@ -175,39 +178,6 @@ module _hub75_reinforcement_dovetail_foot(clamp) {
         root_width = clamp.dovetail_root_width,
         mouth_width = clamp.dovetail_mouth_width
     );
-}
-
-// Short local support between dovetail foot and compact library base.
-//
-// The foot is deliberately low, while the reusable clamp base starts around
-// Z=6 mm. This web bridges only that small gap and stays clear of the Ø10 tube.
-module _hub75_reinforcement_mounting_web(clamp) {
-    half_length =
-        hub75_reinforcement_tube_clamp_foot_length(clamp) / 2;
-    foot_front_top =
-        clamp.dovetail_center_z
-        + clamp.dovetail_mouth_width / 2;
-    compact_base_bottom =
-        clamp.tube_center_z
-        - clamp.base_clamp.transition_width / 2;
-
-    // 2D polygon is [Y,Z]; extrusion becomes project X.
-    multmatrix([
-        [0, 0, 1, -half_length],
-        [1, 0, 0, 0],
-        [0, 1, 0, 0],
-        [0, 0, 0, 1]
-    ])
-        linear_extrude(
-            height =
-                hub75_reinforcement_tube_clamp_foot_length(clamp)
-        )
-            polygon(points = [
-                [-0.75, foot_front_top - 0.35],
-                [-0.05, foot_front_top - 0.35],
-                [-0.05, compact_base_bottom + 0.80],
-                [-0.25, compact_base_bottom + 0.80]
-            ]);
 }
 
 // Correct project orientation for the reusable clamp.
@@ -246,7 +216,6 @@ module hub75_reinforcement_tube_clamp_build(
         union() {
             _hub75_reinforcement_oriented_library_clamp(clamp);
             _hub75_reinforcement_dovetail_foot(clamp);
-            _hub75_reinforcement_mounting_web(clamp);
         }
 }
 

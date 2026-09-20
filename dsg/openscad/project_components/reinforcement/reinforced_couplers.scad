@@ -20,36 +20,28 @@ use <dovetail_tube_clamp.scad>
 
 _HUB75_REINFORCED_COUPLER_EPS = 0.05;
 
-function hub75_reinforcement_mount_point_radius() = 10.5;
-function hub75_reinforcement_mount_point_inner_center_z() = -3.5;
-function hub75_reinforcement_mount_point_outer_center_z() = 5.5;
+function hub75_reinforcement_mount_point_radius() = 9.5;
 
 module _hub75_reinforcement_mount_point_profile_2d(
+    clamp,
     clip_x
 ) {
     radius =
         hub75_reinforcement_mount_point_radius();
 
-    // A vertical rounded tab: the lower round merges deeply into the existing
-    // edge arm, while the upper round creates the local point shown in the
-    // design sketch. Maximum outside projection remains below 20 mm.
-    hull() {
-        translate([
-            clip_x,
-            hub75_reinforcement_mount_point_inner_center_z()
-        ])
-            circle(r = radius);
-
-        translate([
-            clip_x,
-            hub75_reinforcement_mount_point_outer_center_z()
-        ])
-            circle(r = radius);
-    }
+    // One genuinely local rounded point per clamp. The point is centred on the
+    // dovetail/clamp centre line. With r=9.5 and Z=10 its outer edge is 19.5 mm,
+    // while the lower edge at Z=0.5 still overlaps even the small core arm.
+    translate([
+        clip_x,
+        clamp.dovetail_center_z
+    ])
+        circle(r = radius);
 }
 
 module _hub75_reinforcement_mount_point_solid(
     coupler,
+    clamp,
     clip_x
 ) {
     $fn = coupler.render_fn;
@@ -58,6 +50,7 @@ module _hub75_reinforcement_mount_point_solid(
         rotate([90, 0, 0])
             linear_extrude(height = coupler.base_thickness)
                 _hub75_reinforcement_mount_point_profile_2d(
+                    clamp = clamp,
                     clip_x = clip_x
                 );
 }
@@ -114,6 +107,7 @@ module hub75_reinforced_horizontal_edge_coupler_build(coupler) {
             for (clip_x = [-offset, offset])
                 _hub75_reinforcement_mount_point_solid(
                     coupler = coupler,
+                    clamp = clamp,
                     clip_x = clip_x
                 );
         }
