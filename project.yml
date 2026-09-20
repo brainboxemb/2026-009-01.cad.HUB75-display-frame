@@ -21,3 +21,17 @@ dependencies:
     url: https://github.com/brainboxemb/lib.scad.hub75.git
     path: dsg/openscad/ext/lib.scad.hub75
     ref: v0.1.5
+
+  - name: lib.scad.clamps
+    role: external
+    type: git-submodule
+    url: https://github.com/brainboxemb/lib.scad.clamps.git
+    path: dsg/openscad/ext/lib.scad.clamps
+    ref: v0.1.6
+
+  - name: lib.scad.util
+    role: external
+    type: git-submodule
+    url: https://github.com/brainboxemb/lib.scad.util.git
+    path: dsg/openscad/ext/lib.scad.util
+    ref: b11c77cb5529696e730d4b54804d6f8676fd8001
