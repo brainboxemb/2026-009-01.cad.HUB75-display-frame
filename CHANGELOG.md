@@ -20,8 +20,11 @@ This file records the functional evolution of the HUB75 display-frame project.
   a second copy of the assembly call; expose the same assembly from `main.scad`
   as the `two-panel-assembly` interactive view.
 - Add released `lib.scad.mechint v0.1.1` as the reusable owner of the
-  tube-mount sliding-dovetail profile, clearances and integral lock/release
-  geometry.
+  tube-mount sliding-dovetail profile, clearances, 16 mm female entry slot and
+  integral lock/release geometry.
+- Update the tube clamp to released `lib.scad.clamps v0.1.7`, using an
+  explicit Ø10.0 mm functional bore and Ø9.6 mm tension bore instead of using
+  positive clearance to create clamping preload.
 - Add focused XY lock-section verification for the detachable tube mount.
 
 ### Changed
@@ -34,9 +37,17 @@ This file records the functional evolution of the HUB75 display-frame project.
   (2 / 3 / 4 mm by profile) and use a 0.8 mm locking tongue plus only the
   required rear-open flex cavity, eliminating the local rearward mounting bump.
 - Reduce the canonical Ø10 tube-clamp wall from 2.6 mm to 2.0 mm and its local
-  transition depth from 5 mm to 3 mm while preserving the historical tube
-  centre at 7.0 mm in front of the panel rear mounting plane; the compact clamp
-  base remains 0.8 mm so the thinner ring does not move the structural datum.
+  transition depth from 5 mm to 3 mm. The nominal outside ring is now Ø14.0 mm;
+  assembly/inspection views use the Ø10.0 mm functional bore while printable
+  clamp geometry uses the Ø9.6 mm tension bore.
+- Preserve the historical tube centre exactly 7.0 mm in front of the panel rear
+  mounting plane by positioning the reusable clamp body from that explicit
+  project datum. The datum no longer depends on the clamp library's former
+  1 mm base/body overlap shift.
+- Replace the HUB75-local female-entry extension cutter with the released
+  `lib.scad.mechint v0.1.1` `entry_slot_length` API. The configured 16 mm
+  straight entry pocket uses the library-derived clearanced female-root width
+  and clears the Ø14.0 mm clamp outside ring before insertion.
 
 ### Fixed
 

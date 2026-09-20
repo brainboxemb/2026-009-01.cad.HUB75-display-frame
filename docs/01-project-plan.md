@@ -298,7 +298,9 @@ intended print orientations.
 - the horizontal-edge tube-mount variant adds two local rounded mounting points,
   one for each tube clamp;
 - each mounting point contains one short female dovetail entered from its
-  adjacent X side; there is no long groove through the coupler arm;
+  adjacent X side; `lib.scad.mechint v0.1.1` supplies a 16 mm straight female
+  entry slot before the channel, so the complete clamp can park ahead of the
+  dovetail before insertion; there is no long groove through the coupler arm;
 - the mating mechanism remains `lib.scad.mechint v0.1.1`, but HUB75 configures
   a wide/shallow 14 mm root / 1.0 mm height / 30° profile with the library's
   0.20 mm fit and 0.25 mm axial clearances so the rear face can stay flat;
@@ -309,10 +311,14 @@ intended print orientations.
 - the integral female tongue is 0.8 mm thick; medium/large hosts use only the
   required rear-open flex cavity behind that tongue while retaining a coplanar
   outer rear face;
-- the canonical Ø10 clamp uses a 2.0 mm wall and a shorter 3 mm transition to
-  keep the detachable part compact;
+- the canonical clamp uses `tube_diameter = 10`, zero positive clearance,
+  `tension_diameter = 9.6`, a 2.0 mm wall and a shorter 3 mm transition;
+  assembly/inspection renders use the nominal Ø10 bore while print geometry
+  uses the Ø9.6 tension bore;
 - the separate clamp is side-printed and its lower mounting foot itself is the
-  matching male dovetail, rather than carrying a separate rail;
+  matching male dovetail, rather than carrying a separate rail; the tube centre
+  remains an explicit project datum 7.0 mm in front of the panel rear mounting
+  plane rather than being derived from clamp-library Boolean overlap;
 - the actual snap clamp remains `tube_clamp_build()` from `lib.scad.clamps`;
 - top/bottom and left/right placements reuse the same basic clip geometry with
   mirrored entry-side orientation where needed.
