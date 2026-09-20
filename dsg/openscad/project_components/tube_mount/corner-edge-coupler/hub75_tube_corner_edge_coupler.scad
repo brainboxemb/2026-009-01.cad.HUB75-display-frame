@@ -64,7 +64,7 @@ module hub75_tube_corner_edge_coupler_build(
     assert(
         required_interface_width <= available_interface_width,
         "corner tube-mount interface does not fit inside the existing vertical arm"
-    )
+    );
 
     difference() {
         hub75_corner_edge_coupler_build(coupler);
@@ -137,7 +137,7 @@ module _hub75_tube_corner_edge_clamp_keepout_cutter(
     assert(
         entry_travel > 0,
         "corner clamp keepout needs positive dovetail entry travel"
-    )
+    );
 
     // Build a slightly enlarged copy of the actual clamp body, then sweep that
     // body over exactly the same +Z approach distance as the female dovetail
