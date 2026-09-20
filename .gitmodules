@@ -9,3 +9,11 @@
 [submodule "dsg/openscad/ext/lib.scad.hub75"]
 	path = dsg/openscad/ext/lib.scad.hub75
 	url = https://github.com/brainboxemb/lib.scad.hub75.git
+
+[submodule "dsg/openscad/ext/lib.scad.clamps"]
+	path = dsg/openscad/ext/lib.scad.clamps
+	url = https://github.com/brainboxemb/lib.scad.clamps.git
+
+[submodule "dsg/openscad/ext/lib.scad.util"]
+	path = dsg/openscad/ext/lib.scad.util
+	url = https://github.com/brainboxemb/lib.scad.util.git
