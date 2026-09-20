@@ -154,9 +154,10 @@ entry direction = +Z  (from above in top-edge orientation)
 
 The native `-X` entry side from the library is transformed into project
 `+Z`. The existing 16 mm female entry slot therefore becomes a straight
-vertical approach above the mating channel. The 2 mm profile mouth is shifted
-to project Y = -1 mm: small ends the 0.8 mm tongue at its free 2 mm rear face,
-while medium/large open 1 mm and 2 mm flex cavities behind it.
+vertical approach above the mating channel. The 2 mm profile uses a 0.5 mm
+straight root land after 1.5 mm of 30° flank. Its mouth is shifted to project
+Y = -1 mm: small ends the 0.8 mm tongue at its free 2 mm rear face, while
+medium/large open 1 mm and 2 mm flex cavities behind it.
 
 <!-- scad-render
 view: dovetail
@@ -173,8 +174,10 @@ hub75_tube_mount_dovetail_female_cutter(...)
 The clamp no longer has a separate mounting spine. The clamp body and male
 dovetail are both 12 mm wide. The 16 mm male slide is centred on the same Z
 datum as the Ø10 tube/ring and its 2 mm profile sits directly beside the compact
-2 mm clamp transition. The existing 0.01 mm `extra` remains only a deliberate
-Boolean overlap.
+2 mm clamp transition. Before unioning the male, the shared mechint
+`male_relief_cutter` trims that transition back to the actual dovetail contour,
+so both mating flanks remain exposed. The existing 0.01 mm `extra` remains
+only a deliberate Boolean overlap.
 
 In the exploded view the two clamps move upward in Z, matching the intended
 installation direction.

@@ -19,7 +19,7 @@ This file records the functional evolution of the HUB75 display-frame project.
   existing two-panel STL export now delegates to that assembly instead of owning
   a second copy of the assembly call; expose the same assembly from `main.scad`
   as the `two-panel-assembly` interactive view.
-- Add released `lib.scad.mechint v0.1.2` as the reusable owner of the
+- Add released `lib.scad.mechint v0.1.3` as the reusable owner of the
   tube-mount sliding-dovetail profile, clearances, 16 mm female entry slot and
   integral lock/release geometry.
 - Update the tube clamp to released `lib.scad.clamps v0.1.7`, using an
@@ -29,10 +29,19 @@ This file records the functional evolution of the HUB75 display-frame project.
 
 ### Changed
 
+- Pin `lib.scad.mechint v0.1.3` and configure a 0.5 mm straight root land on
+  the 12 x 2 mm male/female dovetail. The remaining 1.5 mm of profile depth
+  keeps the 30° flank while the root ends on a print-friendlier straight land.
+- Trim the integrated clamp body with the library-owned
+  `sliding_dovetail_male_relief_cutter()` before unioning the male dovetail,
+  so local clamp-transition material no longer fills the male undercut. The raw
+  `tube-clamp` inspection view remains untrimmed; `tube-clamp-dov` shows the
+  integrated relieved part.
+
 - Restore the agreed 2.0 mm dovetail profile and narrow the clamp / male-root
   width to 12 mm. Shift the interface mouth to Y = -1 mm so the same geometry
   fits the existing flat 2 / 3 / 4 mm rear hosts.
-- Pin `lib.scad.mechint v0.1.2`, which adds the missing transverse relief when
+- Pin `lib.scad.mechint v0.1.3`, which adds the missing transverse relief when
   locking and `entry_slot_length` are combined, keeping the female tongue
   U-shaped.
 - Reduce the canonical clamp transition from 3 mm to 2 mm so the 2 mm dovetail
@@ -77,7 +86,7 @@ This file records the functional evolution of the HUB75 display-frame project.
   project datum. The datum no longer depends on the clamp library's former
   1 mm base/body overlap shift.
 - Replace the HUB75-local female-entry extension cutter with the released
-  `lib.scad.mechint v0.1.2` `entry_slot_length` API. The configured 16 mm
+  `lib.scad.mechint v0.1.3` `entry_slot_length` API. The configured 16 mm
   straight entry pocket now combines with the v0.1.2 transverse lock relief, so
   the female spring remains a true U-shaped tongue during top-entry insertion.
 

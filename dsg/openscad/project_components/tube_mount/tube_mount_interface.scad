@@ -17,6 +17,7 @@ use <../../ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail.scad>
 _HUB75_TUBE_MOUNT_DOVETAIL_WIDTH = 12;
 _HUB75_TUBE_MOUNT_DOVETAIL_HEIGHT = 2.0;
 _HUB75_TUBE_MOUNT_DOVETAIL_ANGLE = 30;
+_HUB75_TUBE_MOUNT_DOVETAIL_ROOT_LAND_DEPTH = 0.5;
 _HUB75_TUBE_MOUNT_DOVETAIL_CLEARANCE = 0.20;
 _HUB75_TUBE_MOUNT_DOVETAIL_AXIAL_CLEARANCE = 0.25;
 _HUB75_TUBE_MOUNT_DOVETAIL_ENTRY_SLOT_LENGTH = 16;
@@ -54,6 +55,8 @@ function hub75_tube_mount_dovetail_create(
         width = _HUB75_TUBE_MOUNT_DOVETAIL_WIDTH,
         height = _HUB75_TUBE_MOUNT_DOVETAIL_HEIGHT,
         angle = _HUB75_TUBE_MOUNT_DOVETAIL_ANGLE,
+        root_land_depth =
+            _HUB75_TUBE_MOUNT_DOVETAIL_ROOT_LAND_DEPTH,
         clearance = _HUB75_TUBE_MOUNT_DOVETAIL_CLEARANCE,
         axial_clearance = _HUB75_TUBE_MOUNT_DOVETAIL_AXIAL_CLEARANCE,
         entry_slot_length = entry_slot_length,
@@ -63,6 +66,9 @@ function hub75_tube_mount_dovetail_create(
         lock_cut_back_clearance = cut_back_clearance,
         lock_back_clearance = back_clearance
     );
+
+function hub75_tube_mount_dovetail_root_land_depth(dovetail) =
+    sliding_dovetail_root_land_depth(dovetail);
 
 function hub75_tube_mount_dovetail_mouth_width(dovetail) =
     sliding_dovetail_mouth_width(dovetail);
@@ -100,6 +106,24 @@ module hub75_tube_mount_dovetail_male_build(
         sliding_dovetail_male_build(
             dovetail,
             slide = slide
+        );
+}
+
+module hub75_tube_mount_dovetail_male_relief_cutter(
+    dovetail,
+    slide,
+    relief_width,
+    center_x = 0,
+    center_z = 0
+) {
+    _hub75_tube_mount_dovetail_to_project(
+        center_x = center_x,
+        center_z = center_z
+    )
+        sliding_dovetail_male_relief_cutter(
+            dovetail,
+            slide = slide,
+            relief_width = relief_width
         );
 }
 

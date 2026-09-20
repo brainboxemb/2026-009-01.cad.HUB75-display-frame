@@ -95,11 +95,16 @@ module hub75_tube_clamp_build(
 ) {
     color(part_color)
         union() {
-            _hub75_tube_clamp_ring_build(
-                clamp,
-                use_tension_bore,
-                high_resolution
-            );
+            difference() {
+                _hub75_tube_clamp_ring_build(
+                    clamp,
+                    use_tension_bore,
+                    high_resolution
+                );
+
+                _hub75_tube_clamp_dovetail_relief_cutter(clamp);
+            }
+
             _hub75_tube_clamp_dovetail_build(clamp);
         }
 }
@@ -134,6 +139,16 @@ module _hub75_tube_clamp_ring_build(
             use_tension_bore = use_tension_bore,
             high_resolution = high_resolution
         );
+}
+
+module _hub75_tube_clamp_dovetail_relief_cutter(clamp) {
+    hub75_tube_mount_dovetail_male_relief_cutter(
+        dovetail = clamp.dovetail,
+        slide = clamp.dovetail_slide,
+        relief_width = clamp.base_clamp.clamp_width,
+        center_x = 0,
+        center_z = clamp.dovetail_center_z
+    );
 }
 
 module _hub75_tube_clamp_dovetail_build(clamp) {

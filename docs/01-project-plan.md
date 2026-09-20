@@ -270,7 +270,7 @@ the reusable dependencies needed by the new design.
   - tube-clip offset from a seam/corner datum = 18 mm for the small profile and
     25 mm for medium/large;
 - add `lib.scad.clamps` as the source of the basic tube-clamp geometry;
-- add `lib.scad.mechint v0.1.2` as the source of the sliding-dovetail mating
+- add `lib.scad.mechint v0.1.3` as the source of the sliding-dovetail mating
   profile, fit clearance and integral lock/release geometry;
 - add `lib.scad.util` and use `util_section_inspect()` as the normal
   axis-aligned section mechanism;
@@ -298,14 +298,15 @@ intended print orientations.
 - the horizontal-edge tube-mount variant adds two local rounded mounting points,
   one for each tube clamp;
 - each mounting point contains one short female dovetail with project-Z slide
-  direction and local +Z top entry; `lib.scad.mechint v0.1.2` supplies the
+  direction and local +Z top entry; `lib.scad.mechint v0.1.3` supplies the
   16 mm straight female entry slot before the channel, so the complete clamp
   can park above the channel before insertion; there is no long groove through
   the coupler arm;
-- the mating mechanism remains `lib.scad.mechint v0.1.2`, but HUB75 configures
-  a 12 mm root / 2.0 mm height / 30° profile with the library's 0.20 mm fit and
-  0.25 mm axial clearances; its mouth plane is shifted to Y = -1 mm so the
-  existing rear face can stay flat for all three size presets;
+- the mating mechanism remains `lib.scad.mechint v0.1.3`, but HUB75 configures
+  a 12 mm root / 2.0 mm height / 30° profile with a 0.5 mm straight root land,
+  the library's 0.20 mm fit and 0.25 mm axial clearances; its mouth plane is
+  shifted to Y = -1 mm so the existing rear face can stay flat for all three
+  size presets;
 - integral locking and screwdriver release are enabled on the shared interface
   object now rather than being deferred as separate project-local geometry;
 - local rounded backing lobes end exactly at each coupler's existing rear face
@@ -319,8 +320,10 @@ intended print orientations.
   transition;
   assembly/inspection renders use the nominal Ø10 bore while print geometry
   uses the Ø9.6 tension bore;
-- the separate clamp is side-printed and its lower mounting foot itself is the
-  matching male dovetail, rather than carrying a separate rail; the tube centre
+- the separate clamp is side-printed; the male dovetail uses a 0.5 mm straight
+  root land instead of ending its full 2 mm depth on an angled print edge, and
+  the library's male-relief cutter trims overlapping clamp-transition material
+  away from the mating flanks; the tube centre
   remains an explicit project datum 7.0 mm in front of the panel rear mounting
   plane rather than being derived from clamp-library Boolean overlap;
 - the actual snap clamp remains `tube_clamp_build()` from `lib.scad.clamps`;
