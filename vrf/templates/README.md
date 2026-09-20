@@ -62,7 +62,7 @@ The core corner-fit evidence remains independent of the reinforcement layer.
 
 The tube-mount layer uses one canonical separate printable tube clamp built from
 the public `lib.scad.clamps` tube-clamp body plus the standard locked
-`lib.scad.mechint v0.1.0` sliding-dovetail interface.
+`lib.scad.mechint v0.1.1` sliding-dovetail interface.
 
 For each small/medium/large coupler size, the same clamp is used and the
 verification snapshot publishes:

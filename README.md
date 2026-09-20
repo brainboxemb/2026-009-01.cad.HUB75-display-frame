@@ -237,8 +237,8 @@ tool.scad-project  v0.14.9 / a140b22858ac1899e7f2fa71b679639a70d819c3
 tool.git-project   v0.2.8  / 7c43f37e7b07cfb57638a1d1dad2501de09ba7eb
 SCAD toolchain     ghcr.io/brainboxemb/scad-toolchain-openscad:v0.5.0
 lib.scad.hub75     v0.1.5  / e0432a9533a08a1c0d9e87225c22f3f66b632531
-lib.scad.clamps    v0.1.6  / 021eed7bba76ca77825bd6f6c850e1ebd2916283
-lib.scad.mechint   v0.1.0  / 786fdbf2d2915c8e716878e7bc77e0a6b0bdfd86
+lib.scad.clamps    v0.1.7  / 22c7794ad8741672176418e9c34a660affd90998
+lib.scad.mechint   v0.1.1  / 991daa01f07b0dab717e3ebfecf396126027c899
 lib.scad.util      exact    / b11c77cb5529696e730d4b54804d6f8676fd8001
 ```
 
@@ -358,7 +358,7 @@ The aluminium tube itself is a generic local component under
 project-specific assembly decisions.
 
 The detachable clamp body comes from `lib.scad.clamps`. The complete mating
-interface comes from `lib.scad.mechint v0.1.0`: the HUB75 adapter uses the
+interface comes from `lib.scad.mechint v0.1.1`: the HUB75 adapter uses the
 library's standard 10 mm root / 3 mm height / 20° sliding dovetail with integral
 locking enabled. The project owns only placement/orientation and the local
 carrier depth/entry opening around that interface. The horizontal-edge

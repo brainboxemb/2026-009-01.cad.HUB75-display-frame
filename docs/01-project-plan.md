@@ -270,7 +270,7 @@ the reusable dependencies needed by the new design.
   - tube-clip offset from a seam/corner datum = 18 mm for the small profile and
     25 mm for medium/large;
 - add `lib.scad.clamps` as the source of the basic tube-clamp geometry;
-- add `lib.scad.mechint v0.1.0` as the source of the sliding-dovetail mating
+- add `lib.scad.mechint v0.1.1` as the source of the sliding-dovetail mating
   profile, fit clearance and integral lock/release geometry;
 - add `lib.scad.util` and use `util_section_inspect()` as the normal
   axis-aligned section mechanism;
@@ -299,7 +299,7 @@ intended print orientations.
   one for each tube clamp;
 - each mounting point contains one short female dovetail entered from its
   adjacent X side; there is no long groove through the coupler arm;
-- the mating mechanism remains `lib.scad.mechint v0.1.0`, but HUB75 configures
+- the mating mechanism remains `lib.scad.mechint v0.1.1`, but HUB75 configures
   a wide/shallow 14 mm root / 1.0 mm height / 30° profile with the library's
   0.20 mm fit and 0.25 mm axial clearances so the rear face can stay flat;
 - integral locking and screwdriver release are enabled on the shared interface

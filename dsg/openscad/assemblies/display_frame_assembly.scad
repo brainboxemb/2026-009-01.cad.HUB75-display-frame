@@ -164,7 +164,9 @@ module _hub75_display_frame_tube_clamps(
                         hub75_dovetail_tube_clamp_build(
                             clamp,
                             part_color = clamp_color,
-                            entry_side = clip_x < 0 ? -1 : 1
+                            entry_side = clip_x < 0 ? -1 : 1,
+                            use_tension_bore = false,
+                            high_resolution = clamp_high_resolution
                         );
         }
     }

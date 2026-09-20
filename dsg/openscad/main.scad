@@ -162,7 +162,7 @@ module _hub75_main_display(explode = 0, panels_visible = show_panels) {
         coupler_size =
             coupler_profile == "custom" ? "medium" : coupler_profile,
         panel_view = preview_panel_view,
-        clamp_render_fn = preview_render_fn,
+        clamp_high_resolution = high_resolution,
         panels_visible = panels_visible,
         middle_couplers_visible =
             show_couplers && show_middle_couplers,
@@ -191,7 +191,7 @@ module _hub75_main_selected_view() {
             coupler_size =
                 coupler_profile == "custom" ? "medium" : coupler_profile,
             panel_view = preview_panel_view,
-            clamp_render_fn = preview_render_fn,
+            clamp_high_resolution = high_resolution,
             tube_mount_enabled = show_tube_mounts,
             tube_clamps_visible = show_tube_clamps,
             aluminium_tubes_visible = show_aluminium_tubes,
@@ -217,8 +217,7 @@ module _hub75_main_selected_view() {
         hub75_horizontal_edge_coupler_render(horizontal_coupler, view = "final");
     else if (view_mode == "horizontal-edge-tube-mount-coupler")
         hub75_horizontal_edge_tube_mount_coupler_build(
-            horizontal_coupler,
-            clamp_render_fn = preview_render_fn
+            horizontal_coupler
         );
     else if (view_mode == "corner-edge-left")
         hub75_corner_edge_coupler_render(left_corner_coupler, view = "final");
@@ -226,24 +225,26 @@ module _hub75_main_selected_view() {
         hub75_corner_edge_coupler_render(right_corner_coupler, view = "final");
     else if (view_mode == "corner-edge-tube-mount-left")
         hub75_corner_edge_tube_mount_coupler_build(
-            left_corner_coupler,
-            clamp_render_fn = preview_render_fn
+            left_corner_coupler
         );
     else if (view_mode == "corner-edge-tube-mount-right")
         hub75_corner_edge_tube_mount_coupler_build(
-            right_corner_coupler,
-            clamp_render_fn = preview_render_fn
+            right_corner_coupler
         );
     else if (view_mode == "tube-clamp")
-        let(clamp = hub75_dovetail_tube_clamp_create(
-            render_fn = preview_render_fn
-        ))
-            hub75_dovetail_tube_clamp_body_build(clamp);
+        let(clamp = hub75_dovetail_tube_clamp_create())
+            hub75_dovetail_tube_clamp_body_build(
+                clamp,
+                use_tension_bore = false,
+                high_resolution = high_resolution
+            );
     else if (view_mode == "tube-clamp-dov")
-        let(clamp = hub75_dovetail_tube_clamp_create(
-            render_fn = preview_render_fn
-        ))
-            hub75_dovetail_tube_clamp_build(clamp);
+        let(clamp = hub75_dovetail_tube_clamp_create())
+            hub75_dovetail_tube_clamp_build(
+                clamp,
+                use_tension_bore = false,
+                high_resolution = high_resolution
+            );
     else if (view_mode == "middle-fit")
         hub75_middle_coupler_fit_detail(
             panel = panel,

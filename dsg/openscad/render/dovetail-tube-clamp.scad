@@ -8,4 +8,8 @@ $vpt = [0, -3.5, 10];
 $vpr = [74, 0, 35];
 $vpd = 90;
 
-hub75_dovetail_tube_clamp_build(clamp);
+hub75_dovetail_tube_clamp_build(
+    clamp,
+    use_tension_bore = false,
+    high_resolution = true
+);
