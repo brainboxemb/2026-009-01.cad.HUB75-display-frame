@@ -52,6 +52,10 @@ This file records the functional evolution of the HUB75 display-frame project.
   centre. This places the direct-cut interface in corner material that actually
   reaches the Z = 10 mm tube height; assert that the complete cut width fits the
   vertical arm for every size preset.
+- Replace the corner's static final-position clamp cavity with the actual
+  translational clamp-body swept volume over the female dovetail's 16 mm +Z
+  entry travel. This removes the blocking roof material so the complete clamp,
+  not only its male dovetail, has a physical insertion path.
 
 - Pin `lib.scad.mechint v0.1.4` and configure a 0.5 mm straight root land on
   the 12 x 2 mm male/female dovetail. The remaining 1.5 mm of profile depth

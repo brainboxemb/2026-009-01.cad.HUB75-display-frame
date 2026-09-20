@@ -128,10 +128,21 @@ module _hub75_tube_corner_edge_clamp_keepout_cutter(
     clearance =
         hub75_tube_corner_edge_clamp_body_clearance(coupler);
     base_clamp = clamp.base_clamp;
+    entry_travel =
+        hub75_tube_mount_dovetail_entry_slot_length(
+            clamp.dovetail
+        );
+    sweep_eps = _HUB75_TUBE_CORNER_EPS;
 
-    // Build a slightly enlarged copy of the actual clamp body and subtract it
-    // locally. This preserves the real snap opening/transition shape instead of
-    // clearing an unnecessarily large full cylinder around the tube.
+    assert(
+        entry_travel > 0,
+        "corner clamp keepout needs positive dovetail entry travel"
+    )
+
+    // Build a slightly enlarged copy of the actual clamp body, then sweep that
+    // body over exactly the same +Z approach distance as the female dovetail
+    // entry slot. A static cavity at the final position is not sufficient:
+    // the complete clamp must be able to travel down into the female channel.
     keepout_clamp =
         hub75_tube_clamp_create(
             tube_center_y =
@@ -161,10 +172,26 @@ module _hub75_tube_corner_edge_clamp_keepout_cutter(
                 clamp.dovetail
         );
 
-    translate([clip_x, 0, 0])
-        hub75_tube_clamp_body_build(
-            keepout_clamp,
-            use_tension_bore = false,
-            high_resolution = true
-        );
+    // Minkowski with a narrow +Z segment is the actual translational swept
+    // volume. Low-resolution cutter geometry keeps this boolean practical while
+    // retaining the real clamp opening and compact transition as its source.
+    minkowski() {
+        translate([clip_x, 0, 0])
+            hub75_tube_clamp_body_build(
+                keepout_clamp,
+                use_tension_bore = false,
+                high_resolution = false
+            );
+
+        translate([
+            -sweep_eps / 2,
+            -sweep_eps / 2,
+            0
+        ])
+            cube([
+                sweep_eps,
+                sweep_eps,
+                entry_travel + sweep_eps
+            ]);
+    }
 }
