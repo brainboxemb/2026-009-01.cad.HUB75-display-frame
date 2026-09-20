@@ -30,7 +30,9 @@ This file records the functional evolution of the HUB75 display-frame project.
 ### Changed
 
 - Smooth the clamp-to-transition shoulder with a broad shallow cylindrical
-  relief (R10, 1 mm bite) instead of adding another small sharp radius.
+  relief (R10, 1 mm bite). The cylinder follows the clamp extrusion / tube axis,
+  so it is vertical in the intended side-print orientation and rounds the actual
+  transition-to-ring attach point instead of cutting across the clamp width.
 - Expand the corner insertion keep-out from the detailed hollow clamp body to
   the complete solid outer-ring envelope as well, so the full clip has a clear
   +Z insertion path rather than only the female interface fitting.

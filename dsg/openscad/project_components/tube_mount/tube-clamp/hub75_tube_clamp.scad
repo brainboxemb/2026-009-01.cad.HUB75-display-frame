@@ -139,18 +139,11 @@ module hub75_tube_clamp_body_build(
     high_resolution = true
 ) {
     color(part_color)
-        difference() {
-            _hub75_tube_clamp_ring_build(
-                clamp,
-                use_tension_bore,
-                high_resolution
-            );
-
-            _hub75_tube_clamp_transition_radius_cutter(
-                clamp,
-                high_resolution
-            );
-        }
+        _hub75_tube_clamp_ring_build(
+            clamp,
+            use_tension_bore,
+            high_resolution
+        );
 }
 
 module hub75_tube_clamp_build(
@@ -168,10 +161,6 @@ module hub75_tube_clamp_build(
                     high_resolution
                 );
 
-                _hub75_tube_clamp_transition_radius_cutter(
-                    clamp,
-                    high_resolution
-                );
                 _hub75_tube_clamp_dovetail_relief_cutter(clamp);
                 _hub75_tube_clamp_dovetail_relief_chamfer_cutter(clamp);
             }
@@ -205,48 +194,66 @@ module _hub75_tube_clamp_ring_build(
         [ 0, -1,  0,  clamp.tube_center_z],
         [ 0,  0,  0,  1]
     ])
-        tube_clamp_build(
-            clamp.base_clamp,
-            use_tension_bore = use_tension_bore,
-            high_resolution = high_resolution
-        );
+        difference() {
+            tube_clamp_build(
+                clamp.base_clamp,
+                use_tension_bore = use_tension_bore,
+                high_resolution = high_resolution
+            );
+
+            _hub75_tube_clamp_transition_radius_cutter_local(
+                clamp,
+                high_resolution
+            );
+        }
 }
 
-module _hub75_tube_clamp_transition_radius_cutter(
+module _hub75_tube_clamp_transition_radius_cutter_local(
     clamp,
     high_resolution
 ) {
     radius = clamp.transition_relief_radius;
     bite = clamp.transition_relief_bite;
-    chamfer_depth =
-        hub75_tube_clamp_dovetail_relief_chamfer_depth(clamp);
+    base_clamp = clamp.base_clamp;
 
-    if (bite > 0 && chamfer_depth > 0) {
-        clamp_half_width =
-            clamp.base_clamp.clamp_width / 2;
-        mouth_y =
-            hub75_tube_mount_dovetail_mouth_y();
-        shoulder_y =
-            mouth_y - chamfer_depth;
-        cutter_x =
-            clamp_half_width + radius - bite;
+    if (bite > 0) {
+        outer_r =
+            tube_clamp_outer_radius(base_clamp);
+        ring_center_x =
+            base_clamp.base_thickness + outer_r;
+        attach_x =
+            min(
+                base_clamp.base_thickness
+                    + base_clamp.transition_depth,
+                ring_center_x
+                    + outer_r
+                    - base_clamp.extra
+            );
+        attach_dx =
+            attach_x - ring_center_x;
+        attach_y =
+            sqrt(max(
+                0.01,
+                outer_r * outer_r
+                    - attach_dx * attach_dx
+            ));
+        cutter_y =
+            attach_y + radius - bite;
         cutter_z0 =
-            clamp.dovetail_center_z
-            - clamp.dovetail_slide / 2
-            - clamp.base_clamp.extra;
+            -base_clamp.extra;
         cutter_h =
-            clamp.dovetail_slide
-            + 2 * clamp.base_clamp.extra;
+            base_clamp.clamp_width
+            + 2 * base_clamp.extra;
 
-        // The relief is intentionally a project-vertical cylinder (axis Z),
-        // not a cylinder along the tube axis.  R10 is placed almost tangent
-        // to the lateral clamp shoulder so only about 1 mm is removed.  This
-        // gives the 30-degree transition a broad, gentle run-out without
-        // scooping a concave arc out of the circular clamp profile itself.
+        // Keep the relief cylinder on the clamp extrusion axis.  Native Z maps
+        // to project X (tube axis), which becomes the vertical print direction
+        // when this clamp is side-printed.  The R10 cutter is centred at the
+        // actual transition/ring attach location and moved outward so it bites
+        // only about 1 mm into that sharp shoulder.
         for (side = [-1, 1])
             translate([
-                side * cutter_x,
-                shoulder_y,
+                attach_x,
+                side * cutter_y,
                 cutter_z0
             ])
                 cylinder(
