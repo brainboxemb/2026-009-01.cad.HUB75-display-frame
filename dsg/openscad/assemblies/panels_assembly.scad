@@ -63,19 +63,20 @@ function _hub75_display_panel_rotated(index) =
 module _hub75_display_panel_render(
     panel,
     index,
-    color_scheme
+    color_scheme,
+    panel_view
 ) {
     if (_hub75_display_panel_rotated(index))
         rotate([0, 180, 0])
             hub75_p5_64x32_panel_render(
                 panel,
-                view = hub75_p5_64x32_panel_view_id("final"),
+                view = panel_view,
                 color_scheme = color_scheme
             );
     else
         hub75_p5_64x32_panel_render(
             panel,
-            view = hub75_p5_64x32_panel_view_id("final"),
+            view = panel_view,
             color_scheme = color_scheme
         );
 }
@@ -133,7 +134,8 @@ module hub75_display_verify_nominal_size(
 module hub75_panels_assembly(
     panel = hub75_display_panel_create(),
     panel_count = HUB75_DISPLAY_PANEL_COUNT,
-    color_scheme = "light_gray"
+    color_scheme = "light_gray",
+    panel_view = hub75_p5_64x32_panel_view_id("final")
 ) {
     assert(panel_count >= 1, "panel_count must be at least 1");
 
@@ -146,6 +148,7 @@ module hub75_panels_assembly(
             _hub75_display_panel_render(
                 panel = panel,
                 index = index,
-                color_scheme = color_scheme
+                color_scheme = color_scheme,
+                panel_view = panel_view
             );
 }

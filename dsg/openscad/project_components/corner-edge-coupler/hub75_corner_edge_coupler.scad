@@ -284,7 +284,10 @@ function hub75_corner_edge_coupler_create(
 function hub75_corner_edge_coupler_create_for_size(
     side = "left",
     size = "medium",
-    panel = hub75_p5_64x32_panel_create()
+    panel = hub75_p5_64x32_panel_create(),
+    render_fn = 192,
+    show_reference_pockets = true,
+    show_center_reference_marks = true
 ) =
     assert(
         size == "small" || size == "medium" || size == "large",
@@ -297,7 +300,10 @@ function hub75_corner_edge_coupler_create_for_size(
             profile_size = 60,
             wall_thickness = 2,
             guide_height = 4,
-            base_thickness = 2
+            base_thickness = 2,
+            render_fn = render_fn,
+            show_reference_pockets = show_reference_pockets,
+            show_center_reference_marks = show_center_reference_marks
         )
         : size == "large"
             ? hub75_corner_edge_coupler_create(
@@ -306,7 +312,10 @@ function hub75_corner_edge_coupler_create_for_size(
                 profile_size = 100,
                 wall_thickness = 6,
                 guide_height = 10,
-                base_thickness = 4
+                base_thickness = 4,
+                render_fn = render_fn,
+                show_reference_pockets = show_reference_pockets,
+                show_center_reference_marks = show_center_reference_marks
             )
             : hub75_corner_edge_coupler_create(
                 side = side,
@@ -314,7 +323,10 @@ function hub75_corner_edge_coupler_create_for_size(
                 profile_size = 80,
                 wall_thickness = 4,
                 guide_height = 6,
-                base_thickness = 3
+                base_thickness = 3,
+                render_fn = render_fn,
+                show_reference_pockets = show_reference_pockets,
+                show_center_reference_marks = show_center_reference_marks
             );
 
 

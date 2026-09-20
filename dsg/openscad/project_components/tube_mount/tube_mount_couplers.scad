@@ -87,7 +87,10 @@ module _hub75_tube_mount_local_dovetail_cutter(
     );
 }
 
-module hub75_horizontal_edge_tube_mount_coupler_build(coupler) {
+module hub75_horizontal_edge_tube_mount_coupler_build(
+    coupler,
+    clamp_render_fn = 192
+) {
     offset =
         hub75_tube_mount_clip_offset(
             coupler.profile_size
@@ -97,7 +100,8 @@ module hub75_horizontal_edge_tube_mount_coupler_build(coupler) {
             dovetail =
                 hub75_tube_mount_dovetail_create(
                     host_depth = coupler.base_thickness
-                )
+                ),
+            render_fn = clamp_render_fn
         );
 
     difference() {
@@ -123,7 +127,10 @@ module hub75_horizontal_edge_tube_mount_coupler_build(coupler) {
     }
 }
 
-module hub75_corner_edge_tube_mount_coupler_build(coupler) {
+module hub75_corner_edge_tube_mount_coupler_build(
+    coupler,
+    clamp_render_fn = 192
+) {
     offset =
         hub75_tube_mount_clip_offset(
             coupler.profile_size
@@ -133,7 +140,8 @@ module hub75_corner_edge_tube_mount_coupler_build(coupler) {
             dovetail =
                 hub75_tube_mount_dovetail_create(
                     host_depth = coupler.base_thickness
-                )
+                ),
+            render_fn = clamp_render_fn
         );
     clip_x =
         coupler.x_inward * offset;
