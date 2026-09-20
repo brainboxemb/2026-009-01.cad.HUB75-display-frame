@@ -238,7 +238,7 @@ tool.git-project   v0.2.8  / 7c43f37e7b07cfb57638a1d1dad2501de09ba7eb
 SCAD toolchain     ghcr.io/brainboxemb/scad-toolchain-openscad:v0.5.0
 lib.scad.hub75     v0.1.5  / e0432a9533a08a1c0d9e87225c22f3f66b632531
 lib.scad.clamps    v0.1.7  / 22c7794ad8741672176418e9c34a660affd90998
-lib.scad.mechint   v0.1.3  / 082d0b3a87ea6b02c9ec3819c73cde209259233d
+lib.scad.mechint   v0.1.4  / 597823904c746efe0cde993cd940ac938d84a80b
 lib.scad.util      exact    / b11c77cb5529696e730d4b54804d6f8676fd8001
 ```
 
@@ -358,16 +358,20 @@ The aluminium tube itself is a generic local component under
 project-specific assembly decisions.
 
 The detachable snap ring comes from `lib.scad.clamps v0.1.7`. The canonical
-HUB75 clamp is 12 mm wide with a 2 mm transition and keeps the Ø10 functional /
-Ø9.6 tension-bore fit model.
-The mating interface comes from `lib.scad.mechint v0.1.3`, configured here as
-a 12 mm root / 2.0 mm height / 30° sliding dovetail with a 0.5 mm straight root
-land, 0.20 mm fit clearance, 0.25 mm axial clearance, a 16 mm straight entry
-slot and the integral lock/release mechanism enabled. The same library profile
+HUB75 clamp is 12 mm wide with a 1 mm transition and keeps the Ø10 functional /
+Ø9.6 tension-bore fit model. Its tube centre is 8 mm in front of the rear
+mounting plane, placing the Ø14 clamp's rear tangent exactly at Y = -1 mm.
+The mating interface comes from `lib.scad.mechint v0.1.4`, configured here as
+a 12 mm root / 2.0 mm height / 30° sliding dovetail with 0.5 mm straight mouth
+and root lands, 0.20 mm fit clearance, 0.25 mm axial clearance, a 16 mm straight
+entry slot and the integral lock/release mechanism enabled. The same library profile
 also supplies the male mating-relief cutter used to expose the dovetail flanks
-where the compact clamp transition overlaps the interface. Its mouth plane is at Y = -1 mm, so the same
-interface fits the 2 / 3 / 4 mm rear hosts: small ends its 0.8 mm spring tongue
-at the free rear face, while medium/large use 1 / 2 mm rear-open flex cavities.
+where the compact clamp transition overlaps the interface. Its mouth plane is
+at Y = -1 mm. The local female carrier now starts on that same plane instead of
+at Y = 0, so the complete clearanced 2 mm female profile is cut through real
+carrier material. The carrier rear face remains unchanged at 2 / 3 / 4 mm:
+small ends its 0.8 mm spring tongue at the free rear face, while medium/large
+use 1 / 2 mm rear-open flex cavities.
 
 The tube-aware couplers are built in functional order: start from the accepted
 panel-facing core coupler, subtract one continuous Ø10 tube keep-out, add the

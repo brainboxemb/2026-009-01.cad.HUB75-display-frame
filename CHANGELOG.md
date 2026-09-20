@@ -19,7 +19,7 @@ This file records the functional evolution of the HUB75 display-frame project.
   existing two-panel STL export now delegates to that assembly instead of owning
   a second copy of the assembly call; expose the same assembly from `main.scad`
   as the `two-panel-assembly` interactive view.
-- Add released `lib.scad.mechint v0.1.3` as the reusable owner of the
+- Add released `lib.scad.mechint v0.1.4` as the reusable owner of the
   tube-mount sliding-dovetail profile, clearances, 16 mm female entry slot and
   integral lock/release geometry.
 - Update the tube clamp to released `lib.scad.clamps v0.1.7`, using an
@@ -29,7 +29,20 @@ This file records the functional evolution of the HUB75 display-frame project.
 
 ### Changed
 
-- Pin `lib.scad.mechint v0.1.3` and configure a 0.5 mm straight root land on
+- Pin `lib.scad.mechint v0.1.4` and add a 0.5 mm straight mouth land alongside
+  the existing 0.5 mm root land. The 2 mm profile is now 0.5 mm mouth land,
+  1.0 mm 30° flank and 0.5 mm root land.
+- Move the Ø10 tube and complete clamp 1 mm forward, from Y = -7 to Y = -8
+  relative to the rear mounting plane. With the Ø14 clamp outside diameter,
+  the rear clamp tangent now lands exactly on the dovetail mouth plane Y = -1.
+- Reduce the compact clamp transition from 2 mm to 1 mm now that the clamp
+  tangent and dovetail mouth share the same Y datum.
+- Extend only the tube-mount carrier material forward from Y = 0 to Y = -1,
+  while retaining each core coupler's existing 2 / 3 / 4 mm rear face. The
+  complete female profile is therefore surrounded by carrier material instead
+  of spending its first 1 mm in free space.
+
+- Pin `lib.scad.mechint v0.1.4` and configure a 0.5 mm straight root land on
   the 12 x 2 mm male/female dovetail. The remaining 1.5 mm of profile depth
   keeps the 30° flank while the root ends on a print-friendlier straight land.
 - Trim the integrated clamp body with the library-owned
@@ -43,7 +56,7 @@ This file records the functional evolution of the HUB75 display-frame project.
 - Restore the agreed 2.0 mm dovetail profile and narrow the clamp / male-root
   width to 12 mm. Shift the interface mouth to Y = -1 mm so the same geometry
   fits the existing flat 2 / 3 / 4 mm rear hosts.
-- Pin `lib.scad.mechint v0.1.3`, which adds the missing transverse relief when
+- Pin `lib.scad.mechint v0.1.4`, which adds the missing transverse relief when
   locking and `entry_slot_length` are combined, keeping the female tongue
   U-shaped.
 - Reduce the canonical clamp transition from 3 mm to 2 mm so the 2 mm dovetail
@@ -80,15 +93,15 @@ This file records the functional evolution of the HUB75 display-frame project.
   required rear-open flex cavity, eliminating the local rearward mounting bump.
 - Reduce the canonical Ø10 tube-clamp wall from 2.6 mm to 2.0 mm, narrow the
   clamp from 16 mm to 12 mm and reduce its local transition depth from 5 mm to
-  2 mm. The nominal outside ring remains Ø14.0 mm;
+  1 mm. The nominal outside ring remains Ø14.0 mm;
   assembly/inspection views use the Ø10.0 mm functional bore while printable
   clamp geometry uses the Ø9.6 mm tension bore.
-- Preserve the historical tube centre exactly 7.0 mm in front of the panel rear
-  mounting plane by positioning the reusable clamp body from that explicit
-  project datum. The datum no longer depends on the clamp library's former
+- Start from the historical 7.0 mm tube-centre datum, then move the current
+  tube/clamp assembly 1.0 mm farther forward to 8.0 mm in front of the panel
+  rear mounting plane. The datum no longer depends on the clamp library's former
   1 mm base/body overlap shift.
 - Replace the HUB75-local female-entry extension cutter with the released
-  `lib.scad.mechint v0.1.3` `entry_slot_length` API. The configured 16 mm
+  `lib.scad.mechint v0.1.4` `entry_slot_length` API. The configured 16 mm
   straight entry pocket now combines with the v0.1.2 transverse lock relief, so
   the female spring remains a true U-shaped tongue during top-entry insertion.
 

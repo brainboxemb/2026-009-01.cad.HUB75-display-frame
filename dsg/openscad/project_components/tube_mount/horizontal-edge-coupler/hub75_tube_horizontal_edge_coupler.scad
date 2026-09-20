@@ -18,6 +18,13 @@ function hub75_tube_horizontal_edge_carrier_side_wall() = 2;
 function hub75_tube_horizontal_edge_carrier_bottom_margin() = 2;
 function hub75_tube_horizontal_edge_carrier_top_lip() = 2;
 
+function hub75_tube_horizontal_edge_carrier_front_y() =
+    hub75_tube_mount_dovetail_mouth_y();
+
+function hub75_tube_horizontal_edge_carrier_depth(coupler) =
+    coupler.base_thickness
+    - hub75_tube_horizontal_edge_carrier_front_y();
+
 function hub75_tube_horizontal_edge_carrier_width(
     clamp = hub75_tube_clamp_create()
 ) =
@@ -155,7 +162,12 @@ module _hub75_tube_horizontal_edge_carriers(
 ) {
     translate([0, coupler.base_thickness, 0])
         rotate([90, 0, 0])
-            linear_extrude(height = coupler.base_thickness)
+            linear_extrude(
+                height =
+                    hub75_tube_horizontal_edge_carrier_depth(
+                        coupler
+                    )
+            )
                 for (clip_x = hub75_tube_horizontal_edge_clamp_positions(coupler))
                     _hub75_tube_horizontal_edge_carrier_profile_2d(
                         clip_x,

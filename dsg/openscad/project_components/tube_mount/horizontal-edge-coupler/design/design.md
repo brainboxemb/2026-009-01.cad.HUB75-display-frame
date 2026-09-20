@@ -57,7 +57,7 @@ hub75_horizontal_edge_coupler_build(coupler);
 The aluminium tube runs along project X and has its historical centre at:
 
 ```text
-Y = -7 mm
+Y = -8 mm
 Z = +10 mm
 ```
 
@@ -124,8 +124,11 @@ Only after the tube path and clamp locations are known are the carrier solids
 added.  They overlap the accepted core plate and provide rear material for the
 female mechanical interface.
 
-The carrier now encloses only the actual female channel. It adds 2 mm below
-the clearanced 16 mm channel and a 2 mm lip above it. The 16 mm straight
+The carrier now encloses only the actual female channel. In Y it extends from
+the unchanged rear face forward to the dovetail mouth plane at Y = -1 mm,
+instead of stopping at Y = 0. This puts the complete female profile in real
+carrier material while preserving the rear face. In Z it adds 2 mm below the
+clearanced 16 mm channel and a 2 mm lip above it. The 16 mm straight
 entry-slot continues upward through free space instead of being surrounded by
 a tall carrier. This keeps the carrier local to the load path and prevents the
 entry approach from becoming a tunnel.
@@ -155,7 +158,7 @@ entry direction = +Z  (from above in top-edge orientation)
 The native `-X` entry side from the library is transformed into project
 `+Z`. The existing 16 mm female entry slot therefore becomes a straight
 vertical approach above the mating channel. The 2 mm profile uses a 0.5 mm
-straight root land after 1.5 mm of 30° flank. Its mouth is shifted to project
+straight mouth land, 1.0 mm of 30° flank and a 0.5 mm straight root land. Its mouth is shifted to project
 Y = -1 mm: small ends the 0.8 mm tongue at its free 2 mm rear face, while
 medium/large open 1 mm and 2 mm flex cavities behind it.
 
@@ -174,13 +177,14 @@ hub75_tube_mount_dovetail_female_cutter(...)
 The clamp no longer has a separate mounting spine. The clamp body and male
 dovetail are both 12 mm wide. The 16 mm male slide is centred on the same Z
 datum as the Ø10 tube/ring and its 2 mm profile sits directly beside the compact
-2 mm clamp transition. Before unioning the male, the shared mechint
+1 mm clamp transition. Moving the tube centre to Y = -8 places the Ø14 clamp's
+rear tangent on the same Y = -1 plane as the dovetail mouth. Before unioning the male, the shared mechint
 `male_relief_cutter` trims that transition back to the actual dovetail contour,
 so both mating flanks remain exposed. HUB75 then applies one project-local
 finishing wedge immediately in front of the male mouth: by default its depth is
 derived from half the difference between the 12 mm clamp width and the male
-mouth width, giving an approximately 45° shoulder chamfer (about 0.87 mm with
-the current 12 / 2 / 30° / 0.5 mm-land profile). The existing 0.01 mm `extra`
+mouth width, giving an approximately 45° shoulder chamfer (about 0.58 mm with
+the current 12 / 2 / 30° / 0.5 mm mouth + 0.5 mm root land profile). The existing 0.01 mm `extra`
 remains only a deliberate Boolean overlap.
 
 In the exploded view the two clamps move upward in Z, matching the intended

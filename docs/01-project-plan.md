@@ -264,13 +264,14 @@ the reusable dependencies needed by the new design.
   historical structural datums explicitly:
   - tube length = 840 mm, spanning X = -420 .. +420 mm;
   - tube centres = Z = -170 mm and +170 mm (340 mm centre spacing);
-  - tube centre = 7.0 mm in front of the HUB75 rear mounting plane;
-  - this Ø10 placement leaves 2.0 mm to the rear mounting plane and 2.5 mm to
+  - current tube centre = 8.0 mm in front of the HUB75 rear mounting plane,
+    moved 1.0 mm forward from the historical 7.0 mm datum;
+  - this Ø10 placement leaves 3.0 mm to the rear mounting plane and 1.5 mm to
     the panel front face;
   - tube-clip offset from a seam/corner datum = 18 mm for the small profile and
     25 mm for medium/large;
 - add `lib.scad.clamps` as the source of the basic tube-clamp geometry;
-- add `lib.scad.mechint v0.1.3` as the source of the sliding-dovetail mating
+- add `lib.scad.mechint v0.1.4` as the source of the sliding-dovetail mating
   profile, fit clearance and integral lock/release geometry;
 - add `lib.scad.util` and use `util_section_inspect()` as the normal
   axis-aligned section mechanism;
@@ -298,15 +299,16 @@ intended print orientations.
 - the horizontal-edge tube-mount variant adds two local rounded mounting points,
   one for each tube clamp;
 - each mounting point contains one short female dovetail with project-Z slide
-  direction and local +Z top entry; `lib.scad.mechint v0.1.3` supplies the
+  direction and local +Z top entry; `lib.scad.mechint v0.1.4` supplies the
   16 mm straight female entry slot before the channel, so the complete clamp
   can park above the channel before insertion; there is no long groove through
   the coupler arm;
-- the mating mechanism remains `lib.scad.mechint v0.1.3`, but HUB75 configures
-  a 12 mm root / 2.0 mm height / 30° profile with a 0.5 mm straight root land,
-  the library's 0.20 mm fit and 0.25 mm axial clearances; its mouth plane is
-  shifted to Y = -1 mm so the existing rear face can stay flat for all three
-  size presets;
+- the mating mechanism remains `lib.scad.mechint v0.1.4`, but HUB75 configures
+  a 12 mm root / 2.0 mm height / 30° profile with 0.5 mm straight mouth and
+  root lands, the library's 0.20 mm fit and 0.25 mm axial clearances; its mouth
+  plane remains Y = -1 mm while the local carrier now extends forward to that
+  plane, so the full female profile is surrounded by material and the existing
+  rear face stays flat for all three size presets;
 - integral locking and screwdriver release are enabled on the shared interface
   object now rather than being deferred as separate project-local geometry;
 - local rounded backing lobes end exactly at each coupler's existing rear face
@@ -316,16 +318,15 @@ intended print orientations.
   medium/large use 1 / 2 mm rear-open flex cavities and retain a coplanar outer
   rear face;
 - the canonical clamp uses `tube_diameter = 10`, zero positive clearance,
-  `tension_diameter = 9.6`, a 2.0 mm wall, 12 mm clamp width and a 2 mm
+  `tension_diameter = 9.6`, a 2.0 mm wall, 12 mm clamp width and a 1 mm
   transition;
   assembly/inspection renders use the nominal Ø10 bore while print geometry
   uses the Ø9.6 tension bore;
-- the separate clamp is side-printed; the male dovetail uses a 0.5 mm straight
-  root land instead of ending its full 2 mm depth on an angled print edge, and
-  the library's male-relief cutter trims overlapping clamp-transition material
-  away from the mating flanks; the tube centre
-  remains an explicit project datum 7.0 mm in front of the panel rear mounting
-  plane rather than being derived from clamp-library Boolean overlap;
+- the separate clamp is side-printed; the male dovetail uses 0.5 mm straight
+  mouth and root lands around a 1.0 mm 30° flank, and the library's male-relief
+  cutter trims overlapping clamp-transition material away from the mating
+  flanks; the tube centre is an explicit project datum 8.0 mm in front of the
+  panel rear mounting plane, placing the Ø14 clamp rear tangent at Y = -1 mm;
 - the actual snap clamp remains `tube_clamp_build()` from `lib.scad.clamps`;
 - top/bottom placements reuse the same local top-entry clamp geometry through
   assembly rotation, while left/right corner variants reuse the same clamp and

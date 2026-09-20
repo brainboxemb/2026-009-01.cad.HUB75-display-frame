@@ -3,20 +3,20 @@
 //
 // lib.scad.clamps owns the reusable snap-ring geometry and nominal/tension bore
 // semantics. HUB75 keeps the ring compact, narrows it to 12 mm and places the
-// 12 x 2 mm vertical male dovetail directly beside the 2 mm transition.
+// 12 x 2 mm vertical male dovetail directly beside the 1 mm transition.
 
 use <../../../ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad>
 use <../tube_mount_interface.scad>
 
 function hub75_tube_clamp_create(
-    tube_center_y = -7,
+    tube_center_y = -8,
     tube_center_z = 10,
     tube_diameter = 10,
     tension_diameter = 9.6,
     wall_thickness = 2.0,
     clamp_width = 12,
     opening_angle = 60,
-    transition_depth = 2,
+    transition_depth = 1,
     dovetail_slide = 16,
     dovetail_center_z = undef,
     dovetail_relief_chamfer_depth = undef,
