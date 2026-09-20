@@ -19,8 +19,10 @@ This file records the functional evolution of the HUB75 display-frame project.
 - Use 4.5 mm local tube-mount carrier depth instead of 5.5 mm by letting the
   integral spring tongue flex into free air behind the mount rather than cutting
   the library's optional 0.8 mm back cavity.
-- Reduce the canonical Ø10 tube-clamp wall from 2.6 mm to 2.0 mm; its tube
-  centre moves 0.6 mm toward the mount plane to preserve the compact-base overlap.
+- Reduce the canonical Ø10 tube-clamp wall from 2.6 mm to 2.0 mm while
+  preserving the historical tube centre at 7.0 mm in front of the panel rear
+  mounting plane; the compact clamp base grows from 0.2 mm to 0.8 mm so the
+  thinner ring does not move the structural tube datum.
 
 ### Fixed
 

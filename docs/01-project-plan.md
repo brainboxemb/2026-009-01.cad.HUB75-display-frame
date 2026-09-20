@@ -260,8 +260,15 @@ the reusable dependencies needed by the new design.
 **Work**
 
 - restore the 840 x 360 mm debug/reference envelope around the five-panel display;
-- restore the two continuous Ø10 x 1 mm-wall aluminium tubes at the historical
-  top/bottom locations;
+- restore the two continuous Ø10 x 1 mm-wall aluminium tubes using the
+  historical structural datums explicitly:
+  - tube length = 840 mm, spanning X = -420 .. +420 mm;
+  - tube centres = Z = -170 mm and +170 mm (340 mm centre spacing);
+  - tube centre = 7.0 mm in front of the HUB75 rear mounting plane;
+  - this Ø10 placement leaves 2.0 mm to the rear mounting plane and 2.5 mm to
+    the panel front face;
+  - tube-clip offset from a seam/corner datum = 18 mm for the small profile and
+    25 mm for medium/large;
 - add `lib.scad.clamps` as the source of the basic tube-clamp geometry;
 - add `lib.scad.mechint v0.1.0` as the source of the sliding-dovetail mating
   profile, fit clearance and integral lock/release geometry;
