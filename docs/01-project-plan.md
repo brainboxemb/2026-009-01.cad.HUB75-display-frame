@@ -296,9 +296,11 @@ intended print orientations.
 **Design direction**
 
 - couplers print upside down / rear-face-down;
-- the horizontal-edge tube-mount variant keeps the accepted outer form and uses
-  two subtractive interface positions in the existing edge structure, one for
-  each tube clamp; no rounded mounting solids are added;
+- the horizontal-edge tube-mount variant retains two local rounded carriers,
+  one for each tube clamp;
+- the corner-edge tube-mount variant keeps the accepted outer form and uses one
+  subtractive interface position in the existing corner structure; no separate
+  rounded mounting solid is added there;
 - each interface position contains one short female dovetail with project-Z slide
   direction and local +Z top entry; `lib.scad.mechint v0.1.4` supplies the
   16 mm straight female entry slot before the channel, so the complete clamp
@@ -307,15 +309,15 @@ intended print orientations.
 - the mating mechanism remains `lib.scad.mechint v0.1.4`, but HUB75 configures
   a 12 mm root / 2.0 mm height / 30° profile with 0.5 mm straight mouth and
   root lands, the library's 0.20 mm fit and 0.25 mm axial clearances; its mouth
-  plane is local Y = -1.5 mm. On the horizontal-edge variant the cutter uses
-  already-existing front guide / outer-edge material plus the rear base, so the
-  full profile is formed without adding a carrier and the existing outside form
-  remains unchanged for all three size presets;
+  plane is local Y = -1.5 mm. On the corner-edge variant the cutter uses
+  already-existing corner guide / outer-edge material plus the rear base, so the
+  full profile is formed without adding a separate carrier and the accepted
+  outside form remains unchanged for all three size presets;
 - integral locking and screwdriver release are enabled on the shared interface
   object now rather than being deferred as separate project-local geometry;
-- the horizontal-edge variant has no local backing lobe; its existing 2 / 3 /
-  4 mm rear base remains the rear host for small / medium / large; corner
-  variants keep their own local carrier treatment;
+- the horizontal-edge variant retains its local carrier treatment; the
+  corner-edge variant has no added backing lobe and uses the existing 2 / 3 /
+  4 mm rear base as the host for small / medium / large;
 - the integral female tongue follows the remaining host material all the way
   to the existing rear face. With the channel roof at local Y = +0.7 mm, the
   2 / 3 / 4 mm hosts therefore use 1.3 / 2.3 / 3.3 mm tongue thickness and no

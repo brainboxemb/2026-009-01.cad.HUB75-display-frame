@@ -39,10 +39,10 @@ This file records the functional evolution of the HUB75 display-frame project.
   dovetail mouth therefore meet at local Y = -1.5 mm.
 - Reduce the compact clamp transition from 2 mm to 1 mm now that the clamp
   tangent and dovetail mouth share the same Y datum.
-- Move the interface mouth to local Y = -1.5 mm. On the horizontal-edge
-  variant the female is now cut directly into the existing base / guide /
-  outer-edge material with no added carrier solid; corner variants retain their
-  local carrier geometry.
+- Move the interface mouth to local Y = -1.5 mm. On the corner-edge variant
+  the female is now cut directly into the existing corner base / guide /
+  outer-edge material with no added carrier solid; the horizontal-edge variant
+  retains its two compact local carriers.
 
 - Pin `lib.scad.mechint v0.1.4` and configure a 0.5 mm straight root land on
   the 12 x 2 mm male/female dovetail. The remaining 1.5 mm of profile depth
@@ -57,8 +57,8 @@ This file records the functional evolution of the HUB75 display-frame project.
 
 - Restore the agreed 2.0 mm dovetail profile and narrow the clamp / male-root
   width to 12 mm. The final interface mouth is Y = -1.5 mm so the complete
-  clamp follows the 1.0 mm panel-front tube datum; the horizontal-edge female
-  uses existing front-side geometry rather than an added mount body.
+  clamp follows the 1.0 mm panel-front tube datum; the corner-edge female uses
+  existing front-side geometry rather than an added mount body.
 - Pin `lib.scad.mechint v0.1.4`, which adds the missing transverse relief when
   locking and `entry_slot_length` are combined, keeping the female tongue
   U-shaped.
@@ -73,16 +73,16 @@ This file records the functional evolution of the HUB75 display-frame project.
   Z-axis interface inserted from local +Z. The reusable mechint profile remains
   12 mm root / 2.0 mm height / 30° with a 16 mm entry slot and integral lock.
 - Build tube-aware couplers from the accepted core geometry. The horizontal-edge
-  variant subtracts the continuous Ø10 tube keep-out and female dovetails
-  directly from the existing form; corner variants retain local carrier
-  material where their core does not already provide the required host.
+  variant retains its compact local carrier geometry. The corner-edge variant
+  subtracts the continuous Ø10 tube keep-out and female dovetail directly from
+  the existing corner form.
 - Derive horizontal/corner clamp interface locations from the available edge
   structure instead of preserving the earlier unexplained 18 / 25 mm offsets.
 - Remove the first-pass long clamp spine. Centre the 16 mm vertical male
   dovetail on the Ø10 tube/ring datum so it overlaps the compact
   `lib.scad.clamps` base directly through the existing 0.01 mm Boolean
   `extra`.
-- For the horizontal edge, derive an interface placement envelope from the
+- For the corner edge, derive an interface placement envelope from the
   clearanced female-root width plus 2 mm of existing side material and keep a
   4 mm outer-edge margin. This envelope affects placement only and adds no
   positive geometry.

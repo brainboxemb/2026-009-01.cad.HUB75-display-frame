@@ -371,17 +371,17 @@ also supplies the male mating-relief cutter used to expose the dovetail flanks
 where the compact clamp transition overlaps the interface. Its mouth plane is
 at local Y = -1.5 mm.
 
-For the horizontal-edge variant no positive mounting carrier is added at all.
-The accepted edge-connector exterior is retained: first the continuous Ø10 tube
-keep-out is subtracted, then the two female dovetails are cut directly into the
-existing base / guide / outer-edge material. Their placement envelope preserves
-2 mm of existing material beside the clearanced female root and a 4 mm outer
-edge margin. The corner variants still own their separate local carrier geometry.
+The horizontal-edge variant retains its two compact local carriers. The
+corner-edge variant does not add a separate tube-mount body: its accepted
+outside shape is kept, the continuous Ø10 tube keep-out is subtracted, and the
+single female dovetail is cut directly into the existing corner material. Its
+placement envelope keeps 2 mm of existing material beside the clearanced female
+root and a 4 mm outer-edge margin.
 
 The dovetail slide axis is project Z; the clamp enters from local +Z, i.e. from
 above for the canonical top-edge orientation. The horizontal-edge variant
-derives two interface positions from the available edge structure; each corner
-variant derives one.
+derives two carrier positions from the available edge structure; each corner
+variant derives one direct-cut interface position.
 The tube keep-out is deliberately separate from the clamp's Ø10 functional /
 Ø9.6 tension-bore fit model. Couplers remain rear-face-down printable and the
 detachable clamp remains side-printed.

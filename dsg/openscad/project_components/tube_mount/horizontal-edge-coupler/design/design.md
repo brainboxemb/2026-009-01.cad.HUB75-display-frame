@@ -11,11 +11,11 @@ vpd: 145
 
 ## Purpose
 
-This component adds the aluminium-tube interface **to** the accepted
-HUB75 horizontal-edge coupler. The panel-facing core coupler remains a separate
-component under `components/hub75/`, and its exterior shape is retained.
+This component adds the aluminium-tube interface **around** the accepted
+HUB75 horizontal-edge coupler.  The panel-facing core coupler remains a separate
+component under `components/hub75/`.
 
-The tube-aware component is deliberately constructed only by subtraction:
+The tube-aware component is deliberately constructed in functional order:
 
 ```text
 accepted HUB75 core coupler
@@ -24,12 +24,12 @@ make room for the aluminium tube
     ↓
 derive where the clamps belong
     ↓
-cut top-entry female dovetails into the existing edge structure
+add load-carrying rear carriers
+    ↓
+cut top-entry female dovetails
     ↓
 assemble detachable clamps + tube
 ```
-
-No rounded carrier or other positive tube-mount body is added.
 
 The tube and clamp fit are different interfaces.  The tube itself is nominally
 Ø10.0 mm.  The coupler keep-out is a non-clamping clearance volume; the
@@ -87,20 +87,19 @@ _hub75_tube_horizontal_edge_keepout_cutter(coupler, clamp);
 The old tube-mount experiment used fixed 18 / 25 mm offsets.  The new component
 does not preserve those values as unexplained project constants.
 
-The placement envelope is derived from the clearanced female dovetail root plus
-2 mm of existing material on each side. With the current 12 / 2 / 30° interface
-this is about 16.6 mm. That envelope is kept 4 mm inside the outer end of the
-horizontal core profile:
+Carrier width is derived from the clearanced female dovetail root plus 2 mm
+of material on each side. With the current 12 / 2 / 30° interface this is
+about 16.6 mm. The carrier is kept 4 mm inside the outer end of the horizontal
+core profile:
 
 ```text
 offset =
     profile_size / 2
-    - interface_width / 2
+    - carrier_width / 2
     - edge_margin
 ```
 
-with a lower bound of half the interface width. This controls placement only;
-it does not create a new solid.
+with a lower bound of half the carrier width.
 
 That gives approximately:
 
@@ -114,7 +113,7 @@ The red markers below show those derived load-path positions relative to the
 real tube and the existing coupler.
 
 <!-- scad-render
-view: interface-position
+view: carrier-position
 -->
 
 Public accessor:
@@ -123,22 +122,33 @@ Public accessor:
 hub75_tube_horizontal_edge_clamp_positions(coupler)
 ```
 
-## 4. Cut the dovetail directly into the existing edge connector
+## 4. Add rear carriers before adding the dovetail
 
-No carrier solid is added. The same accepted edge-connector geometry shown in
-step 1 is kept as the outside shape. After the tube keep-out has been removed,
-the two female dovetails are simply subtracted at the positions from step 3.
+Only after the tube path and clamp locations are known are the carrier solids
+added.  They overlap the accepted core plate and provide rear material for the
+female mechanical interface.
 
-At these positions the existing core already supplies the required material:
-the rear base occupies Y >= 0 and the panel-facing guide / outer-edge geometry
-occupies the front side. The mouth at local Y = -1.5 mm therefore cuts into
-existing material instead of requiring a second rounded mounting body.
+The carrier now encloses only the actual female channel. In Y it extends from
+the unchanged rear face forward to the dovetail mouth plane at local Y = -1.5 mm,
+instead of stopping at Y = 0. The extra 0.5 mm is deliberately added on the
+scarce female-interface side. This puts the complete female profile in real
+carrier material while preserving the rear face. In Z it adds 2 mm below the
+clearanced 16 mm channel and a 2 mm lip above it. The 16 mm straight
+entry-slot continues upward through free space instead of being surrounded by
+a tall carrier. This keeps the carrier local to the load path and prevents the
+entry approach from becoming a tunnel.
 
-This is the same modelling principle used by the tube keep-out: the tube-aware
-variant changes the core locally by subtraction without changing its exterior
-outline.
+<!-- scad-render
+view: carriers
+-->
 
-## 5. Female dovetail for top-down insertion
+Production helper:
+
+```scad
+_hub75_tube_horizontal_edge_carriers(coupler);
+```
+
+## 5. Cut the dovetail for top-down insertion
 
 The reusable `lib.scad.mechint` dovetail is rotated 90 degrees relative to the
 earlier experiment:
@@ -155,11 +165,10 @@ The native `-X` entry side from the library is transformed into project
 vertical approach above the mating channel. The 2 mm profile uses a 0.5 mm
 straight mouth land, 1.0 mm of 30° flank and a 0.5 mm straight root land. Its
 mouth is shifted to project Y = -1.5 mm. The channel roof then lies at local
-Y = +0.7 mm. Instead of leaving a cavity behind a thin 0.8 mm tongue, the
-tongue now uses all remaining material up to the existing rear face. Its
-thickness is therefore 1.3 / 2.3 / 3.3 mm for the 2 / 3 / 4 mm hosts. The rear
-surface stays flat, avoiding the horizontal overhang visible in the earlier
-rear-face-down print orientation.
+Y = +0.7 mm. The tongue uses all remaining host material up to the existing
+rear face: 1.3 / 2.3 / 3.3 mm for the 2 / 3 / 4 mm hosts. This keeps the
+rear-face-down print surface flat while the reusable lock mechanism is reviewed
+for a local hinge relief.
 
 <!-- scad-render
 view: dovetail
@@ -209,7 +218,7 @@ assemblies/sub/hub75_tube_horizontal_edge_assembly.scad
 
 ## Current status
 
-This is a **design iteration**, not physical fit acceptance. The next review
-should focus on the direct female cut in the unchanged edge-connector outline,
-the clamp/dovetail transition, top-down insertion access and whether the tube
-keep-out removes the previous collision.
+This is a **design iteration**, not physical fit acceptance.  The next review
+should focus on the carrier outline, the clamp/dovetail transition, access for
+top-down insertion and whether the tube keep-out removes the collision visible
+in the previous assembly.

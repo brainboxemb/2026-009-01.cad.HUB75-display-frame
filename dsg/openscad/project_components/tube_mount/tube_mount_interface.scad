@@ -11,8 +11,8 @@
 // deliberately 1.5 mm in front of the mounting plane. This shifts the complete
 // detachable clamp 0.5 mm toward the panel front so the Ø10 tube starts 1.0 mm
 // behind the panel front face. Consumers may cut the female directly into
-// existing front-side structure (as the horizontal edge does) or provide local
-// carrier material where needed (as the corner variants do). The lock tongue
+// existing front-side structure (as the corner edge does) or provide local
+// carrier material where needed (as the horizontal edge does). The lock tongue
 // uses all remaining host thickness behind the female channel, so the rear face
 // stays flat and no print-hostile back cavity is introduced.
 
