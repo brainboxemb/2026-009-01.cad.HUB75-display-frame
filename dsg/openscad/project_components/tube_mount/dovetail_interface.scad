@@ -1,14 +1,15 @@
 // File: dovetail_interface.scad
 //   HUB75 adapter around the reusable lib.scad.mechint sliding dovetail.
 //
-// The reusable library owns the dovetail and integral lock mechanism. HUB75
-// configures a deliberately wide, shallow profile so the tube-mount carrier can
-// remain flush with the existing 2 / 3 / 4 mm coupler rear faces:
+// The reusable library owns the dovetail, female entry slot and integral lock.
+// HUB75 configures a deliberately wide, shallow profile so the tube-mount
+// carrier can remain flush with the existing 2 / 3 / 4 mm coupler rear faces:
 //   root width        = 14 mm
 //   profile height    = 1.0 mm
 //   flank angle       = 30 degrees
 //   fit clearance     = 0.20 mm
 //   axial clearance   = 0.25 mm
+//   female entry slot = 16 mm
 //   spring tongue     = 0.8 mm
 //
 // The host-depth parameter only controls how much optional cavity is cut behind
@@ -21,6 +22,7 @@ _HUB75_TUBE_MOUNT_DOVETAIL_HEIGHT = 1.0;
 _HUB75_TUBE_MOUNT_DOVETAIL_ANGLE = 30;
 _HUB75_TUBE_MOUNT_DOVETAIL_CLEARANCE = 0.20;
 _HUB75_TUBE_MOUNT_DOVETAIL_AXIAL_CLEARANCE = 0.25;
+_HUB75_TUBE_MOUNT_DOVETAIL_ENTRY_SLOT_LENGTH = 16;
 _HUB75_TUBE_MOUNT_LOCK_SPRING_THICKNESS = 0.8;
 
 function hub75_tube_mount_dovetail_min_host_depth() =
@@ -29,7 +31,8 @@ function hub75_tube_mount_dovetail_min_host_depth() =
     + _HUB75_TUBE_MOUNT_LOCK_SPRING_THICKNESS;
 
 function hub75_tube_mount_dovetail_create(
-    host_depth = hub75_tube_mount_dovetail_min_host_depth()
+    host_depth = hub75_tube_mount_dovetail_min_host_depth(),
+    entry_slot_length = _HUB75_TUBE_MOUNT_DOVETAIL_ENTRY_SLOT_LENGTH
 ) =
     let(
         back_clearance =
@@ -51,6 +54,7 @@ function hub75_tube_mount_dovetail_create(
         angle = _HUB75_TUBE_MOUNT_DOVETAIL_ANGLE,
         clearance = _HUB75_TUBE_MOUNT_DOVETAIL_CLEARANCE,
         axial_clearance = _HUB75_TUBE_MOUNT_DOVETAIL_AXIAL_CLEARANCE,
+        entry_slot_length = entry_slot_length,
         locking = true,
         lock_spring_thickness =
             _HUB75_TUBE_MOUNT_LOCK_SPRING_THICKNESS,
@@ -64,6 +68,9 @@ function hub75_tube_mount_dovetail_mouth_width(dovetail) =
 function hub75_tube_mount_dovetail_female_height(dovetail) =
     sliding_dovetail_female_height(dovetail);
 
+function hub75_tube_mount_dovetail_female_root_width(dovetail) =
+    sliding_dovetail_female_root_width(dovetail);
+
 function hub75_tube_mount_dovetail_female_slide(
     dovetail,
     slide
@@ -73,16 +80,8 @@ function hub75_tube_mount_dovetail_female_slide(
         slide
     );
 
-function _hub75_tube_mount_plain_dovetail(dovetail) =
-    sliding_dovetail_create(
-        width = dovetail.width,
-        height = dovetail.height,
-        angle = dovetail.angle,
-        clearance = dovetail.clearance,
-        axial_clearance = 0,
-        extra = dovetail.extra,
-        locking = false
-    );
+function hub75_tube_mount_dovetail_entry_slot_length(dovetail) =
+    sliding_dovetail_entry_slot_length(dovetail);
 
 module hub75_tube_mount_dovetail_male_build(
     dovetail,
@@ -109,68 +108,28 @@ module hub75_tube_mount_dovetail_male_build(
                 );
 }
 
-module _hub75_tube_mount_native_female_cutter(
-    dovetail,
-    slide,
-    entry_extension
-) {
-    sliding_dovetail_female_cutter(
-        dovetail,
-        slide = slide
-    );
-
-    if (entry_extension > 0) {
-        plain_dovetail =
-            _hub75_tube_mount_plain_dovetail(
-                dovetail
-            );
-        nominal_entry_x =
-            -hub75_tube_mount_dovetail_female_slide(
-                dovetail,
-                slide
-            ) / 2;
-
-        translate([
-            nominal_entry_x - entry_extension / 2,
-            0,
-            0
-        ])
-            sliding_dovetail_female_cutter(
-                plain_dovetail,
-                slide = entry_extension
-            );
-    }
-}
-
 module hub75_tube_mount_dovetail_female_cutter(
     dovetail,
     slide,
     center_x = 0,
     center_z = 0,
-    entry_side = -1,
-    entry_extension = 0
+    entry_side = -1
 ) {
     assert(
         entry_side == -1 || entry_side == 1,
         "entry_side must be -1 or +1"
     );
-    assert(
-        entry_extension >= 0,
-        "entry_extension must be >= 0"
-    );
 
     translate([center_x, 0, center_z])
         if (entry_side == -1)
-            _hub75_tube_mount_native_female_cutter(
+            sliding_dovetail_female_cutter(
                 dovetail,
-                slide,
-                entry_extension
+                slide = slide
             );
         else
             mirror([1, 0, 0])
-                _hub75_tube_mount_native_female_cutter(
+                sliding_dovetail_female_cutter(
                     dovetail,
-                    slide,
-                    entry_extension
+                    slide = slide
                 );
 }

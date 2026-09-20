@@ -12,7 +12,8 @@ module hub75_dovetail_tube_clamp_fit_assembly(
     show_coupler = true,
     show_clamp = true,
     show_tube = true,
-    explode_distance = 0
+    explode_distance = 0,
+    clamp_high_resolution = true
 ) {
     coupler =
         hub75_horizontal_edge_coupler_create_for_size(
@@ -30,7 +31,7 @@ module hub75_dovetail_tube_clamp_fit_assembly(
             length = tube_length,
             outer_diameter = clamp.base_clamp.tube_diameter,
             wall_thickness = 1,
-            render_fn = clamp.render_fn
+            render_fn = 120
         );
 
     if (show_coupler)
@@ -42,7 +43,9 @@ module hub75_dovetail_tube_clamp_fit_assembly(
             hub75_dovetail_tube_clamp_build(
                 clamp,
                 part_color = [0.92, 0.20, 0.08, 1],
-                entry_side = clip_x < 0 ? -1 : 1
+                entry_side = clip_x < 0 ? -1 : 1,
+                use_tension_bore = false,
+                high_resolution = clamp_high_resolution
             );
 
     if (show_tube)

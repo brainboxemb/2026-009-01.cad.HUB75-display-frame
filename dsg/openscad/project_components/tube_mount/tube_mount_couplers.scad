@@ -2,14 +2,13 @@
 //   Tube-mount variants around the accepted panel-facing core couplers.
 //
 // The core component files remain unchanged. Every male/female mating feature
-// consumes the same locked lib.scad.mechint dovetail object.
+// consumes the same locked lib.scad.mechint dovetail object. The straight entry
+// pocket is owned by lib.scad.mechint through entry_slot_length.
 
 use <../horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad>
 use <../corner-edge-coupler/hub75_corner_edge_coupler.scad>
 use <dovetail_interface.scad>
 use <dovetail_tube_clamp.scad>
-
-_HUB75_TUBE_MOUNT_EPS = 0.05;
 
 function hub75_tube_mount_clip_offset(profile_size) =
     profile_size <= 60 ? 18 : 25;
@@ -54,42 +53,22 @@ module _hub75_tube_mount_point_solid(
 module _hub75_tube_mount_local_dovetail_cutter(
     clamp,
     clip_x,
-    entry_side,
-    entry_half_span = hub75_tube_mount_point_radius()
+    entry_side
 ) {
     assert(
         entry_side == -1 || entry_side == 1,
         "entry_side must be -1 or +1"
     );
 
-    slide =
-        hub75_dovetail_tube_clamp_foot_length(
-            clamp
-        );
-    female_half =
-        hub75_tube_mount_dovetail_female_slide(
-            clamp.dovetail,
-            slide
-        ) / 2;
-    entry_extension =
-        max(
-            0,
-            entry_half_span
-                + _HUB75_TUBE_MOUNT_EPS
-                - female_half
-        );
-
     hub75_dovetail_tube_clamp_groove_cutter(
         clamp = clamp,
         center_x = clip_x,
-        entry_side = entry_side,
-        entry_extension = entry_extension
+        entry_side = entry_side
     );
 }
 
 module hub75_horizontal_edge_tube_mount_coupler_build(
-    coupler,
-    clamp_render_fn = 192
+    coupler
 ) {
     offset =
         hub75_tube_mount_clip_offset(
@@ -100,8 +79,7 @@ module hub75_horizontal_edge_tube_mount_coupler_build(
             dovetail =
                 hub75_tube_mount_dovetail_create(
                     host_depth = coupler.base_thickness
-                ),
-            render_fn = clamp_render_fn
+                )
         );
 
     difference() {
@@ -128,8 +106,7 @@ module hub75_horizontal_edge_tube_mount_coupler_build(
 }
 
 module hub75_corner_edge_tube_mount_coupler_build(
-    coupler,
-    clamp_render_fn = 192
+    coupler
 ) {
     offset =
         hub75_tube_mount_clip_offset(
@@ -140,8 +117,7 @@ module hub75_corner_edge_tube_mount_coupler_build(
             dovetail =
                 hub75_tube_mount_dovetail_create(
                     host_depth = coupler.base_thickness
-                ),
-            render_fn = clamp_render_fn
+                )
         );
     clip_x =
         coupler.x_inward * offset;

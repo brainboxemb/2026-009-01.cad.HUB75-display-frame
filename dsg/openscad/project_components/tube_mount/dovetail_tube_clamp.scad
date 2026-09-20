@@ -7,7 +7,7 @@
 //   Z = outward from the top display edge.
 //
 // The same clamp is used for small, medium and large couplers. The reusable
-// mechanical interface owns the dovetail profile, fit clearance and lock.
+// libraries own the tube-clamp fit model and dovetail/lock geometry.
 
 use <../../ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad>
 use <dovetail_interface.scad>
@@ -18,15 +18,16 @@ function hub75_dovetail_tube_clamp_create(
     tube_center_y = -7,
     tube_center_z = 10,
     tube_diameter = 10,
-    tube_clearance = 0.4,
+    tube_clearance = 0,
+    tension_diameter = 9.6,
     wall_thickness = 2.0,
     clamp_width = 16,
     opening_angle = 60,
     compact_base_thickness = 0.8,
     transition_depth = 3,
+    extra = 0.01,
     dovetail = hub75_tube_mount_dovetail_create(),
-    dovetail_center_z = 10,
-    render_fn = 192
+    dovetail_center_z = 10
 ) =
     let(
         transition_width =
@@ -37,29 +38,31 @@ function hub75_dovetail_tube_clamp_create(
             tube_clamp_create(
                 tube_diameter = tube_diameter,
                 clearance = tube_clearance,
+                tension_diameter = tension_diameter,
                 wall_thickness = wall_thickness,
                 clamp_width = clamp_width,
                 opening_angle = opening_angle,
                 base_thickness = compact_base_thickness,
                 transition_width = transition_width,
-                transition_depth = transition_depth
-            ),
-        center_distance =
-            compact_base_thickness
-            + (tube_diameter + tube_clearance) / 2
-            + wall_thickness
-            - 1.0
+                transition_depth = transition_depth,
+                extra = extra
+            )
     )
-    assert(render_fn >= 24,
-        "clamp render_fn must be >= 24")
-    assert(abs(center_distance + tube_center_y) < 0.001,
-        "compact clamp base no longer preserves the intended tube Y centre")
+    assert(
+        hub75_tube_mount_dovetail_entry_slot_length(dovetail)
+            >= clamp_width,
+        "female dovetail entry slot must clear the complete clamp width"
+    )
+    assert(
+        hub75_tube_mount_dovetail_female_root_width(dovetail)
+            >= 2 * tube_clamp_outer_radius(base_clamp),
+        "female dovetail entry slot must clear the clamp outside diameter"
+    )
     object(
         tube_center_y = tube_center_y,
         tube_center_z = tube_center_z,
         dovetail = dovetail,
         dovetail_center_z = dovetail_center_z,
-        render_fn = render_fn,
         base_clamp = base_clamp
     );
 
@@ -72,11 +75,16 @@ function hub75_dovetail_tube_clamp_tube_center_y(clamp) =
 function hub75_dovetail_tube_clamp_tube_center_z(clamp) =
     clamp.tube_center_z;
 
+function hub75_dovetail_tube_clamp_functional_diameter(clamp) =
+    tube_clamp_functional_diameter(clamp.base_clamp);
+
+function hub75_dovetail_tube_clamp_tension_diameter(clamp) =
+    tube_clamp_tension_diameter(clamp.base_clamp);
+
 module hub75_dovetail_tube_clamp_groove_cutter(
     clamp,
     center_x,
-    entry_side,
-    entry_extension = 0
+    entry_side
 ) {
     hub75_tube_mount_dovetail_female_cutter(
         dovetail = clamp.dovetail,
@@ -86,8 +94,7 @@ module hub75_dovetail_tube_clamp_groove_cutter(
             ),
         center_x = center_x,
         center_z = clamp.dovetail_center_z,
-        entry_side = entry_side,
-        entry_extension = entry_extension
+        entry_side = entry_side
     );
 }
 
@@ -115,9 +122,8 @@ module _hub75_dovetail_tube_clamp_foot(
             entry_side = entry_side
         );
 
-        // Continue the mouth into the compact reusable clamp base. This overlap
-        // is project attachment geometry; the dovetail profile itself remains
-        // owned by lib.scad.mechint.
+        // Continue the mouth into the compact reusable clamp base. This tiny
+        // overlap is project attachment geometry; fit stays library-owned.
         translate([
             -half_length,
             -clamp.base_clamp.base_thickness,
@@ -133,16 +139,29 @@ module _hub75_dovetail_tube_clamp_foot(
     }
 }
 
-module _hub75_dovetail_tube_clamp_oriented_body(clamp) {
-    $fn = clamp.render_fn;
+module _hub75_dovetail_tube_clamp_oriented_body(
+    clamp,
+    use_tension_bore,
+    high_resolution
+) {
+    local_center_x =
+        clamp.base_clamp.base_thickness
+        + tube_clamp_outer_radius(clamp.base_clamp);
+    y_translation =
+        clamp.tube_center_y
+        + local_center_x;
 
     multmatrix([
         [ 0,  0,  1, -clamp.base_clamp.clamp_width / 2],
-        [-1,  0,  0,  0],
+        [-1,  0,  0,  y_translation],
         [ 0, -1,  0,  clamp.tube_center_z],
         [ 0,  0,  0,  1]
     ])
-        tube_clamp_build(clamp.base_clamp);
+        tube_clamp_build(
+            clamp.base_clamp,
+            use_tension_bore = use_tension_bore,
+            high_resolution = high_resolution
+        );
 }
 
 // Module: hub75_dovetail_tube_clamp_body_build()
@@ -152,32 +171,36 @@ module _hub75_dovetail_tube_clamp_oriented_body(clamp) {
 //   clamp can be inspected and dimensioned independently from the attachment.
 module hub75_dovetail_tube_clamp_body_build(
     clamp,
-    part_color = [0.88, 0.08, 0.05, 1]
+    part_color = [0.88, 0.08, 0.05, 1],
+    use_tension_bore = true,
+    high_resolution = true
 ) {
-    $fn = clamp.render_fn;
-
     color(part_color)
         _hub75_dovetail_tube_clamp_oriented_body(
-            clamp
+            clamp,
+            use_tension_bore,
+            high_resolution
         );
 }
 
 module hub75_dovetail_tube_clamp_build(
     clamp,
     part_color = [0.88, 0.08, 0.05, 1],
-    entry_side = -1
+    entry_side = -1,
+    use_tension_bore = true,
+    high_resolution = true
 ) {
     assert(
         entry_side == -1 || entry_side == 1,
         "entry_side must be -1 or +1"
     );
 
-    $fn = clamp.render_fn;
-
     color(part_color)
         union() {
             _hub75_dovetail_tube_clamp_oriented_body(
-                clamp
+                clamp,
+                use_tension_bore,
+                high_resolution
             );
             _hub75_dovetail_tube_clamp_foot(
                 clamp,
@@ -190,5 +213,7 @@ _preview_clamp =
     hub75_dovetail_tube_clamp_create();
 
 hub75_dovetail_tube_clamp_build(
-    _preview_clamp
+    _preview_clamp,
+    use_tension_bore = false,
+    high_resolution = false
 );
