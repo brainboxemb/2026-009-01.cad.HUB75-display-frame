@@ -19,6 +19,7 @@ function hub75_tube_clamp_create(
     transition_depth = 2,
     dovetail_slide = 16,
     dovetail_center_z = undef,
+    dovetail_relief_chamfer_depth = undef,
     extra = 0.01,
     dovetail = hub75_tube_mount_dovetail_create()
 ) =
@@ -27,6 +28,17 @@ function hub75_tube_clamp_create(
             is_undef(dovetail_center_z)
                 ? tube_center_z
                 : dovetail_center_z,
+        dovetail_mouth_width =
+            hub75_tube_mount_dovetail_mouth_width(dovetail),
+        default_relief_chamfer_depth =
+            max(
+                0,
+                (clamp_width - dovetail_mouth_width) / 2
+            ),
+        active_relief_chamfer_depth =
+            is_undef(dovetail_relief_chamfer_depth)
+                ? default_relief_chamfer_depth
+                : dovetail_relief_chamfer_depth,
         base_clamp =
             tube_clamp_create(
                 tube_diameter = tube_diameter,
@@ -36,20 +48,25 @@ function hub75_tube_clamp_create(
                 clamp_width = clamp_width,
                 opening_angle = opening_angle,
                 base_thickness = extra,
-                transition_width =
-                    hub75_tube_mount_dovetail_mouth_width(dovetail),
+                transition_width = dovetail_mouth_width,
                 transition_depth = transition_depth,
                 extra = extra
             )
     )
     assert(dovetail_slide > 0,
         "tube-clamp dovetail_slide must be > 0")
+    assert(active_relief_chamfer_depth >= 0,
+        "tube-clamp dovetail_relief_chamfer_depth must be >= 0")
+    assert(active_relief_chamfer_depth <= transition_depth,
+        "tube-clamp dovetail_relief_chamfer_depth must not exceed transition_depth")
     object(
         tube_center_y = tube_center_y,
         tube_center_z = tube_center_z,
         dovetail = dovetail,
         dovetail_slide = dovetail_slide,
         dovetail_center_z = active_dovetail_center_z,
+        dovetail_relief_chamfer_depth =
+            active_relief_chamfer_depth,
         base_clamp = base_clamp
     );
 
@@ -67,6 +84,9 @@ function hub75_tube_clamp_tension_diameter(clamp) =
 
 function hub75_tube_clamp_outer_diameter(clamp) =
     2 * tube_clamp_outer_radius(clamp.base_clamp);
+
+function hub75_tube_clamp_dovetail_relief_chamfer_depth(clamp) =
+    clamp.dovetail_relief_chamfer_depth;
 
 
 // ----------------------------------------------------------------------
@@ -103,6 +123,7 @@ module hub75_tube_clamp_build(
                 );
 
                 _hub75_tube_clamp_dovetail_relief_cutter(clamp);
+                _hub75_tube_clamp_dovetail_relief_chamfer_cutter(clamp);
             }
 
             _hub75_tube_clamp_dovetail_build(clamp);
@@ -149,6 +170,77 @@ module _hub75_tube_clamp_dovetail_relief_cutter(clamp) {
         center_x = 0,
         center_z = clamp.dovetail_center_z
     );
+}
+
+module _hub75_tube_clamp_dovetail_relief_chamfer_cutter(clamp) {
+    chamfer_depth =
+        hub75_tube_clamp_dovetail_relief_chamfer_depth(clamp);
+
+    if (chamfer_depth > 0) {
+        mouth_y =
+            hub75_tube_mount_dovetail_mouth_y();
+        mouth_half_width =
+            hub75_tube_mount_dovetail_mouth_width(
+                clamp.dovetail
+            ) / 2;
+        clamp_half_width =
+            clamp.base_clamp.clamp_width / 2;
+        z_min =
+            clamp.dovetail_center_z
+            - clamp.dovetail_slide / 2
+            - clamp.base_clamp.extra;
+        z_length =
+            clamp.dovetail_slide
+            + 2 * clamp.base_clamp.extra;
+
+        // Project-local finishing cut. The generic mechint relief owns the
+        // exact dovetail contour; this wedge only softens the abrupt clamp-body
+        // shoulder immediately in front of the male mouth.
+        translate([0, 0, z_min])
+            linear_extrude(height = z_length)
+                union() {
+                    polygon(points = [
+                        [
+                            mouth_half_width
+                                - clamp.base_clamp.extra,
+                            mouth_y + clamp.base_clamp.extra
+                        ],
+                        [
+                            clamp_half_width
+                                + clamp.base_clamp.extra,
+                            mouth_y + clamp.base_clamp.extra
+                        ],
+                        [
+                            clamp_half_width
+                                + clamp.base_clamp.extra,
+                            mouth_y
+                                - chamfer_depth
+                                - clamp.base_clamp.extra
+                        ]
+                    ]);
+
+                    mirror([1, 0, 0])
+                        polygon(points = [
+                            [
+                                mouth_half_width
+                                    - clamp.base_clamp.extra,
+                                mouth_y + clamp.base_clamp.extra
+                            ],
+                            [
+                                clamp_half_width
+                                    + clamp.base_clamp.extra,
+                                mouth_y + clamp.base_clamp.extra
+                            ],
+                            [
+                                clamp_half_width
+                                    + clamp.base_clamp.extra,
+                                mouth_y
+                                    - chamfer_depth
+                                    - clamp.base_clamp.extra
+                            ]
+                        ]);
+                }
+    }
 }
 
 module _hub75_tube_clamp_dovetail_build(clamp) {

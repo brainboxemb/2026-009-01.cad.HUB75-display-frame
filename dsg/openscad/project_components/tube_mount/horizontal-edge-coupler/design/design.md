@@ -176,8 +176,12 @@ dovetail are both 12 mm wide. The 16 mm male slide is centred on the same Z
 datum as the Ø10 tube/ring and its 2 mm profile sits directly beside the compact
 2 mm clamp transition. Before unioning the male, the shared mechint
 `male_relief_cutter` trims that transition back to the actual dovetail contour,
-so both mating flanks remain exposed. The existing 0.01 mm `extra` remains
-only a deliberate Boolean overlap.
+so both mating flanks remain exposed. HUB75 then applies one project-local
+finishing wedge immediately in front of the male mouth: by default its depth is
+derived from half the difference between the 12 mm clamp width and the male
+mouth width, giving an approximately 45° shoulder chamfer (about 0.87 mm with
+the current 12 / 2 / 30° / 0.5 mm-land profile). The existing 0.01 mm `extra`
+remains only a deliberate Boolean overlap.
 
 In the exploded view the two clamps move upward in Z, matching the intended
 installation direction.
