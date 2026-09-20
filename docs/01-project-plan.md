@@ -296,9 +296,10 @@ intended print orientations.
 **Design direction**
 
 - couplers print upside down / rear-face-down;
-- the horizontal-edge tube-mount variant adds two local rounded mounting points,
-  one for each tube clamp;
-- each mounting point contains one short female dovetail with project-Z slide
+- the horizontal-edge tube-mount variant keeps the accepted outer form and uses
+  two subtractive interface positions in the existing edge structure, one for
+  each tube clamp; no rounded mounting solids are added;
+- each interface position contains one short female dovetail with project-Z slide
   direction and local +Z top entry; `lib.scad.mechint v0.1.4` supplies the
   16 mm straight female entry slot before the channel, so the complete clamp
   can park above the channel before insertion; there is no long groove through
@@ -306,14 +307,15 @@ intended print orientations.
 - the mating mechanism remains `lib.scad.mechint v0.1.4`, but HUB75 configures
   a 12 mm root / 2.0 mm height / 30° profile with 0.5 mm straight mouth and
   root lands, the library's 0.20 mm fit and 0.25 mm axial clearances; its mouth
-  plane is local Y = -1.5 mm while the local carrier extends forward to that
-  plane, adding 0.5 mm of material on the constrained female side so the full
-  profile is surrounded by material and the existing
-  rear face stays flat for all three size presets;
+  plane is local Y = -1.5 mm. On the horizontal-edge variant the cutter uses
+  already-existing front guide / outer-edge material plus the rear base, so the
+  full profile is formed without adding a carrier and the existing outside form
+  remains unchanged for all three size presets;
 - integral locking and screwdriver release are enabled on the shared interface
   object now rather than being deferred as separate project-local geometry;
-- local rounded backing lobes end exactly at each coupler's existing rear face
-  (2 / 3 / 4 mm for small / medium / large), with no rearward mounting bump;
+- the horizontal-edge variant has no local backing lobe; its existing 2 / 3 /
+  4 mm rear base remains the rear host for small / medium / large; corner
+  variants keep their own local carrier treatment;
 - the integral female tongue is 0.8 mm thick; with the Y = -1.5 mm mouth offset,
   the 2 / 3 / 4 mm hosts retain 0.5 / 1.5 / 2.5 mm rear-open flex cavities
   respectively and keep a coplanar outer

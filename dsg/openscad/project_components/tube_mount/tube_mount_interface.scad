@@ -10,9 +10,10 @@
 // that native interface so the clamp inserts from +Z. The dovetail mouth is
 // deliberately 1.5 mm in front of the mounting plane. This shifts the complete
 // detachable clamp 0.5 mm toward the panel front so the Ø10 tube starts 1.0 mm
-// behind the panel front face, while the female carrier gains 0.5 mm of material
-// on its scarce front side. The 2 mm profile then
-// 0.20 mm female clearance and a 0.8 mm spring tongue fit the existing flat
+// behind the panel front face. Consumers may cut the female directly into
+// existing front-side structure (as the horizontal edge does) or provide local
+// carrier material where needed (as the corner variants do). The 2 mm profile,
+// 0.20 mm female clearance and 0.8 mm spring tongue fit the existing flat
 // 2 / 3 / 4 mm rear hosts without moving the mating plane per size.
 
 use <../../ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail.scad>
@@ -178,7 +179,7 @@ module _hub75_tube_mount_dovetail_to_project(
     center_z = 0
 ) {
     // Native X becomes project -Z, native Y remains project Y with its mouth
-    // at -1 mm, and native Z becomes project X.
+    // at -1.5 mm, and native Z becomes project X.
     multmatrix([
         [ 0, 0, 1, center_x],
         [ 0, 1, 0, _HUB75_TUBE_MOUNT_DOVETAIL_MOUTH_Y],

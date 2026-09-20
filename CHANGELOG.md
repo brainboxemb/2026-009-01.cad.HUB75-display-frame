@@ -39,11 +39,10 @@ This file records the functional evolution of the HUB75 display-frame project.
   dovetail mouth therefore meet at local Y = -1.5 mm.
 - Reduce the compact clamp transition from 2 mm to 1 mm now that the clamp
   tangent and dovetail mouth share the same Y datum.
-- Extend only the tube-mount carrier material forward from Y = 0 to Y = -1.5,
-  adding another 0.5 mm exactly on the scarce female-interface side while
-  retaining each core coupler's existing 2 / 3 / 4 mm rear face. The
-  complete female profile is therefore surrounded by carrier material instead
-  of spending its first 1 mm in free space.
+- Move the interface mouth to local Y = -1.5 mm. On the horizontal-edge
+  variant the female is now cut directly into the existing base / guide /
+  outer-edge material with no added carrier solid; corner variants retain their
+  local carrier geometry.
 
 - Pin `lib.scad.mechint v0.1.4` and configure a 0.5 mm straight root land on
   the 12 x 2 mm male/female dovetail. The remaining 1.5 mm of profile depth
@@ -58,8 +57,8 @@ This file records the functional evolution of the HUB75 display-frame project.
 
 - Restore the agreed 2.0 mm dovetail profile and narrow the clamp / male-root
   width to 12 mm. The final interface mouth is Y = -1.5 mm so the complete
-  clamp follows the 1.0 mm panel-front tube datum and the female carrier gains
-  0.5 mm of additional front-side material.
+  clamp follows the 1.0 mm panel-front tube datum; the horizontal-edge female
+  uses existing front-side geometry rather than an added mount body.
 - Pin `lib.scad.mechint v0.1.4`, which adds the missing transverse relief when
   locking and `entry_slot_length` are combined, keeping the female tongue
   U-shaped.
@@ -73,20 +72,20 @@ This file records the functional evolution of the HUB75 display-frame project.
 - Rotate the detachable dovetail from the earlier X/side-entry arrangement to a
   Z-axis interface inserted from local +Z. The reusable mechint profile remains
   12 mm root / 2.0 mm height / 30° with a 16 mm entry slot and integral lock.
-- Build horizontal-edge and corner tube-aware couplers in functional order:
-  subtract a continuous Ø10 tube keep-out first, then add carrier material and
-  cut the female dovetail. The official STL/render entrypoints now use these
-  tube-aware components rather than the superseded parallel tube-mount path.
-- Derive horizontal/corner clamp carrier locations from the available edge
+- Build tube-aware couplers from the accepted core geometry. The horizontal-edge
+  variant subtracts the continuous Ø10 tube keep-out and female dovetails
+  directly from the existing form; corner variants retain local carrier
+  material where their core does not already provide the required host.
+- Derive horizontal/corner clamp interface locations from the available edge
   structure instead of preserving the earlier unexplained 18 / 25 mm offsets.
 - Remove the first-pass long clamp spine. Centre the 16 mm vertical male
   dovetail on the Ø10 tube/ring datum so it overlaps the compact
   `lib.scad.clamps` base directly through the existing 0.01 mm Boolean
   `extra`.
-- Derive carrier width from the clearanced female-root width plus 2 mm side
-  walls, and limit carrier height to the female channel plus 2 mm bottom/top
-  margins. The 16 mm entry approach now continues through free space rather
-  than through a tall carrier tunnel.
+- For the horizontal edge, derive an interface placement envelope from the
+  clearanced female-root width plus 2 mm of existing side material and keep a
+  4 mm outer-edge margin. This envelope affects placement only and adds no
+  positive geometry.
 
 - Replace the earlier deep tube-mount profile with a project-configured
   `lib.scad.mechint` 12 mm root / 2.0 mm height / 30° sliding dovetail while

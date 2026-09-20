@@ -369,19 +369,19 @@ and root lands, 0.20 mm fit clearance, 0.25 mm axial clearance, a 16 mm straight
 entry slot and the integral lock/release mechanism enabled. The same library profile
 also supplies the male mating-relief cutter used to expose the dovetail flanks
 where the compact clamp transition overlaps the interface. Its mouth plane is
-at local Y = -1.5 mm. The local female carrier starts on that same plane instead
-of at Y = 0, adding 0.5 mm more material on the front side where the female
-interface is most constrained. The complete clearanced 2 mm profile is cut through real
-carrier material. The carrier rear face remains unchanged at 2 / 3 / 4 mm:
-small ends its 0.8 mm spring tongue at the free rear face, while medium/large
-use 1 / 2 mm rear-open flex cavities.
+at local Y = -1.5 mm.
 
-The tube-aware couplers are built in functional order: start from the accepted
-panel-facing core coupler, subtract one continuous Ø10 tube keep-out, add the
-load-carrying rear carrier geometry, then cut the female dovetail. The dovetail
-slide axis is project Z; the clamp enters from local +Z, i.e. from above for the
-canonical top-edge orientation. The horizontal-edge variant derives two carrier
-positions from the available edge structure; each corner variant derives one.
+For the horizontal-edge variant no positive mounting carrier is added at all.
+The accepted edge-connector exterior is retained: first the continuous Ø10 tube
+keep-out is subtracted, then the two female dovetails are cut directly into the
+existing base / guide / outer-edge material. Their placement envelope preserves
+2 mm of existing material beside the clearanced female root and a 4 mm outer
+edge margin. The corner variants still own their separate local carrier geometry.
+
+The dovetail slide axis is project Z; the clamp enters from local +Z, i.e. from
+above for the canonical top-edge orientation. The horizontal-edge variant
+derives two interface positions from the available edge structure; each corner
+variant derives one.
 The tube keep-out is deliberately separate from the clamp's Ø10 functional /
 Ø9.6 tension-bore fit model. Couplers remain rear-face-down printable and the
 detachable clamp remains side-printed.

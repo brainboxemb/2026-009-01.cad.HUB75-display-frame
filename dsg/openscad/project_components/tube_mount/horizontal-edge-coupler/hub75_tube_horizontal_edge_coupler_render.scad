@@ -42,7 +42,7 @@ module hub75_tube_horizontal_edge_coupler_design(
                 clamp
             );
 
-    } else if (view == "carrier-position") {
+    } else if (view == "interface-position") {
         color([0.72, 0.72, 0.72, 1])
             hub75_horizontal_edge_coupler_build(coupler);
         _hub75_tube_horizontal_edge_reference_tube(
@@ -51,28 +51,14 @@ module hub75_tube_horizontal_edge_coupler_design(
         );
         _hub75_tube_horizontal_edge_position_markers(coupler);
 
-    } else if (view == "carriers") {
-        color([0.72, 0.72, 0.72, 1])
-            hub75_horizontal_edge_coupler_build(coupler);
-        color([1, 0, 0, 0.70])
-            _hub75_tube_horizontal_edge_carriers(
-                coupler,
-                clamp
-            );
-        _hub75_tube_horizontal_edge_reference_tube(
-            coupler,
-            clamp,
-            alpha = 0.45
-        );
-
     } else if (view == "dovetail") {
         color([0.72, 0.72, 0.72, 0.75])
-            union() {
+            difference() {
                 hub75_horizontal_edge_coupler_build(coupler);
-                _hub75_tube_horizontal_edge_carriers(
-                coupler,
-                clamp
-            );
+                _hub75_tube_horizontal_edge_keepout_cutter(
+                    coupler,
+                    clamp
+                );
             }
         color([1, 0, 0, 0.55])
             _hub75_tube_horizontal_edge_dovetail_cutters(
