@@ -2,8 +2,8 @@
 //   Project-owned detachable Ø10 HUB75 tube clamp.
 //
 // lib.scad.clamps owns the reusable snap-ring geometry and nominal/tension bore
-// semantics. HUB75 places the vertical dovetail directly on the compact clamp
-// base and positions the complete part from the structural tube datum.
+// semantics. HUB75 keeps the ring compact, narrows it to 12 mm and places the
+// 12 x 2 mm vertical male dovetail directly beside the 2 mm transition.
 
 use <../../../ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad>
 use <../tube_mount_interface.scad>
@@ -14,9 +14,9 @@ function hub75_tube_clamp_create(
     tube_diameter = 10,
     tension_diameter = 9.6,
     wall_thickness = 2.0,
-    clamp_width = 16,
+    clamp_width = 12,
     opening_angle = 60,
-    transition_depth = 3,
+    transition_depth = 2,
     dovetail_slide = 16,
     dovetail_center_z = undef,
     extra = 0.01,
@@ -27,8 +27,6 @@ function hub75_tube_clamp_create(
             is_undef(dovetail_center_z)
                 ? tube_center_z
                 : dovetail_center_z,
-        // Keep only the compact library transition. The male dovetail overlaps
-        // that base directly; no separate HUB75 mounting spine is required.
         base_clamp =
             tube_clamp_create(
                 tube_diameter = tube_diameter,

@@ -238,7 +238,7 @@ tool.git-project   v0.2.8  / 7c43f37e7b07cfb57638a1d1dad2501de09ba7eb
 SCAD toolchain     ghcr.io/brainboxemb/scad-toolchain-openscad:v0.5.0
 lib.scad.hub75     v0.1.5  / e0432a9533a08a1c0d9e87225c22f3f66b632531
 lib.scad.clamps    v0.1.7  / 22c7794ad8741672176418e9c34a660affd90998
-lib.scad.mechint   v0.1.1  / 991daa01f07b0dab717e3ebfecf396126027c899
+lib.scad.mechint   v0.1.2  / 729195778678c06e583dbc6623211e2984b83eb1
 lib.scad.util      exact    / b11c77cb5529696e730d4b54804d6f8676fd8001
 ```
 
@@ -357,13 +357,15 @@ The aluminium tube itself is a generic local component under
 `dsg/openscad/components/`; only its frame length and placement are
 project-specific assembly decisions.
 
-The detachable snap ring comes from `lib.scad.clamps v0.1.7`; HUB75 places
-the vertical male dovetail directly on the compact clamp base and owns its
-placement relative to the structural tube datum.
-The mating interface comes from `lib.scad.mechint v0.1.1`, configured here as
-a 14 mm root / 1.0 mm height / 30° sliding dovetail with 0.20 mm fit clearance,
+The detachable snap ring comes from `lib.scad.clamps v0.1.7`. The canonical
+HUB75 clamp is 12 mm wide with a 2 mm transition and keeps the Ø10 functional /
+Ø9.6 tension-bore fit model.
+The mating interface comes from `lib.scad.mechint v0.1.2`, configured here as
+a 12 mm root / 2.0 mm height / 30° sliding dovetail with 0.20 mm fit clearance,
 0.25 mm axial clearance, a 16 mm straight entry slot and the integral
-lock/release mechanism enabled.
+lock/release mechanism enabled. Its mouth plane is at Y = -1 mm, so the same
+interface fits the 2 / 3 / 4 mm rear hosts: small ends its 0.8 mm spring tongue
+at the free rear face, while medium/large use 1 / 2 mm rear-open flex cavities.
 
 The tube-aware couplers are built in functional order: start from the accepted
 panel-facing core coupler, subtract one continuous Ø10 tube keep-out, add the

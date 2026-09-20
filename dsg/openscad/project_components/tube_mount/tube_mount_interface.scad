@@ -6,22 +6,29 @@
 //   Y = panel front -> rear, with the coupler mounting plane at Y = 0;
 //   Z = local display-edge outward direction.
 //
-// lib.scad.mechint owns the profile, fit, entry slot and lock.  HUB75 only
-// rotates that native interface so the clamp inserts from +Z (from above in
-// the canonical top-edge orientation).
+// lib.scad.mechint owns the profile, fit, entry slot and lock. HUB75 rotates
+// that native interface so the clamp inserts from +Z. The dovetail mouth is
+// deliberately 1 mm in front of the mounting plane: this lets a 2 mm profile,
+// 0.20 mm female clearance and a 0.8 mm spring tongue fit the existing flat
+// 2 / 3 / 4 mm rear hosts without moving the mating plane per size.
 
 use <../../ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail.scad>
 
-_HUB75_TUBE_MOUNT_DOVETAIL_WIDTH = 14;
-_HUB75_TUBE_MOUNT_DOVETAIL_HEIGHT = 1.0;
+_HUB75_TUBE_MOUNT_DOVETAIL_WIDTH = 12;
+_HUB75_TUBE_MOUNT_DOVETAIL_HEIGHT = 2.0;
 _HUB75_TUBE_MOUNT_DOVETAIL_ANGLE = 30;
 _HUB75_TUBE_MOUNT_DOVETAIL_CLEARANCE = 0.20;
 _HUB75_TUBE_MOUNT_DOVETAIL_AXIAL_CLEARANCE = 0.25;
 _HUB75_TUBE_MOUNT_DOVETAIL_ENTRY_SLOT_LENGTH = 16;
+_HUB75_TUBE_MOUNT_DOVETAIL_MOUTH_Y = -1.0;
 _HUB75_TUBE_MOUNT_LOCK_SPRING_THICKNESS = 0.8;
 
+function hub75_tube_mount_dovetail_mouth_y() =
+    _HUB75_TUBE_MOUNT_DOVETAIL_MOUTH_Y;
+
 function hub75_tube_mount_dovetail_min_host_depth() =
-    _HUB75_TUBE_MOUNT_DOVETAIL_HEIGHT
+    _HUB75_TUBE_MOUNT_DOVETAIL_MOUTH_Y
+    + _HUB75_TUBE_MOUNT_DOVETAIL_HEIGHT
     + _HUB75_TUBE_MOUNT_DOVETAIL_CLEARANCE
     + _HUB75_TUBE_MOUNT_LOCK_SPRING_THICKNESS;
 
@@ -75,10 +82,6 @@ function hub75_tube_mount_dovetail_female_slide(
 function hub75_tube_mount_dovetail_entry_slot_length(dovetail) =
     sliding_dovetail_entry_slot_length(dovetail);
 
-// Native mechint X becomes project -Z. Native -X entry therefore becomes
-// project +Z entry. Native profile depth Y remains project Y and native profile
-// width Z becomes project X.
-
 
 // ----------------------------------------------------------------------
 // Public geometry API
@@ -125,12 +128,13 @@ module _hub75_tube_mount_dovetail_to_project(
     center_x = 0,
     center_z = 0
 ) {
+    // Native X becomes project -Z, native Y remains project Y with its mouth
+    // at -1 mm, and native Z becomes project X.
     multmatrix([
         [ 0, 0, 1, center_x],
-        [ 0, 1, 0, 0],
+        [ 0, 1, 0, _HUB75_TUBE_MOUNT_DOVETAIL_MOUTH_Y],
         [-1, 0, 0, center_z],
         [ 0, 0, 0, 1]
     ])
         children();
 }
-

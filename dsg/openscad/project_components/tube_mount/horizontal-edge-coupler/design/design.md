@@ -84,8 +84,8 @@ The old tube-mount experiment used fixed 18 / 25 mm offsets.  The new component
 does not preserve those values as unexplained project constants.
 
 Carrier width is derived from the clearanced female dovetail root plus 2 mm
-of material on each side. With the current 14 / 1 / 30° interface this is
-about 18.6 mm. The carrier is kept 4 mm inside the outer end of the horizontal
+of material on each side. With the current 12 / 2 / 30° interface this is
+about 16.6 mm. The carrier is kept 4 mm inside the outer end of the horizontal
 core profile:
 
 ```text
@@ -100,9 +100,9 @@ with a lower bound of half the carrier width.
 That gives approximately:
 
 ```text
-small   profile  60 mm → clamp centres ±16.7 mm
-medium  profile  80 mm → clamp centres ±26.7 mm
-large   profile 100 mm → clamp centres ±36.7 mm
+small   profile  60 mm → clamp centres ±17.7 mm
+medium  profile  80 mm → clamp centres ±27.7 mm
+large   profile 100 mm → clamp centres ±37.7 mm
 ```
 
 The red markers below show those derived load-path positions relative to the
@@ -153,8 +153,10 @@ entry direction = +Z  (from above in top-edge orientation)
 ```
 
 The native `-X` entry side from the library is transformed into project
-`+Z`.  The existing 16 mm female entry slot therefore becomes a straight
-vertical approach above the mating channel.
+`+Z`. The existing 16 mm female entry slot therefore becomes a straight
+vertical approach above the mating channel. The 2 mm profile mouth is shifted
+to project Y = -1 mm: small ends the 0.8 mm tongue at its free 2 mm rear face,
+while medium/large open 1 mm and 2 mm flex cavities behind it.
 
 <!-- scad-render
 view: dovetail
@@ -168,10 +170,11 @@ hub75_tube_mount_dovetail_female_cutter(...)
 
 ## 6. Assemble the detachable clamp
 
-The clamp no longer has a separate mounting spine. The 16 mm male dovetail is
-centred on the same Z datum as the Ø10 tube/ring, so it overlaps the compact
-`lib.scad.clamps` base/transition directly. The existing 0.01 mm `extra`
-provides the deliberate Boolean overlap.
+The clamp no longer has a separate mounting spine. The clamp body and male
+dovetail are both 12 mm wide. The 16 mm male slide is centred on the same Z
+datum as the Ø10 tube/ring and its 2 mm profile sits directly beside the compact
+2 mm clamp transition. The existing 0.01 mm `extra` remains only a deliberate
+Boolean overlap.
 
 In the exploded view the two clamps move upward in Z, matching the intended
 installation direction.
@@ -192,6 +195,6 @@ assemblies/sub/hub75_tube_horizontal_edge_assembly.scad
 ## Current status
 
 This is a **design iteration**, not physical fit acceptance.  The next review
-should focus on the carrier outline, the clamp spine/ring transition, access for
+should focus on the carrier outline, the clamp/dovetail transition, access for
 top-down insertion and whether the tube keep-out removes the collision visible
 in the previous assembly.
