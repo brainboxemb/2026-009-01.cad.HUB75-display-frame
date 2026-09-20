@@ -11,8 +11,9 @@
 //   - snap opening points away from the plate in -Y;
 //   - the compact clamp base faces the coupler in +Y.
 //
-// The project-specific mounting foot IS the male dovetail. It is not a small
-// secondary rail attached somewhere else on the clamp.
+// The project-specific lower mounting foot IS the male dovetail. It is not a
+// small secondary rail attached somewhere else on the clamp. A short local web,
+// following the proven V1.2 support idea, joins that foot to the compact base.
 
 use <../../ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad>
 
@@ -33,8 +34,9 @@ function hub75_reinforcement_tube_clamp_create(
     compact_base_thickness = 0.2,
     transition_width = 16,
     transition_depth = 5,
-    dovetail_root_width = 15,
-    dovetail_mouth_width = 11,
+    dovetail_center_z = -2.0,
+    dovetail_root_width = 5.5,
+    dovetail_mouth_width = 4.0,
     dovetail_clearance = 0.25,
     render_fn = 192
 ) =
@@ -74,6 +76,7 @@ function hub75_reinforcement_tube_clamp_create(
         coupler_base_thickness = coupler_base_thickness,
         tube_center_y = tube_center_y,
         tube_center_z = tube_center_z,
+        dovetail_center_z = dovetail_center_z,
         dovetail_root_width = dovetail_root_width,
         dovetail_mouth_width = dovetail_mouth_width,
         dovetail_clearance = dovetail_clearance,
@@ -140,7 +143,7 @@ module hub75_reinforcement_dovetail_groove_cutter(
         y_max =
             clamp.coupler_base_thickness
             + _HUB75_REINFORCEMENT_EPS,
-        center_z = clamp.tube_center_z,
+        center_z = clamp.dovetail_center_z,
         root_width =
             clamp.dovetail_root_width + 2 * clearance,
         mouth_width =
@@ -157,10 +160,44 @@ module _hub75_reinforcement_dovetail_foot(clamp) {
         x_max = half_length,
         y_min = -0.12,
         y_max = clamp.coupler_base_thickness,
-        center_z = clamp.tube_center_z,
+        center_z = clamp.dovetail_center_z,
         root_width = clamp.dovetail_root_width,
         mouth_width = clamp.dovetail_mouth_width
     );
+}
+
+// Short local support between the dovetail foot and the compact library base.
+//
+// The V1.2 clip used the same idea: keep the tube ring free and bridge only the
+// small gap to the panel-edge mounting root. Here that root is the dovetail
+// itself. The web deliberately remains well below the tube bore.
+module _hub75_reinforcement_mounting_web(clamp) {
+    half_length =
+        hub75_reinforcement_tube_clamp_foot_length(clamp) / 2;
+    foot_top =
+        clamp.dovetail_center_z
+        + clamp.dovetail_root_width / 2;
+    compact_base_bottom =
+        clamp.tube_center_z
+        - clamp.base_clamp.transition_width / 2;
+
+    // 2D polygon is [Y,Z], extrusion becomes project X.
+    multmatrix([
+        [0, 0, 1, -half_length],
+        [1, 0, 0, 0],
+        [0, 1, 0, 0],
+        [0, 0, 0, 1]
+    ])
+        linear_extrude(
+            height =
+                hub75_reinforcement_tube_clamp_foot_length(clamp)
+        )
+            polygon(points = [
+                [-0.85, foot_top - 0.35],
+                [ 0.08, foot_top - 0.35],
+                [ 0.08, compact_base_bottom + 1.25],
+                [-0.25, compact_base_bottom + 1.25]
+            ]);
 }
 
 // Correct project orientation for the reusable clamp.
@@ -199,6 +236,7 @@ module hub75_reinforcement_tube_clamp_build(
         union() {
             _hub75_reinforcement_oriented_library_clamp(clamp);
             _hub75_reinforcement_dovetail_foot(clamp);
+            _hub75_reinforcement_mounting_web(clamp);
         }
 }
 
