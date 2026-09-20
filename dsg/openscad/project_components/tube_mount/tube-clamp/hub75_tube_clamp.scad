@@ -139,11 +139,18 @@ module hub75_tube_clamp_body_build(
     high_resolution = true
 ) {
     color(part_color)
-        _hub75_tube_clamp_ring_build(
-            clamp,
-            use_tension_bore,
-            high_resolution
-        );
+        difference() {
+            _hub75_tube_clamp_ring_build(
+                clamp,
+                use_tension_bore,
+                high_resolution
+            );
+
+            _hub75_tube_clamp_transition_radius_cutter(
+                clamp,
+                high_resolution
+            );
+        }
 }
 
 module hub75_tube_clamp_build(
@@ -161,6 +168,10 @@ module hub75_tube_clamp_build(
                     high_resolution
                 );
 
+                _hub75_tube_clamp_transition_radius_cutter(
+                    clamp,
+                    high_resolution
+                );
                 _hub75_tube_clamp_dovetail_relief_cutter(clamp);
                 _hub75_tube_clamp_dovetail_relief_chamfer_cutter(clamp);
             }
@@ -194,49 +205,54 @@ module _hub75_tube_clamp_ring_build(
         [ 0, -1,  0,  clamp.tube_center_z],
         [ 0,  0,  0,  1]
     ])
-        difference() {
-            tube_clamp_build(
-                clamp.base_clamp,
-                use_tension_bore = use_tension_bore,
-                high_resolution = high_resolution
-            );
-
-            _hub75_tube_clamp_transition_radius_cutter_local(
-                clamp
-            );
-        }
+        tube_clamp_build(
+            clamp.base_clamp,
+            use_tension_bore = use_tension_bore,
+            high_resolution = high_resolution
+        );
 }
 
-module _hub75_tube_clamp_transition_radius_cutter_local(clamp) {
+module _hub75_tube_clamp_transition_radius_cutter(
+    clamp,
+    high_resolution
+) {
     radius = clamp.transition_relief_radius;
     bite = clamp.transition_relief_bite;
-    base_clamp = clamp.base_clamp;
+    chamfer_depth =
+        hub75_tube_clamp_dovetail_relief_chamfer_depth(clamp);
 
-    if (bite > 0) {
-        cutter_y =
-            base_clamp.transition_width / 2
-            + radius
-            - bite;
-        cutter_z0 = -base_clamp.extra;
+    if (bite > 0 && chamfer_depth > 0) {
+        clamp_half_width =
+            clamp.base_clamp.clamp_width / 2;
+        mouth_y =
+            hub75_tube_mount_dovetail_mouth_y();
+        shoulder_y =
+            mouth_y - chamfer_depth;
+        cutter_x =
+            clamp_half_width + radius - bite;
+        cutter_z0 =
+            clamp.dovetail_center_z
+            - clamp.dovetail_slide / 2
+            - clamp.base_clamp.extra;
         cutter_h =
-            base_clamp.clamp_width
-            + 2 * base_clamp.extra;
+            clamp.dovetail_slide
+            + 2 * clamp.base_clamp.extra;
 
-        // Broad, shallow cylindrical scoop in the clamp's native profile.
-        // With R10 / 1 mm bite the cutter is almost tangent: it removes about
-        // 1 mm at the compact transition edge and naturally fades out toward
-        // the round body instead of introducing another sharp planar shoulder.
-        // The cutter is mirrored so both sides of the transition remain equal.
+        // The relief is intentionally a project-vertical cylinder (axis Z),
+        // not a cylinder along the tube axis.  R10 is placed almost tangent
+        // to the lateral clamp shoulder so only about 1 mm is removed.  This
+        // gives the 30-degree transition a broad, gentle run-out without
+        // scooping a concave arc out of the circular clamp profile itself.
         for (side = [-1, 1])
             translate([
-                base_clamp.base_thickness,
-                side * cutter_y,
+                side * cutter_x,
+                shoulder_y,
                 cutter_z0
             ])
                 cylinder(
                     r = radius,
                     h = cutter_h,
-                    $fn = 96
+                    $fn = high_resolution ? 96 : 32
                 );
     }
 }
