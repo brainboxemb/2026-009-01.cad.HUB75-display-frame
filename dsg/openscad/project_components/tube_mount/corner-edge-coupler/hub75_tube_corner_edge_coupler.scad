@@ -149,6 +149,77 @@ module _hub75_tube_corner_edge_outer_ring_envelope(
 }
 
 
+module _hub75_tube_corner_edge_clamp_access_cutter(
+    coupler,
+    clamp,
+    clip_x,
+    clearance,
+    entry_travel
+) {
+    ring_r =
+        hub75_tube_clamp_outer_diameter(clamp) / 2
+        + clearance;
+    ring_front_y =
+        hub75_tube_clamp_tube_center_y(clamp)
+        + ring_r;
+    rear_y =
+        coupler.base_thickness
+        + _HUB75_TUBE_CORNER_EPS;
+    access_depth =
+        rear_y - ring_front_y;
+    z_bottom =
+        hub75_tube_clamp_tube_center_z(clamp)
+        - ring_r;
+    z_top =
+        max(
+            coupler.outside_projection
+                + _HUB75_TUBE_CORNER_EPS,
+            hub75_tube_clamp_tube_center_z(clamp)
+                + entry_travel
+                + ring_r
+        );
+    opening_width =
+        clamp.base_clamp.clamp_width
+        + 2 * clearance;
+
+    assert(
+        access_depth > 0,
+        "corner clamp access opening must reach the rear print face"
+    );
+
+    // Open the swept circular clamp cavity all the way to the rear print face.
+    // The lower edge rises at 45 degrees from the rear face to the circular
+    // envelope, removing the thin plate/shelf that previously sat underneath
+    // the clip.  With rear-face-down printing this avoids the unsupported
+    // circular roof while keeping the cavity simple and inspectable.
+    multmatrix([
+        [0, 0, 1, clip_x - opening_width / 2],
+        [1, 0, 0, 0],
+        [0, 1, 0, 0],
+        [0, 0, 0, 1]
+    ])
+        linear_extrude(height = opening_width)
+            polygon(points = [
+                [
+                    ring_front_y - _HUB75_TUBE_CORNER_EPS,
+                    z_bottom
+                ],
+                [
+                    ring_front_y - _HUB75_TUBE_CORNER_EPS,
+                    z_top
+                ],
+                [
+                    rear_y,
+                    z_top
+                ],
+                [
+                    rear_y,
+                    z_bottom - access_depth
+                ]
+            ]);
+}
+
+
 module _hub75_tube_corner_edge_clamp_keepout_cutter(
     coupler,
     clamp,
@@ -166,16 +237,12 @@ module _hub75_tube_corner_edge_clamp_keepout_cutter(
         "corner clamp keepout needs positive dovetail entry travel"
     );
 
-    // The circular outer envelope already contains the compact clamp base and
-    // transition once fit clearance is added.  The male dovetail has its own
-    // exact female cutter, so the corner only needs the swept outer clip
-    // envelope here.  Sweeping two convex cylinders with hull() is equivalent
-    // to the former line-segment Minkowski for this envelope, but is much
-    // cheaper for repeated PNG/STL production.
-    //
-    // Filling the ring deliberately clears the snap opening and bore as well:
-    // those voids belong to the detachable clamp and must not be occupied by
-    // corner material anywhere along the +Z insertion path.
+    // Keep the exact swept circular envelope for the clip itself, then connect
+    // it to the rear print face with a simple 45-degree access opening.  The
+    // male dovetail still owns its own exact female cutter.  Filling the ring
+    // deliberately clears the snap opening and bore as well: those voids belong
+    // to the detachable clamp and must not be occupied by corner material
+    // anywhere along the +Z insertion path.
     assert(
         clamp.base_clamp.transition_width
             <= hub75_tube_clamp_outer_diameter(clamp)
@@ -183,21 +250,31 @@ module _hub75_tube_corner_edge_clamp_keepout_cutter(
         "corner ring envelope no longer contains the clamp transition"
     );
 
-    hull() {
-        _hub75_tube_corner_edge_outer_ring_envelope(
-            clamp,
-            clip_x,
-            radial_clearance = clearance,
-            lateral_clearance = clearance,
-            z_shift = 0
-        );
+    union() {
+        hull() {
+            _hub75_tube_corner_edge_outer_ring_envelope(
+                clamp,
+                clip_x,
+                radial_clearance = clearance,
+                lateral_clearance = clearance,
+                z_shift = 0
+            );
 
-        _hub75_tube_corner_edge_outer_ring_envelope(
+            _hub75_tube_corner_edge_outer_ring_envelope(
+                clamp,
+                clip_x,
+                radial_clearance = clearance,
+                lateral_clearance = clearance,
+                z_shift = entry_travel
+            );
+        }
+
+        _hub75_tube_corner_edge_clamp_access_cutter(
+            coupler,
             clamp,
             clip_x,
-            radial_clearance = clearance,
-            lateral_clearance = clearance,
-            z_shift = entry_travel
+            clearance,
+            entry_travel
         );
     }
 }

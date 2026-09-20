@@ -163,6 +163,10 @@ module hub75_tube_clamp_build(
 
                 _hub75_tube_clamp_dovetail_relief_cutter(clamp);
                 _hub75_tube_clamp_dovetail_relief_chamfer_cutter(clamp);
+                _hub75_tube_clamp_transition_edge_relief_cutter(
+                    clamp,
+                    high_resolution
+                );
             }
 
             _hub75_tube_clamp_dovetail_build(clamp);
@@ -194,73 +198,73 @@ module _hub75_tube_clamp_ring_build(
         [ 0, -1,  0,  clamp.tube_center_z],
         [ 0,  0,  0,  1]
     ])
-        difference() {
-            tube_clamp_build(
-                clamp.base_clamp,
-                use_tension_bore = use_tension_bore,
-                high_resolution = high_resolution
-            );
-
-            _hub75_tube_clamp_transition_radius_cutter_local(
-                clamp,
-                high_resolution
-            );
-        }
+        tube_clamp_build(
+            clamp.base_clamp,
+            use_tension_bore = use_tension_bore,
+            high_resolution = high_resolution
+        );
 }
 
-module _hub75_tube_clamp_transition_radius_cutter_local(
+module _hub75_tube_clamp_transition_edge_relief_cutter(
     clamp,
     high_resolution
 ) {
     radius = clamp.transition_relief_radius;
     bite = clamp.transition_relief_bite;
-    base_clamp = clamp.base_clamp;
+    chamfer_depth =
+        hub75_tube_clamp_dovetail_relief_chamfer_depth(clamp);
+    extra = clamp.base_clamp.extra;
 
-    if (bite > 0) {
-        outer_r =
-            tube_clamp_outer_radius(base_clamp);
-        ring_center_x =
-            base_clamp.base_thickness + outer_r;
-        attach_x =
-            min(
-                base_clamp.base_thickness
-                    + base_clamp.transition_depth,
-                ring_center_x
-                    + outer_r
-                    - base_clamp.extra
-            );
-        attach_dx =
-            attach_x - ring_center_x;
-        attach_y =
-            sqrt(max(
-                0.01,
-                outer_r * outer_r
-                    - attach_dx * attach_dx
-            ));
-        cutter_y =
-            attach_y + radius - bite;
-        cutter_z0 =
-            -base_clamp.extra;
-        cutter_h =
-            base_clamp.clamp_width
-            + 2 * base_clamp.extra;
+    if (bite > 0 && chamfer_depth > 0) {
+        mouth_y =
+            hub75_tube_mount_dovetail_mouth_y();
+        clamp_half_width =
+            clamp.base_clamp.clamp_width / 2;
+        y_min =
+            mouth_y - chamfer_depth - extra;
+        y_max =
+            mouth_y + extra;
+        y_center =
+            (y_min + y_max) / 2;
+        z_min =
+            clamp.dovetail_center_z
+            - clamp.dovetail_slide / 2
+            - extra;
+        z_length =
+            clamp.dovetail_slide
+            + 2 * extra;
+        cutter_x =
+            clamp_half_width + radius - bite;
 
-        // Keep the relief cylinder on the clamp extrusion axis.  Native Z maps
-        // to project X (tube axis), which becomes the vertical print direction
-        // when this clamp is side-printed.  The R10 cutter is centred at the
-        // actual transition/ring attach location and moved outward so it bites
-        // only about 1 mm into that sharp shoulder.
+        // Two project-vertical cylinders soften only the front/back side edges
+        // of the 30-degree transition band.  The R10 cylinders sit almost
+        // tangent to the 12 mm clamp faces, so their maximum penetration is
+        // 1 mm.  Clipping them to the existing chamfer-depth band prevents the
+        // broad radius from biting into the circular snap ring.
         for (side = [-1, 1])
-            translate([
-                attach_x,
-                side * cutter_y,
-                cutter_z0
-            ])
-                cylinder(
-                    r = radius,
-                    h = cutter_h,
-                    $fn = high_resolution ? 96 : 32
-                );
+            intersection() {
+                translate([
+                    side * cutter_x,
+                    y_center,
+                    z_min
+                ])
+                    cylinder(
+                        r = radius,
+                        h = z_length,
+                        $fn = high_resolution ? 96 : 32
+                    );
+
+                translate([
+                    -clamp_half_width - extra,
+                    y_min,
+                    z_min - extra
+                ])
+                    cube([
+                        2 * clamp_half_width + 2 * extra,
+                        y_max - y_min,
+                        z_length + 2 * extra
+                    ]);
+            }
     }
 }
 

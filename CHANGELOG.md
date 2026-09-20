@@ -29,13 +29,16 @@ This file records the functional evolution of the HUB75 display-frame project.
 
 ### Changed
 
-- Smooth the clamp-to-transition shoulder with a broad shallow cylindrical
-  relief (R10, 1 mm bite). The cylinder follows the clamp extrusion / tube axis,
-  so it is vertical in the intended side-print orientation and rounds the actual
-  transition-to-ring attach point instead of cutting across the clamp width.
+- Smooth the two side edges of the clamp/dovetail transition with project-vertical
+  R10 cylindrical reliefs. Each cylinder is clipped to the existing 30-degree
+  transition band and bites at most 1 mm into the 12 mm clamp face, so the
+  circular snap ring itself remains untouched and the side-print transition is
+  self-supporting.
 - Expand the corner insertion keep-out from the detailed hollow clamp body to
-  the complete solid outer-ring envelope as well, so the full clip has a clear
-  +Z insertion path rather than only the female interface fitting.
+  the complete solid outer-ring envelope and open that cavity to the rear print
+  face with a simple 45-degree lower ramp. This removes the thin plate/shelf
+  beneath the clamp, avoids a sharp circular lip and removes the unsupported
+  roof that would otherwise appear in rear-face-down printing.
 - Adopt the released `lib.scad.mechint v0.1.5` centered two-sided hinge
   relief and leave a 0.8 mm central flex web in the HUB75 female lock tongue.
 - Split the detachable clamp into size-matched small / medium / large variants:
