@@ -1,8 +1,9 @@
-// PNG render entrypoint for the one canonical detachable dovetail tube clamp.
+// PNG render entrypoint for the size-matched detachable dovetail tube clamp.
 
 use <../project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad>
 
-clamp = hub75_tube_clamp_create();
+size = "medium";
+clamp = hub75_tube_clamp_create_for_size(size);
 
 $vpt = [0, -3.5, 10];
 $vpr = [74, 0, 35];

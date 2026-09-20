@@ -3,8 +3,9 @@
 //
 // lib.scad.clamps owns the reusable snap-ring geometry and nominal/tension bore
 // semantics. HUB75 keeps the ring compact, narrows it to 12 mm and places the
-// 12 x 2 mm vertical male dovetail beside the compact transition. The complete
-// clamp, including its male dovetail, is positioned from the tube-front datum.
+// size-matched vertical male dovetail beside the compact transition. Small,
+// medium and large use 2.0 / 2.5 / 3.0 mm dovetail heights. The complete clamp,
+// including its male dovetail, stays positioned from the tube-front datum.
 
 use <../../../ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad>
 use <../tube_mount_interface.scad>
@@ -17,7 +18,7 @@ function hub75_tube_clamp_create(
     wall_thickness = 2.0,
     clamp_width = 12,
     opening_angle = 60,
-    transition_depth = 1,
+    transition_depth = undef,
     dovetail_slide = 16,
     dovetail_center_z = undef,
     dovetail_relief_chamfer_depth = undef,
@@ -46,11 +47,12 @@ function hub75_tube_clamp_create(
             hub75_tube_mount_dovetail_angle(dovetail),
         required_relief_chamfer_depth =
             relief_lateral_step / tan(dovetail_angle),
+        active_transition_depth =
+            is_undef(transition_depth)
+                ? required_relief_chamfer_depth
+                : transition_depth,
         default_relief_chamfer_depth =
-            min(
-                transition_depth,
-                required_relief_chamfer_depth
-            ),
+            required_relief_chamfer_depth,
         active_relief_chamfer_depth =
             is_undef(dovetail_relief_chamfer_depth)
                 ? default_relief_chamfer_depth
@@ -65,7 +67,7 @@ function hub75_tube_clamp_create(
                 opening_angle = opening_angle,
                 base_thickness = extra,
                 transition_width = dovetail_mouth_width,
-                transition_depth = transition_depth,
+                transition_depth = active_transition_depth,
                 extra = extra
             )
     )
@@ -74,11 +76,11 @@ function hub75_tube_clamp_create(
     assert(active_relief_chamfer_depth >= 0,
         "tube-clamp dovetail_relief_chamfer_depth must be >= 0")
     assert(
-        !is_undef(dovetail_relief_chamfer_depth)
-            || required_relief_chamfer_depth <= transition_depth + 0.000001,
-        "tube-clamp 30-degree relief needs more transition_depth"
+        active_transition_depth
+            >= required_relief_chamfer_depth - 0.000001,
+        "tube-clamp transition_depth is too short for the dovetail flank"
     )
-    assert(active_relief_chamfer_depth <= transition_depth,
+    assert(active_relief_chamfer_depth <= active_transition_depth,
         "tube-clamp dovetail_relief_chamfer_depth must not exceed transition_depth")
     object(
         tube_center_y = active_tube_center_y,
@@ -89,6 +91,11 @@ function hub75_tube_clamp_create(
         dovetail_relief_chamfer_depth =
             active_relief_chamfer_depth,
         base_clamp = base_clamp
+    );
+
+function hub75_tube_clamp_create_for_size(size) =
+    hub75_tube_clamp_create(
+        dovetail = hub75_tube_mount_dovetail_create_for_size(size)
     );
 
 function hub75_tube_clamp_tube_center_y(clamp) =

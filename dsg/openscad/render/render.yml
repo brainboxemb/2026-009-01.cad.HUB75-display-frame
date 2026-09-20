@@ -13,3 +13,4 @@ profiles:
       - horizontal-edge-tube-mount-coupler.scad
       - corner-edge-tube-mount-coupler-left.scad
       - corner-edge-tube-mount-coupler-right.scad
+      - dovetail-tube-clamp.scad
