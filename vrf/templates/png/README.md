@@ -148,3 +148,23 @@ instead of being duplicated here.
 ![Corner right large XY side-edge slice](corner-edge-coupler-right-large-xy-side-edge-section.png)
 
 ![Corner right large angled fit](corner-edge-coupler-right-large-fit-detail.png)
+
+# Detachable reinforcement clip
+
+## Small
+
+![Dovetail tube clamp small assembled fit](dovetail-tube-clamp-small-fit.png)
+
+![Dovetail tube clamp small YZ section](dovetail-tube-clamp-small-yz-section.png)
+
+## Medium
+
+![Dovetail tube clamp medium assembled fit](dovetail-tube-clamp-medium-fit.png)
+
+![Dovetail tube clamp medium YZ section](dovetail-tube-clamp-medium-yz-section.png)
+
+## Large
+
+![Dovetail tube clamp large assembled fit](dovetail-tube-clamp-large-fit.png)
+
+![Dovetail tube clamp large YZ section](dovetail-tube-clamp-large-yz-section.png)
