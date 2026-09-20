@@ -19,7 +19,7 @@ use <project_components/tube_mount/dovetail_tube_clamp.scad>
 view_mode = "assembly"; // [assembly,two-panel-assembly,exploded,panels,couplers,middle-coupler,horizontal-edge-coupler,horizontal-edge-tube-mount-coupler,corner-edge-left,corner-edge-right,corner-edge-tube-mount-left,corner-edge-tube-mount-right,tube-clamp,middle-fit,horizontal-edge-fit,corner-edge-fit-left,corner-edge-fit-right]
 
 /* [Preview detail] */
-preview_detail = "low"; // [full,low]
+high_resolution = false;
 
 /* [Coupler profile] */
 coupler_profile = "medium"; // [small,medium,large,custom]
@@ -59,19 +59,14 @@ section_direction = "Positive"; // [Positive,Negative]
 
 panel = hub75_p5_64x32_panel_create();
 
-preview_low_detail = preview_detail == "low";
-preview_render_fn = preview_low_detail ? 48 : 192;
+preview_low_detail = !high_resolution;
+preview_render_fn = high_resolution ? 192 : 48;
 preview_panel_view =
     hub75_p5_64x32_panel_view_id(
-        preview_low_detail ? "structure" : "final"
+        high_resolution ? "final" : "structure"
     );
 
-$fn = preview_low_detail ? 24 : 48;
-
-assert(
-    preview_detail == "full" || preview_detail == "low",
-    str("Unsupported preview_detail: ", preview_detail)
-);
+$fn = high_resolution ? 48 : 24;
 
 assert(
     coupler_profile == "small"
