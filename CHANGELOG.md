@@ -43,6 +43,10 @@ This file records the functional evolution of the HUB75 display-frame project.
   the female is now cut directly into the existing corner base / guide /
   outer-edge material with no added carrier solid; the horizontal-edge variant
   retains its two compact local carriers.
+- Add the missing local clamp-body keep-out to the corner-edge variant. It
+  subtracts a fit-clearanced copy of the actual clamp body on the same
+  Y = -8.5 mm tube-centre datum, while the continuous tube keep-out remains
+  separate.
 
 - Pin `lib.scad.mechint v0.1.4` and configure a 0.5 mm straight root land on
   the 12 x 2 mm male/female dovetail. The remaining 1.5 mm of profile depth

@@ -373,10 +373,13 @@ at local Y = -1.5 mm.
 
 The horizontal-edge variant retains its two compact local carriers. The
 corner-edge variant does not add a separate tube-mount body: its accepted
-outside shape is kept, the continuous Ø10 tube keep-out is subtracted, and the
-single female dovetail is cut directly into the existing corner material. Its
-placement envelope keeps 2 mm of existing material beside the clearanced female
-root and a 4 mm outer-edge margin.
+outside shape is kept, the continuous Ø10 tube keep-out is subtracted, a local
+clearanced copy of the real clamp body is subtracted at the clamp position, and
+the single female dovetail is cut directly into the existing corner material.
+The clamp-body cutout uses the coupler's existing fit clearance and follows the
+real snap opening/transition rather than removing a full cylindrical envelope.
+Its placement envelope keeps 2 mm of existing material beside the clearanced
+female root and a 4 mm outer-edge margin.
 
 The dovetail slide axis is project Z; the clamp enters from local +Z, i.e. from
 above for the canonical top-edge orientation. The horizontal-edge variant

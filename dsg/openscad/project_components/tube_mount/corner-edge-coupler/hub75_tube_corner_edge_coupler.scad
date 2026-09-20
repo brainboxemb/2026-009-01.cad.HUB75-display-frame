@@ -42,6 +42,9 @@ function hub75_tube_corner_edge_clamp_x(coupler) =
 function hub75_tube_corner_edge_keepout_radial_clearance(coupler) =
     coupler.fit_clearance;
 
+function hub75_tube_corner_edge_clamp_body_clearance(coupler) =
+    coupler.fit_clearance;
+
 
 // ----------------------------------------------------------------------
 // Public geometry
@@ -65,6 +68,12 @@ module hub75_tube_corner_edge_coupler_build(
         _hub75_tube_corner_edge_keepout_cutter(
             coupler,
             clamp
+        );
+
+        _hub75_tube_corner_edge_clamp_keepout_cutter(
+            coupler,
+            clamp,
+            clip_x
         );
 
         hub75_tube_mount_dovetail_female_cutter(
@@ -104,4 +113,54 @@ module _hub75_tube_corner_edge_keepout_cutter(
                 h = cutter_length,
                 $fn = coupler.render_fn
             );
+}
+
+
+module _hub75_tube_corner_edge_clamp_keepout_cutter(
+    coupler,
+    clamp,
+    clip_x
+) {
+    clearance =
+        hub75_tube_corner_edge_clamp_body_clearance(coupler);
+    base_clamp = clamp.base_clamp;
+
+    // Build a slightly enlarged copy of the actual clamp body and subtract it
+    // locally. This preserves the real snap opening/transition shape instead of
+    // clearing an unnecessarily large full cylinder around the tube.
+    keepout_clamp =
+        hub75_tube_clamp_create(
+            tube_center_y =
+                hub75_tube_clamp_tube_center_y(clamp),
+            tube_center_z =
+                hub75_tube_clamp_tube_center_z(clamp),
+            tube_diameter =
+                hub75_tube_clamp_functional_diameter(clamp),
+            tension_diameter =
+                hub75_tube_clamp_functional_diameter(clamp),
+            wall_thickness =
+                base_clamp.wall_thickness + clearance,
+            clamp_width =
+                base_clamp.clamp_width + 2 * clearance,
+            opening_angle =
+                base_clamp.opening_angle,
+            transition_depth =
+                base_clamp.transition_depth + clearance,
+            dovetail_slide =
+                clamp.dovetail_slide,
+            dovetail_center_z =
+                clamp.dovetail_center_z,
+            dovetail_relief_chamfer_depth = 0,
+            extra =
+                base_clamp.extra,
+            dovetail =
+                clamp.dovetail
+        );
+
+    translate([clip_x, 0, 0])
+        hub75_tube_clamp_body_build(
+            keepout_clamp,
+            use_tension_bore = false,
+            high_resolution = true
+        );
 }
