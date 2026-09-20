@@ -264,10 +264,10 @@ the reusable dependencies needed by the new design.
   historical structural datums explicitly:
   - tube length = 840 mm, spanning X = -420 .. +420 mm;
   - tube centres = Z = -170 mm and +170 mm (340 mm centre spacing);
-  - current tube centre = 8.0 mm in front of the HUB75 rear mounting plane,
-    moved 1.0 mm forward from the historical 7.0 mm datum;
-  - this Ø10 placement leaves 3.0 mm to the rear mounting plane and 1.5 mm to
-    the panel front face;
+  - current tube centre = 8.5 mm in front of the HUB75 rear mounting plane,
+    moved 1.5 mm forward from the historical 7.0 mm datum;
+  - this Ø10 placement puts the tube centre at global Y = 6.0 mm and leaves
+    exactly 1.0 mm between the tube front and the panel front face;
   - tube-clip offset from a seam/corner datum = 18 mm for the small profile and
     25 mm for medium/large;
 - add `lib.scad.clamps` as the source of the basic tube-clamp geometry;
@@ -316,10 +316,10 @@ intended print orientations.
 - the horizontal-edge variant has no local backing lobe; its existing 2 / 3 /
   4 mm rear base remains the rear host for small / medium / large; corner
   variants keep their own local carrier treatment;
-- the integral female tongue is 0.8 mm thick; with the Y = -1.5 mm mouth offset,
-  the 2 / 3 / 4 mm hosts retain 0.5 / 1.5 / 2.5 mm rear-open flex cavities
-  respectively and keep a coplanar outer
-  rear face;
+- the integral female tongue follows the remaining host material all the way
+  to the existing rear face. With the channel roof at local Y = +0.7 mm, the
+  2 / 3 / 4 mm hosts therefore use 1.3 / 2.3 / 3.3 mm tongue thickness and no
+  rear-open flex cavity; this keeps the rear-face-down print surface flat;
 - the canonical clamp uses `tube_diameter = 10`, zero positive clearance,
   `tension_diameter = 9.6`, a 2.0 mm wall, 12 mm clamp width and a 1 mm
   transition;

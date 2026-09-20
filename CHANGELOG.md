@@ -91,9 +91,10 @@ This file records the functional evolution of the HUB75 display-frame project.
   `lib.scad.mechint` 12 mm root / 2.0 mm height / 30° sliding dovetail while
   retaining the library's 0.20 mm fit clearance, 0.25 mm axial clearance and
   integral lock/release mechanism.
-- Make every tube-mount carrier exactly coplanar with its coupler rear face
-  (2 / 3 / 4 mm by profile) and use a 0.8 mm locking tongue plus only the
-  required rear-open flex cavity, eliminating the local rearward mounting bump.
+- Keep the tube-mount lock tongue flush with each host rear face instead of
+  leaving a rear flex cavity. With the female channel roof at local Y = +0.7 mm,
+  the 2 / 3 / 4 mm hosts use 1.3 / 2.3 / 3.3 mm tongue thickness respectively,
+  removing the rear-face-down overhang while retaining the U-shaped relief cuts.
 - Reduce the canonical Ø10 tube-clamp wall from 2.6 mm to 2.0 mm, narrow the
   clamp from 16 mm to 12 mm and reduce its local transition depth from 5 mm to
   1 mm. The nominal outside ring remains Ø14.0 mm;

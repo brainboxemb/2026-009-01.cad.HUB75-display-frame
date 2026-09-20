@@ -154,8 +154,12 @@ The native `-X` entry side from the library is transformed into project
 `+Z`. The existing 16 mm female entry slot therefore becomes a straight
 vertical approach above the mating channel. The 2 mm profile uses a 0.5 mm
 straight mouth land, 1.0 mm of 30° flank and a 0.5 mm straight root land. Its
-mouth is shifted to project Y = -1.5 mm: small / medium / large retain
-0.5 / 1.5 / 2.5 mm rear-open flex cavities behind the 0.8 mm tongue.
+mouth is shifted to project Y = -1.5 mm. The channel roof then lies at local
+Y = +0.7 mm. Instead of leaving a cavity behind a thin 0.8 mm tongue, the
+tongue now uses all remaining material up to the existing rear face. Its
+thickness is therefore 1.3 / 2.3 / 3.3 mm for the 2 / 3 / 4 mm hosts. The rear
+surface stays flat, avoiding the horizontal overhang visible in the earlier
+rear-face-down print orientation.
 
 <!-- scad-render
 view: dovetail

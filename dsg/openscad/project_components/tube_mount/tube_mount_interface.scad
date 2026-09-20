@@ -12,9 +12,9 @@
 // detachable clamp 0.5 mm toward the panel front so the Ø10 tube starts 1.0 mm
 // behind the panel front face. Consumers may cut the female directly into
 // existing front-side structure (as the horizontal edge does) or provide local
-// carrier material where needed (as the corner variants do). The 2 mm profile,
-// 0.20 mm female clearance and 0.8 mm spring tongue fit the existing flat
-// 2 / 3 / 4 mm rear hosts without moving the mating plane per size.
+// carrier material where needed (as the corner variants do). The lock tongue
+// uses all remaining host thickness behind the female channel, so the rear face
+// stays flat and no print-hostile back cavity is introduced.
 
 use <../../ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail.scad>
 use <../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
@@ -29,7 +29,7 @@ _HUB75_TUBE_MOUNT_DOVETAIL_CLEARANCE = 0.20;
 _HUB75_TUBE_MOUNT_DOVETAIL_AXIAL_CLEARANCE = 0.25;
 _HUB75_TUBE_MOUNT_DOVETAIL_ENTRY_SLOT_LENGTH = 16;
 _HUB75_TUBE_MOUNT_DOVETAIL_MOUTH_Y = -1.5;
-_HUB75_TUBE_MOUNT_LOCK_SPRING_THICKNESS = 0.8;
+_HUB75_TUBE_MOUNT_LOCK_MIN_SPRING_THICKNESS = 0.8;
 
 function hub75_tube_mount_tube_front_offset() =
     _HUB75_TUBE_MOUNT_FRONT_OFFSET;
@@ -45,29 +45,30 @@ function hub75_tube_mount_tube_center_y(
 function hub75_tube_mount_dovetail_mouth_y() =
     _HUB75_TUBE_MOUNT_DOVETAIL_MOUTH_Y;
 
-function hub75_tube_mount_dovetail_min_host_depth() =
+function hub75_tube_mount_dovetail_channel_roof_y() =
     _HUB75_TUBE_MOUNT_DOVETAIL_MOUTH_Y
     + _HUB75_TUBE_MOUNT_DOVETAIL_HEIGHT
-    + _HUB75_TUBE_MOUNT_DOVETAIL_CLEARANCE
-    + _HUB75_TUBE_MOUNT_LOCK_SPRING_THICKNESS;
+    + _HUB75_TUBE_MOUNT_DOVETAIL_CLEARANCE;
+
+function hub75_tube_mount_dovetail_min_host_depth() =
+    hub75_tube_mount_dovetail_channel_roof_y()
+    + _HUB75_TUBE_MOUNT_LOCK_MIN_SPRING_THICKNESS;
+
+function hub75_tube_mount_lock_spring_thickness(host_depth) =
+    host_depth
+    - hub75_tube_mount_dovetail_channel_roof_y();
 
 function hub75_tube_mount_dovetail_create(
     host_depth = hub75_tube_mount_dovetail_min_host_depth(),
     entry_slot_length = _HUB75_TUBE_MOUNT_DOVETAIL_ENTRY_SLOT_LENGTH
 ) =
     let(
-        back_clearance =
-            host_depth
-            - hub75_tube_mount_dovetail_min_host_depth(),
-        cut_back_clearance = back_clearance > 0
+        spring_thickness =
+            hub75_tube_mount_lock_spring_thickness(host_depth)
     )
     assert(
-        host_depth >= hub75_tube_mount_dovetail_min_host_depth(),
-        "tube-mount dovetail host is too shallow"
-    )
-    assert(
-        !cut_back_clearance || back_clearance >= 0.5,
-        "tube-mount lock back clearance must be 0 or at least threshold height"
+        spring_thickness >= _HUB75_TUBE_MOUNT_LOCK_MIN_SPRING_THICKNESS,
+        "tube-mount dovetail host leaves too little material for the lock tongue"
     )
     sliding_dovetail_create(
         width = _HUB75_TUBE_MOUNT_DOVETAIL_WIDTH,
@@ -81,10 +82,9 @@ function hub75_tube_mount_dovetail_create(
         axial_clearance = _HUB75_TUBE_MOUNT_DOVETAIL_AXIAL_CLEARANCE,
         entry_slot_length = entry_slot_length,
         locking = true,
-        lock_spring_thickness =
-            _HUB75_TUBE_MOUNT_LOCK_SPRING_THICKNESS,
-        lock_cut_back_clearance = cut_back_clearance,
-        lock_back_clearance = back_clearance
+        lock_spring_thickness = spring_thickness,
+        lock_cut_back_clearance = false,
+        lock_back_clearance = 0
     );
 
 function hub75_tube_mount_dovetail_angle(dovetail) =
