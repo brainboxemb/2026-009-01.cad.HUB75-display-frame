@@ -69,7 +69,8 @@ Na implementatie:
 - controleer de relevante CI en gegenereerde evidence;
 - inspecteer visuele evidence inhoudelijk, niet alleen workflowstatus;
 - werk docs/01-project-plan.md status/evidence bij waar nuttig;
-- werk CHANGELOG.md alleen bij voor afgeronde functionele veranderingen;
+- werk CHANGELOG.md bij voor betekenisvolle functionele én zichtbare
+  repository/resource-wijzigingen volgens brainboxemb.meta;
 - laat een repositorytoestand achter waaruit een nieuwe sessie zelfstandig de
   volgende stap kan bepalen.
 ```

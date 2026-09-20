@@ -93,3 +93,8 @@ profiles:
     files: [horizontal-edge-tube-mount-yz-section.scad]
     sizes: [small, medium, large]
     output_pattern: "horizontal-edge-tube-mount-coupler-{size}-yz-section.png"
+
+  horizontal-tube-mount-lock-section:
+    files: [horizontal-edge-tube-mount-lock-section.scad]
+    sizes: [small, medium, large]
+    output_pattern: "horizontal-edge-tube-mount-coupler-{size}-lock-section.png"

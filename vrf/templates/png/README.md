@@ -228,9 +228,10 @@ position changes only because the small coupler uses a different clamp location.
 | Clamp fit | 3D view | clamp centre X = 18 mm small; 25 mm medium / large | — | Shows the complete local tube-mount, clamp and Ø10 aluminium tube |
 | YZ dovetail section — small | YZ, normal X | centre X = 18.00 mm | 0.20 mm | Section through the centre of the local dovetail engagement |
 | YZ dovetail section — medium / large | YZ, normal X | centre X = 25.00 mm | 0.20 mm | Same section at the common medium/large clamp position |
+| XY lock section | XY, normal Z | centre Z = 10.00 mm | 0.20 mm | Shows the lib.scad.mechint ramped threshold, male recess/release and female spring tongue |
 
-The implementation starts these 0.20 mm slabs at
-`centre X - 0.10 mm` and retains them in the positive X direction.
+The implementation starts these 0.20 mm slabs half a section thickness before
+the listed centre and retains them in the positive section-axis direction.
 
 ## Small
 
@@ -238,14 +239,20 @@ The implementation starts these 0.20 mm slabs at
 
 ![Small tube-mount coupler YZ section](horizontal-edge-tube-mount-coupler-small-yz-section.png)
 
+![Small tube-mount coupler lock section](horizontal-edge-tube-mount-coupler-small-lock-section.png)
+
 ## Medium
 
 ![Medium tube-mount coupler with canonical clamp](horizontal-edge-tube-mount-coupler-medium-clamp-fit.png)
 
 ![Medium tube-mount coupler YZ section](horizontal-edge-tube-mount-coupler-medium-yz-section.png)
 
+![Medium tube-mount coupler lock section](horizontal-edge-tube-mount-coupler-medium-lock-section.png)
+
 ## Large
 
 ![Large tube-mount coupler with canonical clamp](horizontal-edge-tube-mount-coupler-large-clamp-fit.png)
 
 ![Large tube-mount coupler YZ section](horizontal-edge-tube-mount-coupler-large-yz-section.png)
+
+![Large tube-mount coupler lock section](horizontal-edge-tube-mount-coupler-large-lock-section.png)

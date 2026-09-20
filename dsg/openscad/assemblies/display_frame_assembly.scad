@@ -151,7 +151,8 @@ module _hub75_display_frame_tube_clamps(
                 translate([clip_x, 0, 0])
                     hub75_dovetail_tube_clamp_build(
                         clamp,
-                        part_color = clamp_color
+                        part_color = clamp_color,
+                        entry_side = clip_x < 0 ? -1 : 1
                     );
 
             translate([seam_x, mounting_y, -edge_z])
@@ -159,7 +160,8 @@ module _hub75_display_frame_tube_clamps(
                     translate([clip_x, 0, 0])
                         hub75_dovetail_tube_clamp_build(
                             clamp,
-                            part_color = clamp_color
+                            part_color = clamp_color,
+                            entry_side = clip_x < 0 ? -1 : 1
                         );
         }
     }
@@ -168,14 +170,16 @@ module _hub75_display_frame_tube_clamps(
         translate([left_offset, 0, 0])
             hub75_dovetail_tube_clamp_build(
                 clamp,
-                part_color = clamp_color
+                part_color = clamp_color,
+                entry_side = left_coupler.x_inward
             );
 
     translate([edge_x, mounting_y, edge_z])
         translate([right_offset, 0, 0])
             hub75_dovetail_tube_clamp_build(
                 clamp,
-                part_color = clamp_color
+                part_color = clamp_color,
+                entry_side = right_coupler.x_inward
             );
 
     translate([edge_x, mounting_y, -edge_z])
@@ -183,7 +187,8 @@ module _hub75_display_frame_tube_clamps(
             translate([left_offset, 0, 0])
                 hub75_dovetail_tube_clamp_build(
                     clamp,
-                    part_color = clamp_color
+                    part_color = clamp_color,
+                    entry_side = left_coupler.x_inward
                 );
 
     translate([-edge_x, mounting_y, -edge_z])
@@ -191,7 +196,8 @@ module _hub75_display_frame_tube_clamps(
             translate([right_offset, 0, 0])
                 hub75_dovetail_tube_clamp_build(
                     clamp,
-                    part_color = clamp_color
+                    part_color = clamp_color,
+                    entry_side = right_coupler.x_inward
                 );
 }
 

@@ -41,7 +41,8 @@ module hub75_dovetail_tube_clamp_fit_assembly(
         translate([clip_x + slide_shift, 0, 0])
             hub75_dovetail_tube_clamp_build(
                 clamp,
-                part_color = [0.92, 0.20, 0.08, 1]
+                part_color = [0.92, 0.20, 0.08, 1],
+                entry_side = clip_x < 0 ? -1 : 1
             );
 
     if (show_tube)

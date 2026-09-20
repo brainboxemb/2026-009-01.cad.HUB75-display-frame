@@ -4,6 +4,21 @@ This file records the functional evolution of the HUB75 display-frame project.
 
 ## Unreleased
 
+### Added
+
+- Add released `lib.scad.mechint v0.1.0` as the reusable owner of the
+  tube-mount sliding-dovetail profile, clearances and integral lock/release
+  geometry.
+- Add focused XY lock-section verification for the detachable tube mount.
+
+### Changed
+
+- Replace the PR #45 project-local 10/8/3 mm dovetail prism/cutter with the
+  library's standard 10 mm root / 3 mm height / 20° interface and enable its
+  integral lock.
+- Deepen the local tube-mount carrier to 5.5 mm and give corner tube mounts the
+  same local backing lobe so the female spring/cavity has real host material.
+
 ### Fixed
 
 - Restore the intended alternating five-panel physical orientation: panels 0, 2 and 4 keep the native HUB75 orientation while panels 1 and 3 rotate 180 degrees about Y; focused seam/edge verification now reuses the same project panel-array rule.

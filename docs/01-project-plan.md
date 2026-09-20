@@ -49,8 +49,9 @@ The old integrated clip geometry is not copied. The new clip consumes the base
 Experiment 005 investigated an OpenGrid-inspired compliant snap, but it was
 stopped early because that mechanism was a poor match for the intended
 side-printed clip and layer direction. It is historical evidence, not a
-production prerequisite. The current product direction is a simple sliding
-dovetail developed directly in this repository.
+production prerequisite. The current product direction is the released
+`lib.scad.mechint` sliding dovetail with its integral lock enabled; HUB75 owns
+only placement, orientation and local carrier geometry.
 
 `lib.scad.util` is also consumed directly. `util_section_inspect()` is the
 standard helper for ordinary X/Y/Z inspection slabs in interactive and
@@ -262,6 +263,8 @@ the reusable dependencies needed by the new design.
 - restore the two continuous Ø10 x 1 mm-wall aluminium tubes at the historical
   top/bottom locations;
 - add `lib.scad.clamps` as the source of the basic tube-clamp geometry;
+- add `lib.scad.mechint v0.1.0` as the source of the sliding-dovetail mating
+  profile, fit clearance and integral lock/release geometry;
 - add `lib.scad.util` and use `util_section_inspect()` as the normal
   axis-aligned section mechanism;
 - migrate existing verification slabs that merely duplicate that utility.
@@ -278,8 +281,9 @@ slab implementations.
 
 **Goal**
 
-Make the tube clip a separate printable part and attach it to the coupler with a
-simple sliding dovetail that respects both intended print orientations.
+Make the tube clip a separate printable part and attach it to the coupler with
+the standard locked `lib.scad.mechint` sliding dovetail while respecting both
+intended print orientations.
 
 **Design direction**
 
@@ -288,15 +292,17 @@ simple sliding dovetail that respects both intended print orientations.
   one for each tube clamp;
 - each mounting point contains one short female dovetail entered from its
   adjacent X side; there is no long groove through the coupler arm;
-- the female profile may use the normal sloping dovetail faces: in the intended
-  coupler print orientation those slopes are acceptable printable overhangs;
+- the mating profile uses the `lib.scad.mechint v0.1.0` standard
+  10 mm root / 3 mm height / 20° geometry and its default fit clearances;
+- integral locking and screwdriver release are enabled on the shared interface
+  object now rather than being deferred as separate project-local geometry;
+- local rounded backing lobes provide enough host depth for the female spring
+  tongue/flex cavity without changing the panel-facing core component geometry;
 - the separate clamp is side-printed and its lower mounting foot itself is the
   matching male dovetail, rather than carrying a separate rail;
 - the actual snap clamp remains `tube_clamp_build()` from `lib.scad.clamps`;
-- top/bottom and left/right placements should reuse the same basic clip geometry
-  through assembly transforms where practical;
-- slide-axis locking/detent is deliberately postponed until physical fit is
-  qualified.
+- top/bottom and left/right placements reuse the same basic clip geometry with
+  mirrored entry-side orientation where needed.
 
 Digital CAD clearance and section evidence may be developed now, but they are
 not treated as printer/material fit acceptance.
@@ -308,7 +314,8 @@ not treated as printer/material fit acceptance.
 - the horizontal-edge variant has two distinct mounting points;
 - the clip is independently exportable;
 - the complete display shows the clip/tube load path;
-- focused section evidence makes the dovetail engagement readable;
+- focused YZ fit and XY lock-section evidence makes both the dovetail engagement
+  and integral retention mechanism readable;
 - the intended upside-down coupler and side-printed clamp orientations remain
   practical in CAD.
 
@@ -329,13 +336,15 @@ before that core gate is closed.
 - dovetail insertion/removal force;
 - printer/material sensitivity and clearance;
 - resistance to pulling the clip away from the coupler;
-- resistance to sliding back out of the groove;
+- integral spring-lock engagement and release with a small screwdriver;
+- resistance to sliding back out of the groove while the lock is engaged;
 - clamp snap force around the aluminium tube;
 - side-print quality and layer direction of the separate clip;
 - repeated removal without visible damage.
 
-If slide-axis retention is insufficient, add the smallest local stop/detent
-needed rather than replacing the whole interface concept automatically.
+If the reusable lock needs tuning, adjust the smallest relevant interface
+parameter and feed genuinely generic geometry changes back to
+`lib.scad.mechint` rather than duplicating a project-local detent.
 
 **Exit criteria**
 

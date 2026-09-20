@@ -238,6 +238,7 @@ tool.git-project   v0.2.8  / 7c43f37e7b07cfb57638a1d1dad2501de09ba7eb
 SCAD toolchain     ghcr.io/brainboxemb/scad-toolchain-openscad:v0.5.0
 lib.scad.hub75     v0.1.5  / e0432a9533a08a1c0d9e87225c22f3f66b632531
 lib.scad.clamps    v0.1.6  / 021eed7bba76ca77825bd6f6c850e1ebd2916283
+lib.scad.mechint   v0.1.0  / 786fdbf2d2915c8e716878e7bc77e0a6b0bdfd86
 lib.scad.util      exact    / b11c77cb5529696e730d4b54804d6f8676fd8001
 ```
 
@@ -356,12 +357,15 @@ The aluminium tube itself is a generic local component under
 `dsg/openscad/components/`; only its frame length and placement are
 project-specific assembly decisions.
 
-The detachable clamp body comes from `lib.scad.clamps`. The project-specific
-lower mounting foot itself is the male dovetail. The horizontal-edge tube-mount
-variant adds two rounded local mounting points; each contains one short female
-dovetail entered from its adjacent side. The coupler is intended to be printed
-upside down, so the dovetail flanks form printable sloping overhangs. The clamp
-is intended to be printed on its side.
+The detachable clamp body comes from `lib.scad.clamps`. The complete mating
+interface comes from `lib.scad.mechint v0.1.0`: the HUB75 adapter uses the
+library's standard 10 mm root / 3 mm height / 20° sliding dovetail with integral
+locking enabled. The project owns only placement/orientation and the local
+carrier depth/entry opening around that interface. The horizontal-edge
+tube-mount variant adds two rounded local mounting points; each contains one
+short side-entry female interface. The corner variants use the same local
+backing lobe so the spring lock has sufficient material. The coupler is intended
+to be printed upside down; the clamp remains side-printed.
 
 `tube-mount-display-2-panel.stl` is the compact whole-model inspection export:
 it contains two panels, the complete coupler family, detachable clamps and both
@@ -402,8 +406,9 @@ place avoids a second project backlog drifting inside this README.
 
 The plan preserves the core panel-fit boundary while allowing the independent
 tube-mount layer to progress in parallel. Experiment 005 is historical only;
-the current product direction is a simple sliding dovetail developed directly in
-this repository. The reusable clamp body comes from `lib.scad.clamps`, and
-ordinary X/Y/Z inspection sections use `lib.scad.util`.
+the current product direction uses the released `lib.scad.mechint` sliding
+dovetail and integral lock instead of maintaining project-local mating geometry.
+The reusable clamp body comes from `lib.scad.clamps`, and ordinary X/Y/Z
+inspection sections use `lib.scad.util`.
 
 The model and documentation were developed with the assistance of ChatGPT.
