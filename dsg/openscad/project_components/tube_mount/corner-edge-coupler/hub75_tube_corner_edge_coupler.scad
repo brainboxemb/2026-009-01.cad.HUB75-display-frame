@@ -120,6 +120,30 @@ module _hub75_tube_corner_edge_keepout_cutter(
 }
 
 
+module _hub75_tube_corner_edge_outer_ring_envelope(
+    clamp,
+    clip_x
+) {
+    ring_r =
+        hub75_tube_clamp_outer_diameter(clamp) / 2;
+    ring_width =
+        clamp.base_clamp.clamp_width;
+    ring_fn = 64;
+
+    translate([
+        clip_x - ring_width / 2,
+        hub75_tube_clamp_tube_center_y(clamp),
+        hub75_tube_clamp_tube_center_z(clamp)
+    ])
+        rotate([0, 90, 0])
+            cylinder(
+                r = ring_r,
+                h = ring_width,
+                $fn = ring_fn
+            );
+}
+
+
 module _hub75_tube_corner_edge_clamp_keepout_cutter(
     coupler,
     clamp,
@@ -139,10 +163,12 @@ module _hub75_tube_corner_edge_clamp_keepout_cutter(
         "corner clamp keepout needs positive dovetail entry travel"
     );
 
-    // Build a slightly enlarged copy of the actual clamp body, then sweep that
-    // body over exactly the same +Z approach distance as the female dovetail
-    // entry slot. A static cavity at the final position is not sufficient:
-    // the complete clamp must be able to travel down into the female channel.
+    // Build a slightly enlarged copy of the actual clamp body, then sweep it
+    // over exactly the same +Z approach distance as the female dovetail entry
+    // slot. In addition to the detailed body, clear the complete solid outer
+    // ring envelope. The old hollow-body-only sweep could leave corner material
+    // inside the clamp bore/opening volume, which visually and physically
+    // blocked the complete clip even though the female dovetail itself fitted.
     keepout_clamp =
         hub75_tube_clamp_create(
             tube_center_y =
@@ -175,15 +201,22 @@ module _hub75_tube_corner_edge_clamp_keepout_cutter(
         );
 
     // Minkowski with a narrow +Z segment is the actual translational swept
-    // volume. Low-resolution cutter geometry keeps this boolean practical while
-    // retaining the real clamp opening and compact transition as its source.
+    // volume. The union uses the detailed enlarged body for its transition and
+    // a filled outer-ring cylinder for the complete clip envelope.
     minkowski() {
-        translate([clip_x, 0, 0])
-            hub75_tube_clamp_body_build(
+        union() {
+            translate([clip_x, 0, 0])
+                hub75_tube_clamp_body_build(
+                    keepout_clamp,
+                    use_tension_bore = false,
+                    high_resolution = false
+                );
+
+            _hub75_tube_corner_edge_outer_ring_envelope(
                 keepout_clamp,
-                use_tension_bore = false,
-                high_resolution = false
+                clip_x
             );
+        }
 
         translate([
             -sweep_eps / 2,

@@ -29,6 +29,11 @@ This file records the functional evolution of the HUB75 display-frame project.
 
 ### Changed
 
+- Smooth the clamp-to-transition shoulder with a broad shallow cylindrical
+  relief (R10, 1 mm bite) instead of adding another small sharp radius.
+- Expand the corner insertion keep-out from the detailed hollow clamp body to
+  the complete solid outer-ring envelope as well, so the full clip has a clear
+  +Z insertion path rather than only the female interface fitting.
 - Adopt the released `lib.scad.mechint v0.1.5` centered two-sided hinge
   relief and leave a 0.8 mm central flex web in the HUB75 female lock tongue.
 - Split the detachable clamp into size-matched small / medium / large variants:
