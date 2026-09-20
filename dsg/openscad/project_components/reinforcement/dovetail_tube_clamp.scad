@@ -12,8 +12,9 @@
 //   - the compact clamp base faces the coupler in +Y.
 //
 // The project-specific lower mounting foot IS the male dovetail. It is not a
-// small secondary rail attached somewhere else on the clamp. A short local web,
-// following the proven V1.2 support idea, joins that foot to the compact base.
+// separate rail attached under a generic mounting plate. A short local web,
+// following the proven V1.2 support idea, joins that foot to the compact
+// lib.scad.clamps base.
 
 use <../../ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad>
 
@@ -32,12 +33,13 @@ function hub75_reinforcement_tube_clamp_create(
     clamp_width = 16,
     opening_angle = 60,
     compact_base_thickness = 0.2,
-    transition_width = 16,
+    transition_width = 8,
     transition_depth = 5,
-    dovetail_center_z = -2.0,
-    dovetail_root_width = 5.5,
-    dovetail_mouth_width = 4.0,
-    dovetail_clearance = 0.25,
+    dovetail_center_z = 3.5,
+    dovetail_root_width = 4.5,
+    dovetail_mouth_width = 3.0,
+    dovetail_clearance = 0.20,
+    dovetail_axial_clearance = 0.25,
     render_fn = 192
 ) =
     let(
@@ -61,15 +63,17 @@ function hub75_reinforcement_tube_clamp_create(
     assert(coupler_base_thickness > 0,
         "coupler base thickness must be > 0")
     assert(dovetail_root_width > dovetail_mouth_width,
-        "dovetail root must be wider than the rear mouth")
+        "dovetail root must be wider than the mouth")
     assert(dovetail_mouth_width > 0,
         "dovetail mouth width must be > 0")
     assert(dovetail_clearance >= 0,
         "dovetail clearance must be >= 0")
+    assert(dovetail_axial_clearance >= 0,
+        "dovetail axial clearance must be >= 0")
     assert(render_fn >= 24,
         "clamp render_fn must be >= 24")
-    // Preserve the proven V1.2 tube centre by choosing the library compact
-    // base so its ring centre lands exactly at tube_center_y after transform.
+    // Preserve the historical tube Y centre. With the source clamp oriented
+    // correctly, its ring centre must land at Y=-7 mm.
     assert(abs(center_distance + tube_center_y) < 0.001,
         "compact clamp base no longer preserves the intended tube Y centre")
     object(
@@ -80,6 +84,7 @@ function hub75_reinforcement_tube_clamp_create(
         dovetail_root_width = dovetail_root_width,
         dovetail_mouth_width = dovetail_mouth_width,
         dovetail_clearance = dovetail_clearance,
+        dovetail_axial_clearance = dovetail_axial_clearance,
         render_fn = render_fn,
         base_clamp = base_clamp
     );
@@ -93,6 +98,11 @@ function hub75_reinforcement_tube_clamp_tube_center_y(clamp) =
 function hub75_reinforcement_tube_clamp_tube_center_z(clamp) =
     clamp.tube_center_z;
 
+// Shared male/female dovetail prism.
+//
+// X is the slide axis. In Y/Z section the profile is narrow at the exposed
+// mouth near Y=0 and wider deeper inside the coupler toward +Y. Once inserted
+// from the side, that wider root prevents pull-off in -Y.
 module _hub75_reinforcement_dovetail_prism(
     x_min,
     x_max,
@@ -107,7 +117,7 @@ module _hub75_reinforcement_dovetail_prism(
     assert(root_width > mouth_width,
         "dovetail root must be wider than mouth");
 
-    // 2D polygon is [Y,Z], extrusion becomes project X.
+    // 2D polygon is [Y,Z]; extrusion becomes project X.
     multmatrix([
         [0, 0, 1, x_min],
         [1, 0, 0, 0],
@@ -116,17 +126,17 @@ module _hub75_reinforcement_dovetail_prism(
     ])
         linear_extrude(height = x_max - x_min)
             polygon(points = [
-                [y_min, -root_width / 2],
-                [y_min,  root_width / 2],
-                [y_max,  mouth_width / 2],
-                [y_max, -mouth_width / 2]
+                [y_min, -mouth_width / 2],
+                [y_min,  mouth_width / 2],
+                [y_max,  root_width / 2],
+                [y_max, -root_width / 2]
             ]);
 }
 
-// Public female cutter for the coupler wrapper.
+// Public female cutter used by reinforced coupler mounting points.
 //
-// It is open through the reinforcement-only base area, so a coupler printed
-// rear-face-down has no blind roof over this slot. The shape slides in X.
+// The caller supplies a SHORT local side-entry span. There is no longer a
+// dovetail channel running from the remote end of an entire coupler arm.
 module hub75_reinforcement_dovetail_groove_cutter(
     clamp,
     entry_x,
@@ -151,6 +161,7 @@ module hub75_reinforcement_dovetail_groove_cutter(
     );
 }
 
+// The clamp foot itself is the male dovetail.
 module _hub75_reinforcement_dovetail_foot(clamp) {
     half_length =
         hub75_reinforcement_tube_clamp_foot_length(clamp) / 2;
@@ -166,22 +177,21 @@ module _hub75_reinforcement_dovetail_foot(clamp) {
     );
 }
 
-// Short local support between the dovetail foot and the compact library base.
+// Short local support between dovetail foot and compact library base.
 //
-// The V1.2 clip used the same idea: keep the tube ring free and bridge only the
-// small gap to the panel-edge mounting root. Here that root is the dovetail
-// itself. The web deliberately remains well below the tube bore.
+// The foot is deliberately low, while the reusable clamp base starts around
+// Z=6 mm. This web bridges only that small gap and stays clear of the Ø10 tube.
 module _hub75_reinforcement_mounting_web(clamp) {
     half_length =
         hub75_reinforcement_tube_clamp_foot_length(clamp) / 2;
-    foot_top =
+    foot_front_top =
         clamp.dovetail_center_z
-        + clamp.dovetail_root_width / 2;
+        + clamp.dovetail_mouth_width / 2;
     compact_base_bottom =
         clamp.tube_center_z
         - clamp.base_clamp.transition_width / 2;
 
-    // 2D polygon is [Y,Z], extrusion becomes project X.
+    // 2D polygon is [Y,Z]; extrusion becomes project X.
     multmatrix([
         [0, 0, 1, -half_length],
         [1, 0, 0, 0],
@@ -193,10 +203,10 @@ module _hub75_reinforcement_mounting_web(clamp) {
                 hub75_reinforcement_tube_clamp_foot_length(clamp)
         )
             polygon(points = [
-                [-0.85, foot_top - 0.35],
-                [ 0.08, foot_top - 0.35],
-                [ 0.08, compact_base_bottom + 1.25],
-                [-0.25, compact_base_bottom + 1.25]
+                [-0.75, foot_front_top - 0.35],
+                [-0.05, foot_front_top - 0.35],
+                [-0.05, compact_base_bottom + 0.80],
+                [-0.25, compact_base_bottom + 0.80]
             ]);
 }
 

@@ -349,7 +349,7 @@ bld/stl/reinforced-horizontal-edge-coupler-<size>.stl
 bld/stl/reinforced-corner-edge-coupler-left-<size>.stl
 bld/stl/reinforced-corner-edge-coupler-right-<size>.stl
 bld/stl/dovetail-tube-clamp-<size>.stl
-bld/stl/reinforced-display-assembly-<size>.stl
+bld/stl/reinforced-display-2-panel.stl
 ```
 
 The aluminium tube itself is a generic local component under
@@ -357,9 +357,16 @@ The aluminium tube itself is a generic local component under
 project-specific assembly decisions.
 
 The detachable clamp body comes from `lib.scad.clamps`. The project-specific
-mounting foot itself is the male dovetail: wide at the inside root and narrower
-at the rear opening. The matching groove is through the reinforcement-only base
-area, keeping the coupler rear-face-down print orientation free of a blind roof.
+lower mounting foot itself is the male dovetail. The horizontal-edge reinforced
+variant adds two rounded local mounting points; each contains one short female
+dovetail entered from its adjacent side. The coupler is intended to be printed
+upside down, so the dovetail flanks form printable sloping overhangs. The clamp
+is intended to be printed on its side.
+
+`reinforced-display-2-panel.stl` is the compact whole-model inspection export:
+it contains two panels, the complete coupler family, detachable clamps and both
+aluminium tubes without producing the >100 MB five-panel STL seen during PR
+iteration.
 
 The generated design walkthrough is published under the `prod/bld` branch's
 `design/` tree.

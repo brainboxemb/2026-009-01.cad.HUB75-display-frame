@@ -1,14 +1,14 @@
-// STL export entrypoint for the complete reinforced five-panel assembly.
+// STL inspection export: complete reinforced assembly with two panels.
 //
-// This is intentionally a whole-model inspection STL: panels, reinforced
-// couplers, separate clamps and both aluminium tubes are all present.
+// Two panels are enough to show one internal seam plus all four outer corners,
+// both reinforcement tubes and every detachable clamp type, while keeping the
+// generated STL practical to publish and inspect.
 
 use <../assemblies/display_frame_assembly.scad>
 
-size = "medium";
-
 hub75_display_frame_assembly(
-    coupler_size = size,
+    coupler_size = "medium",
+    panel_count = 2,
     panels_visible = true,
     middle_couplers_visible = true,
     horizontal_edge_couplers_visible = true,
