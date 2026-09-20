@@ -5,11 +5,13 @@ use <../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
 use <../components/aluminium_tube.scad>
 use <panels_assembly.scad>
 use <helpers/reference_box.scad>
-use <../project_components/middle-coupler/hub75_middle_coupler.scad>
-use <../project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad>
-use <../project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad>
-use <../project_components/tube_mount/tube_mount_couplers.scad>
-use <../project_components/tube_mount/dovetail_tube_clamp.scad>
+use <../components/hub75/middle-coupler/hub75_middle_coupler.scad>
+use <../components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad>
+use <../components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad>
+use <../project_components/tube_mount/horizontal-edge-coupler/hub75_tube_horizontal_edge_coupler.scad>
+use <../project_components/tube_mount/corner-edge-coupler/hub75_tube_corner_edge_coupler.scad>
+use <../project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad>
+use <../project_components/tube_mount/tube_mount_interface.scad>
 
 function _hub75_display_frame_panel_pitch_x(panel) =
     hub75_p5_64x32_panel_nominal_width(panel);
@@ -67,14 +69,14 @@ module _hub75_display_frame_horizontal_edge_couplers(
 
             translate([seam_x, mounting_y, edge_z])
                 if (tube_mount_enabled)
-                    hub75_horizontal_edge_tube_mount_coupler_build(coupler);
+                    hub75_tube_horizontal_edge_coupler_build(coupler);
                 else
                     hub75_horizontal_edge_coupler_build(coupler);
 
             translate([seam_x, mounting_y, -edge_z])
                 rotate([0, 180, 0])
                     if (tube_mount_enabled)
-                        hub75_horizontal_edge_tube_mount_coupler_build(coupler);
+                        hub75_tube_horizontal_edge_coupler_build(coupler);
                     else
                         hub75_horizontal_edge_coupler_build(coupler);
         }
@@ -95,27 +97,27 @@ module _hub75_display_frame_corner_couplers(
     color(coupler_color) {
         translate([-edge_x, mounting_y, edge_z])
             if (tube_mount_enabled)
-                hub75_corner_edge_tube_mount_coupler_build(left_coupler);
+                hub75_tube_corner_edge_coupler_build(left_coupler);
             else
                 hub75_corner_edge_coupler_build(left_coupler);
 
         translate([edge_x, mounting_y, edge_z])
             if (tube_mount_enabled)
-                hub75_corner_edge_tube_mount_coupler_build(right_coupler);
+                hub75_tube_corner_edge_coupler_build(right_coupler);
             else
                 hub75_corner_edge_coupler_build(right_coupler);
 
         translate([edge_x, mounting_y, -edge_z])
             rotate([0, 180, 0])
                 if (tube_mount_enabled)
-                    hub75_corner_edge_tube_mount_coupler_build(left_coupler);
+                    hub75_tube_corner_edge_coupler_build(left_coupler);
                 else
                     hub75_corner_edge_coupler_build(left_coupler);
 
         translate([-edge_x, mounting_y, -edge_z])
             rotate([0, 180, 0])
                 if (tube_mount_enabled)
-                    hub75_corner_edge_tube_mount_coupler_build(right_coupler);
+                    hub75_tube_corner_edge_coupler_build(right_coupler);
                 else
                     hub75_corner_edge_coupler_build(right_coupler);
     }
@@ -133,85 +135,91 @@ module _hub75_display_frame_tube_clamps(
 ) {
     edge_x = _hub75_display_frame_half_width(panel, panel_count);
     edge_z = _hub75_display_frame_half_height(panel);
-    horizontal_offset =
-        hub75_tube_mount_clip_offset(horizontal_coupler.profile_size);
-    left_offset =
-        left_coupler.x_inward
-        * hub75_tube_mount_clip_offset(left_coupler.profile_size);
-    right_offset =
-        right_coupler.x_inward
-        * hub75_tube_mount_clip_offset(right_coupler.profile_size);
-    clamp = hub75_dovetail_tube_clamp_create();
+
+    horizontal_positions =
+        hub75_tube_horizontal_edge_clamp_positions(horizontal_coupler);
+    left_x = hub75_tube_corner_edge_clamp_x(left_coupler);
+    right_x = hub75_tube_corner_edge_clamp_x(right_coupler);
+
+    horizontal_clamp =
+        hub75_tube_clamp_create(
+            dovetail =
+                hub75_tube_mount_dovetail_create(
+                    host_depth = horizontal_coupler.base_thickness
+                )
+        );
+    left_clamp =
+        hub75_tube_clamp_create(
+            dovetail =
+                hub75_tube_mount_dovetail_create(
+                    host_depth = left_coupler.base_thickness
+                )
+        );
+    right_clamp =
+        hub75_tube_clamp_create(
+            dovetail =
+                hub75_tube_mount_dovetail_create(
+                    host_depth = right_coupler.base_thickness
+                )
+        );
 
     for (seam_index = [0 : panel_count - 2]) {
         seam_x =
             _hub75_display_frame_seam_x(panel, seam_index, panel_count);
 
-        for (clip_x = [-horizontal_offset, horizontal_offset]) {
-            translate([seam_x, mounting_y, edge_z])
-                translate([clip_x, 0, 0])
-                    hub75_dovetail_tube_clamp_build(
-                        clamp,
+        for (clip_x = horizontal_positions) {
+            translate([seam_x + clip_x, mounting_y, edge_z])
+                hub75_tube_clamp_build(
+                    horizontal_clamp,
+                    part_color = clamp_color,
+                    use_tension_bore = false,
+                    high_resolution = clamp_high_resolution
+                );
+
+            translate([seam_x - clip_x, mounting_y, -edge_z])
+                rotate([0, 180, 0])
+                    hub75_tube_clamp_build(
+                        horizontal_clamp,
                         part_color = clamp_color,
-                        entry_side = clip_x < 0 ? -1 : 1,
                         use_tension_bore = false,
                         high_resolution = clamp_high_resolution
                     );
-
-            translate([seam_x, mounting_y, -edge_z])
-                rotate([0, 180, 0])
-                    translate([clip_x, 0, 0])
-                        hub75_dovetail_tube_clamp_build(
-                            clamp,
-                            part_color = clamp_color,
-                            entry_side = clip_x < 0 ? -1 : 1,
-                            use_tension_bore = false,
-                            high_resolution = clamp_high_resolution
-                        );
         }
     }
 
-    translate([-edge_x, mounting_y, edge_z])
-        translate([left_offset, 0, 0])
-            hub75_dovetail_tube_clamp_build(
-                clamp,
+    translate([-edge_x + left_x, mounting_y, edge_z])
+        hub75_tube_clamp_build(
+            left_clamp,
+            part_color = clamp_color,
+            use_tension_bore = false,
+            high_resolution = clamp_high_resolution
+        );
+
+    translate([edge_x + right_x, mounting_y, edge_z])
+        hub75_tube_clamp_build(
+            right_clamp,
+            part_color = clamp_color,
+            use_tension_bore = false,
+            high_resolution = clamp_high_resolution
+        );
+
+    translate([edge_x - left_x, mounting_y, -edge_z])
+        rotate([0, 180, 0])
+            hub75_tube_clamp_build(
+                left_clamp,
                 part_color = clamp_color,
-                entry_side = left_coupler.x_inward,
                 use_tension_bore = false,
                 high_resolution = clamp_high_resolution
             );
 
-    translate([edge_x, mounting_y, edge_z])
-        translate([right_offset, 0, 0])
-            hub75_dovetail_tube_clamp_build(
-                clamp,
+    translate([-edge_x - right_x, mounting_y, -edge_z])
+        rotate([0, 180, 0])
+            hub75_tube_clamp_build(
+                right_clamp,
                 part_color = clamp_color,
-                entry_side = right_coupler.x_inward,
                 use_tension_bore = false,
                 high_resolution = clamp_high_resolution
             );
-
-    translate([edge_x, mounting_y, -edge_z])
-        rotate([0, 180, 0])
-            translate([left_offset, 0, 0])
-                hub75_dovetail_tube_clamp_build(
-                    clamp,
-                    part_color = clamp_color,
-                    entry_side = left_coupler.x_inward,
-                    use_tension_bore = false,
-                    high_resolution = clamp_high_resolution
-                );
-
-    translate([-edge_x, mounting_y, -edge_z])
-        rotate([0, 180, 0])
-            translate([right_offset, 0, 0])
-                hub75_dovetail_tube_clamp_build(
-                    clamp,
-                    part_color = clamp_color,
-                    entry_side = right_coupler.x_inward,
-                    use_tension_bore = false,
-                    high_resolution = clamp_high_resolution
-                );
 }
 
 module _hub75_display_frame_aluminium_tubes(
@@ -225,7 +233,7 @@ module _hub75_display_frame_aluminium_tubes(
     edge_z = _hub75_display_frame_half_height(panel);
     length = hub75_display_frame_tube_length(panel, panel_count);
     x_min = -length / 2;
-    clamp = hub75_dovetail_tube_clamp_create();
+    clamp = hub75_tube_clamp_create();
     tube =
         aluminium_tube_create(
             length = length,
@@ -235,10 +243,10 @@ module _hub75_display_frame_aluminium_tubes(
         );
     tube_y =
         mounting_y
-        + hub75_dovetail_tube_clamp_tube_center_y(clamp);
+        + hub75_tube_clamp_tube_center_y(clamp);
     tube_z =
         edge_z
-        + hub75_dovetail_tube_clamp_tube_center_z(clamp);
+        + hub75_tube_clamp_tube_center_z(clamp);
 
     color(tube_color) {
         translate([x_min, tube_y, tube_z + top_z_shift])

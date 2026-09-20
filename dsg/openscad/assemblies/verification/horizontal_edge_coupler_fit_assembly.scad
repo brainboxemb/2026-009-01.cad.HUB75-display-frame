@@ -4,7 +4,7 @@
 use <../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
 use <../../ext/lib.scad.util/openscad/inspection.scad>
 use <../panels_assembly.scad>
-use <../../project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad>
+use <../../components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad>
 use <../helpers/verification_datum_pin.scad>
 
 function _hub75_horizontal_edge_fit_panel_pitch(panel) =

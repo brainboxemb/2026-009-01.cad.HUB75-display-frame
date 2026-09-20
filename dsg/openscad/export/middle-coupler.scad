@@ -1,6 +1,6 @@
 // STL export entrypoint for the milestone-2 middle coupler.
 
-use <../project_components/middle-coupler/hub75_middle_coupler.scad>
+use <../components/hub75/middle-coupler/hub75_middle_coupler.scad>
 
 size = "medium";
 

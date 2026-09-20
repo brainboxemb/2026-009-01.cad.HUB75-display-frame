@@ -36,12 +36,12 @@ These images are generated from the current `prod/bld` branch.
 - [Build PNG gallery](../../blob/prod/bld/png/README.md)
 - [Build provenance](../../blob/prod/bld/publication-info.txt)
 - [Generated design documentation](../../blob/prod/bld/design/README.md)
-- [Middle coupler design source](dsg/openscad/project_components/middle-coupler/design/design.md)
-- [Horizontal-edge coupler design source](dsg/openscad/project_components/horizontal-edge-coupler/design/design.md)
-- [Corner-edge coupler design source](dsg/openscad/project_components/corner-edge-coupler/design/design.md)
-- [Generated middle coupler design](../../blob/prod/bld/design/project/openscad/project_components/middle-coupler/design/design.md)
-- [Generated horizontal-edge coupler design](../../blob/prod/bld/design/project/openscad/project_components/horizontal-edge-coupler/design/design.md)
-- [Generated corner-edge coupler design](../../blob/prod/bld/design/project/openscad/project_components/corner-edge-coupler/design/design.md)
+- [Middle coupler design source](dsg/openscad/components/hub75/middle-coupler/design/design.md)
+- [Horizontal-edge coupler design source](dsg/openscad/components/hub75/horizontal-edge-coupler/design/design.md)
+- [Corner-edge coupler design source](dsg/openscad/components/hub75/corner-edge-coupler/design/design.md)
+- [Generated middle coupler design](../../blob/prod/bld/design/project/openscad/components/hub75/middle-coupler/design/design.md)
+- [Generated horizontal-edge coupler design](../../blob/prod/bld/design/project/openscad/components/hub75/horizontal-edge-coupler/design/design.md)
+- [Generated corner-edge coupler design](../../blob/prod/bld/design/project/openscad/components/hub75/corner-edge-coupler/design/design.md)
 - [Verification branch](../../tree/prod/vrf)
 - [Verification overview](../../blob/prod/vrf/README.md)
 - [Verification PNG gallery](../../blob/prod/vrf/png/README.md)
@@ -162,7 +162,7 @@ dsg/
     │   ├── horizontal_edge_coupler_fit_assembly.scad
     │   ├── corner_edge_coupler_fit_assembly.scad
     │   └── verification_datum_pin.scad
-    ├── project_components/
+    ├── components/hub75/
     │   ├── middle-coupler/
     │   │   ├── hub75_middle_coupler.scad
     │   │   ├── hub75_middle_coupler_render.scad
@@ -357,15 +357,23 @@ The aluminium tube itself is a generic local component under
 `dsg/openscad/components/`; only its frame length and placement are
 project-specific assembly decisions.
 
-The detachable clamp body comes from `lib.scad.clamps`. The complete mating
-interface comes from `lib.scad.mechint v0.1.1`: the HUB75 adapter uses the
-library's standard 10 mm root / 3 mm height / 20° sliding dovetail with integral
-locking enabled. The project owns only placement/orientation and the local
-carrier depth/entry opening around that interface. The horizontal-edge
-tube-mount variant adds two rounded local mounting points; each contains one
-short side-entry female interface. The corner variants use the same local
-backing lobe so the spring lock has sufficient material. The coupler is intended
-to be printed upside down; the clamp remains side-printed.
+The detachable snap ring comes from `lib.scad.clamps v0.1.7`; HUB75 places
+the vertical male dovetail directly on the compact clamp base and owns its
+placement relative to the structural tube datum.
+The mating interface comes from `lib.scad.mechint v0.1.1`, configured here as
+a 14 mm root / 1.0 mm height / 30° sliding dovetail with 0.20 mm fit clearance,
+0.25 mm axial clearance, a 16 mm straight entry slot and the integral
+lock/release mechanism enabled.
+
+The tube-aware couplers are built in functional order: start from the accepted
+panel-facing core coupler, subtract one continuous Ø10 tube keep-out, add the
+load-carrying rear carrier geometry, then cut the female dovetail. The dovetail
+slide axis is project Z; the clamp enters from local +Z, i.e. from above for the
+canonical top-edge orientation. The horizontal-edge variant derives two carrier
+positions from the available edge structure; each corner variant derives one.
+The tube keep-out is deliberately separate from the clamp's Ø10 functional /
+Ø9.6 tension-bore fit model. Couplers remain rear-face-down printable and the
+detachable clamp remains side-printed.
 
 `tube-mount-display-2-panel.stl` is the compact whole-model inspection export:
 it contains two panels, the complete coupler family, detachable clamps and both

@@ -9,7 +9,7 @@
 $fn = 120;
 
 use <hub75_middle_coupler.scad>
-use <../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
+use <../../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
 
 
 module _hub75_middle_coupler_design_thin(y_min = -0.35, y_max = 0.35) {

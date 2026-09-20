@@ -3,7 +3,7 @@
 
 use <../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
 use <../../ext/lib.scad.util/openscad/inspection.scad>
-use <../../project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad>
+use <../../components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad>
 
 function _hub75_corner_profile_corner_x(panel, side) =
     (side == "left" ? -1 : 1)

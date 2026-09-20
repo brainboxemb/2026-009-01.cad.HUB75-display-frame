@@ -320,23 +320,28 @@ intended print orientations.
   remains an explicit project datum 7.0 mm in front of the panel rear mounting
   plane rather than being derived from clamp-library Boolean overlap;
 - the actual snap clamp remains `tube_clamp_build()` from `lib.scad.clamps`;
-- top/bottom and left/right placements reuse the same basic clip geometry with
-  mirrored entry-side orientation where needed.
+- top/bottom placements reuse the same local top-entry clamp geometry through
+  assembly rotation, while left/right corner variants reuse the same clamp and
+  mechanical-interface profile.
 
 Digital CAD clearance and section evidence may be developed now, but they are
 not treated as printer/material fit acceptance.
 
 **Exit criteria**
 
-- horizontal-edge and corner tube-mount variants expose local side-entry
-  dovetails without editing the panel-facing core component geometry;
-- the horizontal-edge variant has two distinct mounting points;
-- the clip is independently exportable;
-- the complete display shows the clip/tube load path;
-- focused YZ fit and XY lock-section evidence makes both the dovetail engagement
-  and integral retention mechanism readable;
-- the intended upside-down coupler and side-printed clamp orientations remain
-  practical in CAD.
+- horizontal-edge and corner tube-mount variants first create a continuous
+  aluminium-tube keep-out without editing the panel-facing core component
+  geometry;
+- both variants expose local Z-axis dovetails entered from local +Z; the
+  horizontal-edge variant has two structurally derived mounting positions and
+  each corner variant has one;
+- the clamp is independently exportable and uses the same top-entry interface;
+- the complete display shows the clamp/tube load path without a core-coupler
+  collision with the Ø10 tube;
+- focused YZ fit and lock-section evidence makes both dovetail engagement and
+  the integral retention mechanism readable;
+- rear-face-down coupler and side-printed clamp orientations remain practical
+  in CAD.
 
 ## Step 7 — Qualify dovetail and tube retention physically
 

@@ -1,19 +1,14 @@
-// File: dovetail_interface.scad
+// File: tube_mount_interface.scad
 //   HUB75 adapter around the reusable lib.scad.mechint sliding dovetail.
 //
-// The reusable library owns the dovetail, female entry slot and integral lock.
-// HUB75 configures a deliberately wide, shallow profile so the tube-mount
-// carrier can remain flush with the existing 2 / 3 / 4 mm coupler rear faces:
-//   root width        = 14 mm
-//   profile height    = 1.0 mm
-//   flank angle       = 30 degrees
-//   fit clearance     = 0.20 mm
-//   axial clearance   = 0.25 mm
-//   female entry slot = 16 mm
-//   spring tongue     = 0.8 mm
+// Project coordinates:
+//   X = aluminium-tube axis;
+//   Y = panel front -> rear, with the coupler mounting plane at Y = 0;
+//   Z = local display-edge outward direction.
 //
-// The host-depth parameter only controls how much optional cavity is cut behind
-// that 0.8 mm tongue. It does not change the male mating profile.
+// lib.scad.mechint owns the profile, fit, entry slot and lock.  HUB75 only
+// rotates that native interface so the clamp inserts from +Z (from above in
+// the canonical top-edge orientation).
 
 use <../../ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail.scad>
 
@@ -65,9 +60,6 @@ function hub75_tube_mount_dovetail_create(
 function hub75_tube_mount_dovetail_mouth_width(dovetail) =
     sliding_dovetail_mouth_width(dovetail);
 
-function hub75_tube_mount_dovetail_female_height(dovetail) =
-    sliding_dovetail_female_height(dovetail);
-
 function hub75_tube_mount_dovetail_female_root_width(dovetail) =
     sliding_dovetail_female_root_width(dovetail);
 
@@ -83,53 +75,62 @@ function hub75_tube_mount_dovetail_female_slide(
 function hub75_tube_mount_dovetail_entry_slot_length(dovetail) =
     sliding_dovetail_entry_slot_length(dovetail);
 
+// Native mechint X becomes project -Z. Native -X entry therefore becomes
+// project +Z entry. Native profile depth Y remains project Y and native profile
+// width Z becomes project X.
+
+
+// ----------------------------------------------------------------------
+// Public geometry API
+// ----------------------------------------------------------------------
+
 module hub75_tube_mount_dovetail_male_build(
     dovetail,
     slide,
-    center_z = 0,
-    entry_side = -1
+    center_x = 0,
+    center_z = 0
 ) {
-    assert(
-        entry_side == -1 || entry_side == 1,
-        "entry_side must be -1 or +1"
-    );
-
-    translate([0, 0, center_z])
-        if (entry_side == -1)
-            sliding_dovetail_male_build(
-                dovetail,
-                slide = slide
-            );
-        else
-            mirror([1, 0, 0])
-                sliding_dovetail_male_build(
-                    dovetail,
-                    slide = slide
-                );
+    _hub75_tube_mount_dovetail_to_project(
+        center_x = center_x,
+        center_z = center_z
+    )
+        sliding_dovetail_male_build(
+            dovetail,
+            slide = slide
+        );
 }
 
 module hub75_tube_mount_dovetail_female_cutter(
     dovetail,
     slide,
     center_x = 0,
-    center_z = 0,
-    entry_side = -1
+    center_z = 0
 ) {
-    assert(
-        entry_side == -1 || entry_side == 1,
-        "entry_side must be -1 or +1"
-    );
-
-    translate([center_x, 0, center_z])
-        if (entry_side == -1)
-            sliding_dovetail_female_cutter(
-                dovetail,
-                slide = slide
-            );
-        else
-            mirror([1, 0, 0])
-                sliding_dovetail_female_cutter(
-                    dovetail,
-                    slide = slide
-                );
+    _hub75_tube_mount_dovetail_to_project(
+        center_x = center_x,
+        center_z = center_z
+    )
+        sliding_dovetail_female_cutter(
+            dovetail,
+            slide = slide
+        );
 }
+
+
+// ----------------------------------------------------------------------
+// Private coordinate transform
+// ----------------------------------------------------------------------
+
+module _hub75_tube_mount_dovetail_to_project(
+    center_x = 0,
+    center_z = 0
+) {
+    multmatrix([
+        [ 0, 0, 1, center_x],
+        [ 0, 1, 0, 0],
+        [-1, 0, 0, center_z],
+        [ 0, 0, 0, 1]
+    ])
+        children();
+}
+

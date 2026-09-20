@@ -16,7 +16,7 @@
 // The objective is to establish the T body and panel fit before adding frame
 // reinforcement hardware.
 
-use <../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
+use <../../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
 use <../hub75_panel_mating.scad>
 
 /* [Core profile] */

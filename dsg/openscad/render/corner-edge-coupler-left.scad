@@ -1,6 +1,6 @@
 // PNG render entrypoint for the left corner-edge coupler.
 
-use <../project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad>
+use <../components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad>
 
 size = "medium";
 

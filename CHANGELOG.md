@@ -25,9 +25,31 @@ This file records the functional evolution of the HUB75 display-frame project.
 - Update the tube clamp to released `lib.scad.clamps v0.1.7`, using an
   explicit Ø10.0 mm functional bore and Ø9.6 mm tension bore instead of using
   positive clearance to create clamping preload.
-- Add focused XY lock-section verification for the detachable tube mount.
+- Add focused YZ lock-section verification for the detachable top-entry tube mount.
 
 ### Changed
+
+- Separate accepted HUB75 panel-facing couplers under `components/hub75/` from
+  tube-aware project components under `project_components/tube_mount/`; model
+  the horizontal tube mount as a real physical subassembly under
+  `assemblies/sub/`.
+- Rotate the detachable dovetail from the earlier X/side-entry arrangement to a
+  Z-axis interface inserted from local +Z. The reusable mechint profile remains
+  14 mm root / 1.0 mm height / 30° with a 16 mm entry slot and integral lock.
+- Build horizontal-edge and corner tube-aware couplers in functional order:
+  subtract a continuous Ø10 tube keep-out first, then add carrier material and
+  cut the female dovetail. The official STL/render entrypoints now use these
+  tube-aware components rather than the superseded parallel tube-mount path.
+- Derive horizontal/corner clamp carrier locations from the available edge
+  structure instead of preserving the earlier unexplained 18 / 25 mm offsets.
+- Remove the first-pass long clamp spine. Centre the 16 mm vertical male
+  dovetail on the Ø10 tube/ring datum so it overlaps the compact
+  `lib.scad.clamps` base directly through the existing 0.01 mm Boolean
+  `extra`.
+- Derive carrier width from the clearanced female-root width plus 2 mm side
+  walls, and limit carrier height to the female channel plus 2 mm bottom/top
+  margins. The 16 mm entry approach now continues through free space rather
+  than through a tall carrier tunnel.
 
 - Replace the earlier deep tube-mount profile with a project-configured
   `lib.scad.mechint` 14 mm root / 1.0 mm height / 30° sliding dovetail while

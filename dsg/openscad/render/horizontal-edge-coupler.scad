@@ -1,6 +1,6 @@
 // PNG render entrypoint for the horizontal-edge coupler.
 
-use <../project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad>
+use <../components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad>
 
 size = "medium";
 
