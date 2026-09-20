@@ -145,6 +145,23 @@ module _hub75_dovetail_tube_clamp_oriented_body(clamp) {
         tube_clamp_build(clamp.base_clamp);
 }
 
+// Module: hub75_dovetail_tube_clamp_body_build()
+// Synopsis: Builds only the raw reusable clamp body in HUB75 orientation.
+// Description:
+//   This intentionally omits the project-local male dovetail/foot so the base
+//   clamp can be inspected and dimensioned independently from the attachment.
+module hub75_dovetail_tube_clamp_body_build(
+    clamp,
+    part_color = [0.88, 0.08, 0.05, 1]
+) {
+    $fn = clamp.render_fn;
+
+    color(part_color)
+        _hub75_dovetail_tube_clamp_oriented_body(
+            clamp
+        );
+}
+
 module hub75_dovetail_tube_clamp_build(
     clamp,
     part_color = [0.88, 0.08, 0.05, 1],

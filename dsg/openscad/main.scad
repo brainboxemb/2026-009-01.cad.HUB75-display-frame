@@ -16,7 +16,7 @@ use <project_components/tube_mount/tube_mount_couplers.scad>
 use <project_components/tube_mount/dovetail_tube_clamp.scad>
 
 /* [View] */
-view_mode = "assembly"; // [assembly,two-panel-assembly,exploded,panels,couplers,middle-coupler,horizontal-edge-coupler,horizontal-edge-tube-mount-coupler,corner-edge-left,corner-edge-right,corner-edge-tube-mount-left,corner-edge-tube-mount-right,tube-clamp,middle-fit,horizontal-edge-fit,corner-edge-fit-left,corner-edge-fit-right]
+view_mode = "assembly"; // [assembly,two-panel-assembly,exploded,panels,couplers,middle-coupler,horizontal-edge-coupler,horizontal-edge-tube-mount-coupler,corner-edge-left,corner-edge-right,corner-edge-tube-mount-left,corner-edge-tube-mount-right,tube-clamp,tube-clamp-dov,middle-fit,horizontal-edge-fit,corner-edge-fit-left,corner-edge-fit-right]
 
 /* [Preview detail] */
 high_resolution = false;
@@ -235,6 +235,11 @@ module _hub75_main_selected_view() {
             clamp_render_fn = preview_render_fn
         );
     else if (view_mode == "tube-clamp")
+        let(clamp = hub75_dovetail_tube_clamp_create(
+            render_fn = preview_render_fn
+        ))
+            hub75_dovetail_tube_clamp_body_build(clamp);
+    else if (view_mode == "tube-clamp-dov")
         let(clamp = hub75_dovetail_tube_clamp_create(
             render_fn = preview_render_fn
         ))

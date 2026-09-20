@@ -6,6 +6,10 @@ This file records the functional evolution of the HUB75 display-frame project.
 
 ### Added
 
+- Split the interactive clamp inspection in `main.scad` into `tube-clamp`
+  (raw reusable clamp body only) and `tube-clamp-dov` (the same body plus the
+  HUB75 dovetail/foot) so clamp thickness and attachment geometry can be
+  dimensioned independently.
 - Add a `high_resolution` boolean Customizer switch to `main.scad`, off by
   default for faster interactive work. Enabling it restores the full preview;
   the default low-detail path keeps functional coupler/tube-mount geometry but
