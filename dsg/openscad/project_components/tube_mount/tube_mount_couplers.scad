@@ -17,11 +17,10 @@ function hub75_tube_mount_clip_offset(profile_size) =
 function hub75_tube_mount_point_radius() =
     9.5;
 
-// Local carrier depth. With the library back-cavity disabled, the standard
-// female needs 3.2 mm profile depth plus the 1.2 mm spring tongue. Keep a small
-// 0.1 mm outer skin/tolerance beyond that 4.4 mm minimum.
-function hub75_tube_mount_point_depth() =
-    4.5;
+// The tube-mount carrier must stay coplanar with the existing coupler rear
+// face so the coupler can print rear-face-down without a local support bump.
+function hub75_tube_mount_point_depth(coupler) =
+    coupler.base_thickness;
 
 module _hub75_tube_mount_point_profile_2d(
     clamp,
@@ -41,10 +40,7 @@ module _hub75_tube_mount_point_solid(
 ) {
     $fn = coupler.render_fn;
     mount_depth =
-        max(
-            coupler.base_thickness,
-            hub75_tube_mount_point_depth()
-        );
+        hub75_tube_mount_point_depth(coupler);
 
     translate([0, mount_depth, 0])
         rotate([90, 0, 0])
@@ -97,7 +93,12 @@ module hub75_horizontal_edge_tube_mount_coupler_build(coupler) {
             coupler.profile_size
         );
     clamp =
-        hub75_dovetail_tube_clamp_create();
+        hub75_dovetail_tube_clamp_create(
+            dovetail =
+                hub75_tube_mount_dovetail_create(
+                    host_depth = coupler.base_thickness
+                )
+        );
 
     difference() {
         union() {
@@ -128,7 +129,12 @@ module hub75_corner_edge_tube_mount_coupler_build(coupler) {
             coupler.profile_size
         );
     clamp =
-        hub75_dovetail_tube_clamp_create();
+        hub75_dovetail_tube_clamp_create(
+            dovetail =
+                hub75_tube_mount_dovetail_create(
+                    host_depth = coupler.base_thickness
+                )
+        );
     clip_x =
         coupler.x_inward * offset;
 

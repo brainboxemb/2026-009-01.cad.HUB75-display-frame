@@ -17,16 +17,17 @@ This file records the functional evolution of the HUB75 display-frame project.
 
 ### Changed
 
-- Replace the PR #45 project-local 10/8/3 mm dovetail prism/cutter with the
-  library's standard 10 mm root / 3 mm height / 20° interface and enable its
-  integral lock.
-- Use 4.5 mm local tube-mount carrier depth instead of 5.5 mm by letting the
-  integral spring tongue flex into free air behind the mount rather than cutting
-  the library's optional 0.8 mm back cavity.
-- Reduce the canonical Ø10 tube-clamp wall from 2.6 mm to 2.0 mm while
-  preserving the historical tube centre at 7.0 mm in front of the panel rear
-  mounting plane; the compact clamp base grows from 0.2 mm to 0.8 mm so the
-  thinner ring does not move the structural tube datum.
+- Replace the earlier deep tube-mount profile with a project-configured
+  `lib.scad.mechint` 14 mm root / 1.0 mm height / 30° sliding dovetail while
+  retaining the library's 0.20 mm fit clearance, 0.25 mm axial clearance and
+  integral lock/release mechanism.
+- Make every tube-mount carrier exactly coplanar with its coupler rear face
+  (2 / 3 / 4 mm by profile) and use a 0.8 mm locking tongue plus only the
+  required rear-open flex cavity, eliminating the local rearward mounting bump.
+- Reduce the canonical Ø10 tube-clamp wall from 2.6 mm to 2.0 mm and its local
+  transition depth from 5 mm to 3 mm while preserving the historical tube
+  centre at 7.0 mm in front of the panel rear mounting plane; the compact clamp
+  base remains 0.8 mm so the thinner ring does not move the structural datum.
 
 ### Fixed
 

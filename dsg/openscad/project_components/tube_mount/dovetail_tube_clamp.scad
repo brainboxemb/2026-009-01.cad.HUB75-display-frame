@@ -23,7 +23,7 @@ function hub75_dovetail_tube_clamp_create(
     clamp_width = 16,
     opening_angle = 60,
     compact_base_thickness = 0.8,
-    transition_depth = 5,
+    transition_depth = 3,
     dovetail = hub75_tube_mount_dovetail_create(),
     dovetail_center_z = 10,
     render_fn = 192

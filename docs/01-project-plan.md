@@ -299,15 +299,18 @@ intended print orientations.
   one for each tube clamp;
 - each mounting point contains one short female dovetail entered from its
   adjacent X side; there is no long groove through the coupler arm;
-- the mating profile uses the `lib.scad.mechint v0.1.0` standard
-  10 mm root / 3 mm height / 20° geometry and its default fit clearances;
+- the mating mechanism remains `lib.scad.mechint v0.1.0`, but HUB75 configures
+  a wide/shallow 14 mm root / 1.0 mm height / 30° profile with the library's
+  0.20 mm fit and 0.25 mm axial clearances so the rear face can stay flat;
 - integral locking and screwdriver release are enabled on the shared interface
   object now rather than being deferred as separate project-local geometry;
-- local rounded backing lobes use 4.5 mm host depth: enough for the 3.2 mm
-  clearanced female profile plus the standard 1.2 mm spring tongue, while the
-  optional library back cavity is disabled so the tongue flexes into free air
-  behind the mount;
-- the canonical Ø10 clamp uses a 2.0 mm wall to keep the detachable part compact;
+- local rounded backing lobes end exactly at each coupler's existing rear face
+  (2 / 3 / 4 mm for small / medium / large), with no rearward mounting bump;
+- the integral female tongue is 0.8 mm thick; medium/large hosts use only the
+  required rear-open flex cavity behind that tongue while retaining a coplanar
+  outer rear face;
+- the canonical Ø10 clamp uses a 2.0 mm wall and a shorter 3 mm transition to
+  keep the detachable part compact;
 - the separate clamp is side-printed and its lower mounting foot itself is the
   matching male dovetail, rather than carrying a separate rail;
 - the actual snap clamp remains `tube_clamp_build()` from `lib.scad.clamps`;
