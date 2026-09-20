@@ -19,7 +19,7 @@ use <project_components/tube_mount/dovetail_tube_clamp.scad>
 view_mode = "assembly"; // [assembly,two-panel-assembly,exploded,panels,couplers,middle-coupler,horizontal-edge-coupler,horizontal-edge-tube-mount-coupler,corner-edge-left,corner-edge-right,corner-edge-tube-mount-left,corner-edge-tube-mount-right,tube-clamp,middle-fit,horizontal-edge-fit,corner-edge-fit-left,corner-edge-fit-right]
 
 /* [Preview detail] */
-preview_detail = "full"; // [full,low]
+preview_detail = "low"; // [full,low]
 
 /* [Coupler profile] */
 coupler_profile = "medium"; // [small,medium,large,custom]

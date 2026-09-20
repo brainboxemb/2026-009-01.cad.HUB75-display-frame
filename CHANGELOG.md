@@ -6,10 +6,11 @@ This file records the functional evolution of the HUB75 display-frame project.
 
 ### Added
 
-- Add a `preview_detail = full/low` Customizer switch to `main.scad`. Low
-  detail keeps functional coupler/tube-mount geometry but removes decorative
-  reference pockets/marks, lowers circular resolution, and uses the HUB75
-  panel's connector/arrow-free structural view for faster large-assembly work.
+- Add a `preview_detail = full/low` Customizer switch to `main.scad`, with
+  `low` as the interactive default. Low detail keeps functional
+  coupler/tube-mount geometry but removes decorative reference pockets/marks,
+  lowers circular resolution, and uses the HUB75 panel's connector/arrow-free
+  structural view for faster large-assembly work.
 - Add a dedicated interactive two-panel tube-mount assembly entrypoint; the
   existing two-panel STL export now delegates to that assembly instead of owning
   a second copy of the assembly call; expose the same assembly from `main.scad`
