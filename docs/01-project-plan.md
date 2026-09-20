@@ -17,7 +17,9 @@ Before starting a step:
 2. check that the step is still the smallest sensible next step;
 3. correct this plan first if a prerequisite, assumption or verification need
    has changed;
-4. do not start a later layer while an earlier physical interface is unresolved.
+4. independent digital design may continue around an unresolved physical
+   interface, but do not start dependent physical qualification or final
+   integration until that earlier interface is accepted.
 
 A step is complete only when its stated exit criteria are met. A green workflow
 alone is not visual or physical acceptance.
@@ -67,7 +69,13 @@ Track A — physical core acceptance
 Track B — reinforcement product design
     recover old structural decisions
         -> integrate shared clamp + dovetail
-        -> digital/physical dovetail qualification
+        -> digital reinforcement design complete
+
+Physical qualification gate
+    core panel-fit accepted / Step 4 frozen
+    AND
+    reinforcement CAD is printable
+        -> dovetail/clip print-fit qualification
 
 Final integration
     core panel-fit accepted
@@ -275,38 +283,46 @@ simple sliding dovetail that respects both intended print orientations.
 
 **Design direction**
 
-- couplers print rear-face-down;
-- the coupler therefore receives a shallow rear-face dovetail groove rather than
-  a protruding rail;
-- the groove slides in X and is open at a free coupler end;
-- the groove has a narrow rear mouth and wider interior, so it mechanically
-  retains the clip normal to the coupler face;
-- the separate clip carries the matching male rail;
+- couplers print upside down / rear-face-down;
+- the horizontal-edge reinforced variant adds two local rounded mounting points,
+  one for each tube clamp;
+- each mounting point contains one short female dovetail entered from its
+  adjacent X side; there is no long groove through the coupler arm;
+- the female profile may use the normal sloping dovetail faces: in the intended
+  coupler print orientation those slopes are acceptable printable overhangs;
+- the separate clamp is side-printed and its lower mounting foot itself is the
+  matching male dovetail, rather than carrying a separate rail;
 - the actual snap clamp remains `tube_clamp_build()` from `lib.scad.clamps`;
 - top/bottom and left/right placements should reuse the same basic clip geometry
-  through assembly transforms where practical.
+  through assembly transforms where practical;
+- slide-axis locking/detent is deliberately postponed until physical fit is
+  qualified.
 
-The sliding axis still needs physical fit qualification; initial CAD clearance
-is not treated as a final printer/material tolerance.
+Digital CAD clearance and section evidence may be developed now, but they are
+not treated as printer/material fit acceptance.
 
 **Exit criteria**
 
-- horizontal-edge and corner reinforcement wrappers expose the dovetail without
-  editing the accepted panel-facing core component geometry;
+- horizontal-edge and corner reinforcement wrappers expose local side-entry
+  dovetails without editing the panel-facing core component geometry;
+- the horizontal-edge variant has two distinct mounting points;
 - the clip is independently exportable;
 - the complete display shows the clip/tube load path;
 - focused section evidence makes the dovetail engagement readable;
-- no support-dependent enclosed roof is introduced on the rear-face-down
-  coupler print orientation.
+- the intended upside-down coupler and side-printed clamp orientations remain
+  practical in CAD.
 
 ## Step 7 — Qualify dovetail and tube retention physically
 
-**Status:** waiting for Step 6 printable output.
+**Status:** blocked until Step 4 core-interface freeze and Step 6 printable
+output are both complete.
 
 **Goal**
 
-Check the parts that CAD alone cannot establish reliably: sliding fit, retention
-and serviceability.
+After the HUB75 panel/core interface is physically accepted, check the parts
+that CAD alone cannot establish reliably: sliding fit, retention and
+serviceability. Do not spend print iterations on this reinforcement interface
+before that core gate is closed.
 
 **Check**
 
