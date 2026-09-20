@@ -15,11 +15,11 @@ use <dovetail_interface.scad>
 _HUB75_DOVETAIL_TUBE_CLAMP_EPS = 0.05;
 
 function hub75_dovetail_tube_clamp_create(
-    tube_center_y = -7,
+    tube_center_y = -6.4,
     tube_center_z = 10,
     tube_diameter = 10,
     tube_clearance = 0.4,
-    wall_thickness = 2.6,
+    wall_thickness = 2.0,
     clamp_width = 16,
     opening_angle = 60,
     compact_base_thickness = 0.2,

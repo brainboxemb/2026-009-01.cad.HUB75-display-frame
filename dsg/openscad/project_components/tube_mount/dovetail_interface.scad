@@ -16,7 +16,11 @@ use <../../ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail.scad>
 
 function hub75_tube_mount_dovetail_create() =
     sliding_dovetail_create(
-        locking = true
+        locking = true,
+        // Keep the standard 1.2 mm spring tongue, but let it flex outward into
+        // free air behind the mount instead of cutting another 0.8 mm cavity.
+        // This reduces the required local host depth from 5.2 to 4.4 mm.
+        lock_cut_back_clearance = false
     );
 
 function hub75_tube_mount_dovetail_mouth_width(dovetail) =

@@ -296,8 +296,11 @@ intended print orientations.
   10 mm root / 3 mm height / 20° geometry and its default fit clearances;
 - integral locking and screwdriver release are enabled on the shared interface
   object now rather than being deferred as separate project-local geometry;
-- local rounded backing lobes provide enough host depth for the female spring
-  tongue/flex cavity without changing the panel-facing core component geometry;
+- local rounded backing lobes use 4.5 mm host depth: enough for the 3.2 mm
+  clearanced female profile plus the standard 1.2 mm spring tongue, while the
+  optional library back cavity is disabled so the tongue flexes into free air
+  behind the mount;
+- the canonical Ø10 clamp uses a 2.0 mm wall to keep the detachable part compact;
 - the separate clamp is side-printed and its lower mounting foot itself is the
   matching male dovetail, rather than carrying a separate rail;
 - the actual snap clamp remains `tube_clamp_build()` from `lib.scad.clamps`;

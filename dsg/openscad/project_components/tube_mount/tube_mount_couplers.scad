@@ -17,10 +17,11 @@ function hub75_tube_mount_clip_offset(profile_size) =
 function hub75_tube_mount_point_radius() =
     9.5;
 
-// Local carrier depth. The standard locked dovetail needs enough material for
-// its female fit depth plus the integral spring tongue and flex cavity.
+// Local carrier depth. With the library back-cavity disabled, the standard
+// female needs 3.2 mm profile depth plus the 1.2 mm spring tongue. Keep a small
+// 0.1 mm outer skin/tolerance beyond that 4.4 mm minimum.
 function hub75_tube_mount_point_depth() =
-    5.5;
+    4.5;
 
 module _hub75_tube_mount_point_profile_2d(
     clamp,

@@ -16,8 +16,11 @@ This file records the functional evolution of the HUB75 display-frame project.
 - Replace the PR #45 project-local 10/8/3 mm dovetail prism/cutter with the
   library's standard 10 mm root / 3 mm height / 20° interface and enable its
   integral lock.
-- Deepen the local tube-mount carrier to 5.5 mm and give corner tube mounts the
-  same local backing lobe so the female spring/cavity has real host material.
+- Use 4.5 mm local tube-mount carrier depth instead of 5.5 mm by letting the
+  integral spring tongue flex into free air behind the mount rather than cutting
+  the library's optional 0.8 mm back cavity.
+- Reduce the canonical Ø10 tube-clamp wall from 2.6 mm to 2.0 mm; its tube
+  centre moves 0.6 mm toward the mount plane to preserve the compact-base overlap.
 
 ### Fixed
 
