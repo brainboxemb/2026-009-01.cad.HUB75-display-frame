@@ -1,11 +1,8 @@
 // File: main.scad
-//   Interactive development entrypoint for opening this project directly in OpenSCAD.
-//
-// Use the Customizer to switch between the complete display, exploded/isolated
-// views, connector presets and local fit fixtures. Production geometry remains
-// in the component and assembly files; this file only selects and combines it.
+//   Interactive development entrypoint for opening this project in OpenSCAD.
 
 use <ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
+use <ext/lib.scad.util/openscad/inspection.scad>
 use <assemblies/display_frame_assembly.scad>
 use <assemblies/panels_assembly.scad>
 use <assemblies/verification/middle_coupler_fit_assembly.scad>
@@ -14,16 +11,16 @@ use <assemblies/verification/corner_edge_coupler_fit_assembly.scad>
 use <project_components/middle-coupler/hub75_middle_coupler.scad>
 use <project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad>
 use <project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad>
+use <project_components/reinforcement/reinforced_couplers.scad>
+use <project_components/reinforcement/dovetail_tube_clamp.scad>
 
 /* [View] */
-view_mode = "assembly"; // [assembly,exploded,panels,couplers,middle-coupler,horizontal-edge-coupler,corner-edge-left,corner-edge-right,middle-fit,horizontal-edge-fit,corner-edge-fit-left,corner-edge-fit-right]
+view_mode = "assembly"; // [assembly,exploded,panels,couplers,middle-coupler,horizontal-edge-coupler,reinforced-horizontal-edge-coupler,corner-edge-left,corner-edge-right,reinforced-corner-edge-left,reinforced-corner-edge-right,tube-clamp,middle-fit,horizontal-edge-fit,corner-edge-fit-left,corner-edge-fit-right]
 
 /* [Coupler profile] */
 coupler_profile = "medium"; // [small,medium,large,custom]
 
 /* [Custom coupler dimensions] */
-// Used only when coupler_profile = "custom". These values default to the
-// medium family dimensions so switching to custom starts from a known shape.
 profile_size = 80;
 wall_thickness = 4;
 fit_clearance = 0.25;
@@ -40,9 +37,21 @@ show_couplers = true;
 show_middle_couplers = true;
 show_horizontal_edge_couplers = true;
 show_corner_edge_couplers = true;
+show_reinforcement = true;
+show_tube_clamps = true;
+show_aluminium_tubes = true;
+show_debug_frame = false;
 
 /* [Exploded view] */
 exploded_distance = 35;
+
+// BEGIN lib.scad.util: section-inspection
+/* [Section inspection] */
+section_axis = "None"; // [None,X,Y,Z]
+section_position_mm = 0; // [-100:0.5:100]
+section_depth_mm = 10; // [0.1:0.1:200]
+section_direction = "Positive"; // [Positive,Negative]
+// END lib.scad.util: section-inspection
 
 panel = hub75_p5_64x32_panel_create();
 
@@ -128,6 +137,10 @@ module _hub75_main_display(explode = 0, panels_visible = show_panels) {
             show_couplers && show_horizontal_edge_couplers,
         corner_edge_couplers_visible =
             show_couplers && show_corner_edge_couplers,
+        reinforcement_enabled = show_reinforcement,
+        reinforcement_clamps_visible = show_tube_clamps,
+        reinforcement_tubes_visible = show_aluminium_tubes,
+        debug_reference_visible = show_debug_frame,
         explode_distance = explode,
         middle_coupler = middle_coupler,
         horizontal_coupler = horizontal_coupler,
@@ -136,43 +149,63 @@ module _hub75_main_display(explode = 0, panels_visible = show_panels) {
     );
 }
 
-if (view_mode == "assembly")
-    _hub75_main_display();
-else if (view_mode == "exploded")
-    _hub75_main_display(explode = exploded_distance);
-else if (view_mode == "panels")
-    hub75_panels_assembly(panel = panel);
-else if (view_mode == "couplers")
-    _hub75_main_display(panels_visible = false);
-else if (view_mode == "middle-coupler")
-    hub75_middle_coupler_render(middle_coupler, view = "final");
-else if (view_mode == "horizontal-edge-coupler")
-    hub75_horizontal_edge_coupler_render(horizontal_coupler, view = "final");
-else if (view_mode == "corner-edge-left")
-    hub75_corner_edge_coupler_render(left_corner_coupler, view = "final");
-else if (view_mode == "corner-edge-right")
-    hub75_corner_edge_coupler_render(right_corner_coupler, view = "final");
-else if (view_mode == "middle-fit")
-    hub75_middle_coupler_fit_detail(
-        panel = panel,
-        coupler = middle_coupler
-    );
-else if (view_mode == "horizontal-edge-fit")
-    hub75_horizontal_edge_coupler_fit_detail(
-        panel = panel,
-        coupler = horizontal_coupler
-    );
-else if (view_mode == "corner-edge-fit-left")
-    hub75_corner_edge_coupler_fit_detail(
-        side = "left",
-        panel = panel,
-        coupler = left_corner_coupler
-    );
-else if (view_mode == "corner-edge-fit-right")
-    hub75_corner_edge_coupler_fit_detail(
-        side = "right",
-        panel = panel,
-        coupler = right_corner_coupler
-    );
-else
-    assert(false, str("Unsupported view_mode: ", view_mode));
+module _hub75_main_selected_view() {
+    if (view_mode == "assembly")
+        _hub75_main_display();
+    else if (view_mode == "exploded")
+        _hub75_main_display(explode = exploded_distance);
+    else if (view_mode == "panels")
+        hub75_panels_assembly(panel = panel);
+    else if (view_mode == "couplers")
+        _hub75_main_display(panels_visible = false);
+    else if (view_mode == "middle-coupler")
+        hub75_middle_coupler_render(middle_coupler, view = "final");
+    else if (view_mode == "horizontal-edge-coupler")
+        hub75_horizontal_edge_coupler_render(horizontal_coupler, view = "final");
+    else if (view_mode == "reinforced-horizontal-edge-coupler")
+        hub75_reinforced_horizontal_edge_coupler_build(horizontal_coupler);
+    else if (view_mode == "corner-edge-left")
+        hub75_corner_edge_coupler_render(left_corner_coupler, view = "final");
+    else if (view_mode == "corner-edge-right")
+        hub75_corner_edge_coupler_render(right_corner_coupler, view = "final");
+    else if (view_mode == "reinforced-corner-edge-left")
+        hub75_reinforced_corner_edge_coupler_build(left_corner_coupler);
+    else if (view_mode == "reinforced-corner-edge-right")
+        hub75_reinforced_corner_edge_coupler_build(right_corner_coupler);
+    else if (view_mode == "tube-clamp")
+        hub75_reinforcement_dovetail_tube_clamp(
+            coupler_base_thickness = horizontal_coupler.base_thickness
+        );
+    else if (view_mode == "middle-fit")
+        hub75_middle_coupler_fit_detail(
+            panel = panel,
+            coupler = middle_coupler
+        );
+    else if (view_mode == "horizontal-edge-fit")
+        hub75_horizontal_edge_coupler_fit_detail(
+            panel = panel,
+            coupler = horizontal_coupler
+        );
+    else if (view_mode == "corner-edge-fit-left")
+        hub75_corner_edge_coupler_fit_detail(
+            side = "left",
+            panel = panel,
+            coupler = left_corner_coupler
+        );
+    else if (view_mode == "corner-edge-fit-right")
+        hub75_corner_edge_coupler_fit_detail(
+            side = "right",
+            panel = panel,
+            coupler = right_corner_coupler
+        );
+    else
+        assert(false, str("Unsupported view_mode: ", view_mode));
+}
+
+util_section_inspect(
+    axis = section_axis,
+    position = section_position_mm,
+    depth = section_depth_mm,
+    direction = section_direction
+)
+    _hub75_main_selected_view();

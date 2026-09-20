@@ -1,13 +1,14 @@
 // File: dovetail_tube_clamp.scad
 //   Detachable HUB75 reinforcement clamp using lib.scad.clamps as its base.
 //
-// Coordinate system after placement:
-//   X = aluminium tube direction
-//   Y = panel front -> rear
+// Local project coordinates:
+//   X = aluminium-tube direction
+//   Y = panel front -> rear, with the coupler mounting plane at Y = 0
 //   Z = outward from the top display edge
 //
-// The reusable tube clamp remains library-owned. This project adds only the
-// dovetail key and a short bridge needed to connect that clamp to a coupler.
+// The reusable snap-clamp body remains library-owned. This project adds only
+// the sliding dovetail rail that attaches the separately printable clamp to a
+// coupler.
 
 use <../../ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad>
 
@@ -16,11 +17,12 @@ _HUB75_DOVETAIL_EPS = 0.05;
 function hub75_reinforcement_clip_offset(profile_size) =
     profile_size <= 60 ? 18 : 25;
 
-function hub75_reinforcement_dovetail_side_offset() = 8;
-function hub75_reinforcement_dovetail_narrow_width() = 8;
-function hub75_reinforcement_dovetail_wide_width() = 10;
-function hub75_reinforcement_dovetail_height() = 7;
-function hub75_reinforcement_dovetail_clearance() = 0.25;
+function hub75_reinforcement_dovetail_rail_length() = 12;
+function hub75_reinforcement_dovetail_depth() = 1.0;
+function hub75_reinforcement_dovetail_mouth_width() = 5.4;
+function hub75_reinforcement_dovetail_inner_width() = 7.4;
+function hub75_reinforcement_dovetail_clearance() = 0.20;
+function hub75_reinforcement_dovetail_mount_z() = 2.2;
 
 function hub75_reinforcement_tube_center_y() = -7;
 function hub75_reinforcement_tube_center_z() = 10;
@@ -33,129 +35,129 @@ function hub75_reinforcement_clamp_object() =
         clamp_width = 16,
         opening_angle = 60,
         base_thickness = 2,
-        transition_width = 20,
+        transition_width = 22,
         transition_depth = 6
     );
 
-module _hub75_dovetail_prism_y(
-    y_min,
-    y_max,
-    center_x,
-    center_z,
-    narrow_width,
-    wide_width,
-    height
-) {
-    assert(y_max > y_min, "dovetail Y span must be positive");
-    assert(wide_width >= narrow_width, "wide dovetail width must be >= narrow width");
+function hub75_reinforcement_dovetail_groove_depth(base_thickness) =
+    min(
+        hub75_reinforcement_dovetail_depth() + 0.2,
+        max(0.6, base_thickness - 0.6)
+    );
 
-    translate([0, y_max, 0])
-        rotate([90, 0, 0])
-            linear_extrude(height = y_max - y_min)
-                translate([center_x, center_z])
-                    polygon(points = [
-                        [-narrow_width / 2, -height / 2],
-                        [ narrow_width / 2, -height / 2],
-                        [ wide_width / 2,    height / 2],
-                        [-wide_width / 2,    height / 2]
-                    ]);
+module _hub75_reinforcement_dovetail_x_prism(
+    x_min,
+    x_max,
+    y_surface,
+    depth,
+    center_z,
+    mouth_width,
+    inner_width
+) {
+    assert(x_max > x_min, "dovetail X span must be positive");
+    assert(depth > 0, "dovetail depth must be positive");
+    assert(inner_width > mouth_width, "dovetail inner width must exceed mouth width");
+
+    y_inner = y_surface - depth;
+
+    // local X -> global Y
+    // local Y -> global Z
+    // local Z/extrusion -> global X
+    multmatrix([
+        [0, 0, 1, x_min],
+        [1, 0, 0, 0],
+        [0, 1, 0, center_z],
+        [0, 0, 0, 1]
+    ])
+        linear_extrude(height = x_max - x_min)
+            polygon(points = [
+                [y_inner, -inner_width / 2],
+                [y_inner,  inner_width / 2],
+                [y_surface, mouth_width / 2],
+                [y_surface, -mouth_width / 2]
+            ]);
 }
 
-// Public cutter used by the reinforced coupler wrappers.
-// It is deliberately through the coupler base in Y: with the coupler printed
-// backside-down this produces vertical walls instead of a blind unsupported roof.
-module hub75_reinforcement_dovetail_socket_cutter(
+// Public cutter used by reinforcement wrappers.
+//
+// The groove is open at the coupler rear face and slides along X. With the
+// coupler printed rear-face-down, the narrow mouth starts at the build plate and
+// the wider interior grows through shallow sloped walls. There is no blind roof
+// that would require support.
+module hub75_reinforcement_dovetail_groove_cutter(
     coupler_base_thickness,
-    center_x,
-    center_z = 10,
+    entry_x,
+    stop_x,
+    center_z = hub75_reinforcement_dovetail_mount_z(),
     clearance = hub75_reinforcement_dovetail_clearance()
 ) {
-    _hub75_dovetail_prism_y(
-        y_min = -_HUB75_DOVETAIL_EPS,
-        y_max = coupler_base_thickness + _HUB75_DOVETAIL_EPS,
-        center_x = center_x,
+    x_min = min(entry_x, stop_x) - _HUB75_DOVETAIL_EPS;
+    x_max = max(entry_x, stop_x) + _HUB75_DOVETAIL_EPS;
+    groove_depth =
+        hub75_reinforcement_dovetail_groove_depth(coupler_base_thickness);
+
+    _hub75_reinforcement_dovetail_x_prism(
+        x_min = x_min,
+        x_max = x_max,
+        y_surface = coupler_base_thickness + _HUB75_DOVETAIL_EPS,
+        depth = groove_depth + _HUB75_DOVETAIL_EPS,
         center_z = center_z,
-        narrow_width =
-            hub75_reinforcement_dovetail_narrow_width() + 2 * clearance,
-        wide_width =
-            hub75_reinforcement_dovetail_wide_width() + 2 * clearance,
-        height =
-            hub75_reinforcement_dovetail_height() + 2 * clearance
+        mouth_width =
+            hub75_reinforcement_dovetail_mouth_width() + 2 * clearance,
+        inner_width =
+            hub75_reinforcement_dovetail_inner_width() + 2 * clearance
     );
 }
 
-module _hub75_reinforcement_dovetail_key(
-    coupler_base_thickness,
-    center_x,
-    center_z
+module _hub75_reinforcement_dovetail_rail(
+    coupler_base_thickness
 ) {
-    _hub75_dovetail_prism_y(
-        y_min = 0,
-        y_max = coupler_base_thickness,
-        center_x = center_x,
-        center_z = center_z,
-        narrow_width = hub75_reinforcement_dovetail_narrow_width(),
-        wide_width = hub75_reinforcement_dovetail_wide_width(),
-        height = hub75_reinforcement_dovetail_height()
+    rail_length = hub75_reinforcement_dovetail_rail_length();
+
+    _hub75_reinforcement_dovetail_x_prism(
+        x_min = -rail_length / 2,
+        x_max = rail_length / 2,
+        y_surface = coupler_base_thickness - _HUB75_DOVETAIL_EPS,
+        depth = hub75_reinforcement_dovetail_depth(),
+        center_z = hub75_reinforcement_dovetail_mount_z(),
+        mouth_width = hub75_reinforcement_dovetail_mouth_width(),
+        inner_width = hub75_reinforcement_dovetail_inner_width()
     );
 }
 
+// Public separately printable clip.
+//
+// Ry(-90) maps the lib.scad.clamps tube axis to project X and points the clamp
+// opening outward (+Z). The compact library base already reaches the coupler
+// rear region; the dovetail rail overlaps that base directly, so no second
+// project-specific clamp body is introduced.
 module hub75_reinforcement_dovetail_tube_clamp(
     coupler_base_thickness = 3,
-    dovetail_side = 1,
     part_color = [0.88, 0.08, 0.05, 1]
 ) {
     clamp = hub75_reinforcement_clamp_object();
     tube_y = hub75_reinforcement_tube_center_y();
     tube_z = hub75_reinforcement_tube_center_z();
-    dovetail_x =
-        dovetail_side
-        * hub75_reinforcement_dovetail_side_offset();
+    clamp_origin_z =
+        tube_z
+        - (
+            clamp.base_thickness
+            + tube_clamp_outer_radius(clamp)
+            - 1.0
+        );
 
     color(part_color)
         union() {
-            // lib.scad.clamps owns the actual snap clamp. Ry(-90) maps the
-            // library's tube axis onto project X and its compact base outward
-            // toward +Z.
             translate([
                 clamp.clamp_width / 2,
                 tube_y,
-                tube_z - tube_clamp_inner_radius(clamp)
-                    - clamp.wall_thickness
-                    - clamp.base_thickness
-                    + 1
+                clamp_origin_z
             ])
                 rotate([0, -90, 0])
                     tube_clamp_build(clamp);
 
-            // Project-owned key. It overlaps the rear quadrant of the clamp,
-            // creating one printable detachable part without modifying the
-            // reusable library component.
-            _hub75_reinforcement_dovetail_key(
-                coupler_base_thickness = coupler_base_thickness,
-                center_x = dovetail_x,
-                center_z = tube_z
+            _hub75_reinforcement_dovetail_rail(
+                coupler_base_thickness = coupler_base_thickness
             );
-
-            // Short bridge from the clamp body to the offset key.
-            hull() {
-                translate([
-                    dovetail_side * (clamp.clamp_width / 2 - 1.5),
-                    -0.2,
-                    tube_z
-                ])
-                    cube([3, 1.2, 5], center = true);
-
-                translate([
-                    dovetail_x,
-                    coupler_base_thickness / 2,
-                    tube_z
-                ])
-                    cube([
-                        hub75_reinforcement_dovetail_narrow_width() - 1,
-                        coupler_base_thickness,
-                        4
-                    ], center = true);
-            }
         }
 }
