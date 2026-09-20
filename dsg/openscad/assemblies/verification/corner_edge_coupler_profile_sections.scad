@@ -1,15 +1,9 @@
 // File: corner_edge_coupler_profile_sections.scad
 //   Canonical full-profile sections for the corner-edge coupler.
-//
-// These views deliberately retain the complete panel profile in the slice,
-// matching the established horizontal-edge verification style. Left/right
-// corner geometry is mirrored for these two interfaces, so the default left
-// variant is the canonical published evidence while the module remains
-// side-selectable for local inspection.
 
 use <../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
+use <../../ext/lib.scad.util/openscad/inspection.scad>
 use <../../project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad>
-
 
 function _hub75_corner_profile_corner_x(panel, side) =
     (side == "left" ? -1 : 1)
@@ -17,7 +11,6 @@ function _hub75_corner_profile_corner_x(panel, side) =
 
 function _hub75_corner_profile_corner_z(panel) =
     hub75_p5_64x32_panel_nominal_height(panel) / 2;
-
 
 module _hub75_corner_profile_panel(panel) {
     hub75_p5_64x32_panel_render(
@@ -27,12 +20,7 @@ module _hub75_corner_profile_panel(panel) {
     );
 }
 
-
 // Module: hub75_corner_edge_coupler_horizontal_profile_section()
-// Description:
-//   Readable YZ profile through the top/horizontal arm. The complete panel
-//   section is retained so the PCB/body taper and the red fitted frame wall can
-//   be judged together, rather than showing only the rear structural rail.
 module hub75_corner_edge_coupler_horizontal_profile_section(
     side = "left",
     panel = hub75_p5_64x32_panel_create(),
@@ -55,37 +43,54 @@ module hub75_corner_edge_coupler_horizontal_profile_section(
 
     assert(slice_thickness > 0, "horizontal profile slice thickness must be > 0");
 
-    module _slice_volume() {
+    module _crop_volume() {
+        x_min =
+            side == "left"
+                ? corner_x - crop_outward
+                : corner_x - crop_inward;
+        x_max =
+            side == "left"
+                ? corner_x + crop_inward
+                : corner_x + crop_outward;
+
         translate([
-            slice_x - slice_thickness / 2,
+            x_min,
             -0.5,
             corner_z - crop_inward
         ])
             cube([
-                slice_thickness,
+                x_max - x_min,
                 y_max + 1,
                 crop_inward + crop_outward
             ]);
     }
 
     intersection() {
-        _hub75_corner_profile_panel(panel);
-        _slice_volume();
+        util_section_inspect(
+            axis = "X",
+            position = slice_x - slice_thickness / 2,
+            depth = slice_thickness,
+            direction = "Positive"
+        )
+            _hub75_corner_profile_panel(panel);
+        _crop_volume();
     }
 
     color([0.72, 0.05, 0.04, 1])
         intersection() {
-            translate([corner_x, mounting_y, corner_z])
-                hub75_corner_edge_coupler_build(active_coupler);
-            _slice_volume();
+            util_section_inspect(
+                axis = "X",
+                position = slice_x - slice_thickness / 2,
+                depth = slice_thickness,
+                direction = "Positive"
+            )
+                translate([corner_x, mounting_y, corner_z])
+                    hub75_corner_edge_coupler_build(active_coupler);
+            _crop_volume();
         }
 }
 
-
 // Module: hub75_corner_edge_coupler_vertical_profile_section()
-// Description:
-//   Readable XY profile through the side/vertical arm. The complete panel
-//   section and the red fitted frame wall are retained in one plane.
 module hub75_corner_edge_coupler_vertical_profile_section(
     side = "left",
     panel = hub75_p5_64x32_panel_create(),
@@ -109,28 +114,40 @@ module hub75_corner_edge_coupler_vertical_profile_section(
 
     assert(slice_thickness > 0, "vertical profile slice thickness must be > 0");
 
-    module _slice_volume() {
+    module _crop_volume() {
         translate([
             x_min,
             -0.5,
-            slice_z - slice_thickness / 2
+            -1000
         ])
             cube([
                 x_max - x_min,
                 y_max + 1,
-                slice_thickness
+                2000
             ]);
     }
 
     intersection() {
-        _hub75_corner_profile_panel(panel);
-        _slice_volume();
+        util_section_inspect(
+            axis = "Z",
+            position = slice_z - slice_thickness / 2,
+            depth = slice_thickness,
+            direction = "Positive"
+        )
+            _hub75_corner_profile_panel(panel);
+        _crop_volume();
     }
 
     color([0.72, 0.05, 0.04, 1])
         intersection() {
-            translate([corner_x, mounting_y, corner_z])
-                hub75_corner_edge_coupler_build(active_coupler);
-            _slice_volume();
+            util_section_inspect(
+                axis = "Z",
+                position = slice_z - slice_thickness / 2,
+                depth = slice_thickness,
+                direction = "Positive"
+            )
+                translate([corner_x, mounting_y, corner_z])
+                    hub75_corner_edge_coupler_build(active_coupler);
+            _crop_volume();
         }
 }

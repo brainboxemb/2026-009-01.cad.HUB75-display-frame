@@ -5,19 +5,14 @@
 // not the final five-panel display assembly.
 
 use <../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
+use <../../ext/lib.scad.util/openscad/inspection.scad>
 use <../panels_assembly.scad>
 use <../../project_components/middle-coupler/hub75_middle_coupler.scad>
 use <../helpers/verification_datum_pin.scad>
 
-
 function _hub75_middle_coupler_fit_panel_pitch(panel) =
     hub75_p5_64x32_panel_nominal_width(panel);
 
-
-// Use the real project alternation rule: left panel normal, right panel
-// rotated 180 degrees about Y. This is the local form of seams 0 and 2 in the
-// five-panel assembly; the complete-display evidence also exposes seams 1 and 3
-// with the opposite left/right orientation order.
 module _hub75_middle_coupler_fit_panel_pair(panel) {
     hub75_panels_assembly(
         panel = panel,
@@ -26,16 +21,13 @@ module _hub75_middle_coupler_fit_panel_pair(panel) {
     );
 }
 
-
 function _hub75_middle_coupler_fit_section_z(coupler) =
     -hub75_middle_coupler_horizontal_arm_height(coupler) / 2
     - 6;
 
-
 // Module: hub75_middle_coupler_fit_detail()
 // Description:
 //   Cropped rear context around the seam between two panels and the coupler.
-//   The crop keeps the actual HUB75 geometry but removes unrelated panel area.
 module hub75_middle_coupler_fit_detail(
     panel = hub75_p5_64x32_panel_create(),
     coupler = undef,
@@ -46,9 +38,6 @@ module hub75_middle_coupler_fit_detail(
         is_undef(coupler)
             ? hub75_middle_coupler_create(panel = panel)
             : coupler;
-
-    pitch =
-        _hub75_middle_coupler_fit_panel_pitch(panel);
     mounting_y =
         hub75_p5_64x32_panel_mounting_plane_y(panel);
 
@@ -77,11 +66,8 @@ module hub75_middle_coupler_fit_detail(
 
     color([0.72, 0.05, 0.04, 1])
         translate([0, mounting_y, 0])
-            hub75_middle_coupler_build(
-                active_coupler
-            );
+            hub75_middle_coupler_build(active_coupler);
 
-    // Blue verification datum through the engraved + at the seam/row origin.
     hub75_verification_datum_pin(
         x = 0,
         z = 0,
@@ -93,11 +79,11 @@ module hub75_middle_coupler_fit_detail(
     );
 }
 
-
 // Module: hub75_middle_coupler_fit_cross_section()
 // Description:
 //   True XY slice through the vertical seam, below the horizontal rear
-//   crossbar. This reveals panel depth, rear seam and locator engagement.
+//   crossbar. util_section_inspect() owns the Z slab; this fixture owns only
+//   the local X/Y crop and presentation.
 module hub75_middle_coupler_fit_cross_section(
     panel = hub75_p5_64x32_panel_create(),
     coupler = undef,
@@ -108,63 +94,58 @@ module hub75_middle_coupler_fit_cross_section(
         is_undef(coupler)
             ? hub75_middle_coupler_create(panel = panel)
             : coupler;
-
-    pitch =
-        _hub75_middle_coupler_fit_panel_pitch(panel);
     mounting_y =
         hub75_p5_64x32_panel_mounting_plane_y(panel);
     slice_z =
-        _hub75_middle_coupler_fit_section_z(
-            active_coupler
-        );
+        _hub75_middle_coupler_fit_section_z(active_coupler);
+    y_max =
+        mounting_y
+        + active_coupler.base_thickness
+        + 2;
 
-    module _slice_volume() {
-        y_max =
-            mounting_y
-            + active_coupler.base_thickness
-            + 2;
-
+    module _crop_volume() {
         translate([
             -crop_width / 2,
             -0.5,
-            slice_z - slice_thickness / 2
+            -1000
         ])
             cube([
                 crop_width,
                 y_max + 1,
-                slice_thickness
+                2000
             ]);
     }
 
     intersection() {
-        _hub75_middle_coupler_fit_panel_pair(panel);
-        _slice_volume();
+        util_section_inspect(
+            axis = "Z",
+            position = slice_z - slice_thickness / 2,
+            depth = slice_thickness,
+            direction = "Positive"
+        )
+            _hub75_middle_coupler_fit_panel_pair(panel);
+        _crop_volume();
     }
 
     color([0.72, 0.05, 0.04, 1])
         intersection() {
-            translate([0, mounting_y, 0])
-                hub75_middle_coupler_build(
-                    active_coupler
-                );
-
-            _slice_volume();
+            util_section_inspect(
+                axis = "Z",
+                position = slice_z - slice_thickness / 2,
+                depth = slice_thickness,
+                direction = "Positive"
+            )
+                translate([0, mounting_y, 0])
+                    hub75_middle_coupler_build(active_coupler);
+            _crop_volume();
         }
 }
 
-
 // Module: hub75_middle_coupler_rear_fit_section()
 // Description:
-//   Rear-facing section equivalent to the classic "Rear fit section" evidence.
-//   The geometry is cut a fixed distance forward from the HUB75 rear mounting
-//   plane. Grey shows only the panel rear structure; red shows only coupler
-//   geometry that actually penetrates into the same retained volume.
-// Arguments:
-//   panel = HUB75 panel object.
-//   coupler = Middle-coupler object, or undef to construct the default.
-//   depth = Distance forward from the rear mounting plane, default 5 mm.
-//   crop_width = Local X extent around the seam.
-//   crop_height = Local Z extent around the middle mounting row.
+//   Rear-facing retained Y depth through the panel/coupler interface. The
+//   retained Y slab is delegated to lib.scad.util; this fixture keeps only
+//   the local X/Z crop, color separation and datum.
 module hub75_middle_coupler_rear_fit_section(
     panel = hub75_p5_64x32_panel_create(),
     coupler = undef,
@@ -176,13 +157,17 @@ module hub75_middle_coupler_rear_fit_section(
         is_undef(coupler)
             ? hub75_middle_coupler_create(panel = panel)
             : coupler;
-
     pitch =
         _hub75_middle_coupler_fit_panel_pitch(panel);
     mounting_y =
         hub75_p5_64x32_panel_mounting_plane_y(panel);
     section_y =
         mounting_y - depth;
+    y_min = -0.5;
+    y_max =
+        mounting_y
+        + active_coupler.base_thickness
+        + 2;
 
     assert(depth > 0, "rear fit section depth must be > 0");
     assert(
@@ -195,15 +180,12 @@ module hub75_middle_coupler_rear_fit_section(
             translate([x, 0, 0])
                 hub75_p5_64x32_panel_render(
                     panel,
-                    view =
-                        hub75_p5_64x32_panel_view_id("structure"),
+                    view = hub75_p5_64x32_panel_view_id("structure"),
                     color_scheme = "light_gray"
                 );
     }
 
-    module _rear_section_keep_volume() {
-        y_min = -0.5;
-
+    module _crop_volume() {
         translate([
             -crop_width / 2,
             y_min,
@@ -211,30 +193,36 @@ module hub75_middle_coupler_rear_fit_section(
         ])
             cube([
                 crop_width,
-                section_y - y_min,
+                y_max - y_min,
                 crop_height
             ]);
     }
 
-    // Grey: only actual HUB75 rear structural geometry up to the cut plane.
     color([0.68, 0.68, 0.68, 1])
         intersection() {
-            _panel_pair_rear_structure();
-            _rear_section_keep_volume();
+            util_section_inspect(
+                axis = "Y",
+                position = y_min,
+                depth = section_y - y_min,
+                direction = "Positive"
+            )
+                _panel_pair_rear_structure();
+            _crop_volume();
         }
 
-    // Red: only coupler material that reaches into the same retained volume.
     color([0.72, 0.05, 0.04, 1])
         intersection() {
-            translate([0, mounting_y, 0])
-                hub75_middle_coupler_build(
-                    active_coupler
-                );
-
-            _rear_section_keep_volume();
+            util_section_inspect(
+                axis = "Y",
+                position = y_min,
+                depth = section_y - y_min,
+                direction = "Positive"
+            )
+                translate([0, mounting_y, 0])
+                    hub75_middle_coupler_build(active_coupler);
+            _crop_volume();
         }
 
-    // Rear view sees this mainly as a blue circle at the exact + datum.
     hub75_verification_datum_pin(
         x = 0,
         z = 0,

@@ -1,14 +1,11 @@
 // File: horizontal_edge_coupler_fit_assembly.scad
 //   Local two-panel verification fixture for the horizontal-edge coupler.
-//
-// Only the top edge around one internal panel seam is retained. This is a
-// development fixture, not the complete display assembly.
 
 use <../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
+use <../../ext/lib.scad.util/openscad/inspection.scad>
 use <../panels_assembly.scad>
 use <../../project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad>
 use <../helpers/verification_datum_pin.scad>
-
 
 function _hub75_horizontal_edge_fit_panel_pitch(panel) =
     hub75_p5_64x32_panel_nominal_width(panel);
@@ -16,15 +13,7 @@ function _hub75_horizontal_edge_fit_panel_pitch(panel) =
 function _hub75_horizontal_edge_fit_edge_z(panel) =
     hub75_p5_64x32_panel_nominal_height(panel) / 2;
 
-
 module _hub75_horizontal_edge_fit_panel_pair(panel) {
-    // Reuse the actual project orientation rule rather than duplicating panel
-    // placement in this fixture. A two-panel row represents seam parity 0/2:
-    // native on the left, 180-degree-Y rotated on the right. Because the HUB75
-    // data connectors live on one local side, this is also the connector-heavy
-    // seam where both adjacent panels present their connectors at the seam.
-    // The opposite parity (seams 1/3) has no seam-side data connectors and
-    // remains visible in the complete five-panel assembly evidence.
     hub75_panels_assembly(
         panel = panel,
         panel_count = 2,
@@ -32,10 +21,7 @@ module _hub75_horizontal_edge_fit_panel_pair(panel) {
     );
 }
 
-
 // Module: hub75_horizontal_edge_coupler_fit_detail()
-// Description:
-//   Angled local context showing two panel top edges and the T coupler.
 module hub75_horizontal_edge_coupler_fit_detail(
     panel = hub75_p5_64x32_panel_create(),
     coupler = undef,
@@ -47,7 +33,6 @@ module hub75_horizontal_edge_coupler_fit_detail(
         is_undef(coupler)
             ? hub75_horizontal_edge_coupler_create(panel = panel)
             : coupler;
-
     mounting_y =
         hub75_p5_64x32_panel_mounting_plane_y(panel);
     edge_z =
@@ -79,7 +64,6 @@ module hub75_horizontal_edge_coupler_fit_detail(
         translate([0, mounting_y, edge_z])
             hub75_horizontal_edge_coupler_build(active_coupler);
 
-    // Exact seam / nominal-panel-edge datum used by the engraved +.
     hub75_verification_datum_pin(
         x = 0,
         z = edge_z,
@@ -91,12 +75,10 @@ module hub75_horizontal_edge_coupler_fit_detail(
     );
 }
 
-
 // Module: hub75_horizontal_edge_coupler_rear_fit_section()
 // Description:
-//   Rear-facing thin section centred a fixed distance forward from the rear
-//   mounting plane. Grey and red are cut by the same narrow Y slab so the exact
-//   panel/coupler mating contours are visible without oblique half-space walls.
+//   Rear-facing thin Y section. lib.scad.util owns the slab; this fixture
+//   retains only the local crop and presentation.
 module hub75_horizontal_edge_coupler_rear_fit_section(
     panel = hub75_p5_64x32_panel_create(),
     coupler = undef,
@@ -110,13 +92,16 @@ module hub75_horizontal_edge_coupler_rear_fit_section(
         is_undef(coupler)
             ? hub75_horizontal_edge_coupler_create(panel = panel)
             : coupler;
-
     mounting_y =
         hub75_p5_64x32_panel_mounting_plane_y(panel);
     edge_z =
         _hub75_horizontal_edge_fit_edge_z(panel);
     section_y =
         mounting_y - depth;
+    y_max =
+        mounting_y
+        + active_coupler.base_thickness
+        + 2;
 
     assert(depth > 0, "rear fit section depth must be > 0");
     assert(slice_thickness > 0, "rear fit slice thickness must be > 0");
@@ -138,31 +123,42 @@ module hub75_horizontal_edge_coupler_rear_fit_section(
                 );
     }
 
-    module _slice_volume() {
+    module _crop_volume() {
         translate([
             -crop_width / 2,
-            section_y - slice_thickness / 2,
+            -0.5,
             edge_z - crop_inward
         ])
             cube([
                 crop_width,
-                slice_thickness,
+                y_max + 1,
                 crop_inward + crop_outward
             ]);
     }
 
     color([0.68, 0.68, 0.68, 1])
         intersection() {
-            _rear_structure();
-            _slice_volume();
+            util_section_inspect(
+                axis = "Y",
+                position = section_y - slice_thickness / 2,
+                depth = slice_thickness,
+                direction = "Positive"
+            )
+                _rear_structure();
+            _crop_volume();
         }
 
     color([0.72, 0.05, 0.04, 1])
         intersection() {
-            translate([0, mounting_y, edge_z])
-                hub75_horizontal_edge_coupler_build(active_coupler);
-
-            _slice_volume();
+            util_section_inspect(
+                axis = "Y",
+                position = section_y - slice_thickness / 2,
+                depth = slice_thickness,
+                direction = "Positive"
+            )
+                translate([0, mounting_y, edge_z])
+                    hub75_horizontal_edge_coupler_build(active_coupler);
+            _crop_volume();
         }
 
     hub75_verification_datum_pin(
@@ -173,11 +169,7 @@ module hub75_horizontal_edge_coupler_rear_fit_section(
     );
 }
 
-
 // Module: hub75_horizontal_edge_coupler_yz_edge_section()
-// Description:
-//   Thin YZ slice through the right panel close to the seam. The slice avoids
-//   the screw centre so the rear end rail and the fitted guide remain readable.
 module hub75_horizontal_edge_coupler_yz_edge_section(
     panel = hub75_p5_64x32_panel_create(),
     coupler = undef,
@@ -190,7 +182,6 @@ module hub75_horizontal_edge_coupler_yz_edge_section(
         is_undef(coupler)
             ? hub75_horizontal_edge_coupler_create(panel = panel)
             : coupler;
-
     mounting_y =
         hub75_p5_64x32_panel_mounting_plane_y(panel);
     edge_z =
@@ -200,39 +191,45 @@ module hub75_horizontal_edge_coupler_yz_edge_section(
         + active_coupler.base_thickness
         + 2;
 
-    module _slice_volume() {
+    module _crop_volume() {
         translate([
-            slice_x - slice_thickness / 2,
+            -1000,
             -0.5,
             edge_z - crop_inward
         ])
             cube([
-                slice_thickness,
+                2000,
                 y_max + 1,
                 crop_inward + crop_outward
             ]);
     }
 
     intersection() {
-        _hub75_horizontal_edge_fit_panel_pair(panel);
-        _slice_volume();
+        util_section_inspect(
+            axis = "X",
+            position = slice_x - slice_thickness / 2,
+            depth = slice_thickness,
+            direction = "Positive"
+        )
+            _hub75_horizontal_edge_fit_panel_pair(panel);
+        _crop_volume();
     }
 
     color([0.72, 0.05, 0.04, 1])
         intersection() {
-            translate([0, mounting_y, edge_z])
-                hub75_horizontal_edge_coupler_build(active_coupler);
-
-            _slice_volume();
+            util_section_inspect(
+                axis = "X",
+                position = slice_x - slice_thickness / 2,
+                depth = slice_thickness,
+                direction = "Positive"
+            )
+                translate([0, mounting_y, edge_z])
+                    hub75_horizontal_edge_coupler_build(active_coupler);
+            _crop_volume();
         }
 }
 
-
 // Module: hub75_horizontal_edge_coupler_xy_seam_section()
-// Description:
-//   Thin XY slice through the vertical panel seam, inward from the top edge.
-//   This is the orthogonal companion to the YZ edge section and shows how the
-//   vertical T arm fits around both panel side rails and the tapered seam.
 module hub75_horizontal_edge_coupler_xy_seam_section(
     panel = hub75_p5_64x32_panel_create(),
     coupler = undef,
@@ -244,7 +241,6 @@ module hub75_horizontal_edge_coupler_xy_seam_section(
         is_undef(coupler)
             ? hub75_horizontal_edge_coupler_create(panel = panel)
             : coupler;
-
     mounting_y =
         hub75_p5_64x32_panel_mounting_plane_y(panel);
     edge_z =
@@ -263,29 +259,40 @@ module hub75_horizontal_edge_coupler_xy_seam_section(
         "XY seam section must remain inside the vertical coupler arm"
     );
 
-    module _slice_volume() {
+    module _crop_volume() {
         translate([
             -crop_width / 2,
             -0.5,
-            slice_z - slice_thickness / 2
+            -1000
         ])
             cube([
                 crop_width,
                 y_max + 1,
-                slice_thickness
+                2000
             ]);
     }
 
     intersection() {
-        _hub75_horizontal_edge_fit_panel_pair(panel);
-        _slice_volume();
+        util_section_inspect(
+            axis = "Z",
+            position = slice_z - slice_thickness / 2,
+            depth = slice_thickness,
+            direction = "Positive"
+        )
+            _hub75_horizontal_edge_fit_panel_pair(panel);
+        _crop_volume();
     }
 
     color([0.72, 0.05, 0.04, 1])
         intersection() {
-            translate([0, mounting_y, edge_z])
-                hub75_horizontal_edge_coupler_build(active_coupler);
-
-            _slice_volume();
+            util_section_inspect(
+                axis = "Z",
+                position = slice_z - slice_thickness / 2,
+                depth = slice_thickness,
+                direction = "Positive"
+            )
+                translate([0, mounting_y, edge_z])
+                    hub75_horizontal_edge_coupler_build(active_coupler);
+            _crop_volume();
         }
 }
