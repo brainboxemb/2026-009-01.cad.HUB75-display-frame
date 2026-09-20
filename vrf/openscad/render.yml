@@ -83,3 +83,13 @@ profiles:
     files: [corner-edge-coupler-vertical-profile-section.scad]
     sizes: [small, medium, large]
     output_pattern: "corner-edge-coupler-{size}-vertical-profile-section.png"
+
+  dovetail-clamp-fit:
+    files: [dovetail-tube-clamp-fit.scad]
+    sizes: [small, medium, large]
+    output_pattern: "dovetail-tube-clamp-{size}-fit.png"
+
+  dovetail-clamp-yz-section:
+    files: [dovetail-tube-clamp-yz-section.scad]
+    sizes: [small, medium, large]
+    output_pattern: "dovetail-tube-clamp-{size}-yz-section.png"

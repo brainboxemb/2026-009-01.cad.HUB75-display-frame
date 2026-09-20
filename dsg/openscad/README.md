@@ -11,10 +11,13 @@ The OpenSCAD Customizer exposes:
 - **Coupler profile** — `small`, `medium`, `large`, or `custom`.
 - **Custom coupler dimensions** — shared profile dimensions used only by the
   `custom` selection. The defaults intentionally reproduce the medium family.
-- **Visibility** — panels and each coupler family can be enabled or disabled
-  independently in the assembly/exploded views.
+- **Visibility** — panels, each coupler family, detachable tube clamps,
+  aluminium tubes and the full-display debug/reference frame can be enabled or
+  disabled independently in the assembly/exploded views.
 - **Exploded view** — controls the Y separation between the physical panel layer
-  and the printable coupler layer.
+  and the printable coupler/reinforcement layer.
+- **Section inspection** — the managed `lib.scad.util` controls retain an exact
+  X, Y or Z slab of whichever interactive view is selected.
 
 The three standard sizes are always created through the production
 `*_create_for_size()` functions. `main.scad` does not duplicate their dimensions.

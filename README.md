@@ -19,7 +19,7 @@ after each smaller assembly is understood and verified.
 
 [![Rear angled panel view](../../raw/prod/bld/png/rear-angled.png)](../../blob/prod/bld/png/rear-angled.png)
 
-**With couplers**
+**With couplers and reinforcement**
 
 [![Rear angled view with couplers](../../raw/prod/bld/png/rear-angled-couplers.png)](../../blob/prod/bld/png/rear-angled-couplers.png)
 
@@ -235,6 +235,8 @@ tool.scad-project  v0.14.9 / a140b22858ac1899e7f2fa71b679639a70d819c3
 tool.git-project   v0.2.8  / 7c43f37e7b07cfb57638a1d1dad2501de09ba7eb
 SCAD toolchain     ghcr.io/brainboxemb/scad-toolchain-openscad:v0.5.0
 lib.scad.hub75     v0.1.5  / e0432a9533a08a1c0d9e87225c22f3f66b632531
+lib.scad.clamps    v0.1.6  / 021eed7bba76ca77825bd6f6c850e1ebd2916283
+lib.scad.util      exact    / b11c77cb5529696e730d4b54804d6f8676fd8001
 ```
 
 `project.yml` keeps the human-readable semantic versions while the tool and
@@ -333,14 +335,23 @@ Rear-fit sections are cut inside the active guide: 3 mm for the 4 mm small
 guide and 5 mm for medium/large. This keeps the same 5 mm reference where
 possible while ensuring the small preset still shows meaningful fit evidence.
 
-The build also contains one STL per connector and size:
+The build keeps the core coupler STL family and adds separate reinforced output:
 
 ```text
 bld/stl/middle-coupler-<size>.stl
 bld/stl/horizontal-edge-coupler-<size>.stl
 bld/stl/corner-edge-coupler-left-<size>.stl
 bld/stl/corner-edge-coupler-right-<size>.stl
+
+bld/stl/reinforced-horizontal-edge-coupler-<size>.stl
+bld/stl/reinforced-corner-edge-coupler-left-<size>.stl
+bld/stl/reinforced-corner-edge-coupler-right-<size>.stl
+bld/stl/dovetail-tube-clamp-<size>.stl
 ```
+
+The detachable clamp body comes from `lib.scad.clamps`; the project adds the
+sliding dovetail rail. The coupler-side groove is a shallow rear-face feature so
+the coupler can remain rear-face-down during printing.
 
 The generated design walkthrough is published under the `prod/bld` branch's
 `design/` tree.
@@ -374,11 +385,10 @@ The forward-looking design sequence, current step and acceptance criteria now li
 in the [project plan](docs/01-project-plan.md). Keeping that information in one
 place avoids a second project backlog drifting inside this README.
 
-The plan preserves the key production boundary established here: core
-panel/coupler interfaces must be digitally and physically accepted before a new
-reinforcement attachment is integrated into the production couplers. A separate
-detachable-attachment PoP may run in parallel on neutral/surrogate geometry so
-that clip research does not wait on the unfinished physical panel-verification
-baseline.
+The plan preserves the core panel-fit boundary while allowing the independent
+reinforcement layer to progress in parallel. Experiment 005 is historical only;
+the current product direction is a simple sliding dovetail developed directly in
+this repository. The reusable clamp body comes from `lib.scad.clamps`, and
+ordinary X/Y/Z inspection sections use `lib.scad.util`.
 
 The model and documentation were developed with the assistance of ChatGPT.
