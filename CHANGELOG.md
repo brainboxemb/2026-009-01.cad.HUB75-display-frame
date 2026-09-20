@@ -47,6 +47,11 @@ This file records the functional evolution of the HUB75 display-frame project.
   subtracts a fit-clearanced copy of the actual clamp body on the same
   Y = -8.5 mm tube-centre datum, while the continuous tube keep-out remains
   separate.
+- Move the corner clamp, clamp-body keep-out and female dovetail together from
+  the obsolete carrier-derived X offset onto the existing vertical side-rail
+  centre. This places the direct-cut interface in corner material that actually
+  reaches the Z = 10 mm tube height; assert that the complete cut width fits the
+  vertical arm for every size preset.
 
 - Pin `lib.scad.mechint v0.1.4` and configure a 0.5 mm straight root land on
   the 12 x 2 mm male/female dovetail. The remaining 1.5 mm of profile depth

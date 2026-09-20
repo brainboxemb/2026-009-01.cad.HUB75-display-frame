@@ -300,7 +300,9 @@ intended print orientations.
   one for each tube clamp;
 - the corner-edge tube-mount variant keeps the accepted outer form and uses one
   subtractive interface position in the existing corner structure; no separate
-  rounded mounting solid is added there;
+  rounded mounting solid is added there. Its X datum is the existing vertical
+  side-rail centre, so the female channel and clamp clearance are cut into real
+  corner material at the tube height;
 - each interface position contains one short female dovetail with project-Z slide
   direction and local +Z top entry; `lib.scad.mechint v0.1.4` supplies the
   16 mm straight female entry slot before the channel, so the complete clamp

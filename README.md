@@ -383,8 +383,10 @@ female root and a 4 mm outer-edge margin.
 
 The dovetail slide axis is project Z; the clamp enters from local +Z, i.e. from
 above for the canonical top-edge orientation. The horizontal-edge variant
-derives two carrier positions from the available edge structure; each corner
-variant derives one direct-cut interface position.
+derives two carrier positions from the available edge structure. Each corner
+variant places its direct-cut interface on the existing vertical side-rail
+centre, the part of the original corner body that actually reaches the tube /
+dovetail height.
 The tube keep-out is deliberately separate from the clamp's Ø10 functional /
 Ø9.6 tension-bore fit model. Couplers remain rear-face-down printable and the
 detachable clamp remains side-printed.

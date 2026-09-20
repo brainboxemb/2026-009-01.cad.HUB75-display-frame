@@ -2,8 +2,10 @@
 //   Tube-aware corner-edge coupler using the same top-entry clamp interface as
 //   the horizontal-edge tube coupler.
 //
-// The accepted corner-edge exterior remains unchanged. Tube clearance and the
-// female dovetail are both cut directly from the existing corner geometry.
+// The accepted corner-edge exterior remains unchanged. Tube clearance, local
+// clamp clearance and the female dovetail are cut directly from the existing
+// corner geometry. The clamp/interface X datum is the existing vertical
+// side-rail centre, because that is the corner mass that reaches the tube height.
 
 use <../../../components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad>
 use <../tube-clamp/hub75_tube_clamp.scad>
@@ -11,33 +13,23 @@ use <../tube_mount_interface.scad>
 
 _HUB75_TUBE_CORNER_EPS = 0.05;
 
-function hub75_tube_corner_edge_dovetail_side_material() = 2;
+function hub75_tube_corner_edge_clamp_x(coupler) =
+    hub75_corner_edge_coupler_side_rail_center_x(coupler);
 
-function hub75_tube_corner_edge_dovetail_envelope_width(
+function hub75_tube_corner_edge_available_interface_width(coupler) =
+    hub75_corner_edge_coupler_vertical_arm_width(coupler);
+
+function hub75_tube_corner_edge_required_interface_width(
+    coupler,
     clamp = hub75_tube_clamp_create()
 ) =
-    hub75_tube_mount_dovetail_female_root_width(
-        clamp.dovetail
-    )
-    + 2 * hub75_tube_corner_edge_dovetail_side_material();
-
-function hub75_tube_corner_edge_dovetail_edge_margin() = 4;
-
-function hub75_tube_corner_edge_clamp_offset(
-    coupler,
-    interface_width = hub75_tube_corner_edge_dovetail_envelope_width(),
-    edge_margin = hub75_tube_corner_edge_dovetail_edge_margin()
-) =
     max(
-        interface_width / 2,
-        coupler.profile_size / 2
-            - interface_width / 2
-            - edge_margin
+        hub75_tube_mount_dovetail_female_root_width(
+            clamp.dovetail
+        ),
+        clamp.base_clamp.clamp_width
+            + 2 * hub75_tube_corner_edge_clamp_body_clearance(coupler)
     );
-
-function hub75_tube_corner_edge_clamp_x(coupler) =
-    coupler.x_inward
-    * hub75_tube_corner_edge_clamp_offset(coupler);
 
 function hub75_tube_corner_edge_keepout_radial_clearance(coupler) =
     coupler.fit_clearance;
@@ -61,6 +53,18 @@ module hub75_tube_corner_edge_coupler_build(
                 )
         );
     clip_x = hub75_tube_corner_edge_clamp_x(coupler);
+    available_interface_width =
+        hub75_tube_corner_edge_available_interface_width(coupler);
+    required_interface_width =
+        hub75_tube_corner_edge_required_interface_width(
+            coupler,
+            clamp
+        );
+
+    assert(
+        required_interface_width <= available_interface_width,
+        "corner tube-mount interface does not fit inside the existing vertical arm"
+    )
 
     difference() {
         hub75_corner_edge_coupler_build(coupler);
