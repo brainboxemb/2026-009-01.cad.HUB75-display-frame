@@ -159,8 +159,10 @@ module _hub75_tube_corner_edge_clamp_keepout_cutter(
                 base_clamp.clamp_width + 2 * clearance,
             opening_angle =
                 base_clamp.opening_angle,
-            transition_depth =
-                base_clamp.transition_depth + clearance,
+            // Let the enlarged keepout clamp derive the transition again.
+            // With a 30-degree dovetail the extra lateral clearance requires
+            // more transition depth than a simple +clearance offset.
+            transition_depth = undef,
             dovetail_slide =
                 clamp.dovetail_slide,
             dovetail_center_z =
