@@ -122,18 +122,23 @@ module _hub75_tube_corner_edge_keepout_cutter(
 
 module _hub75_tube_corner_edge_outer_ring_envelope(
     clamp,
-    clip_x
+    clip_x,
+    radial_clearance = 0,
+    lateral_clearance = 0,
+    z_shift = 0
 ) {
     ring_r =
-        hub75_tube_clamp_outer_diameter(clamp) / 2;
+        hub75_tube_clamp_outer_diameter(clamp) / 2
+        + radial_clearance;
     ring_width =
-        clamp.base_clamp.clamp_width;
+        clamp.base_clamp.clamp_width
+        + 2 * lateral_clearance;
     ring_fn = 64;
 
     translate([
         clip_x - ring_width / 2,
         hub75_tube_clamp_tube_center_y(clamp),
-        hub75_tube_clamp_tube_center_z(clamp)
+        hub75_tube_clamp_tube_center_z(clamp) + z_shift
     ])
         rotate([0, 90, 0])
             cylinder(
@@ -151,82 +156,48 @@ module _hub75_tube_corner_edge_clamp_keepout_cutter(
 ) {
     clearance =
         hub75_tube_corner_edge_clamp_body_clearance(coupler);
-    base_clamp = clamp.base_clamp;
     entry_travel =
         hub75_tube_mount_dovetail_entry_slot_length(
             clamp.dovetail
         );
-    sweep_eps = _HUB75_TUBE_CORNER_EPS;
 
     assert(
         entry_travel > 0,
         "corner clamp keepout needs positive dovetail entry travel"
     );
 
-    // Build a slightly enlarged copy of the actual clamp body, then sweep it
-    // over exactly the same +Z approach distance as the female dovetail entry
-    // slot. In addition to the detailed body, clear the complete solid outer
-    // ring envelope. The old hollow-body-only sweep could leave corner material
-    // inside the clamp bore/opening volume, which visually and physically
-    // blocked the complete clip even though the female dovetail itself fitted.
-    keepout_clamp =
-        hub75_tube_clamp_create(
-            tube_center_y =
-                hub75_tube_clamp_tube_center_y(clamp),
-            tube_center_z =
-                hub75_tube_clamp_tube_center_z(clamp),
-            tube_diameter =
-                hub75_tube_clamp_functional_diameter(clamp),
-            tension_diameter =
-                hub75_tube_clamp_functional_diameter(clamp),
-            wall_thickness =
-                base_clamp.wall_thickness + clearance,
-            clamp_width =
-                base_clamp.clamp_width + 2 * clearance,
-            opening_angle =
-                base_clamp.opening_angle,
-            // Let the enlarged keepout clamp derive the transition again.
-            // With a 30-degree dovetail the extra lateral clearance requires
-            // more transition depth than a simple +clearance offset.
-            transition_depth = undef,
-            dovetail_slide =
-                clamp.dovetail_slide,
-            dovetail_center_z =
-                clamp.dovetail_center_z,
-            dovetail_relief_chamfer_depth = 0,
-            extra =
-                base_clamp.extra,
-            dovetail =
-                clamp.dovetail
+    // The circular outer envelope already contains the compact clamp base and
+    // transition once fit clearance is added.  The male dovetail has its own
+    // exact female cutter, so the corner only needs the swept outer clip
+    // envelope here.  Sweeping two convex cylinders with hull() is equivalent
+    // to the former line-segment Minkowski for this envelope, but is much
+    // cheaper for repeated PNG/STL production.
+    //
+    // Filling the ring deliberately clears the snap opening and bore as well:
+    // those voids belong to the detachable clamp and must not be occupied by
+    // corner material anywhere along the +Z insertion path.
+    assert(
+        clamp.base_clamp.transition_width
+            <= hub75_tube_clamp_outer_diameter(clamp)
+                + 2 * clearance,
+        "corner ring envelope no longer contains the clamp transition"
+    );
+
+    hull() {
+        _hub75_tube_corner_edge_outer_ring_envelope(
+            clamp,
+            clip_x,
+            radial_clearance = clearance,
+            lateral_clearance = clearance,
+            z_shift = 0
         );
 
-    // Minkowski with a narrow +Z segment is the actual translational swept
-    // volume. The union uses the detailed enlarged body for its transition and
-    // a filled outer-ring cylinder for the complete clip envelope.
-    minkowski() {
-        union() {
-            translate([clip_x, 0, 0])
-                hub75_tube_clamp_body_build(
-                    keepout_clamp,
-                    use_tension_bore = false,
-                    high_resolution = false
-                );
-
-            _hub75_tube_corner_edge_outer_ring_envelope(
-                keepout_clamp,
-                clip_x
-            );
-        }
-
-        translate([
-            -sweep_eps / 2,
-            -sweep_eps / 2,
-            0
-        ])
-            cube([
-                sweep_eps,
-                sweep_eps,
-                entry_travel + sweep_eps
-            ]);
+        _hub75_tube_corner_edge_outer_ring_envelope(
+            clamp,
+            clip_x,
+            radial_clearance = clearance,
+            lateral_clearance = clearance,
+            z_shift = entry_travel
+        );
     }
 }
