@@ -26,6 +26,9 @@ This file records the functional evolution of the HUB75 display-frame project.
 
 ### Fixed
 
+- Restore Python-free repository dependency updates on Windows and POSIX by
+  routing `update-repo` through the pinned `tool.git-project`; keep SCAD workflow
+  ref synchronization in the root wrapper without invoking the Python SCAD CLI.
 - Restore the intended alternating five-panel physical orientation: panels 0, 2 and 4 keep the native HUB75 orientation while panels 1 and 3 rotate 180 degrees about Y; focused seam/edge verification now reuses the same project panel-array rule.
 
 Tagged releases summarize reproducible project snapshots. The milestone entries
