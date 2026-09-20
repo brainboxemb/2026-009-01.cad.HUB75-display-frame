@@ -2,20 +2,15 @@
 //   One canonical detachable HUB75 tube clamp with an integrated male dovetail.
 //
 // Coordinate system:
-//   X = aluminium-tube direction;
+//   X = aluminium-tube direction / dovetail slide axis;
 //   Y = panel front -> rear, with the coupler mounting plane at Y = 0;
 //   Z = outward from the top display edge.
 //
-// Orientation follows the proven earlier HUB75 clip:
-//   - tube axis runs in X;
-//   - snap opening points away from the panel in -Y;
-//   - the compact clamp base faces the coupler in +Y.
-//
-// The project-owned mounting foot is the male dovetail itself. It sits directly
-// behind the compact lib.scad.clamps base around the tube centre line. The same
-// clamp is used for small, medium and large couplers.
+// The same clamp is used for small, medium and large couplers. Its male
+// dovetail follows the shared tube-mount interface contract.
 
 use <../../ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad>
+use <dovetail_interface.scad>
 
 _HUB75_DOVETAIL_TUBE_CLAMP_EPS = 0.05;
 
@@ -28,17 +23,16 @@ function hub75_dovetail_tube_clamp_create(
     clamp_width = 16,
     opening_angle = 60,
     compact_base_thickness = 0.2,
-    transition_width = 8,
     transition_depth = 5,
-    dovetail_depth = 2.0,
+    dovetail = hub75_tube_mount_dovetail_create(),
     dovetail_center_z = 10,
-    dovetail_root_width = 9.0,
-    dovetail_mouth_width = 6.0,
-    dovetail_clearance = 0.20,
-    dovetail_axial_clearance = 0.25,
     render_fn = 192
 ) =
     let(
+        // Make the reusable clamp's compact base exactly as wide as the
+        // dovetail mouth. This produces one clean transition rather than the
+        // previous partial overlap/notch at the circular clamp body.
+        transition_width = dovetail.mouth_width,
         base_clamp =
             tube_clamp_create(
                 tube_diameter = tube_diameter,
@@ -56,15 +50,6 @@ function hub75_dovetail_tube_clamp_create(
             + wall_thickness
             - 1.0
     )
-    assert(dovetail_depth > 0, "dovetail depth must be > 0")
-    assert(dovetail_root_width > dovetail_mouth_width,
-        "dovetail root must be wider than the mouth")
-    assert(dovetail_mouth_width > 0,
-        "dovetail mouth width must be > 0")
-    assert(dovetail_clearance >= 0,
-        "dovetail clearance must be >= 0")
-    assert(dovetail_axial_clearance >= 0,
-        "dovetail axial clearance must be >= 0")
     assert(render_fn >= 24,
         "clamp render_fn must be >= 24")
     assert(abs(center_distance + tube_center_y) < 0.001,
@@ -72,12 +57,8 @@ function hub75_dovetail_tube_clamp_create(
     object(
         tube_center_y = tube_center_y,
         tube_center_z = tube_center_z,
-        dovetail_depth = dovetail_depth,
+        dovetail = dovetail,
         dovetail_center_z = dovetail_center_z,
-        dovetail_root_width = dovetail_root_width,
-        dovetail_mouth_width = dovetail_mouth_width,
-        dovetail_clearance = dovetail_clearance,
-        dovetail_axial_clearance = dovetail_axial_clearance,
         render_fn = render_fn,
         base_clamp = base_clamp
     );
@@ -102,8 +83,6 @@ module _hub75_dovetail_tube_clamp_prism(
 ) {
     assert(x_max > x_min, "dovetail X span must be positive");
     assert(y_max > y_min, "dovetail Y span must be positive");
-    assert(root_width > mouth_width,
-        "dovetail root must be wider than mouth");
 
     multmatrix([
         [0, 0, 1, x_min],
@@ -125,37 +104,41 @@ module hub75_dovetail_tube_clamp_groove_cutter(
     entry_x,
     stop_x
 ) {
+    dovetail = clamp.dovetail;
     x_min = min(entry_x, stop_x) - _HUB75_DOVETAIL_TUBE_CLAMP_EPS;
     x_max = max(entry_x, stop_x) + _HUB75_DOVETAIL_TUBE_CLAMP_EPS;
-    clearance = clamp.dovetail_clearance;
+    clearance = dovetail.fit_clearance;
 
     _hub75_dovetail_tube_clamp_prism(
         x_min = x_min,
         x_max = x_max,
         y_min = -_HUB75_DOVETAIL_TUBE_CLAMP_EPS,
         y_max =
-            clamp.dovetail_depth
+            dovetail.depth
             + _HUB75_DOVETAIL_TUBE_CLAMP_EPS,
         center_z = clamp.dovetail_center_z,
         root_width =
-            clamp.dovetail_root_width + 2 * clearance,
+            dovetail.root_width + 2 * clearance,
         mouth_width =
-            clamp.dovetail_mouth_width + 2 * clearance
+            dovetail.mouth_width + 2 * clearance
     );
 }
 
 module _hub75_dovetail_tube_clamp_foot(clamp) {
+    dovetail = clamp.dovetail;
     half_length =
         hub75_dovetail_tube_clamp_foot_length(clamp) / 2;
 
+    // Start exactly at the rear face of the compact base. Because the mouth
+    // width equals the compact-base width, there is no partial-overlap notch.
     _hub75_dovetail_tube_clamp_prism(
         x_min = -half_length,
         x_max = half_length,
-        y_min = -0.12,
-        y_max = clamp.dovetail_depth,
+        y_min = -clamp.base_clamp.base_thickness,
+        y_max = dovetail.depth,
         center_z = clamp.dovetail_center_z,
-        root_width = clamp.dovetail_root_width,
-        mouth_width = clamp.dovetail_mouth_width
+        root_width = dovetail.root_width,
+        mouth_width = dovetail.mouth_width
     );
 }
 

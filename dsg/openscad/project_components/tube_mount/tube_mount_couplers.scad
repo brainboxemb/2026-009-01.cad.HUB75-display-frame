@@ -1,8 +1,8 @@
 // File: tube_mount_couplers.scad
 //   Tube-mount variants around the accepted panel-facing core couplers.
 //
-// The core component files remain unchanged. These variants add only the local
-// material and female dovetails needed by the one canonical detachable clamp.
+// The core component files remain unchanged. Every female dovetail consumes the
+// same interface object as the one canonical detachable clamp.
 
 use <../horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad>
 use <../corner-edge-coupler/hub75_corner_edge_coupler.scad>
@@ -33,7 +33,7 @@ module _hub75_tube_mount_point_solid(
 ) {
     $fn = coupler.render_fn;
     mount_depth =
-        max(coupler.base_thickness, clamp.dovetail_depth);
+        max(coupler.base_thickness, clamp.dovetail.depth);
 
     translate([0, mount_depth, 0])
         rotate([90, 0, 0])
@@ -65,7 +65,7 @@ module _hub75_tube_mount_local_dovetail_cutter(
     stop_x =
         clip_x
         - entry_side
-            * (foot_half + clamp.dovetail_axial_clearance);
+            * (foot_half + clamp.dovetail.axial_clearance);
 
     hub75_dovetail_tube_clamp_groove_cutter(
         clamp = clamp,
