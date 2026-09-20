@@ -5,6 +5,8 @@ use <ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
 use <ext/lib.scad.util/openscad/inspection.scad>
 use <assemblies/display_frame_assembly.scad>
 use <assemblies/tube_mount_display_2_panel_assembly.scad>
+use <assemblies/sub/hub75_tube_horizontal_edge_assembly.scad>
+use <assemblies/sub/hub75_tube_corner_edge_assembly.scad>
 use <assemblies/panels_assembly.scad>
 use <assemblies/verification/middle_coupler_fit_assembly.scad>
 use <assemblies/verification/horizontal_edge_coupler_fit_assembly.scad>
@@ -17,7 +19,7 @@ use <project_components/tube_mount/corner-edge-coupler/hub75_tube_corner_edge_co
 use <project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad>
 
 /* [View] */
-view_mode = "assembly"; // [assembly,two-panel-assembly,exploded,panels,couplers,middle-coupler,horizontal-edge-coupler,horizontal-edge-tube-mount-coupler,corner-edge-left,corner-edge-right,corner-edge-tube-mount-left,corner-edge-tube-mount-right,tube-clamp,tube-clamp-dov,middle-fit,horizontal-edge-fit,corner-edge-fit-left,corner-edge-fit-right]
+view_mode = "assembly"; // [assembly,two-panel-assembly,exploded,panels,couplers,middle-coupler,horizontal-edge-coupler,horizontal-edge-tube-mount-coupler,horizontal-edge-tube-mount-assembly,corner-edge-left,corner-edge-right,corner-edge-tube-mount-left,corner-edge-tube-mount-right,corner-edge-tube-mount-left-assembly,corner-edge-tube-mount-right-assembly,tube-clamp,tube-clamp-dov,middle-fit,horizontal-edge-fit,corner-edge-fit-left,corner-edge-fit-right]
 
 /* [Preview detail] */
 high_resolution = false;
@@ -220,6 +222,14 @@ module _hub75_main_selected_view() {
         hub75_tube_horizontal_edge_coupler_build(
             horizontal_coupler
         );
+    else if (view_mode == "horizontal-edge-tube-mount-assembly")
+        hub75_tube_horizontal_edge_assembly(
+            coupler = horizontal_coupler,
+            show_coupler = show_couplers,
+            show_clamps = show_tube_clamps,
+            show_tube = show_aluminium_tubes,
+            clamp_high_resolution = high_resolution
+        );
     else if (view_mode == "corner-edge-left")
         hub75_corner_edge_coupler_render(left_corner_coupler, view = "final");
     else if (view_mode == "corner-edge-right")
@@ -231,6 +241,24 @@ module _hub75_main_selected_view() {
     else if (view_mode == "corner-edge-tube-mount-right")
         hub75_tube_corner_edge_coupler_build(
             right_corner_coupler
+        );
+    else if (view_mode == "corner-edge-tube-mount-left-assembly")
+        hub75_tube_corner_edge_assembly(
+            side = "left",
+            coupler = left_corner_coupler,
+            show_coupler = show_couplers,
+            show_clamps = show_tube_clamps,
+            show_tube = show_aluminium_tubes,
+            clamp_high_resolution = high_resolution
+        );
+    else if (view_mode == "corner-edge-tube-mount-right-assembly")
+        hub75_tube_corner_edge_assembly(
+            side = "right",
+            coupler = right_corner_coupler,
+            show_coupler = show_couplers,
+            show_clamps = show_tube_clamps,
+            show_tube = show_aluminium_tubes,
+            clamp_high_resolution = high_resolution
         );
     else if (view_mode == "tube-clamp")
         let(clamp = hub75_tube_clamp_create())
