@@ -271,7 +271,7 @@ the reusable dependencies needed by the new design.
   - tube-clip offset from a seam/corner datum = 18 mm for the small profile and
     25 mm for medium/large;
 - add `lib.scad.clamps` as the source of the basic tube-clamp geometry;
-- add `lib.scad.mechint v0.1.4` as the source of the sliding-dovetail mating
+- add `lib.scad.mechint v0.1.5` as the source of the sliding-dovetail mating
   profile, fit clearance and integral lock/release geometry;
 - add `lib.scad.util` and use `util_section_inspect()` as the normal
   axis-aligned section mechanism;
@@ -305,14 +305,15 @@ intended print orientations.
   body swept over the same 16 mm +Z entry travel as the female entry slot, so
   the clamp can physically slide into the direct-cut female channel;
 - each interface position contains one short female dovetail with project-Z slide
-  direction and local +Z top entry; `lib.scad.mechint v0.1.4` supplies the
+  direction and local +Z top entry; `lib.scad.mechint v0.1.5` supplies the
   16 mm straight female entry slot before the channel, so the complete clamp
   can park above the channel before insertion; there is no long groove through
   the coupler arm;
-- the mating mechanism remains `lib.scad.mechint v0.1.4`, but HUB75 configures
-  a 12 mm root / 2.0 mm height / 30° profile with 0.5 mm straight mouth and
-  root lands, the library's 0.20 mm fit and 0.25 mm axial clearances; its mouth
-  plane is local Y = -1.5 mm. On the corner-edge variant the cutter uses
+- the mating mechanism remains `lib.scad.mechint v0.1.5` and now uses its
+  centered two-sided hinge relief. HUB75 keeps the 12 mm root / 30° profile with
+  0.5 mm straight mouth and root lands plus the library's 0.20 mm fit and
+  0.25 mm axial clearances. Small / medium / large use 2.0 / 2.5 / 3.0 mm
+  heights, and the mouth plane is local Y = -2.0 mm. On the corner-edge variant the cutter uses
   already-existing corner guide / outer-edge material plus the rear base, so the
   full profile is formed without adding a separate carrier and the accepted
   outside form remains unchanged for all three size presets;
@@ -321,21 +322,22 @@ intended print orientations.
 - the horizontal-edge variant retains its local carrier treatment; the
   corner-edge variant has no added backing lobe and uses the existing 2 / 3 /
   4 mm rear base as the host for small / medium / large;
-- the integral female tongue follows the remaining host material all the way
-  to the existing rear face. With the channel roof at local Y = +0.7 mm, the
-  2 / 3 / 4 mm hosts therefore use 1.3 / 2.3 / 3.3 mm tongue thickness and no
-  rear-open flex cavity; this keeps the rear-face-down print surface flat;
-- the canonical clamp uses `tube_diameter = 10`, zero positive clearance,
-  `tension_diameter = 9.6`, a 2.0 mm wall, 12 mm clamp width and a 1 mm
-  transition;
+- the integral female tongue follows the remaining host material behind the
+  size-specific channel. With the mouth moved to local Y = -2.0 mm, the
+  2 / 3 / 4 mm hosts retain about 1.8 / 2.3 / 2.8 mm total tongue thickness.
+  The v0.1.5 opposing relief pockets leave a centered 0.8 mm flex web;
+- the clamp family uses `tube_diameter = 10`, zero positive clearance,
+  `tension_diameter = 9.6`, a 2.0 mm wall and 12 mm clamp width. Small /
+  medium / large derive 1.0 / 1.5 / 2.0 mm transition depths from their
+  2.0 / 2.5 / 3.0 mm dovetails;
   assembly/inspection renders use the nominal Ø10 bore while print geometry
   uses the Ø9.6 tension bore;
-- the separate clamp is side-printed; the male dovetail uses 0.5 mm straight
-  mouth and root lands around a 1.0 mm 30° flank, and the library's male-relief
-  cutter trims overlapping clamp-transition material away from the mating
-  flanks; the Ø10 tube starts 1.0 mm behind the panel front face, putting its
-  centre at global Y = 6.0 mm / local Y = -8.5 mm and the Ø14 clamp tangent at
-  local Y = -1.5 mm;
+- the separate clamp is side-printed; each male dovetail keeps 0.5 mm straight
+  mouth and root lands around its size-specific 30° flank. The library's
+  male-relief cutter trims overlapping clamp-transition material away from the
+  mating flanks. The Ø10 tube remains 1.0 mm behind the panel front face, with
+  centre at global Y = 6.0 mm / local Y = -8.5 mm; the Ø14 clamp tangent stays
+  at Y = -1.5 mm while the dovetail mouth overlaps 0.5 mm farther to Y = -2.0 mm;
 - the actual snap clamp remains `tube_clamp_build()` from `lib.scad.clamps`;
 - top/bottom placements reuse the same local top-entry clamp geometry through
   assembly rotation, while left/right corner variants reuse the same clamp and
