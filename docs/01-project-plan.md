@@ -306,16 +306,17 @@ intended print orientations.
 - the mating mechanism remains `lib.scad.mechint v0.1.4`, but HUB75 configures
   a 12 mm root / 2.0 mm height / 30° profile with 0.5 mm straight mouth and
   root lands, the library's 0.20 mm fit and 0.25 mm axial clearances; its mouth
-  plane remains Y = -1 mm while the local carrier now extends forward to that
-  plane, so the full female profile is surrounded by material and the existing
+  plane is local Y = -1.5 mm while the local carrier extends forward to that
+  plane, adding 0.5 mm of material on the constrained female side so the full
+  profile is surrounded by material and the existing
   rear face stays flat for all three size presets;
 - integral locking and screwdriver release are enabled on the shared interface
   object now rather than being deferred as separate project-local geometry;
 - local rounded backing lobes end exactly at each coupler's existing rear face
   (2 / 3 / 4 mm for small / medium / large), with no rearward mounting bump;
-- the integral female tongue is 0.8 mm thick; with the Y = -1 mm mouth offset,
-  the small 2 mm host ends the tongue exactly at the free rear face, while
-  medium/large use 1 / 2 mm rear-open flex cavities and retain a coplanar outer
+- the integral female tongue is 0.8 mm thick; with the Y = -1.5 mm mouth offset,
+  the 2 / 3 / 4 mm hosts retain 0.5 / 1.5 / 2.5 mm rear-open flex cavities
+  respectively and keep a coplanar outer
   rear face;
 - the canonical clamp uses `tube_diameter = 10`, zero positive clearance,
   `tension_diameter = 9.6`, a 2.0 mm wall, 12 mm clamp width and a 1 mm
@@ -325,8 +326,9 @@ intended print orientations.
 - the separate clamp is side-printed; the male dovetail uses 0.5 mm straight
   mouth and root lands around a 1.0 mm 30° flank, and the library's male-relief
   cutter trims overlapping clamp-transition material away from the mating
-  flanks; the tube centre is an explicit project datum 8.0 mm in front of the
-  panel rear mounting plane, placing the Ø14 clamp rear tangent at Y = -1 mm;
+  flanks; the Ø10 tube starts 1.0 mm behind the panel front face, putting its
+  centre at global Y = 6.0 mm / local Y = -8.5 mm and the Ø14 clamp tangent at
+  local Y = -1.5 mm;
 - the actual snap clamp remains `tube_clamp_build()` from `lib.scad.clamps`;
 - top/bottom placements reuse the same local top-entry clamp geometry through
   assembly rotation, while left/right corner variants reuse the same clamp and

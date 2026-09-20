@@ -8,12 +8,17 @@
 //
 // lib.scad.mechint owns the profile, fit, entry slot and lock. HUB75 rotates
 // that native interface so the clamp inserts from +Z. The dovetail mouth is
-// deliberately 1 mm in front of the mounting plane: this lets a 2 mm profile,
+// deliberately 1.5 mm in front of the mounting plane. This shifts the complete
+// detachable clamp 0.5 mm toward the panel front so the Ø10 tube starts 1.0 mm
+// behind the panel front face, while the female carrier gains 0.5 mm of material
+// on its scarce front side. The 2 mm profile then
 // 0.20 mm female clearance and a 0.8 mm spring tongue fit the existing flat
 // 2 / 3 / 4 mm rear hosts without moving the mating plane per size.
 
 use <../../ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail.scad>
+use <../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
 
+_HUB75_TUBE_MOUNT_FRONT_OFFSET = 1.0;
 _HUB75_TUBE_MOUNT_DOVETAIL_WIDTH = 12;
 _HUB75_TUBE_MOUNT_DOVETAIL_HEIGHT = 2.0;
 _HUB75_TUBE_MOUNT_DOVETAIL_ANGLE = 30;
@@ -22,8 +27,19 @@ _HUB75_TUBE_MOUNT_DOVETAIL_ROOT_LAND_DEPTH = 0.5;
 _HUB75_TUBE_MOUNT_DOVETAIL_CLEARANCE = 0.20;
 _HUB75_TUBE_MOUNT_DOVETAIL_AXIAL_CLEARANCE = 0.25;
 _HUB75_TUBE_MOUNT_DOVETAIL_ENTRY_SLOT_LENGTH = 16;
-_HUB75_TUBE_MOUNT_DOVETAIL_MOUTH_Y = -1.0;
+_HUB75_TUBE_MOUNT_DOVETAIL_MOUTH_Y = -1.5;
 _HUB75_TUBE_MOUNT_LOCK_SPRING_THICKNESS = 0.8;
+
+function hub75_tube_mount_tube_front_offset() =
+    _HUB75_TUBE_MOUNT_FRONT_OFFSET;
+
+function hub75_tube_mount_tube_center_y(
+    tube_diameter = 10,
+    panel = hub75_p5_64x32_panel_create()
+) =
+    hub75_tube_mount_tube_front_offset()
+    + tube_diameter / 2
+    - hub75_p5_64x32_panel_mounting_plane_y(panel);
 
 function hub75_tube_mount_dovetail_mouth_y() =
     _HUB75_TUBE_MOUNT_DOVETAIL_MOUTH_Y;

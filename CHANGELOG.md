@@ -32,13 +32,16 @@ This file records the functional evolution of the HUB75 display-frame project.
 - Pin `lib.scad.mechint v0.1.4` and add a 0.5 mm straight mouth land alongside
   the existing 0.5 mm root land. The 2 mm profile is now 0.5 mm mouth land,
   1.0 mm 30° flank and 0.5 mm root land.
-- Move the Ø10 tube and complete clamp 1 mm forward, from Y = -7 to Y = -8
-  relative to the rear mounting plane. With the Ø14 clamp outside diameter,
-  the rear clamp tangent now lands exactly on the dovetail mouth plane Y = -1.
+- Position the Ø10 tube from the panel-front datum: its front surface starts
+  1.0 mm behind panel Y = 0, so the tube centre is Y = 6.0 mm globally and
+  Y = -8.5 mm relative to the 14.5 mm rear mounting plane. The complete clamp,
+  including its male dovetail, moves with that datum; the Ø14 clamp tangent and
+  dovetail mouth therefore meet at local Y = -1.5 mm.
 - Reduce the compact clamp transition from 2 mm to 1 mm now that the clamp
   tangent and dovetail mouth share the same Y datum.
-- Extend only the tube-mount carrier material forward from Y = 0 to Y = -1,
-  while retaining each core coupler's existing 2 / 3 / 4 mm rear face. The
+- Extend only the tube-mount carrier material forward from Y = 0 to Y = -1.5,
+  adding another 0.5 mm exactly on the scarce female-interface side while
+  retaining each core coupler's existing 2 / 3 / 4 mm rear face. The
   complete female profile is therefore surrounded by carrier material instead
   of spending its first 1 mm in free space.
 
@@ -54,8 +57,9 @@ This file records the functional evolution of the HUB75 display-frame project.
   untrimmed; `tube-clamp-dov` shows the integrated relieved part.
 
 - Restore the agreed 2.0 mm dovetail profile and narrow the clamp / male-root
-  width to 12 mm. Shift the interface mouth to Y = -1 mm so the same geometry
-  fits the existing flat 2 / 3 / 4 mm rear hosts.
+  width to 12 mm. The final interface mouth is Y = -1.5 mm so the complete
+  clamp follows the 1.0 mm panel-front tube datum and the female carrier gains
+  0.5 mm of additional front-side material.
 - Pin `lib.scad.mechint v0.1.4`, which adds the missing transverse relief when
   locking and `entry_slot_length` are combined, keeping the female tongue
   U-shaped.

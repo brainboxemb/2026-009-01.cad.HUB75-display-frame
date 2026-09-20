@@ -359,16 +359,19 @@ project-specific assembly decisions.
 
 The detachable snap ring comes from `lib.scad.clamps v0.1.7`. The canonical
 HUB75 clamp is 12 mm wide with a 1 mm transition and keeps the Ø10 functional /
-Ø9.6 tension-bore fit model. Its tube centre is 8 mm in front of the rear
-mounting plane, placing the Ø14 clamp's rear tangent exactly at Y = -1 mm.
+Ø9.6 tension-bore fit model. The Ø10 tube starts 1.0 mm behind the panel front
+face, so its centre is global Y = 6.0 mm, or local Y = -8.5 mm from the 14.5 mm
+rear mounting plane. The complete clamp and male dovetail share that shift,
+placing the Ø14 clamp tangent exactly at local Y = -1.5 mm.
 The mating interface comes from `lib.scad.mechint v0.1.4`, configured here as
 a 12 mm root / 2.0 mm height / 30° sliding dovetail with 0.5 mm straight mouth
 and root lands, 0.20 mm fit clearance, 0.25 mm axial clearance, a 16 mm straight
 entry slot and the integral lock/release mechanism enabled. The same library profile
 also supplies the male mating-relief cutter used to expose the dovetail flanks
 where the compact clamp transition overlaps the interface. Its mouth plane is
-at Y = -1 mm. The local female carrier now starts on that same plane instead of
-at Y = 0, so the complete clearanced 2 mm female profile is cut through real
+at local Y = -1.5 mm. The local female carrier starts on that same plane instead
+of at Y = 0, adding 0.5 mm more material on the front side where the female
+interface is most constrained. The complete clearanced 2 mm profile is cut through real
 carrier material. The carrier rear face remains unchanged at 2 / 3 / 4 mm:
 small ends its 0.8 mm spring tongue at the free rear face, while medium/large
 use 1 / 2 mm rear-open flex cavities.

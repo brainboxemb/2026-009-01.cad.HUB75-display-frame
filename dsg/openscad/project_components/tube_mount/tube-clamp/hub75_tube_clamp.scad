@@ -3,13 +3,14 @@
 //
 // lib.scad.clamps owns the reusable snap-ring geometry and nominal/tension bore
 // semantics. HUB75 keeps the ring compact, narrows it to 12 mm and places the
-// 12 x 2 mm vertical male dovetail directly beside the 1 mm transition.
+// 12 x 2 mm vertical male dovetail beside the compact transition. The complete
+// clamp, including its male dovetail, is positioned from the tube-front datum.
 
 use <../../../ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad>
 use <../tube_mount_interface.scad>
 
 function hub75_tube_clamp_create(
-    tube_center_y = -8,
+    tube_center_y = undef,
     tube_center_z = 10,
     tube_diameter = 10,
     tension_diameter = 9.6,
@@ -24,6 +25,12 @@ function hub75_tube_clamp_create(
     dovetail = hub75_tube_mount_dovetail_create()
 ) =
     let(
+        active_tube_center_y =
+            is_undef(tube_center_y)
+                ? hub75_tube_mount_tube_center_y(
+                    tube_diameter
+                )
+                : tube_center_y,
         active_dovetail_center_z =
             is_undef(dovetail_center_z)
                 ? tube_center_z
@@ -37,8 +44,13 @@ function hub75_tube_clamp_create(
             ),
         dovetail_angle =
             hub75_tube_mount_dovetail_angle(dovetail),
-        default_relief_chamfer_depth =
+        required_relief_chamfer_depth =
             relief_lateral_step / tan(dovetail_angle),
+        default_relief_chamfer_depth =
+            min(
+                transition_depth,
+                required_relief_chamfer_depth
+            ),
         active_relief_chamfer_depth =
             is_undef(dovetail_relief_chamfer_depth)
                 ? default_relief_chamfer_depth
@@ -61,10 +73,15 @@ function hub75_tube_clamp_create(
         "tube-clamp dovetail_slide must be > 0")
     assert(active_relief_chamfer_depth >= 0,
         "tube-clamp dovetail_relief_chamfer_depth must be >= 0")
+    assert(
+        !is_undef(dovetail_relief_chamfer_depth)
+            || required_relief_chamfer_depth <= transition_depth + 0.000001,
+        "tube-clamp 30-degree relief needs more transition_depth"
+    )
     assert(active_relief_chamfer_depth <= transition_depth,
         "tube-clamp dovetail_relief_chamfer_depth must not exceed transition_depth")
     object(
-        tube_center_y = tube_center_y,
+        tube_center_y = active_tube_center_y,
         tube_center_z = tube_center_z,
         dovetail = dovetail,
         dovetail_slide = dovetail_slide,
