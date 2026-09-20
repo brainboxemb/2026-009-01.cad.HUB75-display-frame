@@ -4,8 +4,25 @@
 // This is the normal interactive inspection entrypoint. Two panels retain one
 // internal seam plus all four outside corners while keeping the complete model
 // much smaller than the five-panel display.
+//
+// The shared reference-envelope rule is intentionally retained here:
+//   nominal panel array = 320 x 320 mm
+//   reference margin    = 20 mm on every outer edge
+//   debug frame         = 360 x 360 mm (X/Z = -180 .. +180)
+// The tube centres stay at Z = +/-170 mm, 10 mm inside that frame.
 
 use <display_frame_assembly.scad>
+
+function hub75_tube_mount_display_2_panel_count() = 2;
+
+function hub75_tube_mount_display_2_panel_reference_width(panel) =
+    hub75_display_frame_reference_width(
+        panel,
+        hub75_tube_mount_display_2_panel_count()
+    );
+
+function hub75_tube_mount_display_2_panel_reference_height(panel) =
+    hub75_display_frame_reference_height(panel);
 
 module hub75_tube_mount_display_2_panel_assembly(
     coupler_size = "medium",
@@ -17,7 +34,7 @@ module hub75_tube_mount_display_2_panel_assembly(
 ) {
     hub75_display_frame_assembly(
         coupler_size = coupler_size,
-        panel_count = 2,
+        panel_count = hub75_tube_mount_display_2_panel_count(),
         panels_visible = true,
         middle_couplers_visible = true,
         horizontal_edge_couplers_visible = true,
