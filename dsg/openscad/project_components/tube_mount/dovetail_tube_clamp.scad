@@ -108,20 +108,44 @@ module hub75_dovetail_tube_clamp_groove_cutter(
     x_min = min(entry_x, stop_x) - _HUB75_DOVETAIL_TUBE_CLAMP_EPS;
     x_max = max(entry_x, stop_x) + _HUB75_DOVETAIL_TUBE_CLAMP_EPS;
     clearance = dovetail.fit_clearance;
+    female_mouth = dovetail.mouth_width + 2 * clearance;
+    female_root = dovetail.root_width + 2 * clearance;
 
-    _hub75_dovetail_tube_clamp_prism(
-        x_min = x_min,
-        x_max = x_max,
-        y_min = -_HUB75_DOVETAIL_TUBE_CLAMP_EPS,
-        y_max =
-            dovetail.depth
-            + _HUB75_DOVETAIL_TUBE_CLAMP_EPS,
-        center_z = clamp.dovetail_center_z,
-        root_width =
-            dovetail.root_width + 2 * clearance,
-        mouth_width =
-            dovetail.mouth_width + 2 * clearance
-    );
+    union() {
+        // Exact nominal interface profile: mouth at Y=0, root at Y=depth.
+        _hub75_dovetail_tube_clamp_prism(
+            x_min = x_min,
+            x_max = x_max,
+            y_min = 0,
+            y_max = dovetail.depth,
+            center_z = clamp.dovetail_center_z,
+            root_width = female_root,
+            mouth_width = female_mouth
+        );
+
+        // Boolean opening extensions do not alter the nominal flank angle.
+        translate([
+            x_min,
+            -_HUB75_DOVETAIL_TUBE_CLAMP_EPS,
+            clamp.dovetail_center_z - female_mouth / 2
+        ])
+            cube([
+                x_max - x_min,
+                2 * _HUB75_DOVETAIL_TUBE_CLAMP_EPS,
+                female_mouth
+            ]);
+
+        translate([
+            x_min,
+            dovetail.depth - _HUB75_DOVETAIL_TUBE_CLAMP_EPS,
+            clamp.dovetail_center_z - female_root / 2
+        ])
+            cube([
+                x_max - x_min,
+                2 * _HUB75_DOVETAIL_TUBE_CLAMP_EPS,
+                female_root
+            ]);
+    }
 }
 
 module _hub75_dovetail_tube_clamp_foot(clamp) {
@@ -129,17 +153,32 @@ module _hub75_dovetail_tube_clamp_foot(clamp) {
     half_length =
         hub75_dovetail_tube_clamp_foot_length(clamp) / 2;
 
-    // Start exactly at the rear face of the compact base. Because the mouth
-    // width equals the compact-base width, there is no partial-overlap notch.
-    _hub75_dovetail_tube_clamp_prism(
-        x_min = -half_length,
-        x_max = half_length,
-        y_min = -clamp.base_clamp.base_thickness,
-        y_max = dovetail.depth,
-        center_z = clamp.dovetail_center_z,
-        root_width = dovetail.root_width,
-        mouth_width = dovetail.mouth_width
-    );
+    union() {
+        // Exact male interface: 8 mm mouth at Y=0, 10 mm root at Y=3.
+        _hub75_dovetail_tube_clamp_prism(
+            x_min = -half_length,
+            x_max = half_length,
+            y_min = 0,
+            y_max = dovetail.depth,
+            center_z = clamp.dovetail_center_z,
+            root_width = dovetail.root_width,
+            mouth_width = dovetail.mouth_width
+        );
+
+        // Straight overlap into the compact base. It is deliberately not part
+        // of the sloping interface, so the dovetail remains exactly 3 mm deep.
+        translate([
+            -half_length,
+            -clamp.base_clamp.base_thickness,
+            clamp.dovetail_center_z - dovetail.mouth_width / 2
+        ])
+            cube([
+                2 * half_length,
+                clamp.base_clamp.base_thickness
+                    + _HUB75_DOVETAIL_TUBE_CLAMP_EPS,
+                dovetail.mouth_width
+            ]);
+    }
 }
 
 module _hub75_dovetail_tube_clamp_oriented_body(clamp) {
