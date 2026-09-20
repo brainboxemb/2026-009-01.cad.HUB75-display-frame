@@ -70,6 +70,9 @@ function hub75_tube_mount_dovetail_create(
         lock_back_clearance = back_clearance
     );
 
+function hub75_tube_mount_dovetail_angle(dovetail) =
+    dovetail.angle;
+
 function hub75_tube_mount_dovetail_mouth_land_depth(dovetail) =
     sliding_dovetail_mouth_land_depth(dovetail);
 

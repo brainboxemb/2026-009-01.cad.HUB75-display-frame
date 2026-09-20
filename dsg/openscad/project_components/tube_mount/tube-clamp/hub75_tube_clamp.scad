@@ -30,11 +30,15 @@ function hub75_tube_clamp_create(
                 : dovetail_center_z,
         dovetail_mouth_width =
             hub75_tube_mount_dovetail_mouth_width(dovetail),
-        default_relief_chamfer_depth =
+        relief_lateral_step =
             max(
                 0,
                 (clamp_width - dovetail_mouth_width) / 2
             ),
+        dovetail_angle =
+            hub75_tube_mount_dovetail_angle(dovetail),
+        default_relief_chamfer_depth =
+            relief_lateral_step / tan(dovetail_angle),
         active_relief_chamfer_depth =
             is_undef(dovetail_relief_chamfer_depth)
                 ? default_relief_chamfer_depth
@@ -195,7 +199,8 @@ module _hub75_tube_clamp_dovetail_relief_chamfer_cutter(clamp) {
 
         // Project-local finishing cut. The generic mechint relief owns the
         // exact dovetail contour; this wedge only softens the abrupt clamp-body
-        // shoulder immediately in front of the male mouth.
+        // shoulder immediately in front of the male mouth. Its slope follows
+        // the same angle as the dovetail flank.
         translate([0, 0, z_min])
             linear_extrude(height = z_length)
                 union() {

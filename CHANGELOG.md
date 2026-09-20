@@ -49,8 +49,8 @@ This file records the functional evolution of the HUB75 display-frame project.
   `sliding_dovetail_male_relief_cutter()` before unioning the male dovetail,
   so local clamp-transition material no longer fills the male undercut. Add a
   HUB75-local finishing wedge at the relief entrance so the remaining clamp
-  shoulder transitions into the male mouth with an approximately 45° chamfer
-  instead of a sharp 90° step. The raw `tube-clamp` inspection view remains
+  shoulder follows the same 30° flank angle as the dovetail instead of adding
+  a separate 45° transition. The raw `tube-clamp` inspection view remains
   untrimmed; `tube-clamp-dov` shows the integrated relieved part.
 
 - Restore the agreed 2.0 mm dovetail profile and narrow the clamp / male-root

@@ -181,10 +181,13 @@ datum as the Ø10 tube/ring and its 2 mm profile sits directly beside the compac
 rear tangent on the same Y = -1 plane as the dovetail mouth. Before unioning the male, the shared mechint
 `male_relief_cutter` trims that transition back to the actual dovetail contour,
 so both mating flanks remain exposed. HUB75 then applies one project-local
-finishing wedge immediately in front of the male mouth: by default its depth is
+finishing wedge immediately in front of the male mouth. Its lateral step is
 derived from half the difference between the 12 mm clamp width and the male
-mouth width, giving an approximately 45° shoulder chamfer (about 0.58 mm with
-the current 12 / 2 / 30° / 0.5 mm mouth + 0.5 mm root land profile). The existing 0.01 mm `extra`
+mouth width, while its depth is derived from that step and the same 30° flank
+angle as the dovetail. With the current 12 / 2 / 30° / 0.5 mm mouth + 0.5 mm
+root-land profile this gives a 0.577 mm lateral step over 1.0 mm depth, so the
+finishing cut continues the dovetail's 30° visual direction instead of adding
+a second 45° angle. The existing 0.01 mm `extra`
 remains only a deliberate Boolean overlap.
 
 In the exploded view the two clamps move upward in Z, matching the intended
