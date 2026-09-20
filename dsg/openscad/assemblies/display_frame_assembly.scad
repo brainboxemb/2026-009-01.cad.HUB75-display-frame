@@ -1,12 +1,8 @@
 // File: display_frame_assembly.scad
 //   Complete five-panel display overview with couplers and reinforcement layer.
-//
-// The panel-facing core coupler geometry remains owned by the existing component
-// files. Optional reinforcement wrappers add only rear-face dovetail grooves.
-// Separate tube clips consume lib.scad.clamps and the aluminium tubes reproduce
-// the useful 840 x 360 mm structural envelope from the older frame.
 
 use <../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
+use <../components/aluminium_tube.scad>
 use <panels_assembly.scad>
 use <helpers/reference_box.scad>
 use <../project_components/middle-coupler/hub75_middle_coupler.scad>
@@ -14,7 +10,6 @@ use <../project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler
 use <../project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad>
 use <../project_components/reinforcement/reinforced_couplers.scad>
 use <../project_components/reinforcement/dovetail_tube_clamp.scad>
-use <../project_components/reinforcement/aluminium_tube.scad>
 
 function _hub75_display_frame_panel_pitch_x(panel) =
     hub75_p5_64x32_panel_nominal_width(panel);
@@ -22,17 +17,10 @@ function _hub75_display_frame_panel_pitch_x(panel) =
 function _hub75_display_frame_half_height(panel) =
     hub75_p5_64x32_panel_nominal_height(panel) / 2;
 
-function _hub75_display_frame_half_width(
-    panel,
-    panel_count = 5
-) =
+function _hub75_display_frame_half_width(panel, panel_count = 5) =
     panel_count * _hub75_display_frame_panel_pitch_x(panel) / 2;
 
-function _hub75_display_frame_seam_x(
-    panel,
-    seam_index,
-    panel_count = 5
-) =
+function _hub75_display_frame_seam_x(panel, seam_index, panel_count = 5) =
     -_hub75_display_frame_half_width(panel, panel_count)
     + (seam_index + 1) * _hub75_display_frame_panel_pitch_x(panel);
 
@@ -153,6 +141,22 @@ module _hub75_display_frame_reinforcement_clamps(
         right_coupler.x_inward
         * hub75_reinforcement_clip_offset(right_coupler.profile_size);
 
+    horizontal_clamp =
+        hub75_reinforcement_tube_clamp_create(
+            coupler_base_thickness =
+                horizontal_coupler.base_thickness
+        );
+    left_clamp =
+        hub75_reinforcement_tube_clamp_create(
+            coupler_base_thickness =
+                left_coupler.base_thickness
+        );
+    right_clamp =
+        hub75_reinforcement_tube_clamp_create(
+            coupler_base_thickness =
+                right_coupler.base_thickness
+        );
+
     for (seam_index = [0 : panel_count - 2]) {
         seam_x =
             _hub75_display_frame_seam_x(panel, seam_index, panel_count);
@@ -160,16 +164,16 @@ module _hub75_display_frame_reinforcement_clamps(
         for (clip_x = [-horizontal_offset, horizontal_offset]) {
             translate([seam_x, mounting_y, edge_z])
                 translate([clip_x, 0, 0])
-                    hub75_reinforcement_dovetail_tube_clamp(
-                        coupler_base_thickness = horizontal_coupler.base_thickness,
+                    hub75_reinforcement_tube_clamp_build(
+                        horizontal_clamp,
                         part_color = clamp_color
                     );
 
             translate([seam_x, mounting_y, -edge_z])
                 rotate([0, 180, 0])
                     translate([clip_x, 0, 0])
-                        hub75_reinforcement_dovetail_tube_clamp(
-                            coupler_base_thickness = horizontal_coupler.base_thickness,
+                        hub75_reinforcement_tube_clamp_build(
+                            horizontal_clamp,
                             part_color = clamp_color
                         );
         }
@@ -177,31 +181,31 @@ module _hub75_display_frame_reinforcement_clamps(
 
     translate([-edge_x, mounting_y, edge_z])
         translate([left_offset, 0, 0])
-            hub75_reinforcement_dovetail_tube_clamp(
-                coupler_base_thickness = left_coupler.base_thickness,
+            hub75_reinforcement_tube_clamp_build(
+                left_clamp,
                 part_color = clamp_color
             );
 
     translate([edge_x, mounting_y, edge_z])
         translate([right_offset, 0, 0])
-            hub75_reinforcement_dovetail_tube_clamp(
-                coupler_base_thickness = right_coupler.base_thickness,
+            hub75_reinforcement_tube_clamp_build(
+                right_clamp,
                 part_color = clamp_color
             );
 
     translate([edge_x, mounting_y, -edge_z])
         rotate([0, 180, 0])
             translate([left_offset, 0, 0])
-                hub75_reinforcement_dovetail_tube_clamp(
-                    coupler_base_thickness = left_coupler.base_thickness,
+                hub75_reinforcement_tube_clamp_build(
+                    left_clamp,
                     part_color = clamp_color
                 );
 
     translate([-edge_x, mounting_y, -edge_z])
         rotate([0, 180, 0])
             translate([right_offset, 0, 0])
-                hub75_reinforcement_dovetail_tube_clamp(
-                    coupler_base_thickness = right_coupler.base_thickness,
+                hub75_reinforcement_tube_clamp_build(
+                    right_clamp,
                     part_color = clamp_color
                 );
 }
@@ -209,25 +213,40 @@ module _hub75_display_frame_reinforcement_clamps(
 module _hub75_display_frame_reinforcement_tubes(
     panel,
     panel_count,
-    mounting_y
+    mounting_y,
+    top_z_shift = 0,
+    bottom_z_shift = 0,
+    tube_color = [0.72, 0.74, 0.76, 1]
 ) {
     edge_z = _hub75_display_frame_half_height(panel);
     length = hub75_display_frame_tube_length(panel, panel_count);
     x_min = -length / 2;
-    tube_y = mounting_y + hub75_reinforcement_tube_center_y();
-    tube_z = edge_z + hub75_reinforcement_tube_center_z();
+    clamp =
+        hub75_reinforcement_tube_clamp_create();
+    tube =
+        aluminium_tube_create(
+            length = length,
+            outer_diameter = clamp.base_clamp.tube_diameter,
+            wall_thickness = 1,
+            render_fn = clamp.render_fn
+        );
+    tube_y =
+        mounting_y
+        + hub75_reinforcement_tube_clamp_tube_center_y(clamp);
+    tube_z =
+        edge_z
+        + hub75_reinforcement_tube_clamp_tube_center_z(clamp);
 
-    translate([x_min, tube_y, tube_z])
-        hub75_reinforcement_aluminium_tube(length = length);
+    color(tube_color) {
+        translate([x_min, tube_y, tube_z + top_z_shift])
+            aluminium_tube_build(tube);
 
-    translate([x_min, tube_y, -tube_z])
-        hub75_reinforcement_aluminium_tube(length = length);
+        translate([x_min, tube_y, -tube_z + bottom_z_shift])
+            aluminium_tube_build(tube);
+    }
 }
 
-module _hub75_display_frame_debug_reference(
-    panel,
-    panel_count
-) {
+module _hub75_display_frame_debug_reference(panel, panel_count) {
     width = hub75_display_frame_reference_width(panel, panel_count);
     height = hub75_display_frame_reference_height(panel);
 
@@ -241,13 +260,6 @@ module _hub75_display_frame_debug_reference(
     );
 }
 
-// Module: hub75_display_frame_assembly()
-// Description:
-//   Five-panel assembly with optional detachable reinforcement layer.
-//
-//   The reinforcement layer is project-owned and may be inspected independently
-//   while the core panel-fit acceptance remains open. It does not alter the
-//   panel-facing geometry in the core component files.
 module hub75_display_frame_assembly(
     panel = hub75_p5_64x32_panel_create(),
     coupler_size = "medium",
@@ -255,6 +267,7 @@ module hub75_display_frame_assembly(
     panel_color_scheme = "light_gray",
     coupler_color = [0.72, 0.05, 0.04, 1],
     clamp_color = [0.92, 0.20, 0.08, 1],
+    tube_color = [0.72, 0.74, 0.76, 1],
     panels_visible = true,
     middle_couplers_visible = true,
     horizontal_edge_couplers_visible = true,
@@ -308,14 +321,23 @@ module hub75_display_frame_assembly(
             : right_corner_coupler;
 
     exploded = explode_distance > 0;
-    panel_y_offset = exploded ? -explode_distance : 0;
-    coupler_y_offset = exploded ? explode_distance : 0;
-    mounting_y =
-        hub75_p5_64x32_panel_mounting_plane_y(panel)
-        + coupler_y_offset;
+    panel_y_shift = exploded ? -explode_distance : 0;
+    coupler_y_shift = exploded ? explode_distance : 0;
+    clamp_y_shift = exploded ? 2 * explode_distance : 0;
+    tube_y_shift = clamp_y_shift;
+    tube_z_gap = exploded ? 0.55 * explode_distance : 0;
+
+    base_mounting_y =
+        hub75_p5_64x32_panel_mounting_plane_y(panel);
+    coupler_mounting_y =
+        base_mounting_y + coupler_y_shift;
+    clamp_mounting_y =
+        base_mounting_y + clamp_y_shift;
+    tube_mounting_y =
+        base_mounting_y + tube_y_shift;
 
     if (panels_visible)
-        translate([0, panel_y_offset, 0])
+        translate([0, panel_y_shift, 0])
             hub75_panels_assembly(
                 panel = panel,
                 panel_count = panel_count,
@@ -327,7 +349,7 @@ module hub75_display_frame_assembly(
             panel,
             active_middle_coupler,
             panel_count,
-            mounting_y,
+            coupler_mounting_y,
             coupler_color
         );
 
@@ -336,7 +358,7 @@ module hub75_display_frame_assembly(
             panel,
             active_horizontal_coupler,
             panel_count,
-            mounting_y,
+            coupler_mounting_y,
             coupler_color,
             reinforcement_enabled
         );
@@ -347,7 +369,7 @@ module hub75_display_frame_assembly(
             active_left_corner_coupler,
             active_right_corner_coupler,
             panel_count,
-            mounting_y,
+            coupler_mounting_y,
             coupler_color,
             reinforcement_enabled
         );
@@ -359,7 +381,7 @@ module hub75_display_frame_assembly(
             active_left_corner_coupler,
             active_right_corner_coupler,
             panel_count,
-            mounting_y,
+            clamp_mounting_y,
             clamp_color
         );
 
@@ -367,7 +389,10 @@ module hub75_display_frame_assembly(
         _hub75_display_frame_reinforcement_tubes(
             panel,
             panel_count,
-            mounting_y
+            tube_mounting_y,
+            top_z_shift = tube_z_gap,
+            bottom_z_shift = -tube_z_gap,
+            tube_color = tube_color
         );
 
     if (debug_reference_visible)

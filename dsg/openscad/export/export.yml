@@ -10,3 +10,4 @@ profiles:
       - reinforced-corner-edge-coupler-left.scad
       - reinforced-corner-edge-coupler-right.scad
       - dovetail-tube-clamp.scad
+      - reinforced-display-assembly.scad

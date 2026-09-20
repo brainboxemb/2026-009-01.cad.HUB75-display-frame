@@ -153,6 +153,8 @@ follows the same convention as BOSL2 and the reusable SCAD libraries.
 project.yml
 dsg/
 └── openscad/
+    ├── components/
+    │   └── aluminium_tube.scad
     ├── assemblies/
     │   ├── panels_assembly.scad
     │   ├── display_frame_assembly.scad
@@ -347,11 +349,17 @@ bld/stl/reinforced-horizontal-edge-coupler-<size>.stl
 bld/stl/reinforced-corner-edge-coupler-left-<size>.stl
 bld/stl/reinforced-corner-edge-coupler-right-<size>.stl
 bld/stl/dovetail-tube-clamp-<size>.stl
+bld/stl/reinforced-display-assembly-<size>.stl
 ```
 
-The detachable clamp body comes from `lib.scad.clamps`; the project adds the
-sliding dovetail rail. The coupler-side groove is a shallow rear-face feature so
-the coupler can remain rear-face-down during printing.
+The aluminium tube itself is a generic local component under
+`dsg/openscad/components/`; only its frame length and placement are
+project-specific assembly decisions.
+
+The detachable clamp body comes from `lib.scad.clamps`. The project-specific
+mounting foot itself is the male dovetail: wide at the inside root and narrower
+at the rear opening. The matching groove is through the reinforcement-only base
+area, keeping the coupler rear-face-down print orientation free of a blind roof.
 
 The generated design walkthrough is published under the `prod/bld` branch's
 `design/` tree.

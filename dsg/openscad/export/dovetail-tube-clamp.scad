@@ -9,7 +9,9 @@ coupler =
     hub75_horizontal_edge_coupler_create_for_size(
         size = size
     );
+clamp =
+    hub75_reinforcement_tube_clamp_create(
+        coupler_base_thickness = coupler.base_thickness
+    );
 
-hub75_reinforcement_dovetail_tube_clamp(
-    coupler_base_thickness = coupler.base_thickness
-);
+hub75_reinforcement_tube_clamp_build(clamp);

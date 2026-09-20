@@ -173,9 +173,14 @@ module _hub75_main_selected_view() {
     else if (view_mode == "reinforced-corner-edge-right")
         hub75_reinforced_corner_edge_coupler_build(right_corner_coupler);
     else if (view_mode == "tube-clamp")
-        hub75_reinforcement_dovetail_tube_clamp(
-            coupler_base_thickness = horizontal_coupler.base_thickness
-        );
+        let(
+            clamp =
+                hub75_reinforcement_tube_clamp_create(
+                    coupler_base_thickness =
+                        horizontal_coupler.base_thickness
+                )
+        )
+            hub75_reinforcement_tube_clamp_build(clamp);
     else if (view_mode == "middle-fit")
         hub75_middle_coupler_fit_detail(
             panel = panel,

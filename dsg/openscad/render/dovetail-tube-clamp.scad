@@ -9,11 +9,13 @@ coupler =
     hub75_horizontal_edge_coupler_create_for_size(
         size = size
     );
+clamp =
+    hub75_reinforcement_tube_clamp_create(
+        coupler_base_thickness = coupler.base_thickness
+    );
 
-$vpt = [0, -4, 6];
-$vpr = [68, 0, 35];
-$vpd = 95;
+$vpt = [0, -3.5, 10];
+$vpr = [74, 0, 35];
+$vpd = 90;
 
-hub75_reinforcement_dovetail_tube_clamp(
-    coupler_base_thickness = coupler.base_thickness
-);
+hub75_reinforcement_tube_clamp_build(clamp);
