@@ -4,6 +4,7 @@
 use <ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
 use <ext/lib.scad.util/openscad/inspection.scad>
 use <assemblies/display_frame_assembly.scad>
+use <assemblies/tube_mount_display_2_panel_assembly.scad>
 use <assemblies/panels_assembly.scad>
 use <assemblies/verification/middle_coupler_fit_assembly.scad>
 use <assemblies/verification/horizontal_edge_coupler_fit_assembly.scad>
@@ -15,7 +16,7 @@ use <project_components/tube_mount/tube_mount_couplers.scad>
 use <project_components/tube_mount/dovetail_tube_clamp.scad>
 
 /* [View] */
-view_mode = "assembly"; // [assembly,exploded,panels,couplers,middle-coupler,horizontal-edge-coupler,horizontal-edge-tube-mount-coupler,corner-edge-left,corner-edge-right,corner-edge-tube-mount-left,corner-edge-tube-mount-right,tube-clamp,middle-fit,horizontal-edge-fit,corner-edge-fit-left,corner-edge-fit-right]
+view_mode = "assembly"; // [assembly,two-panel-assembly,exploded,panels,couplers,middle-coupler,horizontal-edge-coupler,horizontal-edge-tube-mount-coupler,corner-edge-left,corner-edge-right,corner-edge-tube-mount-left,corner-edge-tube-mount-right,tube-clamp,middle-fit,horizontal-edge-fit,corner-edge-fit-left,corner-edge-fit-right]
 
 /* [Coupler profile] */
 coupler_profile = "medium"; // [small,medium,large,custom]
@@ -152,6 +153,16 @@ module _hub75_main_display(explode = 0, panels_visible = show_panels) {
 module _hub75_main_selected_view() {
     if (view_mode == "assembly")
         _hub75_main_display();
+    else if (view_mode == "two-panel-assembly")
+        hub75_tube_mount_display_2_panel_assembly(
+            coupler_size =
+                coupler_profile == "custom" ? "medium" : coupler_profile,
+            tube_mount_enabled = show_tube_mounts,
+            tube_clamps_visible = show_tube_clamps,
+            aluminium_tubes_visible = show_aluminium_tubes,
+            debug_reference_visible = show_debug_frame,
+            explode_distance = 0
+        );
     else if (view_mode == "exploded")
         _hub75_main_display(explode = exploded_distance);
     else if (view_mode == "panels")
