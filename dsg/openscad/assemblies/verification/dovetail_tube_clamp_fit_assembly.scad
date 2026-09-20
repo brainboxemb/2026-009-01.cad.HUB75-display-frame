@@ -1,13 +1,13 @@
-// File: dovetail_tube_clip_fit_assembly.scad
-//   Focused reinforcement fixture: one horizontal-edge coupler, one detachable
-//   tube clamp and a short section of the real Ø10 aluminium tube.
+// File: dovetail_tube_clamp_fit_assembly.scad
+//   Focused tube-mount fixture: one horizontal-edge tube-mount coupler,
+//   the canonical detachable clamp and a short Ø10 aluminium tube.
 
 use <../../components/aluminium_tube.scad>
 use <../../project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad>
-use <../../project_components/reinforcement/reinforced_couplers.scad>
-use <../../project_components/reinforcement/dovetail_tube_clamp.scad>
+use <../../project_components/tube_mount/tube_mount_couplers.scad>
+use <../../project_components/tube_mount/dovetail_tube_clamp.scad>
 
-module hub75_dovetail_tube_clip_fit_assembly(
+module hub75_dovetail_tube_clamp_fit_assembly(
     size = "medium",
     show_coupler = true,
     show_clamp = true,
@@ -19,11 +19,9 @@ module hub75_dovetail_tube_clip_fit_assembly(
             size = size
         );
     clamp =
-        hub75_reinforcement_tube_clamp_create(
-            coupler_base_thickness = coupler.base_thickness
-        );
+        hub75_dovetail_tube_clamp_create();
     clip_x =
-        hub75_reinforcement_clip_offset(coupler.profile_size);
+        hub75_tube_mount_clip_offset(coupler.profile_size);
     tube_length = 58;
     slide_shift = max(0, explode_distance);
     tube_z_shift = 0.65 * max(0, explode_distance);
@@ -37,11 +35,11 @@ module hub75_dovetail_tube_clip_fit_assembly(
 
     if (show_coupler)
         color([0.72, 0.05, 0.04, 1])
-            hub75_reinforced_horizontal_edge_coupler_build(coupler);
+            hub75_horizontal_edge_tube_mount_coupler_build(coupler);
 
     if (show_clamp)
         translate([clip_x + slide_shift, 0, 0])
-            hub75_reinforcement_tube_clamp_build(
+            hub75_dovetail_tube_clamp_build(
                 clamp,
                 part_color = [0.92, 0.20, 0.08, 1]
             );
@@ -50,8 +48,8 @@ module hub75_dovetail_tube_clip_fit_assembly(
         color([0.72, 0.74, 0.76, 1])
             translate([
                 clip_x + slide_shift - tube_length / 2,
-                hub75_reinforcement_tube_clamp_tube_center_y(clamp),
-                hub75_reinforcement_tube_clamp_tube_center_z(clamp)
+                hub75_dovetail_tube_clamp_tube_center_y(clamp),
+                hub75_dovetail_tube_clamp_tube_center_z(clamp)
                     + tube_z_shift
             ])
                 aluminium_tube_build(tube);

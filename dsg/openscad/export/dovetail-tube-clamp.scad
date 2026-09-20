@@ -1,17 +1,7 @@
-// STL export entrypoint for the separately printable dovetail tube clamp.
+// STL export entrypoint for the one canonical detachable dovetail tube clamp.
 
-use <../project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad>
-use <../project_components/reinforcement/dovetail_tube_clamp.scad>
+use <../project_components/tube_mount/dovetail_tube_clamp.scad>
 
-size = "medium";
+clamp = hub75_dovetail_tube_clamp_create();
 
-coupler =
-    hub75_horizontal_edge_coupler_create_for_size(
-        size = size
-    );
-clamp =
-    hub75_reinforcement_tube_clamp_create(
-        coupler_base_thickness = coupler.base_thickness
-    );
-
-hub75_reinforcement_tube_clamp_build(clamp);
+hub75_dovetail_tube_clamp_build(clamp);

@@ -1,9 +1,9 @@
-// YZ section through the assembled dovetail rail, clamp and aluminium tube.
+// YZ section through the local dovetail, canonical clamp and aluminium tube.
 
 use <../../dsg/openscad/ext/lib.scad.util/openscad/inspection.scad>
-use <../../dsg/openscad/assemblies/verification/dovetail_tube_clip_fit_assembly.scad>
+use <../../dsg/openscad/assemblies/verification/dovetail_tube_clamp_fit_assembly.scad>
 use <../../dsg/openscad/project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad>
-use <../../dsg/openscad/project_components/reinforcement/dovetail_tube_clamp.scad>
+use <../../dsg/openscad/project_components/tube_mount/tube_mount_couplers.scad>
 
 size = "medium";
 
@@ -12,9 +12,9 @@ coupler =
         size = size
     );
 clip_x =
-    hub75_reinforcement_clip_offset(coupler.profile_size);
+    hub75_tube_mount_clip_offset(coupler.profile_size);
 
-$vpt = [clip_x, -2, 4];
+$vpt = [clip_x, -2, 10];
 $vpr = [0, 90, 0];
 $vpd = 95;
 
@@ -24,6 +24,6 @@ util_section_inspect(
     depth = 0.20,
     direction = "Positive"
 )
-    hub75_dovetail_tube_clip_fit_assembly(
+    hub75_dovetail_tube_clamp_fit_assembly(
         size = size
     );

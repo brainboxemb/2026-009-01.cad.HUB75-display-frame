@@ -31,8 +31,8 @@ digitally build/fit verified. Their physical panel-fit acceptance remains open
 because the underlying `lib.scad.hub75` panel model still has unfinished
 physical verification against real HUB75 hardware.
 
-That does not block independent reinforcement work as long as the panel-facing
-core geometry is not silently changed. The reinforcement layer is therefore
+That does not block independent tube-mount design work as long as the panel-facing
+core geometry is not silently changed. The tube-mount layer is therefore
 implemented as wrappers around the existing couplers.
 
 The older `2026-006-01.cad.HUB75-display-frame` remains historical evidence for
@@ -66,22 +66,22 @@ Track A — physical core acceptance
         -> Step 3 physical coupler fit
         -> Step 4 core-interface freeze
 
-Track B — reinforcement product design
+Track B — tube-mount product design
     recover old structural decisions
         -> integrate shared clamp + dovetail
-        -> digital reinforcement design complete
+        -> digital tube-mount design complete
 
 Physical qualification gate
     core panel-fit accepted / Step 4 frozen
     AND
-    reinforcement CAD is printable
+    tube-mount CAD is printable
         -> dovetail/clip print-fit qualification
 
 Final integration
     core panel-fit accepted
     AND
     dovetail/clip fit accepted
-        -> reinforced frame prototype
+        -> tube-mounted frame prototype
 ```
 
 Track B may add project-owned geometry only on the rear/outside reinforcement
@@ -233,7 +233,7 @@ retest. Only then may Step 4 freeze the core interface baseline.
 **Goal**
 
 Create a clear boundary between accepted panel-fit geometry and the next
-reinforcement layer.
+tube-mount layer.
 
 **Work**
 
@@ -269,7 +269,7 @@ the reusable dependencies needed by the new design.
 **Exit criteria**
 
 The current assembly can independently show/hide the debug envelope, tubes and
-reinforcement parts, and ordinary section views no longer need local giant-cube
+tube-mount parts, and ordinary section views no longer need local giant-cube
 slab implementations.
 
 ## Step 6 — Integrate the detachable dovetail tube clip
@@ -284,7 +284,7 @@ simple sliding dovetail that respects both intended print orientations.
 **Design direction**
 
 - couplers print upside down / rear-face-down;
-- the horizontal-edge reinforced variant adds two local rounded mounting points,
+- the horizontal-edge tube-mount variant adds two local rounded mounting points,
   one for each tube clamp;
 - each mounting point contains one short female dovetail entered from its
   adjacent X side; there is no long groove through the coupler arm;
@@ -303,7 +303,7 @@ not treated as printer/material fit acceptance.
 
 **Exit criteria**
 
-- horizontal-edge and corner reinforcement wrappers expose local side-entry
+- horizontal-edge and corner tube-mount variants expose local side-entry
   dovetails without editing the panel-facing core component geometry;
 - the horizontal-edge variant has two distinct mounting points;
 - the clip is independently exportable;
@@ -321,7 +321,7 @@ output are both complete.
 
 After the HUB75 panel/core interface is physically accepted, check the parts
 that CAD alone cannot establish reliably: sliding fit, retention and
-serviceability. Do not spend print iterations on this reinforcement interface
+serviceability. Do not spend print iterations on this tube-mount interface
 before that core gate is closed.
 
 **Check**
@@ -342,14 +342,14 @@ needed rather than replacing the whole interface concept automatically.
 A printed medium coupler/clip coupon or real coupler assembly demonstrates a
 usable dovetail and tube clamp with recorded fit observations.
 
-## Step 8 — Complete reinforced display-frame assembly
+## Step 8 — Complete tube-mounted display-frame assembly
 
 **Status:** follows Steps 4 and 7.
 
 **Goal**
 
 Combine the physically accepted core mating geometry with the qualified
-reinforcement layer.
+tube-mount layer.
 
 **Check**
 
@@ -363,7 +363,7 @@ reinforcement layer.
 
 **Exit criteria**
 
-The complete five-panel reinforced assembly is digitally coherent and every
+The complete five-panel tube-mounted assembly is digitally coherent and every
 local interface is supported by focused evidence rather than only by a whole
 assembly render.
 

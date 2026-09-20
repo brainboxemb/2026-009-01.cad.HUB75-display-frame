@@ -10,7 +10,6 @@ profiles:
       - horizontal-edge-coupler.scad
       - corner-edge-coupler-left.scad
       - corner-edge-coupler-right.scad
-      - reinforced-horizontal-edge-coupler.scad
-      - reinforced-corner-edge-coupler-left.scad
-      - reinforced-corner-edge-coupler-right.scad
-      - dovetail-tube-clamp.scad
+      - horizontal-edge-tube-mount-coupler.scad
+      - corner-edge-tube-mount-coupler-left.scad
+      - corner-edge-tube-mount-coupler-right.scad

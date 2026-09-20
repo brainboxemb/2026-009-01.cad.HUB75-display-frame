@@ -11,11 +11,11 @@ use <assemblies/verification/corner_edge_coupler_fit_assembly.scad>
 use <project_components/middle-coupler/hub75_middle_coupler.scad>
 use <project_components/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad>
 use <project_components/corner-edge-coupler/hub75_corner_edge_coupler.scad>
-use <project_components/reinforcement/reinforced_couplers.scad>
-use <project_components/reinforcement/dovetail_tube_clamp.scad>
+use <project_components/tube_mount/tube_mount_couplers.scad>
+use <project_components/tube_mount/dovetail_tube_clamp.scad>
 
 /* [View] */
-view_mode = "assembly"; // [assembly,exploded,panels,couplers,middle-coupler,horizontal-edge-coupler,reinforced-horizontal-edge-coupler,corner-edge-left,corner-edge-right,reinforced-corner-edge-left,reinforced-corner-edge-right,tube-clamp,middle-fit,horizontal-edge-fit,corner-edge-fit-left,corner-edge-fit-right]
+view_mode = "assembly"; // [assembly,exploded,panels,couplers,middle-coupler,horizontal-edge-coupler,horizontal-edge-tube-mount-coupler,corner-edge-left,corner-edge-right,corner-edge-tube-mount-left,corner-edge-tube-mount-right,tube-clamp,middle-fit,horizontal-edge-fit,corner-edge-fit-left,corner-edge-fit-right]
 
 /* [Coupler profile] */
 coupler_profile = "medium"; // [small,medium,large,custom]
@@ -37,7 +37,7 @@ show_couplers = true;
 show_middle_couplers = true;
 show_horizontal_edge_couplers = true;
 show_corner_edge_couplers = true;
-show_reinforcement = true;
+show_tube_mounts = true;
 show_tube_clamps = true;
 show_aluminium_tubes = true;
 show_debug_frame = false;
@@ -137,9 +137,9 @@ module _hub75_main_display(explode = 0, panels_visible = show_panels) {
             show_couplers && show_horizontal_edge_couplers,
         corner_edge_couplers_visible =
             show_couplers && show_corner_edge_couplers,
-        reinforcement_enabled = show_reinforcement,
-        reinforcement_clamps_visible = show_tube_clamps,
-        reinforcement_tubes_visible = show_aluminium_tubes,
+        tube_mount_enabled = show_tube_mounts,
+        tube_clamps_visible = show_tube_clamps,
+        aluminium_tubes_visible = show_aluminium_tubes,
         debug_reference_visible = show_debug_frame,
         explode_distance = explode,
         middle_coupler = middle_coupler,
@@ -162,25 +162,19 @@ module _hub75_main_selected_view() {
         hub75_middle_coupler_render(middle_coupler, view = "final");
     else if (view_mode == "horizontal-edge-coupler")
         hub75_horizontal_edge_coupler_render(horizontal_coupler, view = "final");
-    else if (view_mode == "reinforced-horizontal-edge-coupler")
-        hub75_reinforced_horizontal_edge_coupler_build(horizontal_coupler);
+    else if (view_mode == "horizontal-edge-tube-mount-coupler")
+        hub75_horizontal_edge_tube_mount_coupler_build(horizontal_coupler);
     else if (view_mode == "corner-edge-left")
         hub75_corner_edge_coupler_render(left_corner_coupler, view = "final");
     else if (view_mode == "corner-edge-right")
         hub75_corner_edge_coupler_render(right_corner_coupler, view = "final");
-    else if (view_mode == "reinforced-corner-edge-left")
-        hub75_reinforced_corner_edge_coupler_build(left_corner_coupler);
-    else if (view_mode == "reinforced-corner-edge-right")
-        hub75_reinforced_corner_edge_coupler_build(right_corner_coupler);
+    else if (view_mode == "corner-edge-tube-mount-left")
+        hub75_corner_edge_tube_mount_coupler_build(left_corner_coupler);
+    else if (view_mode == "corner-edge-tube-mount-right")
+        hub75_corner_edge_tube_mount_coupler_build(right_corner_coupler);
     else if (view_mode == "tube-clamp")
-        let(
-            clamp =
-                hub75_reinforcement_tube_clamp_create(
-                    coupler_base_thickness =
-                        horizontal_coupler.base_thickness
-                )
-        )
-            hub75_reinforcement_tube_clamp_build(clamp);
+        let(clamp = hub75_dovetail_tube_clamp_create())
+            hub75_dovetail_tube_clamp_build(clamp);
     else if (view_mode == "middle-fit")
         hub75_middle_coupler_fit_detail(
             panel = panel,

@@ -149,22 +149,22 @@ instead of being duplicated here.
 
 ![Corner right large angled fit](corner-edge-coupler-right-large-fit-detail.png)
 
-# Detachable reinforcement clip
+# Tube-mount coupler and canonical clamp
 
 ## Small
 
-![Dovetail tube clamp small assembled fit](dovetail-tube-clamp-small-fit.png)
+![Small tube-mount coupler with canonical clamp](horizontal-edge-tube-mount-coupler-small-clamp-fit.png)
 
-![Dovetail tube clamp small YZ section](dovetail-tube-clamp-small-yz-section.png)
+![Small tube-mount coupler YZ section](horizontal-edge-tube-mount-coupler-small-yz-section.png)
 
 ## Medium
 
-![Dovetail tube clamp medium assembled fit](dovetail-tube-clamp-medium-fit.png)
+![Medium tube-mount coupler with canonical clamp](horizontal-edge-tube-mount-coupler-medium-clamp-fit.png)
 
-![Dovetail tube clamp medium YZ section](dovetail-tube-clamp-medium-yz-section.png)
+![Medium tube-mount coupler YZ section](horizontal-edge-tube-mount-coupler-medium-yz-section.png)
 
 ## Large
 
-![Dovetail tube clamp large assembled fit](dovetail-tube-clamp-large-fit.png)
+![Large tube-mount coupler with canonical clamp](horizontal-edge-tube-mount-coupler-large-clamp-fit.png)
 
-![Dovetail tube clamp large YZ section](dovetail-tube-clamp-large-yz-section.png)
+![Large tube-mount coupler YZ section](horizontal-edge-tube-mount-coupler-large-yz-section.png)

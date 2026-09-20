@@ -337,7 +337,7 @@ Rear-fit sections are cut inside the active guide: 3 mm for the 4 mm small
 guide and 5 mm for medium/large. This keeps the same 5 mm reference where
 possible while ensuring the small preset still shows meaningful fit evidence.
 
-The build keeps the core coupler STL family and adds separate reinforced output:
+The build keeps the core coupler STL family and adds separate tube-mount output:
 
 ```text
 bld/stl/middle-coupler-<size>.stl
@@ -345,11 +345,11 @@ bld/stl/horizontal-edge-coupler-<size>.stl
 bld/stl/corner-edge-coupler-left-<size>.stl
 bld/stl/corner-edge-coupler-right-<size>.stl
 
-bld/stl/reinforced-horizontal-edge-coupler-<size>.stl
-bld/stl/reinforced-corner-edge-coupler-left-<size>.stl
-bld/stl/reinforced-corner-edge-coupler-right-<size>.stl
-bld/stl/dovetail-tube-clamp-<size>.stl
-bld/stl/reinforced-display-2-panel.stl
+bld/stl/horizontal-edge-tube-mount-coupler-<size>.stl
+bld/stl/corner-edge-tube-mount-coupler-left-<size>.stl
+bld/stl/corner-edge-tube-mount-coupler-right-<size>.stl
+bld/stl/dovetail-tube-clamp.stl
+bld/stl/tube-mount-display-2-panel.stl
 ```
 
 The aluminium tube itself is a generic local component under
@@ -357,13 +357,13 @@ The aluminium tube itself is a generic local component under
 project-specific assembly decisions.
 
 The detachable clamp body comes from `lib.scad.clamps`. The project-specific
-lower mounting foot itself is the male dovetail. The horizontal-edge reinforced
+lower mounting foot itself is the male dovetail. The horizontal-edge tube-mount
 variant adds two rounded local mounting points; each contains one short female
 dovetail entered from its adjacent side. The coupler is intended to be printed
 upside down, so the dovetail flanks form printable sloping overhangs. The clamp
 is intended to be printed on its side.
 
-`reinforced-display-2-panel.stl` is the compact whole-model inspection export:
+`tube-mount-display-2-panel.stl` is the compact whole-model inspection export:
 it contains two panels, the complete coupler family, detachable clamps and both
 aluminium tubes without producing the >100 MB five-panel STL seen during PR
 iteration.
@@ -401,7 +401,7 @@ in the [project plan](docs/01-project-plan.md). Keeping that information in one
 place avoids a second project backlog drifting inside this README.
 
 The plan preserves the core panel-fit boundary while allowing the independent
-reinforcement layer to progress in parallel. Experiment 005 is historical only;
+tube-mount layer to progress in parallel. Experiment 005 is historical only;
 the current product direction is a simple sliding dovetail developed directly in
 this repository. The reusable clamp body comes from `lib.scad.clamps`, and
 ordinary X/Y/Z inspection sections use `lib.scad.util`.

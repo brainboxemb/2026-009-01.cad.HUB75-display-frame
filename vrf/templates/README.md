@@ -25,7 +25,7 @@ XY seam section.
 ### Horizontal-edge coupler
 
 Joins the same panel seam at the top/bottom display edge. The core fit evidence
-remains intentionally independent of the reinforcement layer so physical panel
+remains intentionally independent of the tube-mount layer so physical panel
 acceptance can still evaluate the accepted panel-facing geometry.
 
 Each small/medium/large size publishes an angled top-edge fit detail, a
@@ -58,14 +58,14 @@ horizontal-edge profile sections.
 
 The core corner-fit evidence remains independent of the reinforcement layer.
 
-### Detachable reinforcement clip
+### Tube-mount coupler and canonical clamp
 
-The reinforcement layer uses a separate printable tube clamp built from the
+The tube-mount layer uses one canonical separate printable tube clamp built from the
 public `lib.scad.clamps` tube-clamp body plus a project-owned sliding dovetail.
 
-For small/medium/large the verification snapshot publishes:
+For each small/medium/large coupler size, the same clamp is used and the verification snapshot publishes:
 
-- an assembled local view containing reinforced horizontal-edge coupler,
+- an assembled local view containing horizontal-edge tube-mount coupler,
   detachable clamp and Ø10 aluminium tube;
 - a thin YZ section through the dovetail engagement, generated with
   `lib.scad.util`.
