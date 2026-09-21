@@ -19,9 +19,9 @@ This file records the functional evolution of the HUB75 display-frame project.
   existing two-panel STL export now delegates to that assembly instead of owning
   a second copy of the assembly call; expose the same assembly from `main.scad`
   as the `two-panel-assembly` interactive view.
-- Add released `lib.scad.mechint v0.1.5` as the reusable owner of the
-  tube-mount sliding-dovetail profile, clearances, 16 mm female entry slot and
-  integral lock/release geometry.
+- Add `lib.scad.mechint` as the reusable owner of the tube-mount
+  sliding-dovetail profile, clearances, 16 mm female entry slot and integral
+  lock/release geometry.
 - Update the tube clamp to released `lib.scad.clamps v0.1.7`, using an
   explicit Ø10.0 mm functional bore and Ø9.6 mm tension bore instead of using
   positive clearance to create clamping preload.
@@ -29,12 +29,15 @@ This file records the functional evolution of the HUB75 display-frame project.
 
 ### Changed
 
-- Migrate the HUB75 tube-mount adapter to the coding-standard API from `lib.scad.mechint` PR #19: explicit unit suffixes, `len` abbreviations and positive lock booleans. The dependency is temporarily pinned to the PR branch/commit while that breaking library cleanup is qualified.
+- Migrate the HUB75 tube-mount adapter to the released
+  `lib.scad.mechint v0.2.0` coding-standard API: explicit unit suffixes,
+  `len` abbreviations and positive lock booleans.
 - Upgrade the HUB75 root repository stack to `tool.git-project v0.2.9` and
-  `tool.scad-project v0.15.2`. Keep the project-owned `lib.scad.util v0.2.0`
-  alongside `lib.scad.mechint v0.1.6` and its owner-local transitive
-  `lib.scad.util v0.1.0`; verification asserts both util revisions resolve
-  independently while mechint's nested tooling gitlinks remain uninitialized.
+  `tool.scad-project v0.15.2`. Pin project-owned `lib.scad.util v0.3.0`
+  alongside `lib.scad.mechint v0.2.0`; mechint's owner-local transitive util
+  is the same released `v0.3.0` source. Verification asserts both owner-local
+  checkouts resolve at their exact release commits while mechint's nested
+  tooling gitlinks remain uninitialized.
 
 - Upgrade the tube-mount mechanical-interface dependency to released
   `lib.scad.mechint v0.1.6` and enable its symmetric 45 degree printable

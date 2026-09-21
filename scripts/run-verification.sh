@@ -6,9 +6,11 @@ cd "${ROOT_DIR}"
 
 EXPECTED_GIT_TOOL_SHA="9879da589101f41b2b0e634d196ddcc51e1a6102"
 EXPECTED_SCAD_TOOL_SHA="70fd4162731484a949dc390e942dde8b8d811f10"
-EXPECTED_DIRECT_UTIL_SHA="da1892a201c3bfc78a65e10df84d4a8d142ae8f6"
-EXPECTED_MECHINT_SHA="a306b7ed3e8d504058c55140b3241507c3a1331b"
-EXPECTED_MECHINT_UTIL_SHA="5c88cd9b6b118d376825927ed67e26aff6eaee2d"
+EXPECTED_DIRECT_UTIL_SHA="d789d468560d5a2f2b1563d4c957f30de51e58ff"
+EXPECTED_MECHINT_SHA="ad32017da289cfcd399a53b742844c79e0abfdca"
+EXPECTED_MECHINT_UTIL_SHA="d789d468560d5a2f2b1563d4c957f30de51e58ff"
+EXPECTED_DIRECT_UTIL_REF="v0.3.0"
+EXPECTED_MECHINT_REF="v0.2.0"
 
 gitlink_sha() {
   local repo_root="$1"
@@ -65,13 +67,22 @@ verify_dependency_ownership() {
   require_checkout "$direct_util" "$EXPECTED_DIRECT_UTIL_SHA"
   require_checkout "$mechint" "$EXPECTED_MECHINT_SHA"
 
+  grep -Fq "ref: $EXPECTED_DIRECT_UTIL_REF" "$ROOT_DIR/project.yml" || {
+    echo "ERROR: project.yml must retain lib.scad.util $EXPECTED_DIRECT_UTIL_REF" >&2
+    exit 1
+  }
+  grep -Fq "ref: $EXPECTED_MECHINT_REF" "$ROOT_DIR/project.yml" || {
+    echo "ERROR: project.yml must retain lib.scad.mechint $EXPECTED_MECHINT_REF" >&2
+    exit 1
+  }
+
   require_gitlink "$mechint" "ext/lib.scad.util" "$EXPECTED_MECHINT_UTIL_SHA"
   require_checkout "$nested_util" "$EXPECTED_MECHINT_UTIL_SHA"
 
   require_uninitialized_nested_tooling "$mechint" "tools/tool.git-project"
   require_uninitialized_nested_tooling "$mechint" "tools/tool.scad-project"
 
-  echo "Dependency ownership: root util v0.2.0 and mechint-owned util v0.1.0 coexist correctly"
+  echo "Dependency ownership: root util v0.3.0 and mechint-owned util v0.3.0 resolve as independent owner-local checkouts"
 }
 OUT_DIR="${ROOT_DIR}/vrf/out"
 PNG_DIR="${OUT_DIR}/png"
