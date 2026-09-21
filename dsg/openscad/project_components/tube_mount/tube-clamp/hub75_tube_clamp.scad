@@ -1,6 +1,9 @@
 // File: hub75_tube_clamp.scad
 //   Project-owned detachable Ø10 HUB75 tube clamp.
 //
+// Design: design/design.md
+// Design review: hub75_tube_clamp_render.scad
+//
 // lib.scad.clamps owns the reusable snap-ring geometry and nominal/tension bore
 // semantics. HUB75 keeps the ring compact, narrows it to 12 mm and places the
 // size-matched vertical male dovetail beside the compact transition. Small,
