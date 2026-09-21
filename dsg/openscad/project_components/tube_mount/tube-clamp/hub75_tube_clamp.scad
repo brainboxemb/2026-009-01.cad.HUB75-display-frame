@@ -11,6 +11,7 @@
 // including its male dovetail, stays positioned from the tube-front datum.
 
 use <../../../ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad>
+use <../../../ext/lib.scad.util/openscad/transform.scad>
 use <../tube_mount_interface.scad>
 
 /* [Profile] */
@@ -22,9 +23,10 @@ preview_bore = "functional"; // [functional,tension]
 preview_transition_relief = true;
 
 /* [Transition relief] */
-preview_relief_radius = 10.0;
-preview_relief_bite = 1.0;
-preview_relief_face_depth = 2.0;
+preview_relief_radius = 6.0;
+preview_relief_bite = 0.4;
+preview_relief_z_height = 4.0;
+preview_relief_z_offset = 1.0;
 
 /* [Resolution] */
 preview_high_resolution = false;
@@ -73,9 +75,10 @@ function hub75_tube_clamp_create(
     dovetail_slide = 16,
     dovetail_center_z = undef,
     dovetail_relief_chamfer_depth = undef,
-    transition_relief_radius = 10.0,
-    transition_relief_bite = 1.0,
-    transition_relief_face_depth = 2.0,
+    transition_relief_radius = 6.0,
+    transition_relief_bite = 0.4,
+    transition_relief_z_height = 4.0,
+    transition_relief_z_offset = 1.0,
     extra = 0.01,
     dovetail = hub75_tube_mount_dovetail_create()
 ) =
@@ -138,10 +141,8 @@ function hub75_tube_clamp_create(
         "tube-clamp transition_relief_bite must be between 0 and transition_relief_radius"
     )
     assert(
-        transition_relief_face_depth > 0
-            && transition_relief_face_depth
-                <= clamp_width / 2,
-        "tube-clamp transition_relief_face_depth must be > 0 and <= half clamp_width"
+        transition_relief_z_height > 0,
+        "tube-clamp transition_relief_z_height must be > 0"
     )
     object(
         tube_center_y = active_tube_center_y,
@@ -153,8 +154,10 @@ function hub75_tube_clamp_create(
             active_relief_chamfer_depth,
         transition_relief_radius = transition_relief_radius,
         transition_relief_bite = transition_relief_bite,
-        transition_relief_face_depth =
-            transition_relief_face_depth,
+        transition_relief_z_height =
+            transition_relief_z_height,
+        transition_relief_z_offset =
+            transition_relief_z_offset,
         base_clamp = base_clamp
     );
 
@@ -280,17 +283,22 @@ module _hub75_tube_clamp_ring_build(
 }
 
 
-// Shallow round bite at the LOWER transition foot: the sharp corner where the
-// compact sloped transition leaves the flat base / dovetail connection.
+// Small round side relief accepted in the component lab.
 //
-// This deliberately does NOT target the upper transition-to-ring attach point.
-// In the reusable clamp's native profile the target vertex is
-// [base_thickness, +/- transition_width/2].
+// The lab geometry is defined in development orientation:
+//   project X -> development X
+//   project Y -> development -Z
+//   project Z -> development Y
 //
-// The cylinders use native Z as their axis. Native Z maps to project X, which is
-// printer Z in the intended side-print orientation. They are intentionally
-// short and applied from both clamp faces, matching the requested small round
-// bite on this side and on the back rather than cutting a full-width tunnel.
+// In the reusable clamp's native coordinates this means:
+//   development X = native Z - clamp_width/2
+//   development Y = -native Y + tube_center_z
+//   development Z = native X - project Y translation
+//
+// The accepted low development-Z cylinders therefore become short native-X
+// cylinders whose circular centres sit just outside the two native-Z side
+// faces.  This preserves the lab result exactly without making the relief
+// dependent on the selected dovetail profile height.
 module _hub75_tube_clamp_transition_relief_cutter_local(
     clamp,
     high_resolution
@@ -298,33 +306,54 @@ module _hub75_tube_clamp_transition_relief_cutter_local(
     b = clamp.base_clamp;
     radius = clamp.transition_relief_radius;
     bite = clamp.transition_relief_bite;
-    face_depth = clamp.transition_relief_face_depth;
+    z_height = clamp.transition_relief_z_height;
+    z_offset = clamp.transition_relief_z_offset;
 
-    foot_x = b.base_thickness;
-    foot_y = b.transition_width / 2;
-    cutter_y =
-        foot_y
-        + radius
+    outer_r = tube_clamp_outer_radius(b);
+    ring_center_x =
+        b.base_thickness
+        + outer_r;
+    attach_x = min(
+        b.base_thickness
+            + b.transition_depth,
+        ring_center_x
+            + outer_r
+            - b.extra
+    );
+
+    // development-Z position translated back to native clamp X.
+    cutter_x =
+        attach_x
+        + z_offset;
+
+    // A radius-R cylinder centred R-bite outside either side face enters the
+    // 12 mm clamp by exactly 'bite'.
+    side_center_offset =
+        radius
         - bite;
 
-    // Two profile sides (+/-Y) x two physical clamp faces (native Z).
-    for (profile_side = [-1, 1])
-        for (face = [0, 1])
-            translate([
-                foot_x,
-                profile_side * cutter_y,
-                face == 0
-                    ? -b.extra
-                    : b.clamp_width - face_depth,
-            ])
+    for (side = [-1, 1]) {
+        cutter_z =
+            side < 0
+                ? -side_center_offset
+                : b.clamp_width
+                    + side_center_offset;
+
+        xf_move([
+            cutter_x - z_height / 2,
+            0,
+            cutter_z
+        ])
+            xf_yrot(90)
                 cylinder(
                     r = radius,
-                    h = face_depth + b.extra,
+                    h = z_height,
                     $fn =
                         high_resolution
                             ? 96
                             : 32
                 );
+    }
 }
 
 
@@ -434,8 +463,10 @@ _preview_clamp =
             preview_relief_radius,
         transition_relief_bite =
             preview_relief_bite,
-        transition_relief_face_depth =
-            preview_relief_face_depth
+        transition_relief_z_height =
+            preview_relief_z_height,
+        transition_relief_z_offset =
+            preview_relief_z_offset
     );
 
 _preview_use_tension_bore =

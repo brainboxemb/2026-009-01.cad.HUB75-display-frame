@@ -29,7 +29,7 @@ The rule from this point onward is:
 > detail.
 
 The pre-relief baseline below is the shape to preserve except for the small
-lower transition-foot corners addressed later in this document.
+local side relief accepted later in this document.
 
 <!-- scad-render
 view: before-relief
@@ -95,30 +95,33 @@ lib clamp Y  -> project -Z
 That transform is not just an implementation detail. It determines which way a
 subtraction is oriented physically.
 
-## Print coordinate system — critical
+## Development and print coordinates
 
-The clamp is **side-printed**.
-
-In that print orientation the 12 mm clamp side is placed on the bed, therefore:
+The clamp is still **side-printed**. In that print orientation the 12 mm clamp
+side is placed on the bed, so:
 
 ```text
 project X / tube axis = printer Z / build direction
 ```
 
-This is the important distinction that was previously undocumented.
+The local relief is, however, defined from the component-lab **development
+orientation**, because that is the orientation in which its position was
+visually calibrated:
 
-A cutter described as **vertical for printing** must therefore have its axis
-along **project X**.
+```text
+project X -> development X
+project Y -> development -Z
+project Z -> development Y
+```
 
-A cylinder whose axis runs along project Z may look vertical in one model view,
-but it is horizontal in the actual print orientation and creates the wrong kind
-of concave overhang.
+So `relief_z_height` and `relief_z_offset` refer specifically to
+**development Z**. They do not refer to dovetail height and they do not move
+when small / medium / large is selected.
 
-The green reference axis below documents the required print-vertical direction.
-It is documentation-only; it does not define the final position of a relief.
+The green reference axis below shows development Z. It is documentation-only.
 
 <!-- scad-render
-view: print-axis
+view: development-axis
 -->
 
 ## Fixed tube and clamp dimensions
@@ -126,11 +129,12 @@ view: print-axis
 All sizes retain the same actual tube clip:
 
 ```text
-tube functional diameter  = 10.0 mm
-tube tension diameter     =  9.6 mm
-wall thickness            =  2.0 mm
-clamp width               = 12.0 mm
-nominal outside diameter  = 14.0 mm
+tube functional diameter   = 10.0 mm
+tube tension diameter      =  9.6 mm
+wall thickness             =  2.0 mm
+clamp width                = 12.0 mm
+functional outside diameter = 14.0 mm
+tension outside diameter    = 13.6 mm
 ```
 
 The tube datum also remains fixed. Selecting small / medium / large must not
@@ -255,7 +259,6 @@ The following are **not** acceptable ways to solve that edge:
 - cutting a broad cylindrical scoop through the ring;
 - introducing a rectangular step/notch;
 - changing the 30 degree dovetail transition globally;
-- using a project-Z cylinder merely because it looks vertical in a viewport.
 
 <!-- scad-render
 view: baseline
@@ -264,52 +267,76 @@ vpt: [0, -3.5, 10]
 vpd: 72
 -->
 
-## Local transition-foot relief
+## Local side relief
 
-The remaining sharp feature is **not** the upper point where the sloped
-transition meets the circular ring. The target is the lower foot highlighted in
-the design review: where the sloped transition leaves the flat
-base / dovetail connection.
+The component-lab experiment established a small round relief on **both physical
+clamp sides**. It is intentionally local: the accepted ring, snap opening,
+fixed clamp-body transition and dovetail silhouette remain unchanged away from
+the relief.
 
-The current correction follows the original proposal: remove a little more
-material locally so the point itself is no longer sharp.
-
-The cutter is deliberately simple:
+The accepted defaults are:
 
 ```text
-radius = 10 mm
-bite   = 1 mm
-axis   = native clamp Z
-       = project X
-       = printer Z in the intended side-print orientation
+radius          = 6.0 mm
+bite            = 0.4 mm
+development-Z height = 4.0 mm
+development-Z offset = 1.0 mm
 ```
 
-In the reusable clamp's native 2D profile the target is the lower transition
-vertex:
+The side position is derived rather than hard-coded. With the 12 mm clamp width:
 
 ```text
-x = base_thickness
-y = +/- transition_width / 2
+abs(development X)
+= clamp_width / 2 + radius - bite
+= 6 + 6 - 0.4
+= 11.6 mm
 ```
 
-The R10 cutter is positioned just outside that vertex so the maximum radial bite
-is about 1 mm. It is **not** centred at the upper ring/transition attach point;
-that was the error in the previous iteration and produced the large missing
-chunks visible in the ring.
+So each R6 cutter centre is 5.6 mm outside its clamp side and enters the model
+by only 0.4 mm.
 
-The cutter is also shallow along its axis: 2 mm from the front face and 2 mm
-from the back face. Together with the two profile sides this gives four small
-local round bites instead of one through-width groove.
+The other transverse coordinate is the fixed tube datum:
 
-Its cylinder axis is native clamp Z, which maps to project X and therefore to
-printer Z in the intended side-print orientation. So the round bite is vertical
-for printing rather than a horizontal concave tunnel.
+```text
+development Y = tube_center_z
+```
 
-The tube bore, circular ring, snap opening, fixed clamp-body transition, tube
-datum and dovetail geometry remain unchanged away from these four local reliefs.
+Development-Z starts from the clamp body's own transition geometry and then
+adds the explicit offset:
 
-The red geometry below shows only the material removed at the lower
-transition-foot reliefs.
+```text
+ring_center_x = base_thickness + functional_outer_radius
+
+attach_x = min(
+    base_thickness + transition_depth,
+    ring_center_x + functional_outer_radius - extra
+)
+
+development relief position
+= body-derived position + relief_z_offset
+```
+
+The important semantic split is:
+
+- `relief_z_height` controls the **length of the low cylinder along
+  development Z**;
+- `relief_z_offset` moves that complete cutter along development Z without
+  changing its height.
+
+Because the clamp-body transition is fixed across small / medium / large, this
+offset is independent of dovetail profile height.
+
+Translated back to the reusable clamp's native coordinates, the accepted
+development-Z cylinders become short **native-X** cylinders. Their circular
+centres sit just outside the two native-Z side faces. Production uses that
+equivalent construction directly.
+
+This is deliberately different from the previous lower-transition-foot
+experiment. The previous R10 / 1 mm / shallow-face cutter targeted the wrong
+local geometry and is no longer part of the design.
+
+The red geometry below shows only the material removed by the accepted side
+reliefs.
 
 <!-- scad-render
 view: relief-detail
@@ -332,16 +359,17 @@ vpd: 72
 A candidate local relief is valid only when all of the following are true:
 
 1. the baseline silhouette is still recognizable immediately;
-2. only the lower transition-foot corners change; the upper ring attach remains
-   untouched;
-3. the relief-cylinder axis is native Z / project X / printer Z;
-4. no horizontal concave tunnel is introduced in the side-print orientation;
-5. small / medium / large retain their matching dovetails while the clamp-body
-   transition remains identical;
-6. functional and tension bore dimensions stay unchanged;
+2. the same small round relief appears on both physical clamp sides;
+3. the default geometry remains R6 / 0.4 mm bite / 4 mm development-Z height /
+   1 mm development-Z offset;
+4. changing small / medium / large does not move the relief merely because
+   dovetail height changed;
+5. the fixed clamp-body transition remains identical across the three profiles;
+6. `lib.scad.clamps v0.1.8` keeps 2.0 mm wall thickness in both functional and
+   tension geometry while keeping the nominal tube centre fixed;
 7. generated STL remains manifold;
-8. the close-up render makes the before/after change obvious without needing
-   to reconstruct the coordinate transform from source code.
+8. the close-up render makes the before/after change obvious without needing to
+   reconstruct coordinate transforms from source code.
 
 ## Production files
 

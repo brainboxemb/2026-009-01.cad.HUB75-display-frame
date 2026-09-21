@@ -9,7 +9,7 @@ $fn = 120;
 use <hub75_tube_clamp.scad>
 
 /* [Design view] */
-view = "final"; // [final,before-relief,relief-detail,body,print-axis]
+view = "final"; // [final,before-relief,relief-detail,body,development-axis]
 
 /* [Profile] */
 size = "medium"; // [small,medium,large]
@@ -19,21 +19,20 @@ function _hub75_tube_clamp_design_size(size) =
         ? size
         : "medium";
 
-module _hub75_tube_clamp_print_axis_reference(
+module _hub75_tube_clamp_development_z_reference(
     clamp,
-    length = 24
+    length = 18
 ) {
-    // Side-print rule:
-    //   project X / tube axis becomes printer Z.
-    // This cylinder is documentation-only and deliberately does not indicate
-    // the final relief position. It freezes the required cutter orientation.
+    // development Z = -project Y.
+    // Documentation-only reference for the relief z_height / z_offset terms.
     color([0.1, 0.75, 0.1, 0.7])
         translate([
-            -length / 2,
-            hub75_tube_clamp_tube_center_y(clamp),
+            0,
+            hub75_tube_clamp_tube_center_y(clamp)
+                + length / 2,
             hub75_tube_clamp_tube_center_z(clamp)
         ])
-            rotate([0, 90, 0])
+            rotate([90, 0, 0])
                 cylinder(
                     r = 0.65,
                     h = length
@@ -85,7 +84,7 @@ module hub75_tube_clamp_design(
             use_tension_bore = false,
             high_resolution = true
         );
-    } else if (view == "print-axis") {
+    } else if (view == "development-axis") {
         color([0.88, 0.08, 0.05, 0.35])
             hub75_tube_clamp_build(
                 clamp,
@@ -93,7 +92,7 @@ module hub75_tube_clamp_design(
                 high_resolution = true
             );
 
-        _hub75_tube_clamp_print_axis_reference(clamp);
+        _hub75_tube_clamp_development_z_reference(clamp);
     } else {
         hub75_tube_clamp_build(
             clamp,
