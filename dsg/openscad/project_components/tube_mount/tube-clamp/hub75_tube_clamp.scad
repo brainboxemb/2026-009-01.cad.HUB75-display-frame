@@ -171,10 +171,6 @@ module hub75_tube_clamp_build(
 
                 _hub75_tube_clamp_dovetail_relief_cutter(clamp);
                 _hub75_tube_clamp_dovetail_relief_chamfer_cutter(clamp);
-                _hub75_tube_clamp_transition_edge_relief_cutter(
-                    clamp,
-                    high_resolution
-                );
             }
 
             _hub75_tube_clamp_dovetail_build(clamp);
@@ -211,53 +207,6 @@ module _hub75_tube_clamp_ring_build(
             use_tension_bore = use_tension_bore,
             high_resolution = high_resolution
         );
-}
-
-module _hub75_tube_clamp_transition_edge_relief_cutter(
-    clamp,
-    high_resolution
-) {
-    radius = clamp.transition_relief_radius;
-    bite = clamp.transition_relief_bite;
-    chamfer_depth =
-        hub75_tube_clamp_dovetail_relief_chamfer_depth(clamp);
-    extra = clamp.base_clamp.extra;
-
-    if (bite > 0 && chamfer_depth > 0) {
-        mouth_y =
-            hub75_tube_mount_dovetail_mouth_y();
-        clamp_half_width =
-            clamp.base_clamp.clamp_width / 2;
-        shoulder_y =
-            mouth_y - chamfer_depth;
-        z_min =
-            clamp.dovetail_center_z
-            - clamp.dovetail_slide / 2
-            - extra;
-        z_length =
-            clamp.dovetail_slide
-            + 2 * extra;
-        cutter_x =
-            clamp_half_width + radius - bite;
-
-        // Shallow cylindrical relief at the sharp start of the 30-degree
-        // clamp-to-dovetail transition.  The cutter axis is project Z, so the
-        // relief is genuinely vertical in the clamp view.  R10 is positioned
-        // almost tangent to each 12 mm clamp face and therefore removes at most
-        // about 1 mm.  Do not clip the cylinder with a box: the circular cutter
-        // itself must create the smooth run-out instead of a rectangular step.
-        for (side = [-1, 1])
-            translate([
-                side * cutter_x,
-                shoulder_y,
-                z_min
-            ])
-                cylinder(
-                    r = radius,
-                    h = z_length,
-                    $fn = high_resolution ? 96 : 32
-                );
-    }
 }
 
 module _hub75_tube_clamp_dovetail_relief_cutter(clamp) {

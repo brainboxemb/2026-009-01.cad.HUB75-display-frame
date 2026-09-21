@@ -29,10 +29,13 @@ This file records the functional evolution of the HUB75 display-frame project.
 
 ### Changed
 
-- Smooth the two clamp/dovetail shoulder edges with project-Z R10 cylindrical
-  reliefs that bite at most 1 mm into the 12 mm clamp faces. The cylinders are
-  no longer box-clipped, so the relief stays genuinely circular instead of
-  creating a stepped rectangular notch.
+- Add a worked-out design document and stable design-render adapter for the
+  project-owned HUB75 tube clamp. The document freezes geometry ownership,
+  project/print coordinates, size mapping and the accepted baseline shape.
+- Restore the clamp to that accepted baseline while the tiny transition-edge
+  relief is revalidated. The previous project-Z relief was removed because
+  side-printing makes project X (the tube axis) the printer-Z/build direction;
+  a project-Z cylinder therefore created the wrong, print-unfriendly cut.
 - Bind the interactive `tube-clamp` and `tube-clamp-dov` views to the selected
   `coupler_profile`. Small / medium / large now use their matching clamp
   interface, while a custom profile derives the clamp interface from its
