@@ -28,11 +28,11 @@ The rule from this point onward is:
 > do not reshape the accepted base clamp while solving a local HUB75 adapter
 > detail.
 
-The baseline shape shown below is the shape to preserve unless a requirement
-explicitly says otherwise.
+The pre-fillet baseline below is the shape to preserve except for the one local
+ring/transition corner addressed later in this document.
 
 <!-- scad-render
-view: baseline
+view: before-fillet
 -->
 
 ## Ownership boundary
@@ -264,34 +264,58 @@ vpt: [0, -3.5, 10]
 vpd: 72
 -->
 
-## Local edge-relief requirement
+## Local ring-to-transition fillet
 
-The requested correction is intentionally small:
+The remaining sharp feature is the small **concave V** where the compact sloped
+transition meets the circular clip body.
+
+A subtractive cylindrical notch can remove the visible point, but it also makes
+that concavity deeper. Instead this design uses a small **additive tangent
+fillet**:
 
 ```text
-baseline geometry
-    +
-remove only the sharp local corner
-    +
-keep the cutter print-vertical
+sloped transition
+        \\
+         \\____  <- tiny tangent fill
+              )
+             )     circular clip body
 ```
 
-Current design intent:
+The fill is constructed from one 1.0 mm tangent circle in the reusable clamp's
+native 2D profile. The circle is tangent to the sloped transition and externally
+tangent to the Ø14 outer ring. Only the small triangular region between the old
+V and that tangent arc is added.
 
-- use a small cylindrical subtraction;
-- cylinder axis = **project X / printer Z**;
-- nominal radius around 10 mm is acceptable when it is positioned almost
-  tangent to the target edge;
-- maximum bite is about 1 mm;
-- the subtraction must remain visually local;
-- the same profile must be present on the opposite clamp side;
-- the ring bore, ring outside, dovetail fit and size mapping do not change.
+Because that 2D fill is extruded across the normal 12 mm clamp width, its
+extrusion axis is:
 
-The exact cutter centre is a feature coordinate and must be validated from a
-dedicated close-up design view before it is returned to production geometry.
+```text
+native clamp Z
+    -> project X
+    -> printer Z in the intended side-print orientation
+```
 
-Until that position is validated, the production model stays on the accepted
-baseline instead of carrying a speculative relief.
+So the smoothing does not introduce a horizontal tunnel or unsupported curved
+roof. It also does not change the tube bore, snap opening, dovetail profile,
+tube datum or the fixed small/medium/large clamp-body transition.
+
+The red material below is the **only** geometry added by the fillet.
+
+<!-- scad-render
+view: fillet-detail
+vpr: [88, 0, 0]
+vpt: [0, -4.5, 10]
+vpd: 54
+-->
+
+The resulting complete clamp is:
+
+<!-- scad-render
+view: final
+vpr: [65, 0, 25]
+vpt: [0, -3.5, 10]
+vpd: 72
+-->
 
 ## Validation checklist
 
@@ -299,7 +323,7 @@ A candidate local relief is valid only when all of the following are true:
 
 1. the baseline silhouette is still recognizable immediately;
 2. only the intended sharp corner changes;
-3. the relief axis is project X / printer Z;
+3. the fillet extrusion axis is project X / printer Z;
 4. no horizontal concave tunnel is introduced in the side-print orientation;
 5. small / medium / large retain their matching dovetails while the clamp-body
    transition remains identical;

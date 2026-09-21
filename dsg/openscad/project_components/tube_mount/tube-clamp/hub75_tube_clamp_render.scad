@@ -9,7 +9,7 @@ $fn = 120;
 use <hub75_tube_clamp.scad>
 
 /* [Design view] */
-view = "baseline"; // [baseline,body,print-axis]
+view = "final"; // [final,before-fillet,fillet-detail,body,print-axis]
 
 /* [Profile] */
 size = "medium"; // [small,medium,large]
@@ -41,13 +41,45 @@ module _hub75_tube_clamp_print_axis_reference(
 }
 
 module hub75_tube_clamp_design(
-    view = "baseline",
+    view = "final",
     size = "medium"
 ) {
     active_size = _hub75_tube_clamp_design_size(size);
     clamp = hub75_tube_clamp_create_for_size(active_size);
 
-    if (view == "body") {
+    if (view == "before-fillet") {
+        hub75_tube_clamp_build(
+            clamp,
+            use_tension_bore = false,
+            high_resolution = true,
+            apply_transition_fillet = false
+        );
+    } else if (view == "fillet-detail") {
+        color([0.72, 0.72, 0.72, 0.65])
+            hub75_tube_clamp_build(
+                clamp,
+                use_tension_bore = false,
+                high_resolution = true,
+                apply_transition_fillet = false
+            );
+
+        color([0.90, 0.08, 0.05, 1])
+            difference() {
+                hub75_tube_clamp_build(
+                    clamp,
+                    use_tension_bore = false,
+                    high_resolution = true,
+                    apply_transition_fillet = true
+                );
+
+                hub75_tube_clamp_build(
+                    clamp,
+                    use_tension_bore = false,
+                    high_resolution = true,
+                    apply_transition_fillet = false
+                );
+            }
+    } else if (view == "body") {
         hub75_tube_clamp_body_build(
             clamp,
             use_tension_bore = false,

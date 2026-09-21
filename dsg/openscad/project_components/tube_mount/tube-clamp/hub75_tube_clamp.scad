@@ -19,6 +19,7 @@ preview_profile = "medium"; // [small,medium,large]
 /* [Preview] */
 preview_view = "complete"; // [complete,body]
 preview_bore = "functional"; // [functional,tension]
+preview_transition_fillet = true;
 
 /* [Resolution] */
 preview_high_resolution = false;
@@ -67,8 +68,7 @@ function hub75_tube_clamp_create(
     dovetail_slide = 16,
     dovetail_center_z = undef,
     dovetail_relief_chamfer_depth = undef,
-    transition_relief_radius = 10,
-    transition_relief_bite = 1,
+    transition_fillet_radius = 1.0,
     extra = 0.01,
     dovetail = hub75_tube_mount_dovetail_create()
 ) =
@@ -123,13 +123,8 @@ function hub75_tube_clamp_create(
         "tube-clamp dovetail_relief_chamfer_depth must be >= 0")
     assert(active_relief_chamfer_depth <= active_transition_depth,
         "tube-clamp dovetail_relief_chamfer_depth must not exceed transition_depth")
-    assert(transition_relief_radius > 0,
-        "tube-clamp transition_relief_radius must be > 0")
-    assert(
-        transition_relief_bite >= 0
-            && transition_relief_bite <= transition_relief_radius,
-        "tube-clamp transition_relief_bite must be between 0 and transition_relief_radius"
-    )
+    assert(transition_fillet_radius >= 0,
+        "tube-clamp transition_fillet_radius must be >= 0")
     object(
         tube_center_y = active_tube_center_y,
         tube_center_z = tube_center_z,
@@ -138,8 +133,7 @@ function hub75_tube_clamp_create(
         dovetail_center_z = active_dovetail_center_z,
         dovetail_relief_chamfer_depth =
             active_relief_chamfer_depth,
-        transition_relief_radius = transition_relief_radius,
-        transition_relief_bite = transition_relief_bite,
+        transition_fillet_radius = transition_fillet_radius,
         base_clamp = base_clamp
     );
 
@@ -183,13 +177,15 @@ module hub75_tube_clamp_body_build(
     clamp,
     part_color = [0.88, 0.08, 0.05, 1],
     use_tension_bore = true,
-    high_resolution = true
+    high_resolution = true,
+    apply_transition_fillet = true
 ) {
     color(part_color)
         _hub75_tube_clamp_ring_build(
             clamp,
             use_tension_bore,
-            high_resolution
+            high_resolution,
+            apply_transition_fillet
         );
 }
 
@@ -197,7 +193,8 @@ module hub75_tube_clamp_build(
     clamp,
     part_color = [0.88, 0.08, 0.05, 1],
     use_tension_bore = true,
-    high_resolution = true
+    high_resolution = true,
+    apply_transition_fillet = true
 ) {
     color(part_color)
         union() {
@@ -205,7 +202,8 @@ module hub75_tube_clamp_build(
                 _hub75_tube_clamp_ring_build(
                     clamp,
                     use_tension_bore,
-                    high_resolution
+                    high_resolution,
+                    apply_transition_fillet
                 );
 
                 _hub75_tube_clamp_dovetail_relief_cutter(clamp);
@@ -224,7 +222,8 @@ module hub75_tube_clamp_build(
 module _hub75_tube_clamp_ring_build(
     clamp,
     use_tension_bore,
-    high_resolution
+    high_resolution,
+    apply_transition_fillet = true
 ) {
     local_center_x =
         clamp.base_clamp.base_thickness
@@ -241,11 +240,125 @@ module _hub75_tube_clamp_ring_build(
         [ 0, -1,  0,  clamp.tube_center_z],
         [ 0,  0,  0,  1]
     ])
-        tube_clamp_build(
-            clamp.base_clamp,
-            use_tension_bore = use_tension_bore,
-            high_resolution = high_resolution
-        );
+        union() {
+            tube_clamp_build(
+                clamp.base_clamp,
+                use_tension_bore = use_tension_bore,
+                high_resolution = high_resolution
+            );
+
+            if (
+                apply_transition_fillet
+                && clamp.transition_fillet_radius > 0
+            )
+                _hub75_tube_clamp_transition_fillet_local(
+                    clamp,
+                    high_resolution
+                );
+        }
+}
+
+
+// Small tangent fill for the sharp concave corner where the compact transition
+// meets the round clip body.  This is deliberately ADDITIVE: subtracting another
+// round notch would deepen the concavity.  The fill is extruded on native Z,
+// which maps to project X / printer Z in the intended side-print orientation.
+module _hub75_tube_clamp_transition_fillet_local(
+    clamp,
+    high_resolution
+) {
+    b = clamp.base_clamp;
+    r = clamp.transition_fillet_radius;
+    outer_r = tube_clamp_outer_radius(b);
+    center_x = b.base_thickness + outer_r;
+
+    attach_x = min(
+        b.base_thickness + b.transition_depth,
+        center_x + outer_r - b.extra
+    );
+    attach_dx = attach_x - center_x;
+    attach_y = sqrt(max(
+        0.01,
+        outer_r * outer_r - attach_dx * attach_dx
+    ));
+
+    base_y = b.transition_width / 2;
+    vx = attach_x - b.base_thickness;
+    vy = attach_y - base_y;
+    v_len = sqrt(vx * vx + vy * vy);
+    tx = vx / v_len;
+    ty = vy / v_len;
+
+    // Upper-side outward normal of the sloped transition.
+    nx = -ty;
+    ny = tx;
+
+    // A circle outside both source surfaces is tangent to the transition line
+    // and externally tangent to the round clip body.  The near quadratic root
+    // gives the local solution; the far root belongs to the opposite side of
+    // the ring and is intentionally ignored.
+    qx = attach_x + r * nx;
+    qy = attach_y + r * ny;
+    qcx = qx - center_x;
+    qcy = qy;
+    qb = 2 * (qcx * tx + qcy * ty);
+    qc =
+        qcx * qcx
+        + qcy * qcy
+        - (outer_r + r) * (outer_r + r);
+    disc = max(0, qb * qb - 4 * qc);
+    s1 = (-qb + sqrt(disc)) / 2;
+    s2 = (-qb - sqrt(disc)) / 2;
+    s = abs(s1) < abs(s2) ? s1 : s2;
+
+    fillet_x = qx + s * tx;
+    fillet_y = qy + s * ty;
+
+    line_tangent = [
+        fillet_x - r * nx,
+        fillet_y - r * ny
+    ];
+
+    ring_dx = fillet_x - center_x;
+    ring_dy = fillet_y;
+    ring_distance = sqrt(
+        ring_dx * ring_dx + ring_dy * ring_dy
+    );
+    ring_tangent = [
+        center_x + outer_r * ring_dx / ring_distance,
+        outer_r * ring_dy / ring_distance
+    ];
+
+    vertex = [attach_x, attach_y];
+
+    assert(v_len > 0,
+        "tube-clamp transition fillet needs a non-zero transition edge")
+    assert(disc >= -0.000001,
+        "tube-clamp transition fillet has no tangent-circle solution");
+
+    linear_extrude(height = b.clamp_width)
+        union()
+            for (side = [-1, 1])
+                scale([1, side])
+                    difference() {
+                        polygon(points = [
+                            line_tangent,
+                            vertex,
+                            ring_tangent
+                        ]);
+
+                        translate([
+                            fillet_x,
+                            fillet_y
+                        ])
+                            circle(
+                                r = r,
+                                $fn =
+                                    high_resolution
+                                        ? 96
+                                        : 32
+                            );
+                    }
 }
 
 module _hub75_tube_clamp_dovetail_relief_cutter(clamp) {
@@ -354,11 +467,13 @@ if (preview_view == "body")
     hub75_tube_clamp_body_build(
         _preview_clamp,
         use_tension_bore = _preview_use_tension_bore,
-        high_resolution = preview_high_resolution
+        high_resolution = preview_high_resolution,
+        apply_transition_fillet = preview_transition_fillet
     );
 else
     hub75_tube_clamp_build(
         _preview_clamp,
         use_tension_bore = _preview_use_tension_bore,
-        high_resolution = preview_high_resolution
+        high_resolution = preview_high_resolution,
+        apply_transition_fillet = preview_transition_fillet
     );
