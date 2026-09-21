@@ -383,22 +383,25 @@ Opening this file directly in OpenSCAD exposes a small standalone Customizer
 for the normal component controls:
 
 ```text
-mi_profile
+profile
 mi_view
-mi_bore
-mi_apply_transition_relief
-mi_relief_radius
-mi_relief_bite
-mi_relief_z_height
-mi_relief_z_offset
+bore
+apply_transition_relief
+relief_radius
+relief_bite
+relief_z_height
+relief_z_offset
 mi_high_resolution
 ```
 
-The `mi_` prefix means **menu item** and marks standalone OpenSCAD Customizer/UI controls.
-They are UI state only and are not part of the functional component API or object model. Functional
-parameters keep their normal domain names, for example
-`transition_relief_radius`. The internal object created by this entrypoint is
-named `_standalone_clamp` to make that boundary explicit.
+Only presentation/inspection state uses the `mi_` prefix (**menu item**).
+A variable does not get `mi_` merely because it is visible in the OpenSCAD
+Customizer. Design and functional values keep normal domain names, for example
+`profile`, `bore`, `relief_radius` and `relief_z_height`.
+
+For this component, `mi_view` and `mi_high_resolution` are presentation-only
+controls. The internal object created by the standalone entrypoint is named
+`_standalone_clamp` to make that boundary explicit.
 
 Consumers normally import the production API with `use <...>`; the standalone
 top-level entrypoint is then not executed.

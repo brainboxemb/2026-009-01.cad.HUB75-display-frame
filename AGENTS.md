@@ -120,10 +120,12 @@ OpenSCAD cross-file interfaces use public names without a leading underscore.
 Private implementation helpers use a leading underscore, including nested
 helpers.
 
-Top-level variables that exist only to expose a directly opened component in the
-interactive parameter menu / OpenSCAD Customizer use the `mi_` prefix (`menu item`). This
-prefix is reserved for UI state and must not leak into functional create/build
-API parameter names or object fields.
+Use the `mi_` prefix (`menu item`) only for top-level presentation or
+inspection state that has no design/model semantics, for example camera view,
+display orientation or preview quality. A design or functional variable keeps
+its normal domain name even when it is also exposed in the OpenSCAD Customizer.
+The `mi_` prefix must not leak into functional create/build API parameter
+names or object fields.
 
 ## Assembly source layout
 

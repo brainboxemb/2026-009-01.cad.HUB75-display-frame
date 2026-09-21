@@ -15,16 +15,16 @@ use <../../../ext/lib.scad.util/openscad/transform.scad>
 use <../tube_mount_interface.scad>
 
 /* [Component] */
-mi_profile = "medium"; // [small,medium,large]
+profile = "medium"; // [small,medium,large]
 mi_view = "complete"; // [complete,body]
-mi_bore = "functional"; // [functional,tension]
-mi_apply_transition_relief = true;
+bore = "functional"; // [functional,tension]
+apply_transition_relief = true;
 
 /* [Transition relief] */
-mi_relief_radius = 6.0;
-mi_relief_bite = 0.4;
-mi_relief_z_height = 4.0;
-mi_relief_z_offset = 1.0;
+relief_radius = 6.0;
+relief_bite = 0.4;
+relief_z_height = 4.0;
+relief_z_offset = 1.0;
 
 /* [Resolution] */
 mi_high_resolution = false;
@@ -457,20 +457,20 @@ _standalone_clamp =
     hub75_tube_clamp_create(
         dovetail =
             hub75_tube_mount_dovetail_create_for_size(
-                mi_profile
+                profile
             ),
         transition_relief_radius =
-            mi_relief_radius,
+            relief_radius,
         transition_relief_bite =
-            mi_relief_bite,
+            relief_bite,
         transition_relief_z_height =
-            mi_relief_z_height,
+            relief_z_height,
         transition_relief_z_offset =
-            mi_relief_z_offset
+            relief_z_offset
     );
 
 _standalone_use_tension =
-    mi_bore == "tension";
+    bore == "tension";
 
 if (mi_view == "body")
     hub75_tube_clamp_body_build(
@@ -480,7 +480,7 @@ if (mi_view == "body")
         high_resolution =
             mi_high_resolution,
         apply_transition_relief =
-            mi_apply_transition_relief
+            apply_transition_relief
     );
 else
     hub75_tube_clamp_build(
@@ -490,6 +490,6 @@ else
         high_resolution =
             mi_high_resolution,
         apply_transition_relief =
-            mi_apply_transition_relief
+            apply_transition_relief
     );
 
