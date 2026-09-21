@@ -142,11 +142,29 @@ The size-dependent part is the interface toward the coupler.
 
 The selected coupler profile and clamp interface belong together.
 
-| Coupler profile | Host depth | Dovetail height | Derived transition depth |
-| --- | ---: | ---: | ---: |
-| small | 2.0 mm | 2.0 mm | 1.0 mm |
-| medium | 3.0 mm | 2.5 mm | 1.5 mm |
-| large | 4.0 mm | 3.0 mm | 2.0 mm |
+| Coupler profile | Host depth | Dovetail height | Clamp body transition |
+| --- | ---: | ---: | --- |
+| small | 2.0 mm | 2.0 mm | fixed accepted baseline |
+| medium | 3.0 mm | 2.5 mm | fixed accepted baseline |
+| large | 4.0 mm | 3.0 mm | fixed accepted baseline |
+
+Only the **dovetail interface height** changes with the selected coupler profile.
+The receiving coupler material becomes correspondingly deeper/higher, but the
+tube clip body itself must not be reshaped just because the dovetail height
+changed.
+
+The accepted clamp-body transition is therefore fixed across small / medium /
+large. Its current baseline is the previously accepted medium connection:
+approximately 10.27 mm transition width and 1.5 mm transition depth for the
+normal 12 mm clamp width.
+
+Do **not** derive the reusable clamp body's transition width/depth from the
+active dovetail mouth width. Doing that couples dovetail height to the visible
+clip silhouette and is what caused the unexpected different neck shapes.
+
+The actual male dovetail profile and the local material relief needed so that
+profile can enter its female channel may still differ by size. Those changes are
+part of the interface, not a reason to change the ring/clip body.
 
 The interactive `tube-clamp` and `tube-clamp-dov` views must use the selected
 `coupler_profile`. A custom profile derives the interface from its configured
@@ -227,7 +245,8 @@ A candidate local relief is valid only when all of the following are true:
 2. only the intended sharp corner changes;
 3. the relief axis is project X / printer Z;
 4. no horizontal concave tunnel is introduced in the side-print orientation;
-5. small / medium / large retain their matching dovetails;
+5. small / medium / large retain their matching dovetails while the clamp-body
+   transition remains identical;
 6. functional and tension bore dimensions stay unchanged;
 7. generated STL remains manifold;
 8. the close-up render makes the before/after change obvious without needing
@@ -240,6 +259,11 @@ Implementation:
 ```text
 hub75_tube_clamp.scad
 ```
+
+Opening this file directly in OpenSCAD exposes standalone Customizer controls
+for the coupler profile, complete/body preview, functional/tension bore and
+preview resolution. This is intentionally separate from the richer design-review
+adapter below.
 
 Design-render adapter:
 

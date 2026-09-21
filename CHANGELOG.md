@@ -40,6 +40,12 @@ This file records the functional evolution of the HUB75 display-frame project.
   `coupler_profile`. Small / medium / large now use their matching clamp
   interface, while a custom profile derives the clamp interface from its
   configured `base_thickness`.
+- Decouple the reusable clamp-body transition from the active dovetail height.
+  Small / medium / large now keep the same accepted clip body; only the
+  size-matched dovetail interface and its required mating relief vary.
+- Add standalone Customizer controls to `hub75_tube_clamp.scad` for profile,
+  body/complete view, functional/tension bore and preview resolution, and add
+  matching view/profile controls to the clamp design-render adapter.
 - Expand the corner insertion keep-out from the detailed hollow clamp body to
   the complete solid outer-ring envelope and open that cavity to the rear print
   face with a simple 45-degree lower ramp. This removes the thin plate/shelf

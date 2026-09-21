@@ -8,6 +8,12 @@ $fn = 120;
 
 use <hub75_tube_clamp.scad>
 
+/* [Design view] */
+view = "baseline"; // [baseline,body,print-axis]
+
+/* [Profile] */
+size = "medium"; // [small,medium,large]
+
 function _hub75_tube_clamp_design_size(size) =
     size == "small" || size == "medium" || size == "large"
         ? size
@@ -65,4 +71,7 @@ module hub75_tube_clamp_design(
     }
 }
 
-hub75_tube_clamp_design();
+hub75_tube_clamp_design(
+    view = view,
+    size = size
+);
