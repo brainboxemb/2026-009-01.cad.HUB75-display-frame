@@ -14,7 +14,7 @@ use <../../../ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad>
 use <../tube_mount_interface.scad>
 
 /* [Profile] */
-coupler_profile = "medium"; // [small,medium,large]
+preview_profile = "medium"; // [small,medium,large]
 
 /* [Preview] */
 preview_view = "complete"; // [complete,body]
@@ -345,7 +345,7 @@ module _hub75_tube_clamp_dovetail_build(clamp) {
 // ----------------------------------------------------------------------
 
 _preview_clamp =
-    hub75_tube_clamp_create_for_size(coupler_profile);
+    hub75_tube_clamp_create_for_size(preview_profile);
 
 _preview_use_tension_bore =
     preview_bore == "tension";
