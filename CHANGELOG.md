@@ -29,6 +29,12 @@ This file records the functional evolution of the HUB75 display-frame project.
 
 ### Changed
 
+- Upgrade the tube-mount mechanical-interface dependency to released
+  `lib.scad.mechint v0.1.6` and enable its symmetric 45 degree printable
+  male lock-release wedges. The existing rectangular functional release opening
+  remains intact; the library only removes additional material toward the outer
+  edge, across the complete release/recess zone, with Boolean overlap beyond the
+  exposed male face to avoid sliver walls.
 - Move the R10 / 1 mm transition relief from the incorrectly targeted upper
   ring-attachment point to the lower transition foot at the flat
   base / dovetail connection. Use 2 mm-deep cylinders from both clamp faces and

@@ -31,6 +31,8 @@ _HUB75_TUBE_MOUNT_DOVETAIL_MOUTH_Y = -2.0;
 _HUB75_TUBE_MOUNT_LOCK_MIN_SPRING_THICKNESS = 0.8;
 _HUB75_TUBE_MOUNT_LOCK_HINGE_THICKNESS = 0.8;
 _HUB75_TUBE_MOUNT_LOCK_HINGE_LENGTH_FACTOR = 0.5;
+_HUB75_TUBE_MOUNT_LOCK_RELEASE_SHAPE = "trapezoid";
+_HUB75_TUBE_MOUNT_LOCK_RELEASE_TAPER_ANGLE_DEG = 45;
 
 function hub75_tube_mount_tube_front_offset() =
     _HUB75_TUBE_MOUNT_FRONT_OFFSET;
@@ -129,6 +131,10 @@ function hub75_tube_mount_dovetail_create(
         lock_spring_hinge_length = hinge_length,
         lock_spring_hinge_thickness =
             _HUB75_TUBE_MOUNT_LOCK_HINGE_THICKNESS,
+        lock_release_shape =
+            _HUB75_TUBE_MOUNT_LOCK_RELEASE_SHAPE,
+        lock_release_taper_angle_deg =
+            _HUB75_TUBE_MOUNT_LOCK_RELEASE_TAPER_ANGLE_DEG,
         lock_cut_back_clearance = false,
         lock_back_clearance = 0
     );

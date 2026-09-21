@@ -4,8 +4,8 @@
 // Design: design/design.md
 // Design review: hub75_tube_clamp_render.scad
 //
-// lib.scad.clamps owns the reusable snap-ring geometry and nominal/tension d_bore
-// semantics. HUB75 keeps the ring compact, narrows it to 12 mm and places the
+// lib.scad.clamps owns the reusable snap-ring geometry and nominal/tension
+// bore semantics. HUB75 keeps the ring compact, narrows it to 12 mm and places the
 // size-matched vertical male dovetail beside the compact transition. Small,
 // medium and large use 2.0 / 2.5 / 3.0 mm dovetail heights. The complete clamp,
 // including its male dovetail, stays positioned from the tube-front datum.
@@ -33,7 +33,7 @@ c_high_resolution = false;
 // Fixed clamp-body baseline
 // ----------------------------------------------------------------------
 
-// The clamp body must not change when only the coupler/dovetail d_profile size
+// The clamp body must not change when only the coupler/dovetail profile size
 // changes.  The accepted body baseline is the medium-interface connection.
 // Small/medium/large therefore share this same compact transition; only the
 // actual dovetail and the mating relief required for that dovetail vary.
@@ -206,7 +206,7 @@ module hub75_tube_clamp_body_build(
             clamp,
             use_tension_bore,
             high_resolution,
-            d_apply_transition_relief
+            apply_transition_relief
         );
 }
 
@@ -224,7 +224,7 @@ module hub75_tube_clamp_build(
                     clamp,
                     use_tension_bore,
                     high_resolution,
-                    d_apply_transition_relief
+                    apply_transition_relief
                 );
 
                 _hub75_tube_clamp_dovetail_relief_cutter(clamp);
@@ -269,7 +269,7 @@ module _hub75_tube_clamp_ring_build(
             );
 
             if (
-                d_apply_transition_relief
+                apply_transition_relief
                 && clamp.transition_relief_bite > 0
             )
                 _hub75_tube_clamp_transition_relief_cutter_local(
@@ -295,7 +295,7 @@ module _hub75_tube_clamp_ring_build(
 // The accepted low development-Z cylinders therefore become short native-X
 // cylinders whose circular centres sit just outside the two native-Z side
 // faces.  This preserves the lab result exactly without making the relief
-// dependent on the selected dovetail d_profile height.
+// dependent on the selected dovetail profile height.
 module _hub75_tube_clamp_transition_relief_cutter_local(
     clamp,
     high_resolution

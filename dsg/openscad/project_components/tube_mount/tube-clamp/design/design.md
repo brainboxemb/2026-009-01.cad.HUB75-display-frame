@@ -44,7 +44,7 @@ Three layers participate in this component.
 Owns the reusable tube clip:
 
 - circular outside;
-- functional/tension d_bore semantics;
+- functional/tension bore semantics;
 - snap opening;
 - compact flat base;
 - compact transition from that base into the ring.
@@ -53,7 +53,7 @@ HUB75 must not silently redesign that geometry.
 
 ### `lib.scad.mechint`
 
-Owns the reusable sliding-dovetail d_profile:
+Owns the reusable sliding-dovetail profile:
 
 - 30 degree flank;
 - mouth/root lands;
@@ -69,7 +69,7 @@ components:
 
 - project coordinate transform;
 - fixed tube datum;
-- size/d_profile selection;
+- size/profile selection;
 - compact clamp-to-dovetail overlap;
 - the project-local finishing transition;
 - any small print-driven relief that cannot sensibly live in either library.
@@ -124,6 +124,39 @@ The green reference axis below shows development Z. It is documentation-only.
 view: development-axis
 -->
 
+## Male lock-release print wedges
+
+The detachable clip uses the released `lib.scad.mechint v0.1.6` male
+lock-release opening.
+
+The functional rectangular release opening remains unchanged. HUB75 selects
+the optional printable form:
+
+```text
+lock_release_shape = "trapezoid"
+lock_release_taper_angle_deg = 45
+```
+
+The library implements this as **additional subtraction**, not as a narrower
+replacement opening. Two symmetric triangular X/Z wedges are removed over the
+complete visible release zone, including the recess. The wedges widen only
+toward the male outer/trailing edge; at the lock recess the original functional
+release width is still present in full.
+
+For this component's mapping, mechint native X/Z becomes the X/Z plane seen in
+the actual side-print orientation. The 45 degree wedge therefore replaces the
+flat overhang with a printable slope on both sides. Native-Y release depth stays
+constant.
+
+The wedge cutters also extend slightly beyond the male outer face and overlap
+the baseline release cutter by the normal Boolean allowance. This is deliberate:
+it prevents a coplanar boundary from leaving a thin residual wall at the
+opening.
+
+This geometry was qualified on the complete baseline clip in
+`2026-009-02.cad.hub75-component-lab` before being released by
+`lib.scad.mechint`.
+
 ## Fixed tube and clamp dimensions
 
 All sizes retain the same actual tube clip:
@@ -152,7 +185,7 @@ The selected coupler d_profile and clamp interface belong together.
 | medium | 3.0 mm | 2.5 mm | fixed accepted baseline |
 | large | 4.0 mm | 3.0 mm | fixed accepted baseline |
 
-Only the **dovetail interface height** changes with the selected coupler d_profile.
+Only the **dovetail interface height** changes with the selected coupler profile.
 The receiving coupler material becomes correspondingly deeper/higher, but the
 tube clip body itself must not be reshaped just because the dovetail height
 changed.
@@ -244,7 +277,7 @@ The production component is built in this order:
 ```
 
 Step 6 is deliberately last. A print-relief correction must not be allowed to
-turn into a new global clamp d_profile.
+turn into a new global clamp profile.
 
 ## Accepted baseline
 
