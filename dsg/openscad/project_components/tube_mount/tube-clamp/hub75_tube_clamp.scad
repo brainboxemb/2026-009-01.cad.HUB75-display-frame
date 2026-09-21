@@ -15,19 +15,19 @@ use <../../../ext/lib.scad.util/openscad/transform.scad>
 use <../tube_mount_interface.scad>
 
 /* [Component] */
-menu_profile = "medium"; // [small,medium,large]
-menu_view = "complete"; // [complete,body]
-menu_bore = "functional"; // [functional,tension]
-menu_apply_transition_relief = true;
+mi_profile = "medium"; // [small,medium,large]
+mi_view = "complete"; // [complete,body]
+mi_bore = "functional"; // [functional,tension]
+mi_apply_transition_relief = true;
 
 /* [Transition relief] */
-menu_relief_radius = 6.0;
-menu_relief_bite = 0.4;
-menu_relief_z_height = 4.0;
-menu_relief_z_offset = 1.0;
+mi_relief_radius = 6.0;
+mi_relief_bite = 0.4;
+mi_relief_z_height = 4.0;
+mi_relief_z_offset = 1.0;
 
 /* [Resolution] */
-menu_high_resolution = false;
+mi_high_resolution = false;
 
 // ----------------------------------------------------------------------
 // Fixed clamp-body baseline
@@ -457,30 +457,30 @@ _standalone_clamp =
     hub75_tube_clamp_create(
         dovetail =
             hub75_tube_mount_dovetail_create_for_size(
-                menu_profile
+                mi_profile
             ),
         transition_relief_radius =
-            menu_relief_radius,
+            mi_relief_radius,
         transition_relief_bite =
-            menu_relief_bite,
+            mi_relief_bite,
         transition_relief_z_height =
-            menu_relief_z_height,
+            mi_relief_z_height,
         transition_relief_z_offset =
-            menu_relief_z_offset
+            mi_relief_z_offset
     );
 
 _standalone_use_tension =
-    menu_bore == "tension";
+    mi_bore == "tension";
 
-if (menu_view == "body")
+if (mi_view == "body")
     hub75_tube_clamp_body_build(
         _standalone_clamp,
         use_tension_bore =
             _standalone_use_tension,
         high_resolution =
-            menu_high_resolution,
+            mi_high_resolution,
         apply_transition_relief =
-            menu_apply_transition_relief
+            mi_apply_transition_relief
     );
 else
     hub75_tube_clamp_build(
@@ -488,8 +488,8 @@ else
         use_tension_bore =
             _standalone_use_tension,
         high_resolution =
-            menu_high_resolution,
+            mi_high_resolution,
         apply_transition_relief =
-            menu_apply_transition_relief
+            mi_apply_transition_relief
     );
 

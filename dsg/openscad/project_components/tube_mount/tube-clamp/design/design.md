@@ -383,18 +383,18 @@ Opening this file directly in OpenSCAD exposes a small standalone Customizer
 for the normal component controls:
 
 ```text
-menu_profile
-menu_view
-menu_bore
-menu_apply_transition_relief
-menu_relief_radius
-menu_relief_bite
-menu_relief_z_height
-menu_relief_z_offset
-menu_high_resolution
+mi_profile
+mi_view
+mi_bore
+mi_apply_transition_relief
+mi_relief_radius
+mi_relief_bite
+mi_relief_z_height
+mi_relief_z_offset
+mi_high_resolution
 ```
 
-The `menu_` prefix marks these as standalone menu/Customizer controls.
+The `mi_` prefix means **menu item** and marks standalone OpenSCAD Customizer/UI controls.
 They are UI state only and are not part of the functional component API or object model. Functional
 parameters keep their normal domain names, for example
 `transition_relief_radius`. The internal object created by this entrypoint is

@@ -121,7 +121,7 @@ Private implementation helpers use a leading underscore, including nested
 helpers.
 
 Top-level variables that exist only to expose a directly opened component in the
-interactive parameter menu / OpenSCAD Customizer use the `menu_` prefix. This
+interactive parameter menu / OpenSCAD Customizer use the `mi_` prefix (`menu item`). This
 prefix is reserved for UI state and must not leak into functional create/build
 API parameter names or object fields.
 
