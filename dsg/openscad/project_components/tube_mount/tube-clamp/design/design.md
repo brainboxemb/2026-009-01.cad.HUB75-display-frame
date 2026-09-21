@@ -379,8 +379,28 @@ Implementation:
 hub75_tube_clamp.scad
 ```
 
-This file contains only the production clamp API and geometry. Interactive
-inspection and documentation views are kept out of the implementation file.
+Opening this file directly in OpenSCAD exposes a small standalone Customizer
+for the normal component controls:
+
+```text
+profile
+view
+bore
+apply_transition_relief
+relief_radius
+relief_bite
+relief_z_height
+relief_z_offset
+high_resolution
+```
+
+These names deliberately do not use a `preview_` prefix: they are the normal
+standalone controls of the component, not temporary preview/debug state. The
+internal object created by this entrypoint is named `_standalone_clamp` to make
+that boundary explicit.
+
+Consumers normally import the production API with `use <...>`; the standalone
+top-level entrypoint is then not executed.
 
 Design-render adapter:
 
