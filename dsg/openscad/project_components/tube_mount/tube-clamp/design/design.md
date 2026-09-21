@@ -158,13 +158,69 @@ large. Its current baseline is the previously accepted medium connection:
 approximately 10.27 mm transition width and 1.5 mm transition depth for the
 normal 12 mm clamp width.
 
-Do **not** derive the reusable clamp body's transition width/depth from the
-active dovetail mouth width. Doing that couples dovetail height to the visible
-clip silhouette and is what caused the unexpected different neck shapes.
+### Why the earlier size-dependent transition looked logical
+
+The earlier implementation was not arbitrary. The dovetail root width stays
+12 mm, but its **height** changes while the flank angle remains 30 degrees and
+both straight lands remain 0.5 mm.
+
+That means a taller dovetail also has a narrower mouth:
+
+```text
+mouth width
+= 12
+  - 2 × (dovetail height - 0.5 - 0.5) × tan(30°)
+```
+
+For the three profiles this gives approximately:
+
+| Profile | Dovetail height | Dovetail mouth width |
+| --- | ---: | ---: |
+| small | 2.0 mm | 10.85 mm |
+| medium | 2.5 mm | 10.27 mm |
+| large | 3.0 mm | 9.69 mm |
+
+If the clamp transition is then required to meet that mouth exactly while also
+following the same 30 degree side angle, its depth must grow as the mouth moves
+inward:
+
+```text
+transition depth
+= ((12 - mouth width) / 2) / tan(30°)
+```
+
+which gives 1.0 / 1.5 / 2.0 mm.
+
+So the previous behaviour had a clear geometric reason:
+
+```text
+taller dovetail
+    -> narrower mouth
+    -> farther inward from the 12 mm clamp face
+    -> more transition depth needed to reach it at 30°
+```
+
+### Current decision: keep the clamp body fixed
+
+For the current design we deliberately do **not** let that relationship reshape
+the clamp body automatically.
+
+The design intent is that changing coupler profile changes the available host
+depth and therefore the dovetail height. The coupler/female side gets the extra
+material needed for that deeper interface. The reusable tube-clip body remains
+the same accepted shape.
 
 The actual male dovetail profile and the local material relief needed so that
-profile can enter its female channel may still differ by size. Those changes are
-part of the interface, not a reason to change the ring/clip body.
+profile can enter its female channel may still differ by size. Those are
+interface changes; they are not automatically clamp-body changes.
+
+This is a design choice, not a claim that the earlier derived transition was
+geometrically wrong. It may be reconsidered later if there is a good reason to
+make the clamp transition track the active dovetail mouth again—for example
+load transfer, a cleaner interface blend or print behaviour. If reconsidered,
+compare small / medium / large side-by-side and treat the resulting silhouette
+change as an explicit design decision rather than an incidental consequence of
+the dovetail-height formula.
 
 The interactive `tube-clamp` and `tube-clamp-dov` views must use the selected
 `coupler_profile`. A custom profile derives the interface from its configured

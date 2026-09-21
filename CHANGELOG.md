@@ -54,8 +54,8 @@ This file records the functional evolution of the HUB75 display-frame project.
 - Adopt the released `lib.scad.mechint v0.1.5` centered two-sided hinge
   relief and leave a 0.8 mm central flex web in the HUB75 female lock tongue.
 - Split the detachable clamp into size-matched small / medium / large variants:
-  dovetail heights are 2.0 / 2.5 / 3.0 mm and their derived 30° transition
-  depths are 1.0 / 1.5 / 2.0 mm.
+  dovetail heights are 2.0 / 2.5 / 3.0 mm while the accepted clamp-body
+  transition remains fixed across those variants.
 - Recess the dovetail mouth from local Y = -1.5 mm to -2.0 mm without moving
   the Ø10 tube or clamp ring. The extra 0.5 mm raises total female tongue
   thickness from 1.3 / 1.8 / 2.3 mm to about 1.8 / 2.3 / 2.8 mm.
@@ -67,8 +67,6 @@ This file records the functional evolution of the HUB75 display-frame project.
   Y = -8.5 mm relative to the 14.5 mm rear mounting plane. The Ø14 clamp tangent
   stays at local Y = -1.5 mm while the dovetail mouth now sits 0.5 mm farther
   forward at local Y = -2.0 mm.
-- Derive the compact clamp transition from the size-specific dovetail instead of
-  keeping one fixed depth.
 - Move the interface mouth to local Y = -2.0 mm. On the corner-edge variant
   the female is now cut directly into the existing corner base / guide /
   outer-edge material with no added carrier solid; the horizontal-edge variant
