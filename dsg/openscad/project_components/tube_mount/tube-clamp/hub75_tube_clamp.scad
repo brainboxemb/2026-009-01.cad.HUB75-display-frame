@@ -4,7 +4,7 @@
 // Design: design/design.md
 // Design review: hub75_tube_clamp_render.scad
 //
-// lib.scad.clamps owns the reusable snap-ring geometry and nominal/tension bore
+// lib.scad.clamps owns the reusable snap-ring geometry and nominal/tension cust_bore
 // semantics. HUB75 keeps the ring compact, narrows it to 12 mm and places the
 // size-matched vertical male dovetail beside the compact transition. Small,
 // medium and large use 2.0 / 2.5 / 3.0 mm dovetail heights. The complete clamp,
@@ -15,19 +15,19 @@ use <../../../ext/lib.scad.util/openscad/transform.scad>
 use <../tube_mount_interface.scad>
 
 /* [Component] */
-profile = "medium"; // [small,medium,large]
-view = "complete"; // [complete,body]
-bore = "functional"; // [functional,tension]
-apply_transition_relief = true;
+cust_profile = "medium"; // [small,medium,large]
+cust_view = "complete"; // [complete,body]
+cust_bore = "functional"; // [functional,tension]
+cust_apply_transition_relief = true;
 
 /* [Transition relief] */
-relief_radius = 6.0;
-relief_bite = 0.4;
-relief_z_height = 4.0;
-relief_z_offset = 1.0;
+cust_relief_radius = 6.0;
+cust_relief_bite = 0.4;
+cust_relief_z_height = 4.0;
+cust_relief_z_offset = 1.0;
 
 /* [Resolution] */
-high_resolution = false;
+cust_high_resolution = false;
 
 // ----------------------------------------------------------------------
 // Fixed clamp-body baseline
@@ -457,39 +457,39 @@ _standalone_clamp =
     hub75_tube_clamp_create(
         dovetail =
             hub75_tube_mount_dovetail_create_for_size(
-                profile
+                cust_profile
             ),
         transition_relief_radius =
-            relief_radius,
+            cust_relief_radius,
         transition_relief_bite =
-            relief_bite,
+            cust_relief_bite,
         transition_relief_z_height =
-            relief_z_height,
+            cust_relief_z_height,
         transition_relief_z_offset =
-            relief_z_offset
+            cust_relief_z_offset
     );
 
 _standalone_use_tension =
-    bore == "tension";
+    cust_bore == "tension";
 
-if (view == "body")
+if (cust_view == "body")
     hub75_tube_clamp_body_build(
         _standalone_clamp,
         use_tension_bore =
             _standalone_use_tension,
-        high_resolution =
-            high_resolution,
-        apply_transition_relief =
-            apply_transition_relief
+        cust_high_resolution =
+            cust_high_resolution,
+        cust_apply_transition_relief =
+            cust_apply_transition_relief
     );
 else
     hub75_tube_clamp_build(
         _standalone_clamp,
         use_tension_bore =
             _standalone_use_tension,
-        high_resolution =
-            high_resolution,
-        apply_transition_relief =
-            apply_transition_relief
+        cust_high_resolution =
+            cust_high_resolution,
+        cust_apply_transition_relief =
+            cust_apply_transition_relief
     );
 
