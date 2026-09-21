@@ -29,12 +29,12 @@ This file records the functional evolution of the HUB75 display-frame project.
 
 ### Changed
 
-- Replace the proposed subtractive ring/transition notch with a 1.0 mm additive
-  tangent fillet at the two sharp concave transition-to-ring corners. The fill
-  is generated in the reusable clamp's native profile and extruded along native
-  Z / project X, which is printer Z in the intended side-print orientation.
-  This softens only the local V without changing the fixed clamp body, tube bore
-  or size-matched dovetail interface.
+- Round the two sharp ring/transition V-points with shallow subtractive
+  cylindrical reliefs: R10 with a 1 mm maximum bite. The cylinders run along
+  native clamp Z / project X, which is printer Z in the intended side-print
+  orientation. This deliberately removes a little more local material to make
+  the edge less sharp without changing the fixed clamp-body transition, bore or
+  size-matched dovetail interface.
 - Add a worked-out design document and stable design-render adapter for the
   project-owned HUB75 tube clamp. The document freezes geometry ownership,
   project/print coordinates, size mapping and the accepted baseline shape.

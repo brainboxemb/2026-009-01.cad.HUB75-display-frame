@@ -28,11 +28,11 @@ The rule from this point onward is:
 > do not reshape the accepted base clamp while solving a local HUB75 adapter
 > detail.
 
-The pre-fillet baseline below is the shape to preserve except for the one local
+The pre-relief baseline below is the shape to preserve except for the one local
 ring/transition corner addressed later in this document.
 
 <!-- scad-render
-view: before-fillet
+view: before-relief
 -->
 
 ## Ownership boundary
@@ -264,45 +264,43 @@ vpt: [0, -3.5, 10]
 vpd: 72
 -->
 
-## Local ring-to-transition fillet
+## Local ring-to-transition relief
 
 The remaining sharp feature is the small **concave V** where the compact sloped
 transition meets the circular clip body.
 
-A subtractive cylindrical notch can remove the visible point, but it also makes
-that concavity deeper. Instead this design uses a small **additive tangent
-fillet**:
+The current correction follows the original proposal: remove a little more
+material locally so the point itself is no longer sharp.
+
+The cutter is deliberately simple:
 
 ```text
-sloped transition
-        \\
-         \\____  <- tiny tangent fill
-              )
-             )     circular clip body
+radius = 10 mm
+bite   = 1 mm
+axis   = native clamp Z
+       = project X
+       = printer Z in the intended side-print orientation
 ```
 
-The fill is constructed from one 1.0 mm tangent circle in the reusable clamp's
-native 2D profile. The circle is tangent to the sloped transition and externally
-tangent to the Ø14 outer ring. Only the small triangular region between the old
-V and that tangent arc is added.
+In the reusable clamp's native 2D profile the cutter circle is centred directly
+outside the sharp ring/transition vertex. Its centre sits radius minus bite
+outside that vertex, so the deepest removal at the vertex is about 1 mm. The
+relatively large 10 mm radius spreads that removal over a broad arc; it does not
+create a tiny tight notch.
 
-Because that 2D fill is extruded across the normal 12 mm clamp width, its
-extrusion axis is:
+The same cutter is mirrored to the opposite side of the transition. Because the
+circle is extruded along native clamp Z, the actual 3D cutter is print-vertical
+when the clamp is side-printed. That is the critical orientation requirement
+which the earlier project-Z attempts violated.
 
-```text
-native clamp Z
-    -> project X
-    -> printer Z in the intended side-print orientation
-```
+This operation intentionally makes the local concavity slightly deeper while
+making its bottom much less sharp. The tube bore, snap opening, fixed clamp-body
+transition, tube datum and dovetail geometry remain unchanged.
 
-So the smoothing does not introduce a horizontal tunnel or unsupported curved
-roof. It also does not change the tube bore, snap opening, dovetail profile,
-tube datum or the fixed small/medium/large clamp-body transition.
-
-The red material below is the **only** geometry added by the fillet.
+The red geometry below shows the local material removed by this relief.
 
 <!-- scad-render
-view: fillet-detail
+view: relief-detail
 vpr: [88, 0, 0]
 vpt: [0, -4.5, 10]
 vpd: 54
@@ -323,7 +321,7 @@ A candidate local relief is valid only when all of the following are true:
 
 1. the baseline silhouette is still recognizable immediately;
 2. only the intended sharp corner changes;
-3. the fillet extrusion axis is project X / printer Z;
+3. the relief-cylinder axis is project X / printer Z;
 4. no horizontal concave tunnel is introduced in the side-print orientation;
 5. small / medium / large retain their matching dovetails while the clamp-body
    transition remains identical;
