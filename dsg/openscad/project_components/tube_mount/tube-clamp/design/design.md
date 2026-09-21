@@ -379,16 +379,16 @@ Implementation:
 hub75_tube_clamp.scad
 ```
 
-Opening this file directly in OpenSCAD exposes standalone Customizer controls
-for the coupler profile, complete/body preview, functional/tension bore and
-preview resolution. This is intentionally separate from the richer design-review
-adapter below.
+This file contains only the production clamp API and geometry. Interactive
+inspection and documentation views are kept out of the implementation file.
 
 Design-render adapter:
 
 ```text
 hub75_tube_clamp_render.scad
 ```
+
+Use the render adapter for standalone design inspection and documentation views.
 
 Reusable base-clip design:
 
