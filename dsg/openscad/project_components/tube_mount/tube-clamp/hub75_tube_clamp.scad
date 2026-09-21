@@ -18,7 +18,7 @@ use <../tube_mount_interface.scad>
 menu_profile = "medium"; // [small,medium,large]
 menu_view = "complete"; // [complete,body]
 menu_bore = "functional"; // [functional,tension]
-apply_transition_relief = true;
+menu_apply_transition_relief = true;
 
 /* [Transition relief] */
 menu_relief_radius = 6.0;
@@ -27,7 +27,7 @@ menu_relief_z_height = 4.0;
 menu_relief_z_offset = 1.0;
 
 /* [Resolution] */
-high_resolution = false;
+menu_high_resolution = false;
 
 // ----------------------------------------------------------------------
 // Fixed clamp-body baseline
