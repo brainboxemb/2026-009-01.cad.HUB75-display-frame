@@ -2,7 +2,7 @@
 
 <!-- scad-render-defaults
 engine: openscad
-source: ../hub75_tube_clamp_render.scad
+source: hub75_tube_clamp_render.scad
 module: hub75_tube_clamp_design
 vpr: [74, 0, 35]
 vpt: [0, -3.5, 10]
