@@ -120,12 +120,11 @@ OpenSCAD cross-file interfaces use public names without a leading underscore.
 Private implementation helpers use a leading underscore, including nested
 helpers.
 
-Use the `mi_` prefix (`menu item`) only for top-level presentation or
-inspection state that has no design/model semantics, for example camera view,
-display orientation or preview quality. A design or functional variable keeps
-its normal domain name even when it is also exposed in the OpenSCAD Customizer.
-The `mi_` prefix must not leak into functional create/build API parameter
-names or object fields.
+Shared SCAD naming conventions are owned by
+[brainboxemb.meta/domains/scad/coding-conventions.md](https://github.com/brainboxemb/brainboxemb.meta/blob/main/domains/scad/coding-conventions.md).
+Follow that convention for `d_` design inputs, `c_` presentation state,
+unit suffixes, constants and private names; do not redefine those rules here.
+
 
 ## Assembly source layout
 

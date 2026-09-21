@@ -44,7 +44,7 @@ Three layers participate in this component.
 Owns the reusable tube clip:
 
 - circular outside;
-- functional/tension bore semantics;
+- functional/tension d_bore semantics;
 - snap opening;
 - compact flat base;
 - compact transition from that base into the ring.
@@ -53,7 +53,7 @@ HUB75 must not silently redesign that geometry.
 
 ### `lib.scad.mechint`
 
-Owns the reusable sliding-dovetail profile:
+Owns the reusable sliding-dovetail d_profile:
 
 - 30 degree flank;
 - mouth/root lands;
@@ -69,7 +69,7 @@ components:
 
 - project coordinate transform;
 - fixed tube datum;
-- size/profile selection;
+- size/d_profile selection;
 - compact clamp-to-dovetail overlap;
 - the project-local finishing transition;
 - any small print-driven relief that cannot sensibly live in either library.
@@ -114,7 +114,7 @@ project Y -> development -Z
 project Z -> development Y
 ```
 
-So `relief_z_height` and `relief_z_offset` refer specifically to
+So `d_relief_z_height_mm` and `d_relief_z_offset_mm` refer specifically to
 **development Z**. They do not refer to dovetail height and they do not move
 when small / medium / large is selected.
 
@@ -144,15 +144,15 @@ The size-dependent part is the interface toward the coupler.
 
 ## Size mapping
 
-The selected coupler profile and clamp interface belong together.
+The selected coupler d_profile and clamp interface belong together.
 
-| Coupler profile | Host depth | Dovetail height | Clamp body transition |
+| Coupler d_profile | Host depth | Dovetail height | Clamp body transition |
 | --- | ---: | ---: | --- |
 | small | 2.0 mm | 2.0 mm | fixed accepted baseline |
 | medium | 3.0 mm | 2.5 mm | fixed accepted baseline |
 | large | 4.0 mm | 3.0 mm | fixed accepted baseline |
 
-Only the **dovetail interface height** changes with the selected coupler profile.
+Only the **dovetail interface height** changes with the selected coupler d_profile.
 The receiving coupler material becomes correspondingly deeper/higher, but the
 tube clip body itself must not be reshaped just because the dovetail height
 changed.
@@ -209,13 +209,13 @@ taller dovetail
 For the current design we deliberately do **not** let that relationship reshape
 the clamp body automatically.
 
-The design intent is that changing coupler profile changes the available host
+The design intent is that changing coupler d_profile changes the available host
 depth and therefore the dovetail height. The coupler/female side gets the extra
 material needed for that deeper interface. The reusable tube-clip body remains
 the same accepted shape.
 
-The actual male dovetail profile and the local material relief needed so that
-profile can enter its female channel may still differ by size. Those are
+The actual male dovetail d_profile and the local material relief needed so that
+d_profile can enter its female channel may still differ by size. Those are
 interface changes; they are not automatically clamp-body changes.
 
 This is a design choice, not a claim that the earlier derived transition was
@@ -227,7 +227,7 @@ change as an explicit design decision rather than an incidental consequence of
 the dovetail-height formula.
 
 The interactive `tube-clamp` and `tube-clamp-dov` views must use the selected
-`coupler_profile`. A custom profile derives the interface from its configured
+`coupler_profile`. A custom d_profile derives the interface from its configured
 `base_thickness`.
 
 ## Construction order
@@ -244,7 +244,7 @@ The production component is built in this order:
 ```
 
 Step 6 is deliberately last. A print-relief correction must not be allowed to
-turn into a new global clamp profile.
+turn into a new global clamp d_profile.
 
 ## Accepted baseline
 
@@ -313,18 +313,18 @@ attach_x = min(
 )
 
 development relief position
-= body-derived position + relief_z_offset
+= body-derived position + d_relief_z_offset_mm
 ```
 
 The important semantic split is:
 
-- `relief_z_height` controls the **length of the low cylinder along
+- `d_relief_z_height_mm` controls the **length of the low cylinder along
   development Z**;
-- `relief_z_offset` moves that complete cutter along development Z without
+- `d_relief_z_offset_mm` moves that complete cutter along development Z without
   changing its height.
 
 Because the clamp-body transition is fixed across small / medium / large, this
-offset is independent of dovetail profile height.
+offset is independent of dovetail d_profile height.
 
 Translated back to the reusable clamp's native coordinates, the accepted
 development-Z cylinders become short **native-X** cylinders. Their circular
@@ -383,24 +383,26 @@ Opening this file directly in OpenSCAD exposes a small standalone Customizer
 for the normal component controls:
 
 ```text
-profile
-mi_view
-bore
-apply_transition_relief
-relief_radius
-relief_bite
-relief_z_height
-relief_z_offset
-mi_high_resolution
+d_profile
+c_view
+d_bore
+d_apply_transition_relief
+d_relief_radius_mm
+d_relief_bite_mm
+d_relief_z_height_mm
+d_relief_z_offset_mm
+c_high_resolution
 ```
 
-Only presentation/inspection state uses the `mi_` prefix (**menu item**).
-A variable does not get `mi_` merely because it is visible in the OpenSCAD
-Customizer. Design and functional values keep normal domain names, for example
-`profile`, `bore`, `relief_radius` and `relief_z_height`.
+The standalone controls follow the shared SCAD naming convention from
+`brainboxemb.meta/domains/scad/coding-conventions.md`.
 
-For this component, `mi_view` and `mi_high_resolution` are presentation-only
-controls. The internal object created by the standalone entrypoint is named
+- `d_` marks design/functional input, even when it appears in the Customizer;
+- `c_` marks presentation/inspection-only Customizer state;
+- physical scalar inputs include an explicit unit suffix such as `_mm`;
+- private implementation names use a leading underscore.
+
+The internal object created by this entrypoint is named
 `_standalone_clamp` to make that boundary explicit.
 
 Consumers normally import the production API with `use <...>`; the standalone
