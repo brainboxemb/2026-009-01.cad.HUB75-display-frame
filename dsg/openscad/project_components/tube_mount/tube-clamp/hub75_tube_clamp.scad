@@ -14,6 +14,21 @@ use <../../../ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad>
 use <../../../ext/lib.scad.util/openscad/transform.scad>
 use <../tube_mount_interface.scad>
 
+/* [Component] */
+profile = "medium"; // [small,medium,large]
+view = "complete"; // [complete,body]
+bore = "functional"; // [functional,tension]
+apply_transition_relief = true;
+
+/* [Transition relief] */
+relief_radius = 6.0;
+relief_bite = 0.4;
+relief_z_height = 4.0;
+relief_z_offset = 1.0;
+
+/* [Resolution] */
+high_resolution = false;
+
 // ----------------------------------------------------------------------
 // Fixed clamp-body baseline
 // ----------------------------------------------------------------------
@@ -429,3 +444,52 @@ module _hub75_tube_clamp_dovetail_build(clamp) {
         center_z = clamp.dovetail_center_z
     );
 }
+
+// ----------------------------------------------------------------------
+// Standalone component entrypoint
+// ----------------------------------------------------------------------
+//
+// Top-level code is intentionally kept here so this component can be opened
+// directly in OpenSCAD. Consumers normally import the API with use<...>, which
+// does not execute this standalone entrypoint.
+
+_standalone_clamp =
+    hub75_tube_clamp_create(
+        dovetail =
+            hub75_tube_mount_dovetail_create_for_size(
+                profile
+            ),
+        transition_relief_radius =
+            relief_radius,
+        transition_relief_bite =
+            relief_bite,
+        transition_relief_z_height =
+            relief_z_height,
+        transition_relief_z_offset =
+            relief_z_offset
+    );
+
+_standalone_use_tension =
+    bore == "tension";
+
+if (view == "body")
+    hub75_tube_clamp_body_build(
+        _standalone_clamp,
+        use_tension_bore =
+            _standalone_use_tension,
+        high_resolution =
+            high_resolution,
+        apply_transition_relief =
+            apply_transition_relief
+    );
+else
+    hub75_tube_clamp_build(
+        _standalone_clamp,
+        use_tension_bore =
+            _standalone_use_tension,
+        high_resolution =
+            high_resolution,
+        apply_transition_relief =
+            apply_transition_relief
+    );
+
