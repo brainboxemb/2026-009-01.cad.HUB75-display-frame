@@ -29,12 +29,11 @@ This file records the functional evolution of the HUB75 display-frame project.
 
 ### Changed
 
-- Round the two sharp ring/transition V-points with shallow subtractive
-  cylindrical reliefs: R10 with a 1 mm maximum bite. The cylinders run along
-  native clamp Z / project X, which is printer Z in the intended side-print
-  orientation. This deliberately removes a little more local material to make
-  the edge less sharp without changing the fixed clamp-body transition, bore or
-  size-matched dovetail interface.
+- Move the R10 / 1 mm transition relief from the incorrectly targeted upper
+  ring-attachment point to the lower transition foot at the flat
+  base / dovetail connection. Use 2 mm-deep cylinders from both clamp faces and
+  mirror them across both profile sides, so the four local bites run along
+  native Z / project X / printer Z without creating a through-width groove.
 - Add a worked-out design document and stable design-render adapter for the
   project-owned HUB75 tube clamp. The document freezes geometry ownership,
   project/print coordinates, size mapping and the accepted baseline shape.

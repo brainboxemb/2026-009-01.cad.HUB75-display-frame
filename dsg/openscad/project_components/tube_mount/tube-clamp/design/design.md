@@ -28,8 +28,8 @@ The rule from this point onward is:
 > do not reshape the accepted base clamp while solving a local HUB75 adapter
 > detail.
 
-The pre-relief baseline below is the shape to preserve except for the one local
-ring/transition corner addressed later in this document.
+The pre-relief baseline below is the shape to preserve except for the small
+lower transition-foot corners addressed later in this document.
 
 <!-- scad-render
 view: before-relief
@@ -264,10 +264,12 @@ vpt: [0, -3.5, 10]
 vpd: 72
 -->
 
-## Local ring-to-transition relief
+## Local transition-foot relief
 
-The remaining sharp feature is the small **concave V** where the compact sloped
-transition meets the circular clip body.
+The remaining sharp feature is **not** the upper point where the sloped
+transition meets the circular ring. The target is the lower foot highlighted in
+the design review: where the sloped transition leaves the flat
+base / dovetail connection.
 
 The current correction follows the original proposal: remove a little more
 material locally so the point itself is no longer sharp.
@@ -282,22 +284,32 @@ axis   = native clamp Z
        = printer Z in the intended side-print orientation
 ```
 
-In the reusable clamp's native 2D profile the cutter circle is centred directly
-outside the sharp ring/transition vertex. Its centre sits radius minus bite
-outside that vertex, so the deepest removal at the vertex is about 1 mm. The
-relatively large 10 mm radius spreads that removal over a broad arc; it does not
-create a tiny tight notch.
+In the reusable clamp's native 2D profile the target is the lower transition
+vertex:
 
-The same cutter is mirrored to the opposite side of the transition. Because the
-circle is extruded along native clamp Z, the actual 3D cutter is print-vertical
-when the clamp is side-printed. That is the critical orientation requirement
-which the earlier project-Z attempts violated.
+```text
+x = base_thickness
+y = +/- transition_width / 2
+```
 
-This operation intentionally makes the local concavity slightly deeper while
-making its bottom much less sharp. The tube bore, snap opening, fixed clamp-body
-transition, tube datum and dovetail geometry remain unchanged.
+The R10 cutter is positioned just outside that vertex so the maximum radial bite
+is about 1 mm. It is **not** centred at the upper ring/transition attach point;
+that was the error in the previous iteration and produced the large missing
+chunks visible in the ring.
 
-The red geometry below shows the local material removed by this relief.
+The cutter is also shallow along its axis: 2 mm from the front face and 2 mm
+from the back face. Together with the two profile sides this gives four small
+local round bites instead of one through-width groove.
+
+Its cylinder axis is native clamp Z, which maps to project X and therefore to
+printer Z in the intended side-print orientation. So the round bite is vertical
+for printing rather than a horizontal concave tunnel.
+
+The tube bore, circular ring, snap opening, fixed clamp-body transition, tube
+datum and dovetail geometry remain unchanged away from these four local reliefs.
+
+The red geometry below shows only the material removed at the lower
+transition-foot reliefs.
 
 <!-- scad-render
 view: relief-detail
@@ -320,8 +332,9 @@ vpd: 72
 A candidate local relief is valid only when all of the following are true:
 
 1. the baseline silhouette is still recognizable immediately;
-2. only the intended sharp corner changes;
-3. the relief-cylinder axis is project X / printer Z;
+2. only the lower transition-foot corners change; the upper ring attach remains
+   untouched;
+3. the relief-cylinder axis is native Z / project X / printer Z;
 4. no horizontal concave tunnel is introduced in the side-print orientation;
 5. small / medium / large retain their matching dovetails while the clamp-body
    transition remains identical;

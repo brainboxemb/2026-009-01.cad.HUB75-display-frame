@@ -69,14 +69,14 @@ module hub75_tube_clamp_design(
                     clamp,
                     use_tension_bore = false,
                     high_resolution = true,
-                    apply_transition_relief = true
+                    apply_transition_relief = false
                 );
 
                 hub75_tube_clamp_build(
                     clamp,
                     use_tension_bore = false,
                     high_resolution = true,
-                    apply_transition_relief = false
+                    apply_transition_relief = true
                 );
             }
     } else if (view == "body") {

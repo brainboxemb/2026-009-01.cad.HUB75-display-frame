@@ -21,6 +21,11 @@ preview_view = "complete"; // [complete,body]
 preview_bore = "functional"; // [functional,tension]
 preview_transition_relief = true;
 
+/* [Transition relief] */
+preview_relief_radius = 10.0;
+preview_relief_bite = 1.0;
+preview_relief_face_depth = 2.0;
+
 /* [Resolution] */
 preview_high_resolution = false;
 
@@ -70,6 +75,7 @@ function hub75_tube_clamp_create(
     dovetail_relief_chamfer_depth = undef,
     transition_relief_radius = 10.0,
     transition_relief_bite = 1.0,
+    transition_relief_face_depth = 2.0,
     extra = 0.01,
     dovetail = hub75_tube_mount_dovetail_create()
 ) =
@@ -131,6 +137,12 @@ function hub75_tube_clamp_create(
             && transition_relief_bite <= transition_relief_radius,
         "tube-clamp transition_relief_bite must be between 0 and transition_relief_radius"
     )
+    assert(
+        transition_relief_face_depth > 0
+            && transition_relief_face_depth
+                <= clamp_width / 2,
+        "tube-clamp transition_relief_face_depth must be > 0 and <= half clamp_width"
+    )
     object(
         tube_center_y = active_tube_center_y,
         tube_center_z = tube_center_z,
@@ -141,6 +153,8 @@ function hub75_tube_clamp_create(
             active_relief_chamfer_depth,
         transition_relief_radius = transition_relief_radius,
         transition_relief_bite = transition_relief_bite,
+        transition_relief_face_depth =
+            transition_relief_face_depth,
         base_clamp = base_clamp
     );
 
@@ -266,14 +280,17 @@ module _hub75_tube_clamp_ring_build(
 }
 
 
-// Shallow round bite at the sharp local V where the compact transition meets
-// the circular clip body. The cutter is a cylinder along native clamp Z;
-// after the project transform that becomes project X / printer Z.
+// Shallow round bite at the LOWER transition foot: the sharp corner where the
+// compact sloped transition leaves the flat base / dovetail connection.
 //
-// The circle centre is placed R-bite outside the sharp vertex in native +/-Y.
-// Therefore the deepest removal at the vertex is exactly bite, while the
-// large radius makes the run-out broad and smooth instead of creating a small,
-// tight stress notch.
+// This deliberately does NOT target the upper transition-to-ring attach point.
+// In the reusable clamp's native profile the target vertex is
+// [base_thickness, +/- transition_width/2].
+//
+// The cylinders use native Z as their axis. Native Z maps to project X, which is
+// printer Z in the intended side-print orientation. They are intentionally
+// short and applied from both clamp faces, matching the requested small round
+// bite on this side and on the back rather than cutting a full-width tunnel.
 module _hub75_tube_clamp_transition_relief_cutter_local(
     clamp,
     high_resolution
@@ -281,41 +298,33 @@ module _hub75_tube_clamp_transition_relief_cutter_local(
     b = clamp.base_clamp;
     radius = clamp.transition_relief_radius;
     bite = clamp.transition_relief_bite;
-    outer_r = tube_clamp_outer_radius(b);
-    center_x = b.base_thickness + outer_r;
+    face_depth = clamp.transition_relief_face_depth;
 
-    attach_x = min(
-        b.base_thickness + b.transition_depth,
-        center_x + outer_r - b.extra
-    );
-    attach_dx = attach_x - center_x;
-    attach_y = sqrt(max(
-        0.01,
-        outer_r * outer_r - attach_dx * attach_dx
-    ));
+    foot_x = b.base_thickness;
+    foot_y = b.transition_width / 2;
+    cutter_y =
+        foot_y
+        + radius
+        - bite;
 
-    cutter_h =
-        b.clamp_width
-        + 2 * b.extra;
-
-    for (side = [-1, 1])
-        translate([
-            attach_x,
-            side * (
-                attach_y
-                + radius
-                - bite
-            ),
-            -b.extra
-        ])
-            cylinder(
-                r = radius,
-                h = cutter_h,
-                $fn =
-                    high_resolution
-                        ? 96
-                        : 32
-            );
+    // Two profile sides (+/-Y) x two physical clamp faces (native Z).
+    for (profile_side = [-1, 1])
+        for (face = [0, 1])
+            translate([
+                foot_x,
+                profile_side * cutter_y,
+                face == 0
+                    ? -b.extra
+                    : b.clamp_width - face_depth,
+            ])
+                cylinder(
+                    r = radius,
+                    h = face_depth + b.extra,
+                    $fn =
+                        high_resolution
+                            ? 96
+                            : 32
+                );
 }
 
 
@@ -416,7 +425,18 @@ module _hub75_tube_clamp_dovetail_build(clamp) {
 // ----------------------------------------------------------------------
 
 _preview_clamp =
-    hub75_tube_clamp_create_for_size(preview_profile);
+    hub75_tube_clamp_create(
+        dovetail =
+            hub75_tube_mount_dovetail_create_for_size(
+                preview_profile
+            ),
+        transition_relief_radius =
+            preview_relief_radius,
+        transition_relief_bite =
+            preview_relief_bite,
+        transition_relief_face_depth =
+            preview_relief_face_depth
+    );
 
 _preview_use_tension_bore =
     preview_bore == "tension";
