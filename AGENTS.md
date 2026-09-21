@@ -120,6 +120,11 @@ OpenSCAD cross-file interfaces use public names without a leading underscore.
 Private implementation helpers use a leading underscore, including nested
 helpers.
 
+Top-level variables that exist only to expose a directly opened component in the
+OpenSCAD Customizer use the `cust_` prefix. This prefix is reserved for
+standalone/Customizer controls and must not leak into functional create/build
+API parameter names or object fields.
+
 ## Assembly source layout
 
 Keep `dsg/openscad/assemblies/` reserved for meaningful top-level project
