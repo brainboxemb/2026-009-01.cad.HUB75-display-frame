@@ -383,19 +383,19 @@ Opening this file directly in OpenSCAD exposes a small standalone Customizer
 for the normal component controls:
 
 ```text
-cust_profile
-cust_view
-cust_bore
-cust_apply_transition_relief
-cust_relief_radius
-cust_relief_bite
-cust_relief_z_height
-cust_relief_z_offset
-cust_high_resolution
+menu_profile
+menu_view
+menu_bore
+menu_apply_transition_relief
+menu_relief_radius
+menu_relief_bite
+menu_relief_z_height
+menu_relief_z_offset
+menu_high_resolution
 ```
 
-The `cust_` prefix marks these as OpenSCAD Customizer-only standalone controls.
-They are not part of the functional component API or object model. Functional
+The `menu_` prefix marks these as standalone menu/Customizer controls.
+They are UI state only and are not part of the functional component API or object model. Functional
 parameters keep their normal domain names, for example
 `transition_relief_radius`. The internal object created by this entrypoint is
 named `_standalone_clamp` to make that boundary explicit.
