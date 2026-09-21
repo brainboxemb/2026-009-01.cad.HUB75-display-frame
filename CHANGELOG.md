@@ -29,6 +29,12 @@ This file records the functional evolution of the HUB75 display-frame project.
 
 ### Changed
 
+- Upgrade the HUB75 root repository stack to `tool.git-project v0.2.9` and
+  `tool.scad-project v0.15.2`. Keep the project-owned `lib.scad.util v0.2.0`
+  alongside `lib.scad.mechint v0.1.6` and its owner-local transitive
+  `lib.scad.util v0.1.0`; verification asserts both util revisions resolve
+  independently while mechint's nested tooling gitlinks remain uninitialized.
+
 - Upgrade the tube-mount mechanical-interface dependency to released
   `lib.scad.mechint v0.1.6` and enable its symmetric 45 degree printable
   male lock-release wedges. The existing rectangular functional release opening
