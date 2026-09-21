@@ -41,4 +41,4 @@ dependencies:
     type: git-submodule
     url: https://github.com/brainboxemb/lib.scad.mechint.git
     path: dsg/openscad/ext/lib.scad.mechint
-    ref: v0.1.6
+    ref: feature/pr-19-coding-standard

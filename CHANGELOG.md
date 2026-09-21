@@ -29,6 +29,7 @@ This file records the functional evolution of the HUB75 display-frame project.
 
 ### Changed
 
+- Migrate the HUB75 tube-mount adapter to the coding-standard API from `lib.scad.mechint` PR #19: explicit unit suffixes, `len` abbreviations and positive lock booleans. The dependency is temporarily pinned to the PR branch/commit while that breaking library cleanup is qualified.
 - Upgrade the HUB75 root repository stack to `tool.git-project v0.2.9` and
   `tool.scad-project v0.15.2`. Keep the project-owned `lib.scad.util v0.2.0`
   alongside `lib.scad.mechint v0.1.6` and its owner-local transitive
