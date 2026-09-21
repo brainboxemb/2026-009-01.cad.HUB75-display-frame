@@ -14,24 +14,6 @@ use <../../../ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad>
 use <../../../ext/lib.scad.util/openscad/transform.scad>
 use <../tube_mount_interface.scad>
 
-/* [Profile] */
-preview_profile = "medium"; // [small,medium,large]
-
-/* [Preview] */
-preview_view = "complete"; // [complete,body]
-preview_bore = "functional"; // [functional,tension]
-preview_transition_relief = true;
-
-/* [Transition relief] */
-preview_relief_radius = 6.0;
-preview_relief_bite = 0.4;
-preview_relief_z_height = 4.0;
-preview_relief_z_offset = 1.0;
-
-/* [Resolution] */
-preview_high_resolution = false;
-
-
 // ----------------------------------------------------------------------
 // Fixed clamp-body baseline
 // ----------------------------------------------------------------------
@@ -447,42 +429,3 @@ module _hub75_tube_clamp_dovetail_build(clamp) {
         center_z = clamp.dovetail_center_z
     );
 }
-
-
-// ----------------------------------------------------------------------
-// Standalone Customizer preview
-// ----------------------------------------------------------------------
-
-_preview_clamp =
-    hub75_tube_clamp_create(
-        dovetail =
-            hub75_tube_mount_dovetail_create_for_size(
-                preview_profile
-            ),
-        transition_relief_radius =
-            preview_relief_radius,
-        transition_relief_bite =
-            preview_relief_bite,
-        transition_relief_z_height =
-            preview_relief_z_height,
-        transition_relief_z_offset =
-            preview_relief_z_offset
-    );
-
-_preview_use_tension_bore =
-    preview_bore == "tension";
-
-if (preview_view == "body")
-    hub75_tube_clamp_body_build(
-        _preview_clamp,
-        use_tension_bore = _preview_use_tension_bore,
-        high_resolution = preview_high_resolution,
-        apply_transition_relief = preview_transition_relief
-    );
-else
-    hub75_tube_clamp_build(
-        _preview_clamp,
-        use_tension_bore = _preview_use_tension_bore,
-        high_resolution = preview_high_resolution,
-        apply_transition_relief = preview_transition_relief
-    );
