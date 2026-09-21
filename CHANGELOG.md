@@ -30,12 +30,12 @@ This file records the functional evolution of the HUB75 display-frame project.
 ### Changed
 
 - Migrate the HUB75 tube-mount adapter to the released
-  `lib.scad.mechint v0.2.0` coding-standard API: explicit unit suffixes,
+  `lib.scad.mechint v0.2.1` coding-standard API: explicit unit suffixes,
   `len` abbreviations and positive lock booleans.
 - Upgrade the HUB75 root repository stack to `tool.git-project v0.2.9` and
-  `tool.scad-project v0.15.2`. Pin project-owned `lib.scad.util v0.3.0`
-  alongside `lib.scad.mechint v0.2.0`; mechint's owner-local transitive util
-  is the same released `v0.3.0` source. Verification asserts both owner-local
+  `tool.scad-project v0.15.2`. Pin project-owned `lib.scad.util v0.4.0`
+  alongside `lib.scad.mechint v0.2.1`; mechint's owner-local transitive util
+  is the same released `v0.4.0` source. Verification asserts both owner-local
   checkouts resolve at their exact release commits while mechint's nested
   tooling gitlinks remain uninitialized.
 

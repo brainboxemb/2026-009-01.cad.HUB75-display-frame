@@ -6,11 +6,11 @@ cd "${ROOT_DIR}"
 
 EXPECTED_GIT_TOOL_SHA="9879da589101f41b2b0e634d196ddcc51e1a6102"
 EXPECTED_SCAD_TOOL_SHA="70fd4162731484a949dc390e942dde8b8d811f10"
-EXPECTED_DIRECT_UTIL_SHA="d789d468560d5a2f2b1563d4c957f30de51e58ff"
-EXPECTED_MECHINT_SHA="ad32017da289cfcd399a53b742844c79e0abfdca"
-EXPECTED_MECHINT_UTIL_SHA="d789d468560d5a2f2b1563d4c957f30de51e58ff"
-EXPECTED_DIRECT_UTIL_REF="v0.3.0"
-EXPECTED_MECHINT_REF="v0.2.0"
+EXPECTED_DIRECT_UTIL_SHA="604970732671b3889f072f5fc744ca872326e69c"
+EXPECTED_MECHINT_SHA="da06eeeda4f22bcb65b42e264c5ee83f356fe8b3"
+EXPECTED_MECHINT_UTIL_SHA="604970732671b3889f072f5fc744ca872326e69c"
+EXPECTED_DIRECT_UTIL_REF="v0.4.0"
+EXPECTED_MECHINT_REF="v0.2.1"
 
 gitlink_sha() {
   local repo_root="$1"
@@ -82,7 +82,7 @@ verify_dependency_ownership() {
   require_uninitialized_nested_tooling "$mechint" "tools/tool.git-project"
   require_uninitialized_nested_tooling "$mechint" "tools/tool.scad-project"
 
-  echo "Dependency ownership: root util v0.3.0 and mechint-owned util v0.3.0 resolve as independent owner-local checkouts"
+  echo "Dependency ownership: root util v0.4.0 and mechint-owned util v0.4.0 resolve as independent owner-local checkouts"
 }
 OUT_DIR="${ROOT_DIR}/vrf/out"
 PNG_DIR="${OUT_DIR}/png"
