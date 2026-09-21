@@ -29,11 +29,14 @@ This file records the functional evolution of the HUB75 display-frame project.
 
 ### Changed
 
-- Smooth the two side edges of the clamp/dovetail transition with project-vertical
-  R10 cylindrical reliefs. Each cylinder is clipped to the existing 30-degree
-  transition band and bites at most 1 mm into the 12 mm clamp face, so the
-  circular snap ring itself remains untouched and the side-print transition is
-  self-supporting.
+- Smooth the two clamp/dovetail shoulder edges with project-Z R10 cylindrical
+  reliefs that bite at most 1 mm into the 12 mm clamp faces. The cylinders are
+  no longer box-clipped, so the relief stays genuinely circular instead of
+  creating a stepped rectangular notch.
+- Bind the interactive `tube-clamp` and `tube-clamp-dov` views to the selected
+  `coupler_profile`. Small / medium / large now use their matching clamp
+  interface, while a custom profile derives the clamp interface from its
+  configured `base_thickness`.
 - Expand the corner insertion keep-out from the detailed hollow clamp body to
   the complete solid outer-ring envelope and open that cavity to the rear print
   face with a simple 45-degree lower ramp. This removes the thin plate/shelf

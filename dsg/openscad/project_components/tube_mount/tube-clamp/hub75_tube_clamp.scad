@@ -104,6 +104,14 @@ function hub75_tube_clamp_create(
         base_clamp = base_clamp
     );
 
+function hub75_tube_clamp_create_for_host_depth(host_depth) =
+    hub75_tube_clamp_create(
+        dovetail =
+            hub75_tube_mount_dovetail_create(
+                host_depth = host_depth
+            )
+    );
+
 function hub75_tube_clamp_create_for_size(size) =
     hub75_tube_clamp_create(
         dovetail = hub75_tube_mount_dovetail_create_for_size(size)
@@ -220,12 +228,8 @@ module _hub75_tube_clamp_transition_edge_relief_cutter(
             hub75_tube_mount_dovetail_mouth_y();
         clamp_half_width =
             clamp.base_clamp.clamp_width / 2;
-        y_min =
-            mouth_y - chamfer_depth - extra;
-        y_max =
-            mouth_y + extra;
-        y_center =
-            (y_min + y_max) / 2;
+        shoulder_y =
+            mouth_y - chamfer_depth;
         z_min =
             clamp.dovetail_center_z
             - clamp.dovetail_slide / 2
@@ -236,35 +240,23 @@ module _hub75_tube_clamp_transition_edge_relief_cutter(
         cutter_x =
             clamp_half_width + radius - bite;
 
-        // Two project-vertical cylinders soften only the front/back side edges
-        // of the 30-degree transition band.  The R10 cylinders sit almost
-        // tangent to the 12 mm clamp faces, so their maximum penetration is
-        // 1 mm.  Clipping them to the existing chamfer-depth band prevents the
-        // broad radius from biting into the circular snap ring.
+        // Shallow cylindrical relief at the sharp start of the 30-degree
+        // clamp-to-dovetail transition.  The cutter axis is project Z, so the
+        // relief is genuinely vertical in the clamp view.  R10 is positioned
+        // almost tangent to each 12 mm clamp face and therefore removes at most
+        // about 1 mm.  Do not clip the cylinder with a box: the circular cutter
+        // itself must create the smooth run-out instead of a rectangular step.
         for (side = [-1, 1])
-            intersection() {
-                translate([
-                    side * cutter_x,
-                    y_center,
-                    z_min
-                ])
-                    cylinder(
-                        r = radius,
-                        h = z_length,
-                        $fn = high_resolution ? 96 : 32
-                    );
-
-                translate([
-                    -clamp_half_width - extra,
-                    y_min,
-                    z_min - extra
-                ])
-                    cube([
-                        2 * clamp_half_width + 2 * extra,
-                        y_max - y_min,
-                        z_length + 2 * extra
-                    ]);
-            }
+            translate([
+                side * cutter_x,
+                shoulder_y,
+                z_min
+            ])
+                cylinder(
+                    r = radius,
+                    h = z_length,
+                    $fn = high_resolution ? 96 : 32
+                );
     }
 }
 

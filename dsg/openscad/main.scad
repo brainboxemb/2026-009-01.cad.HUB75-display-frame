@@ -159,6 +159,15 @@ horizontal_coupler = _hub75_main_horizontal_coupler(panel);
 left_corner_coupler = _hub75_main_corner_coupler(panel, "left");
 right_corner_coupler = _hub75_main_corner_coupler(panel, "right");
 
+function _hub75_main_tube_clamp() =
+    coupler_profile == "custom"
+        ? hub75_tube_clamp_create_for_host_depth(
+            base_thickness
+        )
+        : hub75_tube_clamp_create_for_size(
+            coupler_profile
+        );
+
 module _hub75_main_display(explode = 0, panels_visible = show_panels) {
     hub75_display_frame_assembly(
         panel = panel,
@@ -261,14 +270,14 @@ module _hub75_main_selected_view() {
             clamp_high_resolution = high_resolution
         );
     else if (view_mode == "tube-clamp")
-        let(clamp = hub75_tube_clamp_create())
+        let(clamp = _hub75_main_tube_clamp())
             hub75_tube_clamp_body_build(
                 clamp,
                 use_tension_bore = false,
                 high_resolution = high_resolution
             );
     else if (view_mode == "tube-clamp-dov")
-        let(clamp = hub75_tube_clamp_create())
+        let(clamp = _hub75_main_tube_clamp())
             hub75_tube_clamp_build(
                 clamp,
                 use_tension_bore = false,
