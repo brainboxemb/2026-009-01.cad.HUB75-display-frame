@@ -258,8 +258,8 @@ change as an explicit design decision rather than an incidental consequence of
 the dovetail-height formula.
 
 The interactive `tube-clamp` and `tube-clamp-dov` views must use the selected
-`coupler_profile`. A custom d_profile derives the interface from its configured
-`base_thickness`.
+`d_coupler_profile`. A custom profile derives the interface from its configured
+`d_base_thickness_mm`.
 
 ## Construction order
 
@@ -422,7 +422,7 @@ d_relief_radius_mm
 d_relief_bite_mm
 d_relief_z_height_mm
 d_relief_z_offset_mm
-c_high_resolution
+c_resolution
 ```
 
 The standalone controls follow the shared SCAD naming convention from

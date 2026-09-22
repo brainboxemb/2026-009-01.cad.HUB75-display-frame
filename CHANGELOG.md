@@ -4,10 +4,11 @@ This file records the functional evolution of the HUB75 display-frame project.
 
 ## Unreleased
 
-- Start issue #47 source-coherence cleanup: move the HUB75 project baseline to
-  `lib.scad.forge v0.2.2`, adopt semantic `low/high/export` resolution for the
-  project-owned tube-clamp/render path, and align interactive controls with the
-  shared `d_` / `c_` naming convention without migrating external libraries.
+- Complete issue #47 source-coherence cleanup: move the HUB75 project baseline
+  to `lib.scad.forge v0.2.2`, adopt semantic `low/high/export` resolution,
+  align project-owned tube-mount APIs with explicit units and Forge coordinate
+  frames, and align standalone controls with the shared `d_` / `c_` naming
+  convention without migrating external library APIs.
 ### Added
 
 - Split the interactive clamp inspection in `main.scad` into `tube-clamp`

@@ -119,7 +119,7 @@ view: carrier-position
 Public accessor:
 
 ```scad
-hub75_tube_horizontal_edge_clamp_positions(coupler)
+hub75_tube_horizontal_edge_clamp_positions_mm(coupler)
 ```
 
 ## 4. Add rear carriers before adding the dovetail
