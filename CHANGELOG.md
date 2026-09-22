@@ -2,7 +2,20 @@
 
 This file records the functional evolution of the HUB75 display-frame project.
 
-## Unreleased
+## v0.0.4
+
+This checkpoint release primarily captures the project's infrastructure and
+source-baseline work: the Migration 008 tooling stack, Forge-based project
+modeling/resolution, current SCAD coding conventions, cache-policy improvements,
+and consolidation of the HUB75 project-owned source structure.
+
+The detachable clip/tube-mount integration is included as **WIP**, not as an
+accepted mechanical design. Standard HUB75 couplers remain the default full
+assembly. The unfinished tube-aware couplers are available through
+`c_use_wip_tube_mount_couplers` and the dedicated development/verification
+entrypoints.
+
+### Checkpoint status
 
 - Treat the detachable clip/tube-mount integration as explicit WIP for the
   integration checkpoint: standard HUB75 couplers are again the default full
