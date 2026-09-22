@@ -5,7 +5,7 @@
 
 use <../assemblies/panels_assembly.scad>
 
-panel = hub75_display_panel_create();
+panel_obj = hub75_display_panel_create();
 
-hub75_display_verify_nominal_size(panel = panel);
-hub75_panels_assembly(panel = panel);
+hub75_display_verify_nominal_size(panel_obj = panel_obj);
+hub75_panels_assembly(panel_obj = panel_obj);

@@ -9,12 +9,12 @@ use <../../dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/hu
 
 size = "medium";
 
-coupler =
+coupler_obj =
     hub75_horizontal_edge_coupler_create_for_size(
         size = size
     );
 clip_positions =
-    hub75_tube_horizontal_edge_clamp_positions_mm(coupler);
+    hub75_tube_horizontal_edge_clamp_positions_mm(coupler_obj);
 clip_x = clip_positions[len(clip_positions) - 1];
 
 $vpt = [clip_x, 0.8, 0];

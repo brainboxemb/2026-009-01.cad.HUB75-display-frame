@@ -10,11 +10,11 @@ $vpt = [0, 9.5, 0];
 $vpr = [90, 0, 180];
 $vpd = 210;
 
-coupler = hub75_middle_coupler_create_for_size(size = size);
+coupler_obj = hub75_middle_coupler_create_for_size(size = size);
 section_depth =
-    min(5.0, max(1.0, coupler.guide_height - 1.0));
+    min(5.0, max(1.0, coupler_obj.guide_height - 1.0));
 
 hub75_middle_coupler_rear_fit_section(
-    coupler = coupler,
+    coupler_obj = coupler_obj,
     depth = section_depth
 );

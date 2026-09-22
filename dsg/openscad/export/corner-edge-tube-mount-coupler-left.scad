@@ -8,10 +8,10 @@ use <../export_support/export_orientation.scad>
 // tool.scad-project multi-size adapter: overridden by -D size=...
 size = "medium";
 d_profile = size;
-_coupler = hub75_corner_edge_coupler_create_for_size(side = "left", size = d_profile);
+_coupler_obj = hub75_corner_edge_coupler_create_for_size(side = "left", size = d_profile);
 
-hub75_export_rear_face_down(_coupler.base_thickness)
+hub75_export_rear_face_down(_coupler_obj.base_thickness)
     hub75_tube_corner_edge_coupler_build(
-        _coupler,
+        _coupler_obj,
         resolution = FG_RES_EXPORT()
     );

@@ -7,15 +7,15 @@ use <../panels_assembly.scad>
 use <../../components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad>
 use <../helpers/verification_datum_pin.scad>
 
-function _hub75_horizontal_edge_fit_panel_pitch(panel) =
-    hub75_p5_64x32_panel_nominal_width(panel);
+function _hub75_horizontal_edge_fit_panel_pitch(panel_obj) =
+    hub75_p5_64x32_panel_nominal_width(panel_obj);
 
-function _hub75_horizontal_edge_fit_edge_z(panel) =
-    hub75_p5_64x32_panel_nominal_height(panel) / 2;
+function _hub75_horizontal_edge_fit_edge_z(panel_obj) =
+    hub75_p5_64x32_panel_nominal_height(panel_obj) / 2;
 
-module _hub75_horizontal_edge_fit_panel_pair(panel) {
+module _hub75_horizontal_edge_fit_panel_pair(panel_obj) {
     hub75_panels_assembly(
-        panel = panel,
+        panel_obj = panel_obj,
         panel_count = 2,
         color_scheme = "light_gray"
     );
@@ -23,23 +23,23 @@ module _hub75_horizontal_edge_fit_panel_pair(panel) {
 
 // Module: hub75_horizontal_edge_coupler_fit_detail()
 module hub75_horizontal_edge_coupler_fit_detail(
-    panel = hub75_p5_64x32_panel_create(),
-    coupler = undef,
+    panel_obj = hub75_p5_64x32_panel_create(),
+    coupler_obj = undef,
     crop_width = 140,
     crop_inward = 110,
     crop_outward = 10
 ) {
-    active_coupler =
-        is_undef(coupler)
-            ? hub75_horizontal_edge_coupler_create(panel = panel)
-            : coupler;
+    active_coupler_obj =
+        is_undef(coupler_obj)
+            ? hub75_horizontal_edge_coupler_create(panel_obj = panel_obj)
+            : coupler_obj;
     mounting_y =
-        hub75_p5_64x32_panel_mounting_plane_y(panel);
+        hub75_p5_64x32_panel_mounting_plane_y(panel_obj);
     edge_z =
-        _hub75_horizontal_edge_fit_edge_z(panel);
+        _hub75_horizontal_edge_fit_edge_z(panel_obj);
     y_max =
         mounting_y
-        + active_coupler.base_thickness
+        + active_coupler_obj.base_thickness
         + 2;
 
     module _crop_volume() {
@@ -56,13 +56,13 @@ module hub75_horizontal_edge_coupler_fit_detail(
     }
 
     intersection() {
-        _hub75_horizontal_edge_fit_panel_pair(panel);
+        _hub75_horizontal_edge_fit_panel_pair(panel_obj);
         _crop_volume();
     }
 
     color([0.72, 0.05, 0.04, 1])
         translate([0, mounting_y, edge_z])
-            hub75_horizontal_edge_coupler_build(active_coupler);
+            hub75_horizontal_edge_coupler_build(active_coupler_obj);
 
     hub75_verification_datum_pin(
         x = 0,
@@ -70,7 +70,7 @@ module hub75_horizontal_edge_coupler_fit_detail(
         y_min = -4,
         y_max =
             mounting_y
-            + active_coupler.base_thickness
+            + active_coupler_obj.base_thickness
             + 8
     );
 }
@@ -80,27 +80,27 @@ module hub75_horizontal_edge_coupler_fit_detail(
 //   Rear-facing thin Y section. lib.scad.util owns the slab; this fixture
 //   retains only the local crop and presentation.
 module hub75_horizontal_edge_coupler_rear_fit_section(
-    panel = hub75_p5_64x32_panel_create(),
-    coupler = undef,
+    panel_obj = hub75_p5_64x32_panel_create(),
+    coupler_obj = undef,
     depth = 5.0,
     slice_thickness = 0.10,
     crop_width = 140,
     crop_inward = 110,
     crop_outward = 10
 ) {
-    active_coupler =
-        is_undef(coupler)
-            ? hub75_horizontal_edge_coupler_create(panel = panel)
-            : coupler;
+    active_coupler_obj =
+        is_undef(coupler_obj)
+            ? hub75_horizontal_edge_coupler_create(panel_obj = panel_obj)
+            : coupler_obj;
     mounting_y =
-        hub75_p5_64x32_panel_mounting_plane_y(panel);
+        hub75_p5_64x32_panel_mounting_plane_y(panel_obj);
     edge_z =
-        _hub75_horizontal_edge_fit_edge_z(panel);
+        _hub75_horizontal_edge_fit_edge_z(panel_obj);
     section_y =
         mounting_y - depth;
     y_max =
         mounting_y
-        + active_coupler.base_thickness
+        + active_coupler_obj.base_thickness
         + 2;
 
     assert(depth > 0, "rear fit section depth must be > 0");
@@ -112,12 +112,12 @@ module hub75_horizontal_edge_coupler_rear_fit_section(
 
     module _rear_structure() {
         pitch =
-            _hub75_horizontal_edge_fit_panel_pitch(panel);
+            _hub75_horizontal_edge_fit_panel_pitch(panel_obj);
 
         for (x = [-pitch / 2, pitch / 2])
             translate([x, 0, 0])
                 hub75_p5_64x32_panel_render(
-                    panel,
+                    panel_obj,
                     view = hub75_p5_64x32_panel_view_id("structure"),
                     color_scheme = "light_gray"
                 );
@@ -157,7 +157,7 @@ module hub75_horizontal_edge_coupler_rear_fit_section(
                 direction = "Positive"
             )
                 translate([0, mounting_y, edge_z])
-                    hub75_horizontal_edge_coupler_build(active_coupler);
+                    hub75_horizontal_edge_coupler_build(active_coupler_obj);
             _crop_volume();
         }
 
@@ -171,24 +171,24 @@ module hub75_horizontal_edge_coupler_rear_fit_section(
 
 // Module: hub75_horizontal_edge_coupler_yz_edge_section()
 module hub75_horizontal_edge_coupler_yz_edge_section(
-    panel = hub75_p5_64x32_panel_create(),
-    coupler = undef,
+    panel_obj = hub75_p5_64x32_panel_create(),
+    coupler_obj = undef,
     slice_x = 12,
     slice_thickness = 0.50,
     crop_inward = 90,
     crop_outward = 10
 ) {
-    active_coupler =
-        is_undef(coupler)
-            ? hub75_horizontal_edge_coupler_create(panel = panel)
-            : coupler;
+    active_coupler_obj =
+        is_undef(coupler_obj)
+            ? hub75_horizontal_edge_coupler_create(panel_obj = panel_obj)
+            : coupler_obj;
     mounting_y =
-        hub75_p5_64x32_panel_mounting_plane_y(panel);
+        hub75_p5_64x32_panel_mounting_plane_y(panel_obj);
     edge_z =
-        _hub75_horizontal_edge_fit_edge_z(panel);
+        _hub75_horizontal_edge_fit_edge_z(panel_obj);
     y_max =
         mounting_y
-        + active_coupler.base_thickness
+        + active_coupler_obj.base_thickness
         + 2;
 
     module _crop_volume() {
@@ -211,7 +211,7 @@ module hub75_horizontal_edge_coupler_yz_edge_section(
             depth = slice_thickness,
             direction = "Positive"
         )
-            _hub75_horizontal_edge_fit_panel_pair(panel);
+            _hub75_horizontal_edge_fit_panel_pair(panel_obj);
         _crop_volume();
     }
 
@@ -224,38 +224,38 @@ module hub75_horizontal_edge_coupler_yz_edge_section(
                 direction = "Positive"
             )
                 translate([0, mounting_y, edge_z])
-                    hub75_horizontal_edge_coupler_build(active_coupler);
+                    hub75_horizontal_edge_coupler_build(active_coupler_obj);
             _crop_volume();
         }
 }
 
 // Module: hub75_horizontal_edge_coupler_xy_seam_section()
 module hub75_horizontal_edge_coupler_xy_seam_section(
-    panel = hub75_p5_64x32_panel_create(),
-    coupler = undef,
+    panel_obj = hub75_p5_64x32_panel_create(),
+    coupler_obj = undef,
     slice_inward = 22,
     slice_thickness = 0.50,
     crop_width = 90
 ) {
-    active_coupler =
-        is_undef(coupler)
-            ? hub75_horizontal_edge_coupler_create(panel = panel)
-            : coupler;
+    active_coupler_obj =
+        is_undef(coupler_obj)
+            ? hub75_horizontal_edge_coupler_create(panel_obj = panel_obj)
+            : coupler_obj;
     mounting_y =
-        hub75_p5_64x32_panel_mounting_plane_y(panel);
+        hub75_p5_64x32_panel_mounting_plane_y(panel_obj);
     edge_z =
-        _hub75_horizontal_edge_fit_edge_z(panel);
+        _hub75_horizontal_edge_fit_edge_z(panel_obj);
     slice_z =
         edge_z - slice_inward;
     y_max =
         mounting_y
-        + active_coupler.base_thickness
+        + active_coupler_obj.base_thickness
         + 2;
 
     assert(slice_inward > 0, "XY seam section must be inward from the edge");
     assert(slice_thickness > 0, "XY seam slice thickness must be > 0");
     assert(
-        slice_inward < hub75_horizontal_edge_coupler_inward_reach(active_coupler),
+        slice_inward < hub75_horizontal_edge_coupler_inward_reach(active_coupler_obj),
         "XY seam section must remain inside the vertical coupler arm"
     );
 
@@ -279,7 +279,7 @@ module hub75_horizontal_edge_coupler_xy_seam_section(
             depth = slice_thickness,
             direction = "Positive"
         )
-            _hub75_horizontal_edge_fit_panel_pair(panel);
+            _hub75_horizontal_edge_fit_panel_pair(panel_obj);
         _crop_volume();
     }
 
@@ -292,7 +292,7 @@ module hub75_horizontal_edge_coupler_xy_seam_section(
                 direction = "Positive"
             )
                 translate([0, mounting_y, edge_z])
-                    hub75_horizontal_edge_coupler_build(active_coupler);
+                    hub75_horizontal_edge_coupler_build(active_coupler_obj);
             _crop_volume();
         }
 }

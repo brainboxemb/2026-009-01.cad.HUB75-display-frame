@@ -7,7 +7,7 @@ use <../export_support/export_orientation.scad>
 size = "medium";
 d_profile = size;
 
-coupler =
+coupler_obj =
     hub75_corner_edge_coupler_create_for_size(
         side = "right",
         size = d_profile
@@ -32,27 +32,27 @@ expected_screw_x =
     "right" == "left" ? 8 : -8;
 
 assert(
-    abs(coupler.profile_size - expected_profile[0]) < 0.001
-    && abs(coupler.wall_thickness - expected_profile[1]) < 0.001
-    && abs(coupler.guide_height - expected_profile[2]) < 0.001
-    && abs(coupler.base_thickness - expected_profile[3]) < 0.001,
+    abs(coupler_obj.profile_size - expected_profile[0]) < 0.001
+    && abs(coupler_obj.wall_thickness - expected_profile[1]) < 0.001
+    && abs(coupler_obj.guide_height - expected_profile[2]) < 0.001
+    && abs(coupler_obj.base_thickness - expected_profile[3]) < 0.001,
     "Corner-edge size preset changed"
 );
 
 assert(
-    abs(coupler.outside_projection - 19.5) < 0.001,
+    abs(coupler_obj.outside_projection - 19.5) < 0.001,
     "Corner-edge outside projection changed"
 );
 
 assert(
-    abs(coupler.screw_x - expected_screw_x) < 0.001
-    && abs(coupler.screw_z + 8.0) < 0.001,
+    abs(coupler_obj.screw_x - expected_screw_x) < 0.001
+    && abs(coupler_obj.screw_z + 8.0) < 0.001,
     "Corner-edge screw position changed"
 );
 
 assert(
     abs(
-        hub75_corner_edge_coupler_side_rail_center_x(coupler)
+        hub75_corner_edge_coupler_side_rail_center_x(coupler_obj)
         - ("right" == "left" ? 7.023828125 : -7.023828125)
     ) < 0.001,
     "Corner-edge side-rail centre derivation changed"
@@ -60,7 +60,7 @@ assert(
 
 assert(
     abs(
-        hub75_corner_edge_coupler_end_rail_center_z(coupler)
+        hub75_corner_edge_coupler_end_rail_center_z(coupler_obj)
         + 6.14443359375
     ) < 0.001,
     "Corner-edge end-rail centre derivation changed"
@@ -68,7 +68,7 @@ assert(
 
 assert(
     abs(
-        hub75_corner_edge_coupler_horizontal_arm_height(coupler)
+        hub75_corner_edge_coupler_horizontal_arm_height(coupler_obj)
         - expected_horizontal_arm
     ) < 0.001,
     "Corner-edge horizontal arm derivation changed"
@@ -76,21 +76,21 @@ assert(
 
 assert(
     abs(
-        hub75_corner_edge_coupler_vertical_arm_width(coupler)
+        hub75_corner_edge_coupler_vertical_arm_width(coupler_obj)
         - expected_vertical_arm
     ) < 0.001,
     "Corner-edge vertical arm derivation changed"
 );
 
 assert(
-    abs(coupler.screw_relief_depth - 0.20) < 0.001
-    && abs(coupler.screw_relief_radial - 0.40) < 0.001,
+    abs(coupler_obj.screw_relief_depth - 0.20) < 0.001
+    && abs(coupler_obj.screw_relief_radial - 0.40) < 0.001,
     "Corner-edge screw relief changed"
 );
 
 assert(
     abs(
-        hub75_corner_edge_coupler_reference_pocket_effective_depth(coupler)
+        hub75_corner_edge_coupler_reference_pocket_effective_depth(coupler_obj)
         - (d_profile == "small" ? 1.3 : 2.0)
     ) < 0.001,
     "Corner-edge reference pocket depth changed"
@@ -98,26 +98,26 @@ assert(
 
 assert(
     abs(
-        hub75_corner_edge_coupler_reinforcement_locator_pad_diameter(coupler)
+        hub75_corner_edge_coupler_reinforcement_locator_pad_diameter(coupler_obj)
         - 9.4
     ) < 0.001
     &&
     abs(
-        hub75_corner_edge_coupler_reinforcement_locator_pin_diameter(coupler)
+        hub75_corner_edge_coupler_reinforcement_locator_pin_diameter(coupler_obj)
         - 2.1
     ) < 0.001,
     "Corner-edge reinforcement locator derivation changed"
 );
 
 assert(
-    hub75_corner_edge_coupler_has_locator_pin(coupler)
+    hub75_corner_edge_coupler_has_locator_pin(coupler_obj)
         == ("right" == "left"),
     "Corner-edge locator-pin chirality changed"
 );
 
 if ("right" == "left") {
     locator =
-        hub75_corner_edge_coupler_locator_pin_position(coupler);
+        hub75_corner_edge_coupler_locator_pin_position(coupler_obj);
 
     assert(
         abs(locator[0] - 5.0) < 0.001
@@ -126,5 +126,5 @@ if ("right" == "left") {
     );
 }
 
-hub75_export_rear_face_down(coupler.base_thickness)
-    hub75_corner_edge_coupler_build(coupler);
+hub75_export_rear_face_down(coupler_obj.base_thickness)
+    hub75_corner_edge_coupler_build(coupler_obj);

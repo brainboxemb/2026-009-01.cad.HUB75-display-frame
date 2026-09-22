@@ -17,17 +17,17 @@ use <display_frame_assembly.scad>
 
 function hub75_tube_mount_display_2_panel_count() = 2;
 
-function hub75_tube_mount_display_2_panel_reference_width(panel) =
+function hub75_tube_mount_display_2_panel_reference_width(panel_obj) =
     hub75_display_frame_reference_width(
-        panel,
+        panel_obj,
         hub75_tube_mount_display_2_panel_count()
     );
 
-function hub75_tube_mount_display_2_panel_reference_height(panel) =
-    hub75_display_frame_reference_height(panel);
+function hub75_tube_mount_display_2_panel_reference_height(panel_obj) =
+    hub75_display_frame_reference_height(panel_obj);
 
 module hub75_tube_mount_display_2_panel_assembly(
-    panel = hub75_p5_64x32_panel_create(),
+    panel_obj = hub75_p5_64x32_panel_create(),
     coupler_size = "medium",
     panel_view = hub75_p5_64x32_panel_view_id("final"),
     resolution = FG_RES_HIGH(),
@@ -38,13 +38,13 @@ module hub75_tube_mount_display_2_panel_assembly(
     aluminium_tubes_visible = true,
     debug_reference_visible = false,
     explode_distance = 0,
-    middle_coupler = undef,
-    horizontal_coupler = undef,
-    left_corner_coupler = undef,
-    right_corner_coupler = undef
+    middle_coupler_obj = undef,
+    horizontal_coupler_obj = undef,
+    left_corner_coupler_obj = undef,
+    right_corner_coupler_obj = undef
 ) {
     hub75_display_frame_assembly(
-        panel = panel,
+        panel_obj = panel_obj,
         coupler_size = coupler_size,
         panel_count = hub75_tube_mount_display_2_panel_count(),
         panel_view = panel_view,
@@ -60,10 +60,10 @@ module hub75_tube_mount_display_2_panel_assembly(
         aluminium_tubes_visible = aluminium_tubes_visible,
         debug_reference_visible = debug_reference_visible,
         explode_distance = explode_distance,
-        middle_coupler = middle_coupler,
-        horizontal_coupler = horizontal_coupler,
-        left_corner_coupler = left_corner_coupler,
-        right_corner_coupler = right_corner_coupler
+        middle_coupler_obj = middle_coupler_obj,
+        horizontal_coupler_obj = horizontal_coupler_obj,
+        left_corner_coupler_obj = left_corner_coupler_obj,
+        right_corner_coupler_obj = right_corner_coupler_obj
     );
 }
 

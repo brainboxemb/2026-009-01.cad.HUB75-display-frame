@@ -6,18 +6,18 @@ use <../../dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_c
 
 size = "medium";
 
-panel = hub75_p5_64x32_panel_create();
-coupler =
+panel_obj = hub75_p5_64x32_panel_create();
+coupler_obj =
     hub75_corner_edge_coupler_create_for_size(
         side = "right",
         size = size,
-        panel = panel
+        panel_obj = panel_obj
     );
 
 corner_x =
-    hub75_p5_64x32_panel_nominal_width(panel) / 2;
+    hub75_p5_64x32_panel_nominal_width(panel_obj) / 2;
 corner_z =
-    hub75_p5_64x32_panel_nominal_height(panel) / 2;
+    hub75_p5_64x32_panel_nominal_height(panel_obj) / 2;
 
 $vpt = [corner_x - 35, 14, corner_z - 38];
 $vpr = [78, 0, 140];
@@ -28,6 +28,6 @@ $vpd =
 
 hub75_corner_edge_coupler_fit_detail(
     side = "right",
-    panel = panel,
-    coupler = coupler
+    panel_obj = panel_obj,
+    coupler_obj = coupler_obj
 );

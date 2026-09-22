@@ -22,25 +22,25 @@ function aluminium_tube_create(
         wall_thickness_mm = wall_thickness_mm
     );
 
-function aluminium_tube_inner_diameter_mm(obj) =
-    obj.outer_diameter_mm - 2 * obj.wall_thickness_mm;
+function aluminium_tube_inner_diameter_mm(tube_obj) =
+    tube_obj.outer_diameter_mm - 2 * tube_obj.wall_thickness_mm;
 
 module aluminium_tube_build(
-    obj,
+    tube_obj,
     resolution = FG_RES_HIGH()
 ) {
     fg_res_apply(resolution)
         rotate([0, 90, 0])
             difference() {
                 cylinder(
-                    h = obj.length_mm,
-                    d = obj.outer_diameter_mm
+                    h = tube_obj.length_mm,
+                    d = tube_obj.outer_diameter_mm
                 );
 
                 translate([0, 0, -0.1])
                     cylinder(
-                        h = obj.length_mm + 0.2,
-                        d = aluminium_tube_inner_diameter_mm(obj)
+                        h = tube_obj.length_mm + 0.2,
+                        d = aluminium_tube_inner_diameter_mm(tube_obj)
                     );
             }
 }

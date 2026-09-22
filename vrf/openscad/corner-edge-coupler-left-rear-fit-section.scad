@@ -6,25 +6,25 @@ use <../../dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_c
 
 size = "medium";
 
-panel = hub75_p5_64x32_panel_create();
-coupler =
+panel_obj = hub75_p5_64x32_panel_create();
+coupler_obj =
     hub75_corner_edge_coupler_create_for_size(
         side = "left",
         size = size,
-        panel = panel
+        panel_obj = panel_obj
     );
 
 section_depth =
-    min(5.0, max(1.0, coupler.guide_height - 1.0));
+    min(5.0, max(1.0, coupler_obj.guide_height - 1.0));
 
 corner_x =
-    -hub75_p5_64x32_panel_nominal_width(panel) / 2;
+    -hub75_p5_64x32_panel_nominal_width(panel_obj) / 2;
 corner_z =
-    hub75_p5_64x32_panel_nominal_height(panel) / 2;
+    hub75_p5_64x32_panel_nominal_height(panel_obj) / 2;
 
 // Centre on the complete coupler, including its outside projection.
-view_inward = (hub75_corner_edge_coupler_inward_reach(coupler)
-    - coupler.outside_projection) / 2;
+view_inward = (hub75_corner_edge_coupler_inward_reach(coupler_obj)
+    - coupler_obj.outside_projection) / 2;
 $vpt = [corner_x + view_inward, 9.5, corner_z - view_inward];
 $vpr = [90, 0, 180];
 $vpd =
@@ -34,7 +34,7 @@ $vpd =
 
 hub75_corner_edge_coupler_rear_fit_section(
     side = "left",
-    panel = panel,
-    coupler = coupler,
+    panel_obj = panel_obj,
+    coupler_obj = coupler_obj,
     depth = section_depth
 );

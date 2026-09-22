@@ -90,7 +90,7 @@ _HUB75_MIDDLE_COUPLER_EPS = 0.05;
 //   captured through the public lib.scad.hub75 API; project code should not
 //   duplicate those panel dimensions.
 // Arguments:
-//   panel = HUB75 panel object that defines the mating geometry.
+//   panel_obj = HUB75 panel object that defines the mating geometry.
 //   profile_size = Overall X/Z extent of the PLUS plate.
 //   wall_thickness = Printed material beside the fitted panel rib keep-out.
 //   fit_clearance = Printable clearance per side around HUB75 rear geometry.
@@ -110,7 +110,7 @@ _HUB75_MIDDLE_COUPLER_EPS = 0.05;
 //     minimum back-wall thickness limits depth on thin presets.
 //   center_mark_* = Shallow centre cross and 5/10 mm reference tick parameters.
 function hub75_middle_coupler_create(
-    panel = hub75_p5_64x32_panel_create(),
+    panel_obj = hub75_p5_64x32_panel_create(),
     profile_size = 80,
     wall_thickness = 4,
     fit_clearance = 0.25,
@@ -157,7 +157,7 @@ function hub75_middle_coupler_create(
     seam_locator_end_radius = 1.00
 ) =
     let(
-        screw_x = _hub75_middle_coupler_seam_screw_x_positions(panel)
+        screw_x = _hub75_middle_coupler_seam_screw_x_positions(panel_obj)
     )
     assert(profile_size > 0, "profile_size must be > 0")
     assert(wall_thickness > 0, "wall_thickness must be > 0")
@@ -268,34 +268,34 @@ function hub75_middle_coupler_create(
         seam_locator_end_radius = seam_locator_end_radius,
 
         rear_seam_gap =
-            hub75_p5_64x32_panel_rear_grid_gap_x(panel),
+            hub75_p5_64x32_panel_rear_grid_gap_x(panel_obj),
         rear_side_rail_width =
-            hub75_p5_64x32_panel_rear_side_rail_width_at_mounting_plane(panel),
+            hub75_p5_64x32_panel_rear_side_rail_width_at_mounting_plane(panel_obj),
         rear_crossbar_width =
-            hub75_p5_64x32_panel_rear_crossbar_width_at_mounting_plane(panel),
+            hub75_p5_64x32_panel_rear_crossbar_width_at_mounting_plane(panel_obj),
         rear_opening_corner_radius =
-            hub75_p5_64x32_panel_rear_opening_corner_radius(panel),
-        panel_taper_depth = hub75_rear_taper_depth(panel),
+            hub75_p5_64x32_panel_rear_opening_corner_radius(panel_obj),
+        panel_taper_depth = hub75_rear_taper_depth(panel_obj),
         panel_rear_outer_inset_x =
-            hub75_p5_64x32_panel_rear_outer_inset_x(panel),
+            hub75_p5_64x32_panel_rear_outer_inset_x(panel_obj),
 
         mounting_tube_outer_diameter =
-            hub75_p5_64x32_panel_mounting_tube_outer_diameter(panel),
+            hub75_p5_64x32_panel_mounting_tube_outer_diameter(panel_obj),
         mounting_tube_protrusion =
-            hub75_p5_64x32_panel_mounting_tube_protrusion(panel),
+            hub75_p5_64x32_panel_mounting_tube_protrusion(panel_obj),
 
         reinforcement_bushing_outer_diameter =
-            hub75_p5_64x32_panel_reinforcement_bushing_outer_diameter(panel),
+            hub75_p5_64x32_panel_reinforcement_bushing_outer_diameter(panel_obj),
         reinforcement_bushing_recess_diameter =
-            hub75_p5_64x32_panel_reinforcement_bushing_recess_diameter(panel),
+            hub75_p5_64x32_panel_reinforcement_bushing_recess_diameter(panel_obj),
         reinforcement_bushing_recess_depth =
-            hub75_p5_64x32_panel_reinforcement_bushing_recess_depth(panel),
+            hub75_p5_64x32_panel_reinforcement_bushing_recess_depth(panel_obj),
         reinforcement_bushing_hole_diameter =
-            hub75_p5_64x32_panel_reinforcement_bushing_hole_diameter(panel),
+            hub75_p5_64x32_panel_reinforcement_bushing_hole_diameter(panel_obj),
         reinforcement_bushing_hole_depth =
-            hub75_p5_64x32_panel_reinforcement_bushing_hole_depth(panel),
+            hub75_p5_64x32_panel_reinforcement_bushing_hole_depth(panel_obj),
         reinforcement_bushing_offset =
-            hub75_p5_64x32_panel_reinforcement_bushing_offset(panel),
+            hub75_p5_64x32_panel_reinforcement_bushing_offset(panel_obj),
 
         screw_x_left = screw_x[0],
         screw_x_right = screw_x[1]
@@ -308,10 +308,10 @@ function hub75_middle_coupler_create(
 //   matches the current default coupler geometry.
 // Arguments:
 //   size = "small", "medium" or "large".
-//   panel = HUB75 panel object that defines the mating geometry.
+//   panel_obj = HUB75 panel object that defines the mating geometry.
 function hub75_middle_coupler_create_for_size(
     size = "medium",
-    panel = hub75_p5_64x32_panel_create(),
+    panel_obj = hub75_p5_64x32_panel_create(),
     render_fn = 192,
     show_reference_pockets = true,
     show_center_reference_marks = true
@@ -322,7 +322,7 @@ function hub75_middle_coupler_create_for_size(
     )
     size == "small"
         ? hub75_middle_coupler_create(
-            panel = panel,
+            panel_obj = panel_obj,
             profile_size = 60,
             wall_thickness = 2,
             guide_height = 4,
@@ -333,7 +333,7 @@ function hub75_middle_coupler_create_for_size(
         )
         : size == "large"
             ? hub75_middle_coupler_create(
-                panel = panel,
+                panel_obj = panel_obj,
                 profile_size = 100,
                 wall_thickness = 6,
                 guide_height = 10,
@@ -343,7 +343,7 @@ function hub75_middle_coupler_create_for_size(
                 show_center_reference_marks = show_center_reference_marks
             )
             : hub75_middle_coupler_create(
-                panel = panel,
+                panel_obj = panel_obj,
                 profile_size = 80,
                 wall_thickness = 4,
                 guide_height = 6,
@@ -356,33 +356,33 @@ function hub75_middle_coupler_create_for_size(
 
 // Function: hub75_middle_coupler_horizontal_arm_height()
 // Description: Returns the complete horizontal PLUS-arm height.
-function hub75_middle_coupler_horizontal_arm_height(coupler) =
-    coupler.rear_crossbar_width
-    + 2 * (coupler.wall_thickness + coupler.fit_clearance);
+function hub75_middle_coupler_horizontal_arm_height(coupler_obj) =
+    coupler_obj.rear_crossbar_width
+    + 2 * (coupler_obj.wall_thickness + coupler_obj.fit_clearance);
 
 // Function: hub75_middle_coupler_seam_keepout_width()
 // Description:
 //   Returns the physical rear-rib width occupied by two panel side rails plus
 //   the nominal rear seam gap between them.
-function hub75_middle_coupler_seam_keepout_width(coupler) =
-    2 * coupler.rear_side_rail_width
-    + coupler.rear_seam_gap;
+function hub75_middle_coupler_seam_keepout_width(coupler_obj) =
+    2 * coupler_obj.rear_side_rail_width
+    + coupler_obj.rear_seam_gap;
 
 // Function: hub75_middle_coupler_vertical_arm_width()
 // Description: Returns the complete vertical PLUS-arm width.
-function hub75_middle_coupler_vertical_arm_width(coupler) =
-    hub75_middle_coupler_seam_keepout_width(coupler)
-    + 2 * (coupler.wall_thickness + coupler.fit_clearance);
+function hub75_middle_coupler_vertical_arm_width(coupler_obj) =
+    hub75_middle_coupler_seam_keepout_width(coupler_obj)
+    + 2 * (coupler_obj.wall_thickness + coupler_obj.fit_clearance);
 
 // Function: hub75_middle_coupler_seam_locator_width()
 // Description:
 //   Returns the printable locator width inside the rear seam after equal
 //   clearance is removed from both mating faces.
-function hub75_middle_coupler_seam_locator_width(coupler) =
+function hub75_middle_coupler_seam_locator_width(coupler_obj) =
     max(
         0,
-        coupler.rear_seam_gap
-        - 2 * coupler.fit_clearance
+        coupler_obj.rear_seam_gap
+        - 2 * coupler_obj.fit_clearance
     );
 
 // Function: hub75_middle_coupler_seam_locator_width_at_depth()
@@ -391,62 +391,62 @@ function hub75_middle_coupler_seam_locator_width(coupler) =
 //   Both adjacent panel side walls move into the seam by the same panel-derived
 //   taper displacement.
 function hub75_middle_coupler_seam_locator_width_at_depth(
-    coupler,
+    coupler_obj,
     depth
 ) =
     max(
         0,
-        hub75_middle_coupler_seam_locator_width(coupler)
+        hub75_middle_coupler_seam_locator_width(coupler_obj)
         - 2 * hub75_panel_taper_shift_at_depth_mm(
             depth,
-            coupler.panel_taper_depth,
-            coupler.panel_rear_outer_inset_x
+            coupler_obj.panel_taper_depth,
+            coupler_obj.panel_rear_outer_inset_x
         )
     );
 
 // Function: hub75_middle_coupler_screw_x_positions()
 // Description: Returns the two seam-side screw centres in local X coordinates.
-function hub75_middle_coupler_screw_x_positions(coupler) =
-    [coupler.screw_x_left, coupler.screw_x_right];
+function hub75_middle_coupler_screw_x_positions(coupler_obj) =
+    [coupler_obj.screw_x_left, coupler_obj.screw_x_right];
 
 // Function: hub75_middle_coupler_mounting_tube_pocket_diameter()
 // Description: Returns the shallow base-pocket diameter around each panel tube.
-function hub75_middle_coupler_mounting_tube_pocket_diameter(coupler) =
-    coupler.mounting_tube_outer_diameter
-    + 2 * coupler.mounting_tube_radial_clearance;
+function hub75_middle_coupler_mounting_tube_pocket_diameter(coupler_obj) =
+    coupler_obj.mounting_tube_outer_diameter
+    + 2 * coupler_obj.mounting_tube_radial_clearance;
 
 // Function: hub75_middle_coupler_mounting_tube_pocket_depth()
 // Description: Returns the panel-facing pocket depth into the base plate.
-function hub75_middle_coupler_mounting_tube_pocket_depth(coupler) =
-    coupler.mounting_tube_protrusion
-    + coupler.mounting_tube_axial_clearance;
+function hub75_middle_coupler_mounting_tube_pocket_depth(coupler_obj) =
+    coupler_obj.mounting_tube_protrusion
+    + coupler_obj.mounting_tube_axial_clearance;
 
 
 // Function: hub75_middle_coupler_reinforcement_locator_pad_diameter()
 // Description: Diameter of the large locator pad entering the Ø10 panel recess.
-function hub75_middle_coupler_reinforcement_locator_pad_diameter(coupler) =
+function hub75_middle_coupler_reinforcement_locator_pad_diameter(coupler_obj) =
     max(
         0.2,
-        coupler.reinforcement_bushing_recess_diameter
-        - 2 * coupler.reinforcement_locator_pad_radial_clearance
+        coupler_obj.reinforcement_bushing_recess_diameter
+        - 2 * coupler_obj.reinforcement_locator_pad_radial_clearance
     );
 
 // Function: hub75_middle_coupler_reinforcement_locator_pad_height()
 // Description: Insertion depth of the large locator pad into the panel recess.
-function hub75_middle_coupler_reinforcement_locator_pad_height(coupler) =
+function hub75_middle_coupler_reinforcement_locator_pad_height(coupler_obj) =
     max(
         0.2,
-        coupler.reinforcement_bushing_recess_depth
-        - coupler.reinforcement_locator_pad_axial_clearance
+        coupler_obj.reinforcement_bushing_recess_depth
+        - coupler_obj.reinforcement_locator_pad_axial_clearance
     );
 
 // Function: hub75_middle_coupler_reinforcement_locator_pin_diameter()
 // Description: Diameter of the small pin entering the blind centre hole.
-function hub75_middle_coupler_reinforcement_locator_pin_diameter(coupler) =
+function hub75_middle_coupler_reinforcement_locator_pin_diameter(coupler_obj) =
     max(
         0.2,
-        coupler.reinforcement_bushing_hole_diameter
-        - 2 * coupler.reinforcement_locator_pin_radial_clearance
+        coupler_obj.reinforcement_bushing_hole_diameter
+        - 2 * coupler_obj.reinforcement_locator_pin_radial_clearance
     );
 
 
@@ -454,13 +454,13 @@ function hub75_middle_coupler_reinforcement_locator_pin_diameter(coupler) =
 // Description:
 //   Returns the actual blind-pocket depth after respecting both the requested
 //   maximum depth and the minimum material that must remain behind the pocket.
-function hub75_middle_coupler_reference_pocket_effective_depth(coupler) =
+function hub75_middle_coupler_reference_pocket_effective_depth(coupler_obj) =
     max(
         0,
         min(
-            coupler.reference_pocket_depth,
-            coupler.base_thickness
-                - coupler.reference_pocket_min_back_wall
+            coupler_obj.reference_pocket_depth,
+            coupler_obj.base_thickness
+                - coupler_obj.reference_pocket_min_back_wall
         )
     );
 
@@ -468,13 +468,13 @@ function hub75_middle_coupler_reference_pocket_effective_depth(coupler) =
 // Function: hub75_middle_coupler_reference_pocket_straight_depth()
 // Description:
 //   Returns the cylindrical Ø3 section before the tapered pocket bottom.
-function hub75_middle_coupler_reference_pocket_straight_depth(coupler) =
+function hub75_middle_coupler_reference_pocket_straight_depth(coupler_obj) =
     max(
         0,
-        hub75_middle_coupler_reference_pocket_effective_depth(coupler)
+        hub75_middle_coupler_reference_pocket_effective_depth(coupler_obj)
             - min(
-                coupler.reference_pocket_taper_depth,
-                hub75_middle_coupler_reference_pocket_effective_depth(coupler)
+                coupler_obj.reference_pocket_taper_depth,
+                hub75_middle_coupler_reference_pocket_effective_depth(coupler_obj)
             )
     );
 
@@ -484,34 +484,34 @@ function hub75_middle_coupler_reference_pocket_straight_depth(coupler) =
 //   Returns the transverse pocket-lane offset for one PLUS arm. The target is
 //   approximately one quarter of the arm thickness, snapped to a 2.5 mm grid.
 function hub75_middle_coupler_reference_pocket_lane_offset(
-    coupler,
+    coupler_obj,
     arm_thickness
 ) =
     max(
-        coupler.reference_pocket_lane_grid,
+        coupler_obj.reference_pocket_lane_grid,
         round(
             (
                 arm_thickness
-                * coupler.reference_pocket_lane_fraction
+                * coupler_obj.reference_pocket_lane_fraction
             )
-            / coupler.reference_pocket_lane_grid
+            / coupler_obj.reference_pocket_lane_grid
         )
-        * coupler.reference_pocket_lane_grid
+        * coupler_obj.reference_pocket_lane_grid
     );
 
 // Function: hub75_middle_coupler_reference_pocket_uses_two_lanes()
 // Description:
 //   Returns true only when two symmetric lanes fit in both PLUS arms with the
 //   configured pocket diameter and edge margin.
-function hub75_middle_coupler_reference_pocket_uses_two_lanes(coupler) =
+function hub75_middle_coupler_reference_pocket_uses_two_lanes(coupler_obj) =
     _hub75_middle_coupler_reference_two_lanes_fit(
-        coupler,
-        hub75_middle_coupler_horizontal_arm_height(coupler)
+        coupler_obj,
+        hub75_middle_coupler_horizontal_arm_height(coupler_obj)
     )
     &&
     _hub75_middle_coupler_reference_two_lanes_fit(
-        coupler,
-        hub75_middle_coupler_vertical_arm_width(coupler)
+        coupler_obj,
+        hub75_middle_coupler_vertical_arm_width(coupler_obj)
     );
 
 
@@ -527,30 +527,30 @@ function hub75_middle_coupler_reference_pocket_uses_two_lanes(coupler) =
 //   Builds the complete middle coupler: functional fitted geometry plus the
 //   blind reference pockets and shallow centre/distance reference marks on the
 //   visible rear face.
-module hub75_middle_coupler_build(coupler) {
+module hub75_middle_coupler_build(coupler_obj) {
     // Do not rely on a top-level $fn assignment: this module is commonly
     // imported with use <...>, which does not import ordinary variable
     // assignments. Production geometry owns its resolution through the object.
-    $fn = coupler.render_fn;
+    $fn = coupler_obj.render_fn;
 
     horizontal_arm =
-        hub75_middle_coupler_horizontal_arm_height(coupler);
+        hub75_middle_coupler_horizontal_arm_height(coupler_obj);
     vertical_arm =
-        hub75_middle_coupler_vertical_arm_width(coupler);
+        hub75_middle_coupler_vertical_arm_width(coupler_obj);
     locator_width =
         hub75_middle_coupler_seam_locator_width_at_depth(
-            coupler,
-            coupler.seam_locator_height
+            coupler_obj,
+            coupler_obj.seam_locator_height
         );
     pocket_depth =
-        hub75_middle_coupler_mounting_tube_pocket_depth(coupler);
+        hub75_middle_coupler_mounting_tube_pocket_depth(coupler_obj);
 
     assert(
-        horizontal_arm < coupler.profile_size,
+        horizontal_arm < coupler_obj.profile_size,
         "horizontal arm must fit inside profile_size"
     );
     assert(
-        vertical_arm < coupler.profile_size,
+        vertical_arm < coupler_obj.profile_size,
         "vertical arm must fit inside profile_size"
     );
     assert(
@@ -558,25 +558,25 @@ module hub75_middle_coupler_build(coupler) {
         "rear seam is too narrow for the configured locator clearance"
     );
     assert(
-        pocket_depth < coupler.base_thickness,
+        pocket_depth < coupler_obj.base_thickness,
         "mounting-tube pocket must remain blind"
     );
     assert(
-        coupler.reinforcement_locator_pin_length
-            <= coupler.reinforcement_bushing_hole_depth,
+        coupler_obj.reinforcement_locator_pin_length
+            <= coupler_obj.reinforcement_bushing_hole_depth,
         "reinforcement locator pin must fit inside the blind panel hole"
     );
 
     union() {
-        _hub75_middle_coupler_base_with_surface_details(coupler);
+        _hub75_middle_coupler_base_with_surface_details(coupler_obj);
 
-        if (coupler.guide_height > 0)
-            _hub75_middle_coupler_guide_walls(coupler);
+        if (coupler_obj.guide_height > 0)
+            _hub75_middle_coupler_guide_walls(coupler_obj);
 
-        _hub75_middle_coupler_reinforcement_locators(coupler);
+        _hub75_middle_coupler_reinforcement_locators(coupler_obj);
 
-        if (coupler.seam_locator_height > 0)
-            _hub75_middle_coupler_seam_locator(coupler);
+        if (coupler_obj.seam_locator_height > 0)
+            _hub75_middle_coupler_seam_locator(coupler_obj);
     }
 }
 
@@ -590,9 +590,9 @@ module hub75_middle_coupler_build(coupler) {
 //   view = final, functional, profile, base, screw-holes, tube-pockets,
 //          guides, reinforcement-locators, seam-locator, reference-pockets or
 //          center-marks.
-module hub75_middle_coupler_render(coupler, view = "final") {
+module hub75_middle_coupler_render(coupler_obj, view = "final") {
     // Design/debug geometry must tessellate exactly like the production build.
-    $fn = coupler.render_fn;
+    $fn = coupler_obj.render_fn;
 
     existing = [0.72, 0.72, 0.72, 1.0];
     existing_transparent = [0.72, 0.72, 0.72, 0.45];
@@ -601,7 +601,7 @@ module hub75_middle_coupler_render(coupler, view = "final") {
 
     if (view == "functional") {
         color(existing)
-            _hub75_middle_coupler_functional_build(coupler);
+            _hub75_middle_coupler_functional_build(coupler_obj);
 
     } else if (view == "profile") {
         color(current)
@@ -609,71 +609,71 @@ module hub75_middle_coupler_render(coupler, view = "final") {
                 -0.35,
                  0.35
             )
-                _hub75_middle_coupler_profile_2d(coupler);
+                _hub75_middle_coupler_profile_2d(coupler_obj);
 
     } else if (view == "base") {
         color(current)
-            _hub75_middle_coupler_base_solid(coupler);
+            _hub75_middle_coupler_base_solid(coupler_obj);
 
     } else if (view == "screw-holes") {
         color(existing_transparent)
-            _hub75_middle_coupler_base_solid(coupler);
+            _hub75_middle_coupler_base_solid(coupler_obj);
 
         color(current)
-            _hub75_middle_coupler_screw_cutters(coupler);
+            _hub75_middle_coupler_screw_cutters(coupler_obj);
 
     } else if (view == "tube-pockets") {
         color(existing)
-            _hub75_middle_coupler_base_after_screw_holes(coupler);
+            _hub75_middle_coupler_base_after_screw_holes(coupler_obj);
 
         color(current)
-            _hub75_middle_coupler_mounting_tube_pocket_cutters(coupler);
+            _hub75_middle_coupler_mounting_tube_pocket_cutters(coupler_obj);
 
     } else if (view == "guides") {
         color(existing)
-            _hub75_middle_coupler_base_after_pockets(coupler);
+            _hub75_middle_coupler_base_after_pockets(coupler_obj);
 
         color(current)
-            _hub75_middle_coupler_guide_walls(coupler);
+            _hub75_middle_coupler_guide_walls(coupler_obj);
 
     } else if (view == "reinforcement-locators") {
         color(existing) {
-            _hub75_middle_coupler_base_after_pockets(coupler);
-            _hub75_middle_coupler_guide_walls(coupler);
+            _hub75_middle_coupler_base_after_pockets(coupler_obj);
+            _hub75_middle_coupler_guide_walls(coupler_obj);
         }
 
         color(current)
-            _hub75_middle_coupler_reinforcement_locators(coupler);
+            _hub75_middle_coupler_reinforcement_locators(coupler_obj);
 
     } else if (view == "seam-locator") {
         color(existing) {
-            _hub75_middle_coupler_base_after_pockets(coupler);
-            _hub75_middle_coupler_guide_walls(coupler);
-            _hub75_middle_coupler_reinforcement_locators(coupler);
+            _hub75_middle_coupler_base_after_pockets(coupler_obj);
+            _hub75_middle_coupler_guide_walls(coupler_obj);
+            _hub75_middle_coupler_reinforcement_locators(coupler_obj);
         }
 
         color(current)
-            _hub75_middle_coupler_seam_locator(coupler);
+            _hub75_middle_coupler_seam_locator(coupler_obj);
 
     } else if (view == "reference-pockets") {
         color(existing)
-            _hub75_middle_coupler_functional_build(coupler);
+            _hub75_middle_coupler_functional_build(coupler_obj);
 
         color(current)
-            _hub75_middle_coupler_reference_pocket_cutters(coupler);
+            _hub75_middle_coupler_reference_pocket_cutters(coupler_obj);
 
     } else if (view == "center-marks") {
         color(existing)
-            _hub75_middle_coupler_functional_build(coupler);
+            _hub75_middle_coupler_functional_build(coupler_obj);
 
         color(current) {
-            _hub75_middle_coupler_reference_pocket_cutters(coupler);
-            _hub75_middle_coupler_center_mark_cutters(coupler);
+            _hub75_middle_coupler_reference_pocket_cutters(coupler_obj);
+            _hub75_middle_coupler_center_mark_cutters(coupler_obj);
         }
 
     } else {
         color(final_color)
-            hub75_middle_coupler_build(coupler);
+            hub75_middle_coupler_build(coupler_obj);
     }
 }
 
@@ -682,12 +682,12 @@ module hub75_middle_coupler_render(coupler, view = "final") {
 // Private derived geometry
 // ----------------------------------------------------------------------
 
-function _hub75_middle_coupler_seam_screw_x_positions(panel) =
+function _hub75_middle_coupler_seam_screw_x_positions(panel_obj) =
     let(
         pitch =
-            hub75_p5_64x32_panel_nominal_width(panel),
+            hub75_p5_64x32_panel_nominal_width(panel_obj),
         hole_x =
-            hub75_p5_64x32_panel_hole_x_positions_centered(panel)
+            hub75_p5_64x32_panel_hole_x_positions_centered(panel_obj)
     )
     [
         -pitch / 2 + hole_x[1],
@@ -695,15 +695,15 @@ function _hub75_middle_coupler_seam_screw_x_positions(panel) =
     ];
 
 
-function _hub75_middle_coupler_reinforcement_positions(coupler) =
+function _hub75_middle_coupler_reinforcement_positions(coupler_obj) =
     [
         [
-            coupler.screw_x_left,
-            -coupler.reinforcement_bushing_offset
+            coupler_obj.screw_x_left,
+            -coupler_obj.reinforcement_bushing_offset
         ],
         [
-            coupler.screw_x_right,
-             coupler.reinforcement_bushing_offset
+            coupler_obj.screw_x_right,
+             coupler_obj.reinforcement_bushing_offset
         ]
     ];
 
@@ -712,13 +712,13 @@ function _hub75_middle_coupler_reinforcement_positions(coupler) =
 // Private PLUS profile
 // ----------------------------------------------------------------------
 
-module _hub75_middle_coupler_profile_2d(coupler) {
-    width = coupler.profile_size;
-    height = coupler.profile_size;
+module _hub75_middle_coupler_profile_2d(coupler_obj) {
+    width = coupler_obj.profile_size;
+    height = coupler_obj.profile_size;
     horizontal_arm_height =
-        hub75_middle_coupler_horizontal_arm_height(coupler);
+        hub75_middle_coupler_horizontal_arm_height(coupler_obj);
     vertical_arm_width =
-        hub75_middle_coupler_vertical_arm_width(coupler);
+        hub75_middle_coupler_vertical_arm_width(coupler_obj);
 
     hw = width / 2;
     hh = height / 2;
@@ -729,7 +729,7 @@ module _hub75_middle_coupler_profile_2d(coupler) {
     z_bottom = -horizontal_arm_height / 2;
 
     inside_r = min(
-        coupler.inside_corner_radius,
+        coupler_obj.inside_corner_radius,
         min(
             hw - vx_right,
             hh - z_top
@@ -737,7 +737,7 @@ module _hub75_middle_coupler_profile_2d(coupler) {
     );
 
     outside_r = min(
-        coupler.outside_corner_radius,
+        coupler_obj.outside_corner_radius,
         min(
             vertical_arm_width,
             horizontal_arm_height
@@ -747,7 +747,7 @@ module _hub75_middle_coupler_profile_2d(coupler) {
     // Four times this count approximates a complete circle. This deliberately
     // uses the object's production resolution rather than ambient $fn, so the
     // result is identical when this file is imported through use <...>.
-    steps = max(24, ceil(coupler.render_fn / 4));
+    steps = max(24, ceil(coupler_obj.render_fn / 4));
 
     points = concat(
         [[vx_left + outside_r, hh], [vx_right - outside_r, hh]],
@@ -868,40 +868,40 @@ module _hub75_middle_coupler_extrude_xz_y(y_min, y_max) {
 }
 
 
-module _hub75_middle_coupler_base_solid(coupler) {
+module _hub75_middle_coupler_base_solid(coupler_obj) {
     _hub75_middle_coupler_extrude_xz_y(
         0,
-        coupler.base_thickness
+        coupler_obj.base_thickness
     )
-        _hub75_middle_coupler_profile_2d(coupler);
+        _hub75_middle_coupler_profile_2d(coupler_obj);
 }
 
 
-module _hub75_middle_coupler_screw_cutters(coupler) {
+module _hub75_middle_coupler_screw_cutters(coupler_obj) {
     relief_depth =
         min(
-            coupler.screw_relief_depth,
-            coupler.base_thickness / 2
+            coupler_obj.screw_relief_depth,
+            coupler_obj.base_thickness / 2
                 - _HUB75_MIDDLE_COUPLER_EPS
         );
     relief_diameter =
-        coupler.screw_hole_diameter
-        + 2 * coupler.screw_relief_radial;
+        coupler_obj.screw_hole_diameter
+        + 2 * coupler_obj.screw_relief_radial;
 
-    for (x = hub75_middle_coupler_screw_x_positions(coupler))
+    for (x = hub75_middle_coupler_screw_x_positions(coupler_obj))
         translate([x, 0, 0]) {
             // Main cylindrical bore through the complete base.
             translate([
                 0,
-                coupler.base_thickness + _HUB75_MIDDLE_COUPLER_EPS,
+                coupler_obj.base_thickness + _HUB75_MIDDLE_COUPLER_EPS,
                 0
             ])
                 rotate([90, 0, 0])
                     cylinder(
                         h =
-                            coupler.base_thickness
+                            coupler_obj.base_thickness
                             + 2 * _HUB75_MIDDLE_COUPLER_EPS,
-                        d = coupler.screw_hole_diameter
+                        d = coupler_obj.screw_hole_diameter
                     );
 
             // Original v1.2 print aid: widen only one shallow layer at both
@@ -909,11 +909,11 @@ module _hub75_middle_coupler_screw_cutters(coupler) {
             // countersink, and does not alter the nominal through bore.
             if (
                 relief_depth > 0
-                && coupler.screw_relief_radial > 0
+                && coupler_obj.screw_relief_radial > 0
             ) {
                 translate([
                     0,
-                    coupler.base_thickness + _HUB75_MIDDLE_COUPLER_EPS,
+                    coupler_obj.base_thickness + _HUB75_MIDDLE_COUPLER_EPS,
                     0
                 ])
                     rotate([90, 0, 0])
@@ -933,13 +933,13 @@ module _hub75_middle_coupler_screw_cutters(coupler) {
 }
 
 
-module _hub75_middle_coupler_mounting_tube_pocket_cutters(coupler) {
+module _hub75_middle_coupler_mounting_tube_pocket_cutters(coupler_obj) {
     pocket_depth =
-        hub75_middle_coupler_mounting_tube_pocket_depth(coupler);
+        hub75_middle_coupler_mounting_tube_pocket_depth(coupler_obj);
     pocket_diameter =
-        hub75_middle_coupler_mounting_tube_pocket_diameter(coupler);
+        hub75_middle_coupler_mounting_tube_pocket_diameter(coupler_obj);
 
-    for (x = hub75_middle_coupler_screw_x_positions(coupler))
+    for (x = hub75_middle_coupler_screw_x_positions(coupler_obj))
         fg_cut_cylinder(
             diameter_mm = pocket_diameter,
             height_mm = pocket_depth,
@@ -951,18 +951,18 @@ module _hub75_middle_coupler_mounting_tube_pocket_cutters(coupler) {
 }
 
 
-module _hub75_middle_coupler_base_after_screw_holes(coupler) {
+module _hub75_middle_coupler_base_after_screw_holes(coupler_obj) {
     difference() {
-        _hub75_middle_coupler_base_solid(coupler);
-        _hub75_middle_coupler_screw_cutters(coupler);
+        _hub75_middle_coupler_base_solid(coupler_obj);
+        _hub75_middle_coupler_screw_cutters(coupler_obj);
     }
 }
 
 
-module _hub75_middle_coupler_base_after_pockets(coupler) {
+module _hub75_middle_coupler_base_after_pockets(coupler_obj) {
     difference() {
-        _hub75_middle_coupler_base_after_screw_holes(coupler);
-        _hub75_middle_coupler_mounting_tube_pocket_cutters(coupler);
+        _hub75_middle_coupler_base_after_screw_holes(coupler_obj);
+        _hub75_middle_coupler_mounting_tube_pocket_cutters(coupler_obj);
     }
 }
 
@@ -972,73 +972,73 @@ module _hub75_middle_coupler_base_after_pockets(coupler) {
 // ----------------------------------------------------------------------
 
 function _hub75_middle_coupler_reference_two_lanes_fit(
-    coupler,
+    coupler_obj,
     arm_thickness
 ) =
     let(
         lane_offset =
             hub75_middle_coupler_reference_pocket_lane_offset(
-                coupler,
+                coupler_obj,
                 arm_thickness
             ),
         remaining =
             arm_thickness / 2
             - lane_offset
-            - coupler.reference_pocket_diameter / 2
+            - coupler_obj.reference_pocket_diameter / 2
     )
-    remaining >= coupler.reference_pocket_edge_margin;
+    remaining >= coupler_obj.reference_pocket_edge_margin;
 
 
 module _hub75_middle_coupler_reference_pocket_strip_2d(
-    coupler,
+    coupler_obj,
     axis = "x",
     direction_sign = 1,
     lane_signs = [-1, 1],
     lane_offset = 7.5
 ) {
-    for (step = coupler.reference_pocket_steps)
+    for (step = coupler_obj.reference_pocket_steps)
         for (lane = lane_signs)
             if (axis == "x")
                 translate([
                     direction_sign
                         * step
-                        * coupler.reference_pocket_pitch,
+                        * coupler_obj.reference_pocket_pitch,
                     lane * lane_offset
                 ])
                     circle(
-                        d = coupler.reference_pocket_diameter
+                        d = coupler_obj.reference_pocket_diameter
                     );
             else
                 translate([
                     lane * lane_offset,
                     direction_sign
                         * step
-                        * coupler.reference_pocket_pitch
+                        * coupler_obj.reference_pocket_pitch
                 ])
                     circle(
-                        d = coupler.reference_pocket_diameter
+                        d = coupler_obj.reference_pocket_diameter
                     );
 }
 
 
-function _hub75_middle_coupler_reference_pocket_positions(coupler) =
+function _hub75_middle_coupler_reference_pocket_positions(coupler_obj) =
     let(
         horizontal_arm =
-            hub75_middle_coupler_horizontal_arm_height(coupler),
+            hub75_middle_coupler_horizontal_arm_height(coupler_obj),
         vertical_arm =
-            hub75_middle_coupler_vertical_arm_width(coupler),
+            hub75_middle_coupler_vertical_arm_width(coupler_obj),
         x_lane =
             hub75_middle_coupler_reference_pocket_lane_offset(
-                coupler,
+                coupler_obj,
                 horizontal_arm
             ),
         z_lane =
             hub75_middle_coupler_reference_pocket_lane_offset(
-                coupler,
+                coupler_obj,
                 vertical_arm
             ),
         lane_signs =
-            hub75_middle_coupler_reference_pocket_uses_two_lanes(coupler)
+            hub75_middle_coupler_reference_pocket_uses_two_lanes(coupler_obj)
                 ? [-1, 1]
                 : [0]
     )
@@ -1046,64 +1046,64 @@ function _hub75_middle_coupler_reference_pocket_positions(coupler) =
         [
             for (
                 direction = [-1, 1],
-                step = coupler.reference_pocket_steps,
+                step = coupler_obj.reference_pocket_steps,
                 lane = lane_signs
             )
                 [
-                    direction * step * coupler.reference_pocket_pitch,
+                    direction * step * coupler_obj.reference_pocket_pitch,
                     lane * x_lane
                 ]
         ],
         [
             for (
                 direction = [-1, 1],
-                step = coupler.reference_pocket_steps,
+                step = coupler_obj.reference_pocket_steps,
                 lane = lane_signs
             )
                 [
                     lane * z_lane,
-                    direction * step * coupler.reference_pocket_pitch
+                    direction * step * coupler_obj.reference_pocket_pitch
                 ]
         ]
     );
 
 
-module _hub75_middle_coupler_reference_pockets_2d(coupler) {
+module _hub75_middle_coupler_reference_pockets_2d(coupler_obj) {
     for (position =
-        _hub75_middle_coupler_reference_pocket_positions(coupler)
+        _hub75_middle_coupler_reference_pocket_positions(coupler_obj)
     )
         translate(position)
-            circle(d = coupler.reference_pocket_diameter);
+            circle(d = coupler_obj.reference_pocket_diameter);
 }
 
 
-module _hub75_middle_coupler_reference_pocket_pattern_2d(coupler) {
+module _hub75_middle_coupler_reference_pocket_pattern_2d(coupler_obj) {
     intersection() {
         // A true geometric edge keep-out: pocket centres must remain inside
         // an inset of the actual rounded PLUS outline.
-        offset(delta = -coupler.reference_pocket_edge_margin)
-            _hub75_middle_coupler_profile_2d(coupler);
+        offset(delta = -coupler_obj.reference_pocket_edge_margin)
+            _hub75_middle_coupler_profile_2d(coupler_obj);
 
-        _hub75_middle_coupler_reference_pockets_2d(coupler);
+        _hub75_middle_coupler_reference_pockets_2d(coupler_obj);
     }
 }
 
 
-module _hub75_middle_coupler_center_marks_2d(coupler) {
+module _hub75_middle_coupler_center_marks_2d(coupler_obj) {
     difference() {
         union() {
             // The local X/Z origin is the nominal panel seam / middle row.
             square(
                 [
-                    coupler.center_mark_cross_length,
-                    coupler.center_mark_width
+                    coupler_obj.center_mark_cross_length,
+                    coupler_obj.center_mark_width
                 ],
                 center = true
             );
             square(
                 [
-                    coupler.center_mark_width,
-                    coupler.center_mark_cross_length
+                    coupler_obj.center_mark_width,
+                    coupler_obj.center_mark_cross_length
                 ],
                 center = true
             );
@@ -1111,27 +1111,27 @@ module _hub75_middle_coupler_center_marks_2d(coupler) {
             // Ticks every 5 mm. Full centimetres are the longer marks.
             for (
                 x = [
-                    coupler.center_mark_pitch / 2
+                    coupler_obj.center_mark_pitch / 2
                     :
-                    coupler.center_mark_pitch / 2
+                    coupler_obj.center_mark_pitch / 2
                     :
-                    coupler.profile_size / 2
+                    coupler_obj.profile_size / 2
                 ]
             ) {
                 major =
                     abs(
-                        (x / coupler.center_mark_pitch)
-                        - round(x / coupler.center_mark_pitch)
+                        (x / coupler_obj.center_mark_pitch)
+                        - round(x / coupler_obj.center_mark_pitch)
                     ) < 0.001;
                 tick_length =
                     major
-                        ? coupler.center_mark_major_length
-                        : coupler.center_mark_minor_length;
+                        ? coupler_obj.center_mark_major_length
+                        : coupler_obj.center_mark_minor_length;
 
                 translate([x, 0])
                     square(
                         [
-                            coupler.center_mark_width,
+                            coupler_obj.center_mark_width,
                             tick_length
                         ],
                         center = true
@@ -1139,7 +1139,7 @@ module _hub75_middle_coupler_center_marks_2d(coupler) {
                 translate([-x, 0])
                     square(
                         [
-                            coupler.center_mark_width,
+                            coupler_obj.center_mark_width,
                             tick_length
                         ],
                         center = true
@@ -1148,28 +1148,28 @@ module _hub75_middle_coupler_center_marks_2d(coupler) {
 
             for (
                 z = [
-                    coupler.center_mark_pitch / 2
+                    coupler_obj.center_mark_pitch / 2
                     :
-                    coupler.center_mark_pitch / 2
+                    coupler_obj.center_mark_pitch / 2
                     :
-                    coupler.profile_size / 2
+                    coupler_obj.profile_size / 2
                 ]
             ) {
                 major =
                     abs(
-                        (z / coupler.center_mark_pitch)
-                        - round(z / coupler.center_mark_pitch)
+                        (z / coupler_obj.center_mark_pitch)
+                        - round(z / coupler_obj.center_mark_pitch)
                     ) < 0.001;
                 tick_length =
                     major
-                        ? coupler.center_mark_major_length
-                        : coupler.center_mark_minor_length;
+                        ? coupler_obj.center_mark_major_length
+                        : coupler_obj.center_mark_minor_length;
 
                 translate([0, z])
                     square(
                         [
                             tick_length,
-                            coupler.center_mark_width
+                            coupler_obj.center_mark_width
                         ],
                         center = true
                     );
@@ -1177,7 +1177,7 @@ module _hub75_middle_coupler_center_marks_2d(coupler) {
                     square(
                         [
                             tick_length,
-                            coupler.center_mark_width
+                            coupler_obj.center_mark_width
                         ],
                         center = true
                     );
@@ -1186,63 +1186,63 @@ module _hub75_middle_coupler_center_marks_2d(coupler) {
 
         // Keep all reference engraving away from the structural screw lands.
         screw_keepout_radius =
-            coupler.screw_hole_diameter / 2
-            + coupler.center_mark_screw_keepout;
+            coupler_obj.screw_hole_diameter / 2
+            + coupler_obj.center_mark_screw_keepout;
 
-        for (x = hub75_middle_coupler_screw_x_positions(coupler))
+        for (x = hub75_middle_coupler_screw_x_positions(coupler_obj))
             translate([x, 0])
                 circle(r = screw_keepout_radius);
     }
 }
 
 
-module _hub75_middle_coupler_center_mark_pattern_2d(coupler) {
+module _hub75_middle_coupler_center_mark_pattern_2d(coupler_obj) {
     intersection() {
-        offset(delta = -coupler.center_mark_edge_margin)
-            _hub75_middle_coupler_profile_2d(coupler);
+        offset(delta = -coupler_obj.center_mark_edge_margin)
+            _hub75_middle_coupler_profile_2d(coupler_obj);
 
-        _hub75_middle_coupler_center_marks_2d(coupler);
+        _hub75_middle_coupler_center_marks_2d(coupler_obj);
     }
 }
 
 
-module _hub75_middle_coupler_reference_pocket_cutters(coupler) {
+module _hub75_middle_coupler_reference_pocket_cutters(coupler_obj) {
     depth =
-        hub75_middle_coupler_reference_pocket_effective_depth(coupler);
+        hub75_middle_coupler_reference_pocket_effective_depth(coupler_obj);
     taper_depth =
         min(
-            coupler.reference_pocket_taper_depth,
+            coupler_obj.reference_pocket_taper_depth,
             depth
         );
     straight_depth =
         max(0, depth - taper_depth);
 
     if (
-        coupler.show_reference_pockets
+        coupler_obj.show_reference_pockets
         && depth > 0
     )
         intersection() {
             // Keep every cutter inside the same true rounded PLUS inset used
             // by the old 2D pocket pattern.
             _hub75_middle_coupler_extrude_xz_y(
-                coupler.base_thickness - depth
+                coupler_obj.base_thickness - depth
                     - _HUB75_MIDDLE_COUPLER_EPS,
-                coupler.base_thickness
+                coupler_obj.base_thickness
                     + _HUB75_MIDDLE_COUPLER_EPS
             )
-                offset(delta = -coupler.reference_pocket_edge_margin)
-                    _hub75_middle_coupler_profile_2d(coupler);
+                offset(delta = -coupler_obj.reference_pocket_edge_margin)
+                    _hub75_middle_coupler_profile_2d(coupler_obj);
 
             union()
                 for (position =
-                    _hub75_middle_coupler_reference_pocket_positions(coupler)
+                    _hub75_middle_coupler_reference_pocket_positions(coupler_obj)
                 )
                     translate([position[0], 0, position[1]]) {
                         // Visible section stays cylindrical at Ø3 mm.
                         if (straight_depth > 0)
                             translate([
                                 0,
-                                coupler.base_thickness
+                                coupler_obj.base_thickness
                                     + _HUB75_MIDDLE_COUPLER_EPS,
                                 0
                             ])
@@ -1251,7 +1251,7 @@ module _hub75_middle_coupler_reference_pocket_cutters(coupler) {
                                         h =
                                             straight_depth
                                             + _HUB75_MIDDLE_COUPLER_EPS,
-                                        d = coupler.reference_pocket_diameter
+                                        d = coupler_obj.reference_pocket_diameter
                                     );
 
                         // Only the final section narrows, default Ø3 -> Ø2
@@ -1260,7 +1260,7 @@ module _hub75_middle_coupler_reference_pocket_cutters(coupler) {
                         if (taper_depth > 0)
                             translate([
                                 0,
-                                coupler.base_thickness
+                                coupler_obj.base_thickness
                                     - straight_depth
                                     + _HUB75_MIDDLE_COUPLER_EPS,
                                 0
@@ -1270,54 +1270,54 @@ module _hub75_middle_coupler_reference_pocket_cutters(coupler) {
                                         h =
                                             taper_depth
                                             + 2 * _HUB75_MIDDLE_COUPLER_EPS,
-                                        d1 = coupler.reference_pocket_diameter,
-                                        d2 = coupler.reference_pocket_end_diameter
+                                        d1 = coupler_obj.reference_pocket_diameter,
+                                        d2 = coupler_obj.reference_pocket_end_diameter
                                     );
                     }
         }
 }
 
 
-module _hub75_middle_coupler_center_mark_cutters(coupler) {
+module _hub75_middle_coupler_center_mark_cutters(coupler_obj) {
     depth =
         min(
-            coupler.center_mark_depth,
-            coupler.base_thickness - 0.2
+            coupler_obj.center_mark_depth,
+            coupler_obj.base_thickness - 0.2
         );
 
     if (
-        coupler.show_center_reference_marks
+        coupler_obj.show_center_reference_marks
         && depth > 0
     )
         _hub75_middle_coupler_extrude_xz_y(
-            coupler.base_thickness - depth,
-            coupler.base_thickness
+            coupler_obj.base_thickness - depth,
+            coupler_obj.base_thickness
                 + _HUB75_MIDDLE_COUPLER_EPS
         )
-            _hub75_middle_coupler_center_mark_pattern_2d(coupler);
+            _hub75_middle_coupler_center_mark_pattern_2d(coupler_obj);
 }
 
 
-module _hub75_middle_coupler_base_with_surface_details(coupler) {
+module _hub75_middle_coupler_base_with_surface_details(coupler_obj) {
     difference() {
-        _hub75_middle_coupler_base_after_pockets(coupler);
-        _hub75_middle_coupler_reference_pocket_cutters(coupler);
-        _hub75_middle_coupler_center_mark_cutters(coupler);
+        _hub75_middle_coupler_base_after_pockets(coupler_obj);
+        _hub75_middle_coupler_reference_pocket_cutters(coupler_obj);
+        _hub75_middle_coupler_center_mark_cutters(coupler_obj);
     }
 }
 
 
-module _hub75_middle_coupler_functional_build(coupler) {
+module _hub75_middle_coupler_functional_build(coupler_obj) {
     union() {
-        _hub75_middle_coupler_base_after_pockets(coupler);
+        _hub75_middle_coupler_base_after_pockets(coupler_obj);
 
-        if (coupler.guide_height > 0)
-            _hub75_middle_coupler_guide_walls(coupler);
+        if (coupler_obj.guide_height > 0)
+            _hub75_middle_coupler_guide_walls(coupler_obj);
 
-        _hub75_middle_coupler_reinforcement_locators(coupler);
+        _hub75_middle_coupler_reinforcement_locators(coupler_obj);
 
-        if (coupler.seam_locator_height > 0)
-            _hub75_middle_coupler_seam_locator(coupler);
+        if (coupler_obj.seam_locator_height > 0)
+            _hub75_middle_coupler_seam_locator(coupler_obj);
     }
 }
 
@@ -1326,11 +1326,11 @@ module _hub75_middle_coupler_functional_build(coupler) {
 // Private fitted guide geometry
 // ----------------------------------------------------------------------
 
-module _hub75_middle_coupler_rib_cross_keepout_2d(coupler) {
-    horizontal_rib_width = coupler.rear_crossbar_width;
+module _hub75_middle_coupler_rib_cross_keepout_2d(coupler_obj) {
+    horizontal_rib_width = coupler_obj.rear_crossbar_width;
     vertical_rib_width =
-        hub75_middle_coupler_seam_keepout_width(coupler);
-    corner_r = max(0, coupler.rear_opening_corner_radius);
+        hub75_middle_coupler_seam_keepout_width(coupler_obj);
+    corner_r = max(0, coupler_obj.rear_opening_corner_radius);
 
     half_horizontal = horizontal_rib_width / 2;
     half_vertical = vertical_rib_width / 2;
@@ -1338,7 +1338,7 @@ module _hub75_middle_coupler_rib_cross_keepout_2d(coupler) {
     union() {
         square(
             [
-                coupler.profile_size + 4,
+                coupler_obj.profile_size + 4,
                 horizontal_rib_width
             ],
             center = true
@@ -1347,7 +1347,7 @@ module _hub75_middle_coupler_rib_cross_keepout_2d(coupler) {
         square(
             [
                 vertical_rib_width,
-                coupler.profile_size + 4
+                coupler_obj.profile_size + 4
             ],
             center = true
         );
@@ -1371,28 +1371,28 @@ module _hub75_middle_coupler_rib_cross_keepout_2d(coupler) {
 }
 
 
-module _hub75_middle_coupler_raw_guide_shell_2d(coupler) {
+module _hub75_middle_coupler_raw_guide_shell_2d(coupler_obj) {
     difference() {
-        _hub75_middle_coupler_profile_2d(coupler);
+        _hub75_middle_coupler_profile_2d(coupler_obj);
 
-        offset(delta = coupler.fit_clearance)
-            _hub75_middle_coupler_rib_cross_keepout_2d(coupler);
+        offset(delta = coupler_obj.fit_clearance)
+            _hub75_middle_coupler_rib_cross_keepout_2d(coupler_obj);
     }
 }
 
 
-function _hub75_middle_coupler_effective_guide_end_rounding(coupler) =
+function _hub75_middle_coupler_effective_guide_end_rounding(coupler_obj) =
     min(
-        coupler.guide_end_rounding,
+        coupler_obj.guide_end_rounding,
         max(
             0,
-            coupler.wall_thickness / 2
+            coupler_obj.wall_thickness / 2
                 - _HUB75_MIDDLE_COUPLER_EPS
         )
     );
 
 
-module _hub75_middle_coupler_guide_shell_2d(coupler) {
+module _hub75_middle_coupler_guide_shell_2d(coupler_obj) {
     // The approved v120 shape used a small 2D opening operation on the fitted
     // guide shell. It removes the pointed/triangular guide tips that otherwise
     // appear where the raised guide terminates at the rounded PLUS outline.
@@ -1402,24 +1402,24 @@ module _hub75_middle_coupler_guide_shell_2d(coupler) {
     // 1.5 mm opening radius there would erode the guide away before it reaches
     // the free end. Medium and large continue to use the configured radius.
     effective_rounding =
-        _hub75_middle_coupler_effective_guide_end_rounding(coupler);
+        _hub75_middle_coupler_effective_guide_end_rounding(coupler_obj);
 
     if (effective_rounding > 0)
         offset(r = effective_rounding)
             offset(delta = -effective_rounding)
-                _hub75_middle_coupler_raw_guide_shell_2d(coupler);
+                _hub75_middle_coupler_raw_guide_shell_2d(coupler_obj);
     else
-        _hub75_middle_coupler_raw_guide_shell_2d(coupler);
+        _hub75_middle_coupler_raw_guide_shell_2d(coupler_obj);
 }
 
 
-module _hub75_middle_coupler_reinforcement_relief_cutters(coupler) {
+module _hub75_middle_coupler_reinforcement_relief_cutters(coupler_obj) {
     relief_diameter =
-        coupler.reinforcement_bushing_outer_diameter
-        + 2 * coupler.reinforcement_bushing_clearance;
+        coupler_obj.reinforcement_bushing_outer_diameter
+        + 2 * coupler_obj.reinforcement_bushing_clearance;
 
     for (position =
-        _hub75_middle_coupler_reinforcement_positions(coupler)
+        _hub75_middle_coupler_reinforcement_positions(coupler_obj)
     )
         translate([
             position[0],
@@ -1429,22 +1429,22 @@ module _hub75_middle_coupler_reinforcement_relief_cutters(coupler) {
             rotate([90, 0, 0])
                 cylinder(
                     h =
-                        coupler.guide_height
+                        coupler_obj.guide_height
                         + 2 * _HUB75_MIDDLE_COUPLER_EPS,
                     d = relief_diameter
                 );
 }
 
 
-module _hub75_middle_coupler_guide_walls(coupler) {
+module _hub75_middle_coupler_guide_walls(coupler_obj) {
     difference() {
         _hub75_middle_coupler_extrude_xz_y(
-            -coupler.guide_height,
+            -coupler_obj.guide_height,
              _HUB75_MIDDLE_COUPLER_EPS
         )
-            _hub75_middle_coupler_guide_shell_2d(coupler);
+            _hub75_middle_coupler_guide_shell_2d(coupler_obj);
 
-        _hub75_middle_coupler_reinforcement_relief_cutters(coupler);
+        _hub75_middle_coupler_reinforcement_relief_cutters(coupler_obj);
     }
 }
 
@@ -1453,13 +1453,13 @@ module _hub75_middle_coupler_guide_walls(coupler) {
 // Private reinforcement pad/pin locators
 // ----------------------------------------------------------------------
 
-module _hub75_middle_coupler_reinforcement_locator(coupler) {
+module _hub75_middle_coupler_reinforcement_locator(coupler_obj) {
     pad_d =
-        hub75_middle_coupler_reinforcement_locator_pad_diameter(coupler);
+        hub75_middle_coupler_reinforcement_locator_pad_diameter(coupler_obj);
     pad_h =
-        hub75_middle_coupler_reinforcement_locator_pad_height(coupler);
+        hub75_middle_coupler_reinforcement_locator_pad_height(coupler_obj);
     pin_d =
-        hub75_middle_coupler_reinforcement_locator_pin_diameter(coupler);
+        hub75_middle_coupler_reinforcement_locator_pin_diameter(coupler_obj);
 
     // Local mounting plane is Y=0. Positive coupler body is behind the panel;
     // these locating features extend into the panel along negative Y.
@@ -1480,22 +1480,22 @@ module _hub75_middle_coupler_reinforcement_locator(coupler) {
             cylinder(
                 d = pin_d,
                 h =
-                    coupler.reinforcement_locator_pin_length
+                    coupler_obj.reinforcement_locator_pin_length
                     + _HUB75_MIDDLE_COUPLER_EPS
             );
 }
 
 
-module _hub75_middle_coupler_reinforcement_locators(coupler) {
+module _hub75_middle_coupler_reinforcement_locators(coupler_obj) {
     for (position =
-        _hub75_middle_coupler_reinforcement_positions(coupler)
+        _hub75_middle_coupler_reinforcement_positions(coupler_obj)
     )
         translate([
             position[0],
             0,
             position[1]
         ])
-            _hub75_middle_coupler_reinforcement_locator(coupler);
+            _hub75_middle_coupler_reinforcement_locator(coupler_obj);
 }
 
 
@@ -1504,12 +1504,12 @@ module _hub75_middle_coupler_reinforcement_locators(coupler) {
 // ----------------------------------------------------------------------
 
 module _hub75_middle_coupler_locator_section_2d(
-    coupler,
+    coupler_obj,
     width
 ) {
-    length = coupler.profile_size;
+    length = coupler_obj.profile_size;
     radius = min(
-        coupler.seam_locator_end_radius,
+        coupler_obj.seam_locator_end_radius,
         width / 2 - 0.01,
         length / 2 - 0.01
     );
@@ -1525,14 +1525,14 @@ module _hub75_middle_coupler_locator_section_2d(
 }
 
 
-module _hub75_middle_coupler_seam_locator(coupler) {
+module _hub75_middle_coupler_seam_locator(coupler_obj) {
     base_width =
-        hub75_middle_coupler_seam_locator_width(coupler);
-    locator_h = coupler.seam_locator_height;
-    taper_h = min(locator_h, coupler.panel_taper_depth);
+        hub75_middle_coupler_seam_locator_width(coupler_obj);
+    locator_h = coupler_obj.seam_locator_height;
+    taper_h = min(locator_h, coupler_obj.panel_taper_depth);
     taper_width =
         hub75_middle_coupler_seam_locator_width_at_depth(
-            coupler,
+            coupler_obj,
             taper_h
         );
 
@@ -1547,7 +1547,7 @@ module _hub75_middle_coupler_seam_locator(coupler) {
                  _HUB75_MIDDLE_COUPLER_EPS
             )
                 _hub75_middle_coupler_locator_section_2d(
-                    coupler,
+                    coupler_obj,
                     base_width
                 );
 
@@ -1556,7 +1556,7 @@ module _hub75_middle_coupler_seam_locator(coupler) {
                 -taper_h + _HUB75_MIDDLE_COUPLER_EPS
             )
                 _hub75_middle_coupler_locator_section_2d(
-                    coupler,
+                    coupler_obj,
                     taper_width
                 );
         }
@@ -1567,7 +1567,7 @@ module _hub75_middle_coupler_seam_locator(coupler) {
                 -taper_h + _HUB75_MIDDLE_COUPLER_EPS
             )
                 _hub75_middle_coupler_locator_section_2d(
-                    coupler,
+                    coupler_obj,
                     taper_width
                 );
     }
@@ -1578,12 +1578,12 @@ module _hub75_middle_coupler_seam_locator(coupler) {
 // Standalone Customizer preview
 // ----------------------------------------------------------------------
 
-_preview_panel =
+_preview_panel_obj =
     hub75_p5_64x32_panel_create();
 
-_preview_coupler =
+_preview_coupler_obj =
     hub75_middle_coupler_create(
-        panel = _preview_panel,
+        panel_obj = _preview_panel_obj,
         profile_size = d_profile_size_mm,
         wall_thickness = d_wall_thickness_mm,
         fit_clearance = d_fit_clearance_mm,
@@ -1640,6 +1640,6 @@ _preview_coupler =
 
 fg_res_apply(c_resolution)
     hub75_middle_coupler_render(
-    _preview_coupler,
+    _preview_coupler_obj,
     view = c_view
     );

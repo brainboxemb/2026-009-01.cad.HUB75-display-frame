@@ -64,7 +64,7 @@ c_section_depth_mm = 10; // [0.1:0.1:200]
 c_section_direction = "Positive"; // [Positive,Negative]
 // END lib.scad.util: section-inspection
 
-panel = hub75_p5_64x32_panel_create();
+panel_obj = hub75_p5_64x32_panel_create();
 
 _preview_low_detail = c_resolution == FG_RES_LOW();
 _preview_render_fn = _preview_low_detail ? 48 : 192;
@@ -81,10 +81,10 @@ assert(
     str("Unsupported coupler profile: ", d_coupler_profile)
 );
 
-function _hub75_main_middle_coupler(panel) =
+function _hub75_main_middle_coupler(panel_obj) =
     d_coupler_profile == "custom"
         ? hub75_middle_coupler_create(
-            panel = panel,
+            panel_obj = panel_obj,
             profile_size = d_profile_size_mm,
             wall_thickness = d_wall_thickness_mm,
             fit_clearance = d_fit_clearance_mm,
@@ -99,16 +99,16 @@ function _hub75_main_middle_coupler(panel) =
         )
         : hub75_middle_coupler_create_for_size(
             size = d_coupler_profile,
-            panel = panel,
+            panel_obj = panel_obj,
             render_fn = _preview_render_fn,
             show_reference_pockets = !_preview_low_detail,
             show_center_reference_marks = !_preview_low_detail
         );
 
-function _hub75_main_horizontal_coupler(panel) =
+function _hub75_main_horizontal_coupler(panel_obj) =
     d_coupler_profile == "custom"
         ? hub75_horizontal_edge_coupler_create(
-            panel = panel,
+            panel_obj = panel_obj,
             profile_size = d_profile_size_mm,
             wall_thickness = d_wall_thickness_mm,
             fit_clearance = d_fit_clearance_mm,
@@ -123,17 +123,17 @@ function _hub75_main_horizontal_coupler(panel) =
         )
         : hub75_horizontal_edge_coupler_create_for_size(
             size = d_coupler_profile,
-            panel = panel,
+            panel_obj = panel_obj,
             render_fn = _preview_render_fn,
             show_reference_pockets = !_preview_low_detail,
             show_center_reference_marks = !_preview_low_detail
         );
 
-function _hub75_main_corner_coupler(panel, side) =
+function _hub75_main_corner_coupler(panel_obj, side) =
     d_coupler_profile == "custom"
         ? hub75_corner_edge_coupler_create(
             side = side,
-            panel = panel,
+            panel_obj = panel_obj,
             profile_size = d_profile_size_mm,
             outside_projection = d_corner_outside_projection_mm,
             wall_thickness = d_wall_thickness_mm,
@@ -150,16 +150,16 @@ function _hub75_main_corner_coupler(panel, side) =
         : hub75_corner_edge_coupler_create_for_size(
             side = side,
             size = d_coupler_profile,
-            panel = panel,
+            panel_obj = panel_obj,
             render_fn = _preview_render_fn,
             show_reference_pockets = !_preview_low_detail,
             show_center_reference_marks = !_preview_low_detail
         );
 
-middle_coupler = _hub75_main_middle_coupler(panel);
-horizontal_coupler = _hub75_main_horizontal_coupler(panel);
-left_corner_coupler = _hub75_main_corner_coupler(panel, "left");
-right_corner_coupler = _hub75_main_corner_coupler(panel, "right");
+middle_coupler_obj = _hub75_main_middle_coupler(panel_obj);
+horizontal_coupler_obj = _hub75_main_horizontal_coupler(panel_obj);
+left_corner_coupler_obj = _hub75_main_corner_coupler(panel_obj, "left");
+right_corner_coupler_obj = _hub75_main_corner_coupler(panel_obj, "right");
 
 function _hub75_main_tube_clamp() =
     d_coupler_profile == "custom"
@@ -172,7 +172,7 @@ function _hub75_main_tube_clamp() =
 
 module _hub75_main_display(explode = 0, panels_visible = c_show_panels) {
     hub75_display_frame_assembly(
-        panel = panel,
+        panel_obj = panel_obj,
         coupler_size =
             d_coupler_profile == "custom" ? "medium" : d_coupler_profile,
         panel_view = _preview_panel_view,
@@ -191,10 +191,10 @@ module _hub75_main_display(explode = 0, panels_visible = c_show_panels) {
         aluminium_tubes_visible = c_show_aluminium_tubes,
         debug_reference_visible = c_show_debug_frame,
         explode_distance = explode,
-        middle_coupler = middle_coupler,
-        horizontal_coupler = horizontal_coupler,
-        left_corner_coupler = left_corner_coupler,
-        right_corner_coupler = right_corner_coupler
+        middle_coupler_obj = middle_coupler_obj,
+        horizontal_coupler_obj = horizontal_coupler_obj,
+        left_corner_coupler_obj = left_corner_coupler_obj,
+        right_corner_coupler_obj = right_corner_coupler_obj
     );
 }
 
@@ -203,7 +203,7 @@ module _hub75_main_selected_view() {
         _hub75_main_display();
     else if (c_view == "two-panel-assembly")
         hub75_tube_mount_display_2_panel_assembly(
-            panel = panel,
+            panel_obj = panel_obj,
             coupler_size =
                 d_coupler_profile == "custom" ? "medium" : d_coupler_profile,
             panel_view = _preview_panel_view,
@@ -215,16 +215,16 @@ module _hub75_main_selected_view() {
             aluminium_tubes_visible = c_show_aluminium_tubes,
             debug_reference_visible = c_show_debug_frame,
             explode_distance = 0,
-            middle_coupler = middle_coupler,
-            horizontal_coupler = horizontal_coupler,
-            left_corner_coupler = left_corner_coupler,
-            right_corner_coupler = right_corner_coupler
+            middle_coupler_obj = middle_coupler_obj,
+            horizontal_coupler_obj = horizontal_coupler_obj,
+            left_corner_coupler_obj = left_corner_coupler_obj,
+            right_corner_coupler_obj = right_corner_coupler_obj
         );
     else if (c_view == "exploded")
         _hub75_main_display(explode = c_explode_distance_mm);
     else if (c_view == "panels")
         hub75_panels_assembly(
-            panel = panel,
+            panel_obj = panel_obj,
             panel_view = _preview_panel_view,
             panel_numbers_visible = c_show_panel_numbers,
             in_out_labels_visible = c_show_in_out_labels
@@ -232,40 +232,40 @@ module _hub75_main_selected_view() {
     else if (c_view == "couplers")
         _hub75_main_display(panels_visible = false);
     else if (c_view == "middle-coupler")
-        hub75_middle_coupler_render(middle_coupler, view = "final");
+        hub75_middle_coupler_render(middle_coupler_obj, view = "final");
     else if (c_view == "horizontal-edge-coupler")
-        hub75_horizontal_edge_coupler_render(horizontal_coupler, view = "final");
+        hub75_horizontal_edge_coupler_render(horizontal_coupler_obj, view = "final");
     else if (c_view == "horizontal-edge-tube-mount-coupler")
         hub75_tube_horizontal_edge_coupler_build(
-            horizontal_coupler,
+            horizontal_coupler_obj,
             resolution = c_resolution
         );
     else if (c_view == "horizontal-edge-tube-mount-assembly")
         hub75_tube_horizontal_edge_assembly(
-            coupler = horizontal_coupler,
+            coupler_obj = horizontal_coupler_obj,
             show_coupler = c_show_couplers,
             show_clamps = c_show_tube_clamps,
             show_tube = c_show_aluminium_tubes,
             resolution = c_resolution
         );
     else if (c_view == "corner-edge-left")
-        hub75_corner_edge_coupler_render(left_corner_coupler, view = "final");
+        hub75_corner_edge_coupler_render(left_corner_coupler_obj, view = "final");
     else if (c_view == "corner-edge-right")
-        hub75_corner_edge_coupler_render(right_corner_coupler, view = "final");
+        hub75_corner_edge_coupler_render(right_corner_coupler_obj, view = "final");
     else if (c_view == "corner-edge-tube-mount-left")
         hub75_tube_corner_edge_coupler_build(
-            left_corner_coupler,
+            left_corner_coupler_obj,
             resolution = c_resolution
         );
     else if (c_view == "corner-edge-tube-mount-right")
         hub75_tube_corner_edge_coupler_build(
-            right_corner_coupler,
+            right_corner_coupler_obj,
             resolution = c_resolution
         );
     else if (c_view == "corner-edge-tube-mount-left-assembly")
         hub75_tube_corner_edge_assembly(
             side = "left",
-            coupler = left_corner_coupler,
+            coupler_obj = left_corner_coupler_obj,
             show_coupler = c_show_couplers,
             show_clamps = c_show_tube_clamps,
             show_tube = c_show_aluminium_tubes,
@@ -274,47 +274,47 @@ module _hub75_main_selected_view() {
     else if (c_view == "corner-edge-tube-mount-right-assembly")
         hub75_tube_corner_edge_assembly(
             side = "right",
-            coupler = right_corner_coupler,
+            coupler_obj = right_corner_coupler_obj,
             show_coupler = c_show_couplers,
             show_clamps = c_show_tube_clamps,
             show_tube = c_show_aluminium_tubes,
             resolution = c_resolution
         );
     else if (c_view == "tube-clamp")
-        let(clamp = _hub75_main_tube_clamp())
+        let(clamp_obj = _hub75_main_tube_clamp())
             hub75_tube_clamp_body_build(
-                clamp,
+                clamp_obj,
                 use_tension_bore = false,
                 resolution = c_resolution
             );
     else if (c_view == "tube-clamp-dov")
-        let(clamp = _hub75_main_tube_clamp())
+        let(clamp_obj = _hub75_main_tube_clamp())
             hub75_tube_clamp_build(
-                clamp,
+                clamp_obj,
                 use_tension_bore = false,
                 resolution = c_resolution
             );
     else if (c_view == "middle-fit")
         hub75_middle_coupler_fit_detail(
-            panel = panel,
-            coupler = middle_coupler
+            panel_obj = panel_obj,
+            coupler_obj = middle_coupler_obj
         );
     else if (c_view == "horizontal-edge-fit")
         hub75_horizontal_edge_coupler_fit_detail(
-            panel = panel,
-            coupler = horizontal_coupler
+            panel_obj = panel_obj,
+            coupler_obj = horizontal_coupler_obj
         );
     else if (c_view == "corner-edge-fit-left")
         hub75_corner_edge_coupler_fit_detail(
             side = "left",
-            panel = panel,
-            coupler = left_corner_coupler
+            panel_obj = panel_obj,
+            coupler_obj = left_corner_coupler_obj
         );
     else if (c_view == "corner-edge-fit-right")
         hub75_corner_edge_coupler_fit_detail(
             side = "right",
-            panel = panel,
-            coupler = right_corner_coupler
+            panel_obj = panel_obj,
+            coupler_obj = right_corner_coupler_obj
         );
     else
         assert(false, str("Unsupported c_view: ", c_view));

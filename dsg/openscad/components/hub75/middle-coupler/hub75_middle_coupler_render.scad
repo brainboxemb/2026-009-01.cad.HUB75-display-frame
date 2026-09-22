@@ -22,52 +22,52 @@ module _hub75_middle_coupler_design_thin(y_min = -0.35, y_max = 0.35) {
 }
 
 
-module _hub75_middle_coupler_design_horizontal_arm_2d(coupler) {
+module _hub75_middle_coupler_design_horizontal_arm_2d(coupler_obj) {
     square(
         [
-            coupler.profile_size,
-            hub75_middle_coupler_horizontal_arm_height(coupler)
+            coupler_obj.profile_size,
+            hub75_middle_coupler_horizontal_arm_height(coupler_obj)
         ],
         center = true
     );
 }
 
 
-module _hub75_middle_coupler_design_vertical_arm_2d(coupler) {
+module _hub75_middle_coupler_design_vertical_arm_2d(coupler_obj) {
     square(
         [
-            hub75_middle_coupler_vertical_arm_width(coupler),
-            coupler.profile_size
+            hub75_middle_coupler_vertical_arm_width(coupler_obj),
+            coupler_obj.profile_size
         ],
         center = true
     );
 }
 
 
-module _hub75_middle_coupler_design_raw_plus_2d(coupler) {
+module _hub75_middle_coupler_design_raw_plus_2d(coupler_obj) {
     union() {
-        _hub75_middle_coupler_design_horizontal_arm_2d(coupler);
-        _hub75_middle_coupler_design_vertical_arm_2d(coupler);
+        _hub75_middle_coupler_design_horizontal_arm_2d(coupler_obj);
+        _hub75_middle_coupler_design_vertical_arm_2d(coupler_obj);
     }
 }
 
 
-module _hub75_middle_coupler_design_horizontal_rib_2d(coupler) {
+module _hub75_middle_coupler_design_horizontal_rib_2d(coupler_obj) {
     square(
         [
-            coupler.profile_size + 4,
-            coupler.rear_crossbar_width
+            coupler_obj.profile_size + 4,
+            coupler_obj.rear_crossbar_width
         ],
         center = true
     );
 }
 
 
-module _hub75_middle_coupler_design_vertical_rib_2d(coupler) {
+module _hub75_middle_coupler_design_vertical_rib_2d(coupler_obj) {
     square(
         [
-            hub75_middle_coupler_seam_keepout_width(coupler),
-            coupler.profile_size + 4
+            hub75_middle_coupler_seam_keepout_width(coupler_obj),
+            coupler_obj.profile_size + 4
         ],
         center = true
     );
@@ -75,39 +75,39 @@ module _hub75_middle_coupler_design_vertical_rib_2d(coupler) {
 
 
 module _hub75_middle_coupler_design_profile_outline_2d(
-    coupler,
+    coupler_obj,
     line_width = 1.0
 ) {
     difference() {
-        _hub75_middle_coupler_profile_2d(coupler);
+        _hub75_middle_coupler_profile_2d(coupler_obj);
 
         offset(delta = -line_width)
-            _hub75_middle_coupler_profile_2d(coupler);
+            _hub75_middle_coupler_profile_2d(coupler_obj);
     }
 }
 
 
 module _hub75_middle_coupler_design_reinforcement_crop(
-    coupler,
+    coupler_obj,
     position,
     crop_width = 34,
     crop_height = 34
 ) {
     translate([
         position[0] - crop_width / 2,
-        -coupler.guide_height - 2,
+        -coupler_obj.guide_height - 2,
         position[1] - crop_height / 2
     ])
         cube([
             crop_width,
-            coupler.guide_height + 3,
+            coupler_obj.guide_height + 3,
             crop_height
         ]);
 }
 
 
 module _hub75_middle_coupler_design_reinforcement_panel_fragment(
-    coupler,
+    coupler_obj,
     position,
     fragment_length = 24,
     fragment_depth = 6.5
@@ -116,12 +116,12 @@ module _hub75_middle_coupler_design_reinforcement_panel_fragment(
     // reinforcement at one of the two coupler contact points. Every dimension
     // comes from the panel-derived coupler object: no panel measurement is
     // duplicated here. The detail deliberately omits unrelated panel area.
-    outer_d = coupler.reinforcement_bushing_outer_diameter;
-    recess_d = coupler.reinforcement_bushing_recess_diameter;
-    recess_depth = coupler.reinforcement_bushing_recess_depth;
-    hole_d = coupler.reinforcement_bushing_hole_diameter;
-    hole_depth = coupler.reinforcement_bushing_hole_depth;
-    rail_width = coupler.rear_side_rail_width;
+    outer_d = coupler_obj.reinforcement_bushing_outer_diameter;
+    recess_d = coupler_obj.reinforcement_bushing_recess_diameter;
+    recess_depth = coupler_obj.reinforcement_bushing_recess_depth;
+    hole_d = coupler_obj.reinforcement_bushing_hole_diameter;
+    hole_depth = coupler_obj.reinforcement_bushing_hole_depth;
+    rail_width = coupler_obj.rear_side_rail_width;
     eps = 0.04;
 
     translate([position[0], 0, position[1]])
@@ -151,18 +151,18 @@ module _hub75_middle_coupler_design_reinforcement_panel_fragment(
 
 
 module _hub75_middle_coupler_design_reinforcement_guide_fragment(
-    coupler,
+    coupler_obj,
     position
 ) {
     intersection() {
         _hub75_middle_coupler_extrude_xz_y(
-            -coupler.guide_height,
+            -coupler_obj.guide_height,
             0
         )
-            _hub75_middle_coupler_guide_shell_2d(coupler);
+            _hub75_middle_coupler_guide_shell_2d(coupler_obj);
 
         _hub75_middle_coupler_design_reinforcement_crop(
-            coupler,
+            coupler_obj,
             position
         );
     }
@@ -170,26 +170,26 @@ module _hub75_middle_coupler_design_reinforcement_guide_fragment(
 
 
 module _hub75_middle_coupler_design_reinforcement_clearance_band(
-    coupler,
+    coupler_obj,
     position
 ) {
     outer_d =
-        coupler.reinforcement_bushing_outer_diameter
-        + 2 * coupler.reinforcement_bushing_clearance;
-    inner_d = coupler.reinforcement_bushing_outer_diameter;
+        coupler_obj.reinforcement_bushing_outer_diameter
+        + 2 * coupler_obj.reinforcement_bushing_clearance;
+    inner_d = coupler_obj.reinforcement_bushing_outer_diameter;
 
     // Thin red halo outside the physical reinforcement footprint. It makes the
     // print-clearance requirement visible without hiding the dark panel detail.
     translate([position[0], 0, position[1]])
         difference() {
             _hub75_middle_coupler_extrude_xz_y(
-                -coupler.guide_height,
+                -coupler_obj.guide_height,
                 0
             )
                 circle(d = outer_d);
 
             _hub75_middle_coupler_extrude_xz_y(
-                -coupler.guide_height - 0.05,
+                -coupler_obj.guide_height - 0.05,
                 0.05
             )
                 circle(d = inner_d);
@@ -198,7 +198,7 @@ module _hub75_middle_coupler_design_reinforcement_clearance_band(
 
 
 module _hub75_middle_coupler_design_reinforcement_collision(
-    coupler,
+    coupler_obj,
     position
 ) {
     // Show only guide material that lies inside the reinforcement relief
@@ -206,32 +206,32 @@ module _hub75_middle_coupler_design_reinforcement_collision(
     // not the complete abstract cutter cylinder.
     intersection() {
         _hub75_middle_coupler_design_reinforcement_guide_fragment(
-            coupler,
+            coupler_obj,
             position
         );
 
-        _hub75_middle_coupler_reinforcement_relief_cutters(coupler);
+        _hub75_middle_coupler_reinforcement_relief_cutters(coupler_obj);
     }
 }
 
 
-module _hub75_middle_coupler_design_after_reference_pockets(coupler) {
+module _hub75_middle_coupler_design_after_reference_pockets(coupler_obj) {
     // Construction state used only by the documentation: the complete
     // functional coupler with the blind reference pockets already cut, but
     // before the centre cross and distance ticks are added.
     union() {
         difference() {
-            _hub75_middle_coupler_base_after_pockets(coupler);
-            _hub75_middle_coupler_reference_pocket_cutters(coupler);
+            _hub75_middle_coupler_base_after_pockets(coupler_obj);
+            _hub75_middle_coupler_reference_pocket_cutters(coupler_obj);
         }
 
-        if (coupler.guide_height > 0)
-            _hub75_middle_coupler_guide_walls(coupler);
+        if (coupler_obj.guide_height > 0)
+            _hub75_middle_coupler_guide_walls(coupler_obj);
 
-        _hub75_middle_coupler_reinforcement_locators(coupler);
+        _hub75_middle_coupler_reinforcement_locators(coupler_obj);
 
-        if (coupler.seam_locator_height > 0)
-            _hub75_middle_coupler_seam_locator(coupler);
+        if (coupler_obj.seam_locator_height > 0)
+            _hub75_middle_coupler_seam_locator(coupler_obj);
     }
 }
 
@@ -242,8 +242,8 @@ module _hub75_middle_coupler_design_after_reference_pockets(coupler) {
 //   Construction-only views live here; production/debug views are delegated to
 //   hub75_middle_coupler_render().
 module hub75_middle_coupler_design(view = "final") {
-    panel = hub75_p5_64x32_panel_create();
-    coupler = hub75_middle_coupler_create(panel = panel);
+    panel_obj = hub75_p5_64x32_panel_create();
+    coupler_obj = hub75_middle_coupler_create(panel_obj = panel_obj);
 
     // Construction diagrams deliberately use a darker grey than the normal
     // 3D debug render. It must remain legible against both the light page
@@ -258,12 +258,12 @@ module hub75_middle_coupler_design(view = "final") {
         // still exposes the added fit clearance on every outside edge.
         color(current)
             _hub75_middle_coupler_design_thin(-0.42, -0.02)
-                offset(delta = coupler.fit_clearance)
-                    _hub75_middle_coupler_rib_cross_keepout_2d(coupler);
+                offset(delta = coupler_obj.fit_clearance)
+                    _hub75_middle_coupler_rib_cross_keepout_2d(coupler_obj);
 
         color(existing)
             _hub75_middle_coupler_design_thin(0.02, 0.42)
-                _hub75_middle_coupler_rib_cross_keepout_2d(coupler);
+                _hub75_middle_coupler_rib_cross_keepout_2d(coupler_obj);
 
     } else if (view == "profile-horizontal-arm") {
         // Red: complete printable arm envelope. Grey: the physical crossbar
@@ -271,11 +271,11 @@ module hub75_middle_coupler_design(view = "final") {
         // it cannot disappear inside the larger red rectangle.
         color(current)
             _hub75_middle_coupler_design_thin(-0.42, -0.02)
-                _hub75_middle_coupler_design_horizontal_arm_2d(coupler);
+                _hub75_middle_coupler_design_horizontal_arm_2d(coupler_obj);
 
         color(existing)
             _hub75_middle_coupler_design_thin(0.02, 0.42)
-                _hub75_middle_coupler_design_horizontal_rib_2d(coupler);
+                _hub75_middle_coupler_design_horizontal_rib_2d(coupler_obj);
 
     } else if (view == "profile-vertical-arm") {
         // Grey: the already established horizontal arm. Red: the vertical arm
@@ -284,16 +284,16 @@ module hub75_middle_coupler_design(view = "final") {
         // the overlap region.
         color(current)
             _hub75_middle_coupler_design_thin(-0.42, -0.02)
-                _hub75_middle_coupler_design_vertical_arm_2d(coupler);
+                _hub75_middle_coupler_design_vertical_arm_2d(coupler_obj);
 
         color(existing)
             _hub75_middle_coupler_design_thin(0.02, 0.42)
-                _hub75_middle_coupler_design_horizontal_arm_2d(coupler);
+                _hub75_middle_coupler_design_horizontal_arm_2d(coupler_obj);
 
     } else if (view == "profile-raw-plus") {
         color(current)
             _hub75_middle_coupler_design_thin()
-                _hub75_middle_coupler_design_raw_plus_2d(coupler);
+                _hub75_middle_coupler_design_raw_plus_2d(coupler_obj);
 
     } else if (view == "profile-rounded") {
         // The production profile is a directly generated polygon, but it is
@@ -301,11 +301,11 @@ module hub75_middle_coupler_design(view = "final") {
         // convex free ends rounded. Grey remnants show what rounding removes.
         color(existing_transparent)
             _hub75_middle_coupler_design_thin(-0.42, -0.02)
-                _hub75_middle_coupler_design_raw_plus_2d(coupler);
+                _hub75_middle_coupler_design_raw_plus_2d(coupler_obj);
 
         color(current)
             _hub75_middle_coupler_design_thin(0.02, 0.42)
-                _hub75_middle_coupler_profile_2d(coupler);
+                _hub75_middle_coupler_profile_2d(coupler_obj);
 
     } else if (view == "guide-keepout") {
         // The guide subtraction only cares about the forbidden region inside
@@ -315,15 +315,15 @@ module hub75_middle_coupler_design(view = "final") {
         color(current)
             _hub75_middle_coupler_design_thin(-0.42, -0.02)
                 intersection() {
-                    _hub75_middle_coupler_profile_2d(coupler);
+                    _hub75_middle_coupler_profile_2d(coupler_obj);
 
-                    offset(delta = coupler.fit_clearance)
-                        _hub75_middle_coupler_rib_cross_keepout_2d(coupler);
+                    offset(delta = coupler_obj.fit_clearance)
+                        _hub75_middle_coupler_rib_cross_keepout_2d(coupler_obj);
                 }
 
         color(existing)
             _hub75_middle_coupler_design_thin(0.02, 0.42)
-                _hub75_middle_coupler_design_profile_outline_2d(coupler);
+                _hub75_middle_coupler_design_profile_outline_2d(coupler_obj);
 
     } else if (view == "guide-raw-shell") {
         // Keep the starting printable footprint visible behind the subtraction
@@ -331,20 +331,20 @@ module hub75_middle_coupler_design(view = "final") {
         // after the clearance-expanded rib cross has been removed.
         color(existing_transparent)
             _hub75_middle_coupler_design_thin(-0.42, -0.02)
-                _hub75_middle_coupler_profile_2d(coupler);
+                _hub75_middle_coupler_profile_2d(coupler_obj);
 
         color(current)
             _hub75_middle_coupler_design_thin(0.02, 0.42)
-                _hub75_middle_coupler_raw_guide_shell_2d(coupler);
+                _hub75_middle_coupler_raw_guide_shell_2d(coupler_obj);
 
     } else if (view == "guide-rounded-shell") {
         color(existing_transparent)
             _hub75_middle_coupler_design_thin(-0.42, -0.02)
-                _hub75_middle_coupler_raw_guide_shell_2d(coupler);
+                _hub75_middle_coupler_raw_guide_shell_2d(coupler_obj);
 
         color(current)
             _hub75_middle_coupler_design_thin(0.02, 0.42)
-                _hub75_middle_coupler_guide_shell_2d(coupler);
+                _hub75_middle_coupler_guide_shell_2d(coupler_obj);
 
     } else if (view == "guide-reinforcement-reliefs") {
         // Coupler-centric construction view. Keep the full raised-guide shell
@@ -352,13 +352,13 @@ module hub75_middle_coupler_design(view = "final") {
         // red. This preserves the normal step-by-step coupler narrative.
         color(existing_transparent)
             _hub75_middle_coupler_extrude_xz_y(
-                -coupler.guide_height,
+                -coupler_obj.guide_height,
                 0
             )
-                _hub75_middle_coupler_guide_shell_2d(coupler);
+                _hub75_middle_coupler_guide_shell_2d(coupler_obj);
 
         color(current)
-            _hub75_middle_coupler_reinforcement_relief_cutters(coupler);
+            _hub75_middle_coupler_reinforcement_relief_cutters(coupler_obj);
 
     } else if (view == "guide-reinforcement-detail") {
         // Enlarged physical explanation for ONE of the two identical relief
@@ -367,29 +367,29 @@ module hub75_middle_coupler_design(view = "final") {
         // required print clearance; saturated red is exactly the guide material
         // that intrudes into that protected volume.
         detail_position =
-            _hub75_middle_coupler_reinforcement_positions(coupler)[1];
+            _hub75_middle_coupler_reinforcement_positions(coupler_obj)[1];
 
         color([0.43, 0.43, 0.43, 1.0])
             _hub75_middle_coupler_design_reinforcement_panel_fragment(
-                coupler,
+                coupler_obj,
                 detail_position
             );
 
         color([0.72, 0.72, 0.72, 0.48])
             _hub75_middle_coupler_design_reinforcement_guide_fragment(
-                coupler,
+                coupler_obj,
                 detail_position
             );
 
         color([0.88, 0.08, 0.06, 0.30])
             _hub75_middle_coupler_design_reinforcement_clearance_band(
-                coupler,
+                coupler_obj,
                 detail_position
             );
 
         color([0.94, 0.03, 0.02, 0.96])
             _hub75_middle_coupler_design_reinforcement_collision(
-                coupler,
+                coupler_obj,
                 detail_position
             );
 
@@ -398,14 +398,14 @@ module hub75_middle_coupler_design(view = "final") {
         // actual recesses in the grey coupler and highlight only the newly
         // introduced centre cross and distance ticks in red.
         color(existing)
-            _hub75_middle_coupler_design_after_reference_pockets(coupler);
+            _hub75_middle_coupler_design_after_reference_pockets(coupler_obj);
 
         color(current)
-            _hub75_middle_coupler_center_mark_cutters(coupler);
+            _hub75_middle_coupler_center_mark_cutters(coupler_obj);
 
     } else {
         hub75_middle_coupler_render(
-            coupler,
+            coupler_obj,
             view = view
         );
     }

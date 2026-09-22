@@ -6,16 +6,16 @@ use <../../ext/lib.scad.util/openscad/inspection.scad>
 use <../../components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad>
 use <../helpers/verification_datum_pin.scad>
 
-function _hub75_corner_edge_fit_corner_x(panel, side) =
+function _hub75_corner_edge_fit_corner_x(panel_obj, side) =
     (side == "left" ? -1 : 1)
-    * hub75_p5_64x32_panel_nominal_width(panel) / 2;
+    * hub75_p5_64x32_panel_nominal_width(panel_obj) / 2;
 
-function _hub75_corner_edge_fit_corner_z(panel) =
-    hub75_p5_64x32_panel_nominal_height(panel) / 2;
+function _hub75_corner_edge_fit_corner_z(panel_obj) =
+    hub75_p5_64x32_panel_nominal_height(panel_obj) / 2;
 
-module _hub75_corner_edge_fit_panel(panel, structure_only = false) {
+module _hub75_corner_edge_fit_panel(panel_obj, structure_only = false) {
     hub75_p5_64x32_panel_render(
-        panel,
+        panel_obj,
         view =
             hub75_p5_64x32_panel_view_id(
                 structure_only ? "structure" : "final"
@@ -25,22 +25,22 @@ module _hub75_corner_edge_fit_panel(panel, structure_only = false) {
 }
 
 module _hub75_corner_edge_fit_crop_volume(
-    panel,
-    coupler,
+    panel_obj,
+    coupler_obj,
     side,
     crop_inward = 105,
     crop_outward = 10,
     y_max_override = undef
 ) {
     corner_x =
-        _hub75_corner_edge_fit_corner_x(panel, side);
+        _hub75_corner_edge_fit_corner_x(panel_obj, side);
     corner_z =
-        _hub75_corner_edge_fit_corner_z(panel);
+        _hub75_corner_edge_fit_corner_z(panel_obj);
     mounting_y =
-        hub75_p5_64x32_panel_mounting_plane_y(panel);
+        hub75_p5_64x32_panel_mounting_plane_y(panel_obj);
     y_max =
         is_undef(y_max_override)
-            ? mounting_y + coupler.base_thickness + 2
+            ? mounting_y + coupler_obj.base_thickness + 2
             : y_max_override;
     x_min =
         side == "left"
@@ -66,30 +66,30 @@ module _hub75_corner_edge_fit_crop_volume(
 // Module: hub75_corner_edge_coupler_fit_detail()
 module hub75_corner_edge_coupler_fit_detail(
     side = "left",
-    panel = hub75_p5_64x32_panel_create(),
-    coupler = undef,
+    panel_obj = hub75_p5_64x32_panel_create(),
+    coupler_obj = undef,
     crop_inward = 105,
     crop_outward = 10
 ) {
-    active_coupler =
-        is_undef(coupler)
+    active_coupler_obj =
+        is_undef(coupler_obj)
             ? hub75_corner_edge_coupler_create(
                 side = side,
-                panel = panel
+                panel_obj = panel_obj
             )
-            : coupler;
+            : coupler_obj;
     corner_x =
-        _hub75_corner_edge_fit_corner_x(panel, side);
+        _hub75_corner_edge_fit_corner_x(panel_obj, side);
     corner_z =
-        _hub75_corner_edge_fit_corner_z(panel);
+        _hub75_corner_edge_fit_corner_z(panel_obj);
     mounting_y =
-        hub75_p5_64x32_panel_mounting_plane_y(panel);
+        hub75_p5_64x32_panel_mounting_plane_y(panel_obj);
 
     intersection() {
-        _hub75_corner_edge_fit_panel(panel);
+        _hub75_corner_edge_fit_panel(panel_obj);
         _hub75_corner_edge_fit_crop_volume(
-            panel,
-            active_coupler,
+            panel_obj,
+            active_coupler_obj,
             side,
             crop_inward,
             crop_outward
@@ -102,7 +102,7 @@ module hub75_corner_edge_coupler_fit_detail(
             mounting_y,
             corner_z
         ])
-            hub75_corner_edge_coupler_build(active_coupler);
+            hub75_corner_edge_coupler_build(active_coupler_obj);
 
     hub75_verification_datum_pin(
         x = corner_x,
@@ -110,7 +110,7 @@ module hub75_corner_edge_coupler_fit_detail(
         y_min = -4,
         y_max =
             mounting_y
-            + active_coupler.base_thickness
+            + active_coupler_obj.base_thickness
             + 8
     );
 }
@@ -118,23 +118,23 @@ module hub75_corner_edge_coupler_fit_detail(
 // Module: hub75_corner_edge_coupler_rear_fit_section()
 module hub75_corner_edge_coupler_rear_fit_section(
     side = "left",
-    panel = hub75_p5_64x32_panel_create(),
-    coupler = undef,
+    panel_obj = hub75_p5_64x32_panel_create(),
+    coupler_obj = undef,
     depth = 5.0,
     slice_thickness = 0.10,
     crop_inward = 105,
     crop_outward = undef
 ) {
-    active_coupler =
-        is_undef(coupler)
-            ? hub75_corner_edge_coupler_create(side = side, panel = panel)
-            : coupler;
-    corner_x = _hub75_corner_edge_fit_corner_x(panel, side);
-    corner_z = _hub75_corner_edge_fit_corner_z(panel);
-    mounting_y = hub75_p5_64x32_panel_mounting_plane_y(panel);
+    active_coupler_obj =
+        is_undef(coupler_obj)
+            ? hub75_corner_edge_coupler_create(side = side, panel_obj = panel_obj)
+            : coupler_obj;
+    corner_x = _hub75_corner_edge_fit_corner_x(panel_obj, side);
+    corner_z = _hub75_corner_edge_fit_corner_z(panel_obj);
+    mounting_y = hub75_p5_64x32_panel_mounting_plane_y(panel_obj);
     section_y = mounting_y - depth;
     outside_crop = is_undef(crop_outward)
-        ? active_coupler.outside_projection + 2
+        ? active_coupler_obj.outside_projection + 2
         : crop_outward;
 
     assert(depth > 0, "rear fit section depth must be > 0");
@@ -152,10 +152,10 @@ module hub75_corner_edge_coupler_rear_fit_section(
                 depth = slice_thickness,
                 direction = "Positive"
             )
-                _hub75_corner_edge_fit_panel(panel, structure_only = true);
+                _hub75_corner_edge_fit_panel(panel_obj, structure_only = true);
             _hub75_corner_edge_fit_crop_volume(
-                panel,
-                active_coupler,
+                panel_obj,
+                active_coupler_obj,
                 side,
                 crop_inward,
                 outside_crop
@@ -171,10 +171,10 @@ module hub75_corner_edge_coupler_rear_fit_section(
                 direction = "Positive"
             )
                 translate([corner_x, mounting_y, corner_z])
-                    hub75_corner_edge_coupler_build(active_coupler);
+                    hub75_corner_edge_coupler_build(active_coupler_obj);
             _hub75_corner_edge_fit_crop_volume(
-                panel,
-                active_coupler,
+                panel_obj,
+                active_coupler_obj,
                 side,
                 crop_inward,
                 outside_crop
@@ -192,20 +192,20 @@ module hub75_corner_edge_coupler_rear_fit_section(
 // Module: hub75_corner_edge_coupler_yz_top_edge_section()
 module hub75_corner_edge_coupler_yz_top_edge_section(
     side = "left",
-    panel = hub75_p5_64x32_panel_create(),
-    coupler = undef,
+    panel_obj = hub75_p5_64x32_panel_create(),
+    coupler_obj = undef,
     slice_inward = 20,
     slice_thickness = 0.10,
     crop_inward = 60,
     crop_outward = 10
 ) {
-    active_coupler =
-        is_undef(coupler)
-            ? hub75_corner_edge_coupler_create(side = side, panel = panel)
-            : coupler;
-    corner_x = _hub75_corner_edge_fit_corner_x(panel, side);
-    corner_z = _hub75_corner_edge_fit_corner_z(panel);
-    mounting_y = hub75_p5_64x32_panel_mounting_plane_y(panel);
+    active_coupler_obj =
+        is_undef(coupler_obj)
+            ? hub75_corner_edge_coupler_create(side = side, panel_obj = panel_obj)
+            : coupler_obj;
+    corner_x = _hub75_corner_edge_fit_corner_x(panel_obj, side);
+    corner_z = _hub75_corner_edge_fit_corner_z(panel_obj);
+    mounting_y = hub75_p5_64x32_panel_mounting_plane_y(panel_obj);
     x_inward = side == "left" ? 1 : -1;
     slice_x = corner_x + x_inward * slice_inward;
 
@@ -219,10 +219,10 @@ module hub75_corner_edge_coupler_yz_top_edge_section(
                 depth = slice_thickness,
                 direction = "Positive"
             )
-                _hub75_corner_edge_fit_panel(panel, structure_only = true);
+                _hub75_corner_edge_fit_panel(panel_obj, structure_only = true);
             _hub75_corner_edge_fit_crop_volume(
-                panel,
-                active_coupler,
+                panel_obj,
+                active_coupler_obj,
                 side,
                 crop_inward,
                 crop_outward
@@ -238,10 +238,10 @@ module hub75_corner_edge_coupler_yz_top_edge_section(
                 direction = "Positive"
             )
                 translate([corner_x, mounting_y, corner_z])
-                    hub75_corner_edge_coupler_build(active_coupler);
+                    hub75_corner_edge_coupler_build(active_coupler_obj);
             _hub75_corner_edge_fit_crop_volume(
-                panel,
-                active_coupler,
+                panel_obj,
+                active_coupler_obj,
                 side,
                 crop_inward,
                 crop_outward
@@ -252,20 +252,20 @@ module hub75_corner_edge_coupler_yz_top_edge_section(
 // Module: hub75_corner_edge_coupler_xy_side_edge_section()
 module hub75_corner_edge_coupler_xy_side_edge_section(
     side = "left",
-    panel = hub75_p5_64x32_panel_create(),
-    coupler = undef,
+    panel_obj = hub75_p5_64x32_panel_create(),
+    coupler_obj = undef,
     slice_inward = 20,
     slice_thickness = 0.10,
     crop_inward = 60,
     crop_outward = 10
 ) {
-    active_coupler =
-        is_undef(coupler)
-            ? hub75_corner_edge_coupler_create(side = side, panel = panel)
-            : coupler;
-    corner_x = _hub75_corner_edge_fit_corner_x(panel, side);
-    corner_z = _hub75_corner_edge_fit_corner_z(panel);
-    mounting_y = hub75_p5_64x32_panel_mounting_plane_y(panel);
+    active_coupler_obj =
+        is_undef(coupler_obj)
+            ? hub75_corner_edge_coupler_create(side = side, panel_obj = panel_obj)
+            : coupler_obj;
+    corner_x = _hub75_corner_edge_fit_corner_x(panel_obj, side);
+    corner_z = _hub75_corner_edge_fit_corner_z(panel_obj);
+    mounting_y = hub75_p5_64x32_panel_mounting_plane_y(panel_obj);
     slice_z = corner_z - slice_inward;
 
     assert(slice_thickness > 0, "side-edge slice thickness must be > 0");
@@ -278,10 +278,10 @@ module hub75_corner_edge_coupler_xy_side_edge_section(
                 depth = slice_thickness,
                 direction = "Positive"
             )
-                _hub75_corner_edge_fit_panel(panel, structure_only = true);
+                _hub75_corner_edge_fit_panel(panel_obj, structure_only = true);
             _hub75_corner_edge_fit_crop_volume(
-                panel,
-                active_coupler,
+                panel_obj,
+                active_coupler_obj,
                 side,
                 crop_inward,
                 crop_outward
@@ -297,10 +297,10 @@ module hub75_corner_edge_coupler_xy_side_edge_section(
                 direction = "Positive"
             )
                 translate([corner_x, mounting_y, corner_z])
-                    hub75_corner_edge_coupler_build(active_coupler);
+                    hub75_corner_edge_coupler_build(active_coupler_obj);
             _hub75_corner_edge_fit_crop_volume(
-                panel,
-                active_coupler,
+                panel_obj,
+                active_coupler_obj,
                 side,
                 crop_inward,
                 crop_outward
