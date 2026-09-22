@@ -9,7 +9,7 @@ $fn = 120;
 use <hub75_tube_clamp.scad>
 
 /* [Design view] */
-view = "final"; // [final,before-relief,relief-detail,body,development-axis]
+view = "final"; // [final,before-relief,relief-detail,body,lab-axis]
 
 /* [Profile] */
 size = "medium"; // [small,medium,large]
@@ -19,11 +19,11 @@ function _hub75_tube_clamp_design_size(size) =
         ? size
         : "medium";
 
-module _hub75_tube_clamp_development_z_reference(
+module _hub75_tube_clamp_lab_z_reference(
     clamp,
     length = 18
 ) {
-    // development Z = -project Y.
+    // Lab Z = -project Y.
     // Documentation-only reference for the relief z_height / z_offset terms.
     color([0.1, 0.75, 0.1, 0.7])
         translate([
@@ -84,7 +84,7 @@ module hub75_tube_clamp_design(
             use_tension_bore = false,
             high_resolution = true
         );
-    } else if (view == "development-axis") {
+    } else if (view == "lab-axis") {
         color([0.88, 0.08, 0.05, 0.35])
             hub75_tube_clamp_build(
                 clamp,
@@ -92,7 +92,7 @@ module hub75_tube_clamp_design(
                 high_resolution = true
             );
 
-        _hub75_tube_clamp_development_z_reference(clamp);
+        _hub75_tube_clamp_lab_z_reference(clamp);
     } else {
         hub75_tube_clamp_build(
             clamp,

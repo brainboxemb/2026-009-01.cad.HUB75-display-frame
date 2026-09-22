@@ -282,18 +282,18 @@ module _hub75_tube_clamp_ring_build(
 
 // Small round side relief accepted in the component lab.
 //
-// The lab geometry is defined in lab orientation:
+// The relief is defined in the component lab orientation:
 //   project X -> lab X
-//   project Y -> development -Z
+//   project Y -> lab -Z
 //   project Z -> lab Y
 //
-// In the reusable clamp's native coordinates this means:
-//   lab X = native Z - clamp_width/2
-//   lab Y = -native Y + tube_center_z
-//   lab Z = native X - project Y translation
+// Relative to the reusable clamp design orientation this means:
+//   lab X = clamp design Z - clamp_width/2
+//   lab Y = -clamp design Y + tube_center_z
+//   lab Z = clamp design X - project Y translation
 //
-// The accepted low development-Z cylinders therefore become short clamp design-X
-// cylinders whose circular centres sit just outside the two clamp design-Z side
+// The accepted low lab-Z cylinders therefore become short cylinders along clamp design X
+// whose circular centres sit just outside the two clamp design Z side
 // faces.  This preserves the lab result exactly without making the relief
 // dependent on the selected dovetail profile height.
 module _hub75_tube_clamp_transition_relief_cutter_local(
@@ -318,7 +318,7 @@ module _hub75_tube_clamp_transition_relief_cutter_local(
             - b.extra
     );
 
-    // development-Z position translated back to clamp design X.
+    // Lab-Z position translated back to clamp design X.
     cutter_x =
         attach_x
         + z_offset;

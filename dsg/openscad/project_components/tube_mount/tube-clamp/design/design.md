@@ -104,12 +104,11 @@ side is placed on the bed, so:
 project X / tube axis = printer Z / build direction
 ```
 
-The local relief is, however, defined from the component-lab **lab orientation**, because that is the orientation in which its position was
-visually calibrated:
+The local relief is defined in the component lab's **lab orientation**, because that is the frame in which its position was visually calibrated:
 
 ```text
 project X -> lab X
-project Y -> development -Z
+project Y -> lab -Z
 project Z -> lab Y
 ```
 
@@ -120,7 +119,7 @@ when small / medium / large is selected.
 The green reference axis below shows lab Z. It is documentation-only.
 
 <!-- scad-render
-view: development-axis
+view: lab-axis
 -->
 
 ## Male lock-release print wedges
@@ -142,9 +141,9 @@ complete visible release zone, including the recess. The wedges widen only
 toward the male outer/trailing edge; at the lock recess the original functional
 release width is still present in full.
 
-For this component's mapping, mechint native X/Z becomes the X/Z plane seen in
+For this component's mapping, mechint design X/Z becomes the X/Z plane seen in
 the actual side-print orientation. The 45 degree wedge therefore replaces the
-flat overhang with a printable slope on both sides. Native-Y release depth stays
+flat overhang with a printable slope on both sides. Mechint design-Y release depth stays
 constant.
 
 The wedge cutters also extend slightly beyond the male outer face and overlap
@@ -359,8 +358,8 @@ Because the clamp-body transition is fixed across small / medium / large, this
 offset is independent of dovetail d_profile height.
 
 Translated back to the reusable clamp's design coordinates, the accepted
-lab-Z cylinders become short **design-X** cylinders. Their circular
-centres sit just outside the two design-Z side faces. Production uses that
+lab-Z cylinders become short cylinders along **clamp design X**. Their circular
+centres sit just outside the two **clamp design Z** side faces. Production uses that
 equivalent construction directly.
 
 This is deliberately different from the previous lower-transition-foot
