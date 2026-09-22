@@ -1,0 +1,2999 @@
+{
+  "build_manifest": ".cache/scad-project/state/build-manifest.json",
+  "schema": "brainboxemb.scad-build-dependency-provenance",
+  "schema_version": 1,
+  "source_revision": "267abce8a3ac6e65f493618d2d4cc03164ea9911",
+  "targets": [
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        }
+      ],
+      "output": "bld/png/corner-edge-coupler-left-small.png",
+      "source": "dsg/openscad/render/corner-edge-coupler-left.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        }
+      ],
+      "output": "bld/png/corner-edge-coupler-left-medium.png",
+      "source": "dsg/openscad/render/corner-edge-coupler-left.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        }
+      ],
+      "output": "bld/png/corner-edge-coupler-left-large.png",
+      "source": "dsg/openscad/render/corner-edge-coupler-left.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        }
+      ],
+      "output": "bld/png/corner-edge-coupler-right-small.png",
+      "source": "dsg/openscad/render/corner-edge-coupler-right.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        }
+      ],
+      "output": "bld/png/corner-edge-coupler-right-medium.png",
+      "source": "dsg/openscad/render/corner-edge-coupler-right.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        }
+      ],
+      "output": "bld/png/corner-edge-coupler-right-large.png",
+      "source": "dsg/openscad/render/corner-edge-coupler-right.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.8",
+          "dependency_path": "dsg/openscad/ext/lib.scad.clamps",
+          "depth": 1,
+          "name": "lib.scad.clamps",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.clamps",
+          "revision": "9d5db0014b51f730acb6eb36552d42bb4e1b6e14",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.clamps"
+        },
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+            "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        },
+        {
+          "declared_ref": "v0.2.3",
+          "dependency_path": "dsg/openscad/ext/lib.scad.mechint",
+          "depth": 1,
+          "name": "lib.scad.mechint",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.mechint",
+          "revision": "a3ec45dda7a58376b35c1a121f41242797e55e6e",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint"
+        },
+        {
+          "declared_ref": "v0.2.1",
+          "dependency_path": "ext/lib.scad.forge",
+          "depth": 2,
+          "name": "lib.scad.forge",
+          "owner_path": "dsg/openscad/ext/lib.scad.mechint",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "12a62580f4d24a8ebd80b061dc2a8e368a838ace",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge"
+        }
+      ],
+      "output": "bld/png/corner-edge-tube-mount-coupler-left-small.png",
+      "source": "dsg/openscad/render/corner-edge-tube-mount-coupler-left.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.8",
+          "dependency_path": "dsg/openscad/ext/lib.scad.clamps",
+          "depth": 1,
+          "name": "lib.scad.clamps",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.clamps",
+          "revision": "9d5db0014b51f730acb6eb36552d42bb4e1b6e14",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.clamps"
+        },
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+            "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        },
+        {
+          "declared_ref": "v0.2.3",
+          "dependency_path": "dsg/openscad/ext/lib.scad.mechint",
+          "depth": 1,
+          "name": "lib.scad.mechint",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.mechint",
+          "revision": "a3ec45dda7a58376b35c1a121f41242797e55e6e",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint"
+        },
+        {
+          "declared_ref": "v0.2.1",
+          "dependency_path": "ext/lib.scad.forge",
+          "depth": 2,
+          "name": "lib.scad.forge",
+          "owner_path": "dsg/openscad/ext/lib.scad.mechint",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "12a62580f4d24a8ebd80b061dc2a8e368a838ace",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge"
+        }
+      ],
+      "output": "bld/png/corner-edge-tube-mount-coupler-left-medium.png",
+      "source": "dsg/openscad/render/corner-edge-tube-mount-coupler-left.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.8",
+          "dependency_path": "dsg/openscad/ext/lib.scad.clamps",
+          "depth": 1,
+          "name": "lib.scad.clamps",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.clamps",
+          "revision": "9d5db0014b51f730acb6eb36552d42bb4e1b6e14",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.clamps"
+        },
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+            "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        },
+        {
+          "declared_ref": "v0.2.3",
+          "dependency_path": "dsg/openscad/ext/lib.scad.mechint",
+          "depth": 1,
+          "name": "lib.scad.mechint",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.mechint",
+          "revision": "a3ec45dda7a58376b35c1a121f41242797e55e6e",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint"
+        },
+        {
+          "declared_ref": "v0.2.1",
+          "dependency_path": "ext/lib.scad.forge",
+          "depth": 2,
+          "name": "lib.scad.forge",
+          "owner_path": "dsg/openscad/ext/lib.scad.mechint",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "12a62580f4d24a8ebd80b061dc2a8e368a838ace",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge"
+        }
+      ],
+      "output": "bld/png/corner-edge-tube-mount-coupler-left-large.png",
+      "source": "dsg/openscad/render/corner-edge-tube-mount-coupler-left.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.8",
+          "dependency_path": "dsg/openscad/ext/lib.scad.clamps",
+          "depth": 1,
+          "name": "lib.scad.clamps",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.clamps",
+          "revision": "9d5db0014b51f730acb6eb36552d42bb4e1b6e14",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.clamps"
+        },
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+            "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        },
+        {
+          "declared_ref": "v0.2.3",
+          "dependency_path": "dsg/openscad/ext/lib.scad.mechint",
+          "depth": 1,
+          "name": "lib.scad.mechint",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.mechint",
+          "revision": "a3ec45dda7a58376b35c1a121f41242797e55e6e",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint"
+        },
+        {
+          "declared_ref": "v0.2.1",
+          "dependency_path": "ext/lib.scad.forge",
+          "depth": 2,
+          "name": "lib.scad.forge",
+          "owner_path": "dsg/openscad/ext/lib.scad.mechint",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "12a62580f4d24a8ebd80b061dc2a8e368a838ace",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge"
+        }
+      ],
+      "output": "bld/png/corner-edge-tube-mount-coupler-right-small.png",
+      "source": "dsg/openscad/render/corner-edge-tube-mount-coupler-right.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.8",
+          "dependency_path": "dsg/openscad/ext/lib.scad.clamps",
+          "depth": 1,
+          "name": "lib.scad.clamps",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.clamps",
+          "revision": "9d5db0014b51f730acb6eb36552d42bb4e1b6e14",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.clamps"
+        },
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+            "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        },
+        {
+          "declared_ref": "v0.2.3",
+          "dependency_path": "dsg/openscad/ext/lib.scad.mechint",
+          "depth": 1,
+          "name": "lib.scad.mechint",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.mechint",
+          "revision": "a3ec45dda7a58376b35c1a121f41242797e55e6e",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint"
+        },
+        {
+          "declared_ref": "v0.2.1",
+          "dependency_path": "ext/lib.scad.forge",
+          "depth": 2,
+          "name": "lib.scad.forge",
+          "owner_path": "dsg/openscad/ext/lib.scad.mechint",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "12a62580f4d24a8ebd80b061dc2a8e368a838ace",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge"
+        }
+      ],
+      "output": "bld/png/corner-edge-tube-mount-coupler-right-medium.png",
+      "source": "dsg/openscad/render/corner-edge-tube-mount-coupler-right.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.8",
+          "dependency_path": "dsg/openscad/ext/lib.scad.clamps",
+          "depth": 1,
+          "name": "lib.scad.clamps",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.clamps",
+          "revision": "9d5db0014b51f730acb6eb36552d42bb4e1b6e14",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.clamps"
+        },
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+            "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        },
+        {
+          "declared_ref": "v0.2.3",
+          "dependency_path": "dsg/openscad/ext/lib.scad.mechint",
+          "depth": 1,
+          "name": "lib.scad.mechint",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.mechint",
+          "revision": "a3ec45dda7a58376b35c1a121f41242797e55e6e",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint"
+        },
+        {
+          "declared_ref": "v0.2.1",
+          "dependency_path": "ext/lib.scad.forge",
+          "depth": 2,
+          "name": "lib.scad.forge",
+          "owner_path": "dsg/openscad/ext/lib.scad.mechint",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "12a62580f4d24a8ebd80b061dc2a8e368a838ace",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge"
+        }
+      ],
+      "output": "bld/png/corner-edge-tube-mount-coupler-right-large.png",
+      "source": "dsg/openscad/render/corner-edge-tube-mount-coupler-right.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.8",
+          "dependency_path": "dsg/openscad/ext/lib.scad.clamps",
+          "depth": 1,
+          "name": "lib.scad.clamps",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.clamps",
+          "revision": "9d5db0014b51f730acb6eb36552d42bb4e1b6e14",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.clamps"
+        },
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+            "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        },
+        {
+          "declared_ref": "v0.2.3",
+          "dependency_path": "dsg/openscad/ext/lib.scad.mechint",
+          "depth": 1,
+          "name": "lib.scad.mechint",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.mechint",
+          "revision": "a3ec45dda7a58376b35c1a121f41242797e55e6e",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint"
+        },
+        {
+          "declared_ref": "v0.2.1",
+          "dependency_path": "ext/lib.scad.forge",
+          "depth": 2,
+          "name": "lib.scad.forge",
+          "owner_path": "dsg/openscad/ext/lib.scad.mechint",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "12a62580f4d24a8ebd80b061dc2a8e368a838ace",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge"
+        }
+      ],
+      "output": "bld/png/dovetail-tube-clamp-small.png",
+      "source": "dsg/openscad/render/dovetail-tube-clamp.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.8",
+          "dependency_path": "dsg/openscad/ext/lib.scad.clamps",
+          "depth": 1,
+          "name": "lib.scad.clamps",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.clamps",
+          "revision": "9d5db0014b51f730acb6eb36552d42bb4e1b6e14",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.clamps"
+        },
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+            "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        },
+        {
+          "declared_ref": "v0.2.3",
+          "dependency_path": "dsg/openscad/ext/lib.scad.mechint",
+          "depth": 1,
+          "name": "lib.scad.mechint",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.mechint",
+          "revision": "a3ec45dda7a58376b35c1a121f41242797e55e6e",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint"
+        },
+        {
+          "declared_ref": "v0.2.1",
+          "dependency_path": "ext/lib.scad.forge",
+          "depth": 2,
+          "name": "lib.scad.forge",
+          "owner_path": "dsg/openscad/ext/lib.scad.mechint",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "12a62580f4d24a8ebd80b061dc2a8e368a838ace",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge"
+        }
+      ],
+      "output": "bld/png/dovetail-tube-clamp-medium.png",
+      "source": "dsg/openscad/render/dovetail-tube-clamp.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.8",
+          "dependency_path": "dsg/openscad/ext/lib.scad.clamps",
+          "depth": 1,
+          "name": "lib.scad.clamps",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.clamps",
+          "revision": "9d5db0014b51f730acb6eb36552d42bb4e1b6e14",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.clamps"
+        },
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+            "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        },
+        {
+          "declared_ref": "v0.2.3",
+          "dependency_path": "dsg/openscad/ext/lib.scad.mechint",
+          "depth": 1,
+          "name": "lib.scad.mechint",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.mechint",
+          "revision": "a3ec45dda7a58376b35c1a121f41242797e55e6e",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint"
+        },
+        {
+          "declared_ref": "v0.2.1",
+          "dependency_path": "ext/lib.scad.forge",
+          "depth": 2,
+          "name": "lib.scad.forge",
+          "owner_path": "dsg/openscad/ext/lib.scad.mechint",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "12a62580f4d24a8ebd80b061dc2a8e368a838ace",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge"
+        }
+      ],
+      "output": "bld/png/dovetail-tube-clamp-large.png",
+      "source": "dsg/openscad/render/dovetail-tube-clamp.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        }
+      ],
+      "output": "bld/png/front-angled.png",
+      "source": "dsg/openscad/render/front-angled.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        }
+      ],
+      "output": "bld/png/front.png",
+      "source": "dsg/openscad/render/front.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        }
+      ],
+      "output": "bld/png/horizontal-edge-coupler-small.png",
+      "source": "dsg/openscad/render/horizontal-edge-coupler.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        }
+      ],
+      "output": "bld/png/horizontal-edge-coupler-medium.png",
+      "source": "dsg/openscad/render/horizontal-edge-coupler.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        }
+      ],
+      "output": "bld/png/horizontal-edge-coupler-large.png",
+      "source": "dsg/openscad/render/horizontal-edge-coupler.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.8",
+          "dependency_path": "dsg/openscad/ext/lib.scad.clamps",
+          "depth": 1,
+          "name": "lib.scad.clamps",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.clamps",
+          "revision": "9d5db0014b51f730acb6eb36552d42bb4e1b6e14",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.clamps"
+        },
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+            "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        },
+        {
+          "declared_ref": "v0.2.3",
+          "dependency_path": "dsg/openscad/ext/lib.scad.mechint",
+          "depth": 1,
+          "name": "lib.scad.mechint",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.mechint",
+          "revision": "a3ec45dda7a58376b35c1a121f41242797e55e6e",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint"
+        },
+        {
+          "declared_ref": "v0.2.1",
+          "dependency_path": "ext/lib.scad.forge",
+          "depth": 2,
+          "name": "lib.scad.forge",
+          "owner_path": "dsg/openscad/ext/lib.scad.mechint",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "12a62580f4d24a8ebd80b061dc2a8e368a838ace",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge"
+        }
+      ],
+      "output": "bld/png/horizontal-edge-tube-mount-coupler-small.png",
+      "source": "dsg/openscad/render/horizontal-edge-tube-mount-coupler.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.8",
+          "dependency_path": "dsg/openscad/ext/lib.scad.clamps",
+          "depth": 1,
+          "name": "lib.scad.clamps",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.clamps",
+          "revision": "9d5db0014b51f730acb6eb36552d42bb4e1b6e14",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.clamps"
+        },
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+            "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        },
+        {
+          "declared_ref": "v0.2.3",
+          "dependency_path": "dsg/openscad/ext/lib.scad.mechint",
+          "depth": 1,
+          "name": "lib.scad.mechint",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.mechint",
+          "revision": "a3ec45dda7a58376b35c1a121f41242797e55e6e",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint"
+        },
+        {
+          "declared_ref": "v0.2.1",
+          "dependency_path": "ext/lib.scad.forge",
+          "depth": 2,
+          "name": "lib.scad.forge",
+          "owner_path": "dsg/openscad/ext/lib.scad.mechint",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "12a62580f4d24a8ebd80b061dc2a8e368a838ace",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge"
+        }
+      ],
+      "output": "bld/png/horizontal-edge-tube-mount-coupler-medium.png",
+      "source": "dsg/openscad/render/horizontal-edge-tube-mount-coupler.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.8",
+          "dependency_path": "dsg/openscad/ext/lib.scad.clamps",
+          "depth": 1,
+          "name": "lib.scad.clamps",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.clamps",
+          "revision": "9d5db0014b51f730acb6eb36552d42bb4e1b6e14",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.clamps"
+        },
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+            "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        },
+        {
+          "declared_ref": "v0.2.3",
+          "dependency_path": "dsg/openscad/ext/lib.scad.mechint",
+          "depth": 1,
+          "name": "lib.scad.mechint",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.mechint",
+          "revision": "a3ec45dda7a58376b35c1a121f41242797e55e6e",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint"
+        },
+        {
+          "declared_ref": "v0.2.1",
+          "dependency_path": "ext/lib.scad.forge",
+          "depth": 2,
+          "name": "lib.scad.forge",
+          "owner_path": "dsg/openscad/ext/lib.scad.mechint",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "12a62580f4d24a8ebd80b061dc2a8e368a838ace",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge"
+        }
+      ],
+      "output": "bld/png/horizontal-edge-tube-mount-coupler-large.png",
+      "source": "dsg/openscad/render/horizontal-edge-tube-mount-coupler.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        }
+      ],
+      "output": "bld/png/middle-coupler-small.png",
+      "source": "dsg/openscad/render/middle-coupler.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        }
+      ],
+      "output": "bld/png/middle-coupler-medium.png",
+      "source": "dsg/openscad/render/middle-coupler.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        }
+      ],
+      "output": "bld/png/middle-coupler-large.png",
+      "source": "dsg/openscad/render/middle-coupler.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.8",
+          "dependency_path": "dsg/openscad/ext/lib.scad.clamps",
+          "depth": 1,
+          "name": "lib.scad.clamps",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.clamps",
+          "revision": "9d5db0014b51f730acb6eb36552d42bb4e1b6e14",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.clamps"
+        },
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+            "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        },
+        {
+          "declared_ref": "v0.2.3",
+          "dependency_path": "dsg/openscad/ext/lib.scad.mechint",
+          "depth": 1,
+          "name": "lib.scad.mechint",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.mechint",
+          "revision": "a3ec45dda7a58376b35c1a121f41242797e55e6e",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint"
+        },
+        {
+          "declared_ref": "v0.2.1",
+          "dependency_path": "ext/lib.scad.forge",
+          "depth": 2,
+          "name": "lib.scad.forge",
+          "owner_path": "dsg/openscad/ext/lib.scad.mechint",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "12a62580f4d24a8ebd80b061dc2a8e368a838ace",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge"
+        }
+      ],
+      "output": "bld/png/rear-angled-couplers-only.png",
+      "source": "dsg/openscad/render/rear-angled-couplers-only.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.8",
+          "dependency_path": "dsg/openscad/ext/lib.scad.clamps",
+          "depth": 1,
+          "name": "lib.scad.clamps",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.clamps",
+          "revision": "9d5db0014b51f730acb6eb36552d42bb4e1b6e14",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.clamps"
+        },
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+            "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        },
+        {
+          "declared_ref": "v0.2.3",
+          "dependency_path": "dsg/openscad/ext/lib.scad.mechint",
+          "depth": 1,
+          "name": "lib.scad.mechint",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.mechint",
+          "revision": "a3ec45dda7a58376b35c1a121f41242797e55e6e",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint"
+        },
+        {
+          "declared_ref": "v0.2.1",
+          "dependency_path": "ext/lib.scad.forge",
+          "depth": 2,
+          "name": "lib.scad.forge",
+          "owner_path": "dsg/openscad/ext/lib.scad.mechint",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "12a62580f4d24a8ebd80b061dc2a8e368a838ace",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge"
+        }
+      ],
+      "output": "bld/png/rear-angled-couplers.png",
+      "source": "dsg/openscad/render/rear-angled-couplers.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.8",
+          "dependency_path": "dsg/openscad/ext/lib.scad.clamps",
+          "depth": 1,
+          "name": "lib.scad.clamps",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.clamps",
+          "revision": "9d5db0014b51f730acb6eb36552d42bb4e1b6e14",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.clamps"
+        },
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+            "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        },
+        {
+          "declared_ref": "v0.2.3",
+          "dependency_path": "dsg/openscad/ext/lib.scad.mechint",
+          "depth": 1,
+          "name": "lib.scad.mechint",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.mechint",
+          "revision": "a3ec45dda7a58376b35c1a121f41242797e55e6e",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint"
+        },
+        {
+          "declared_ref": "v0.2.1",
+          "dependency_path": "ext/lib.scad.forge",
+          "depth": 2,
+          "name": "lib.scad.forge",
+          "owner_path": "dsg/openscad/ext/lib.scad.mechint",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "12a62580f4d24a8ebd80b061dc2a8e368a838ace",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge"
+        }
+      ],
+      "output": "bld/png/rear-angled-exploded.png",
+      "source": "dsg/openscad/render/rear-angled-exploded.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        }
+      ],
+      "output": "bld/png/rear-angled.png",
+      "source": "dsg/openscad/render/rear-angled.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        }
+      ],
+      "output": "bld/png/rear.png",
+      "source": "dsg/openscad/render/rear.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        }
+      ],
+      "output": "bld/stl/corner-edge-coupler-left-small.stl",
+      "source": "dsg/openscad/export/corner-edge-coupler-left.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        }
+      ],
+      "output": "bld/stl/corner-edge-coupler-left-medium.stl",
+      "source": "dsg/openscad/export/corner-edge-coupler-left.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        }
+      ],
+      "output": "bld/stl/corner-edge-coupler-left-large.stl",
+      "source": "dsg/openscad/export/corner-edge-coupler-left.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        }
+      ],
+      "output": "bld/stl/corner-edge-coupler-right-small.stl",
+      "source": "dsg/openscad/export/corner-edge-coupler-right.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        }
+      ],
+      "output": "bld/stl/corner-edge-coupler-right-medium.stl",
+      "source": "dsg/openscad/export/corner-edge-coupler-right.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        }
+      ],
+      "output": "bld/stl/corner-edge-coupler-right-large.stl",
+      "source": "dsg/openscad/export/corner-edge-coupler-right.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.8",
+          "dependency_path": "dsg/openscad/ext/lib.scad.clamps",
+          "depth": 1,
+          "name": "lib.scad.clamps",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.clamps",
+          "revision": "9d5db0014b51f730acb6eb36552d42bb4e1b6e14",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.clamps"
+        },
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+            "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        },
+        {
+          "declared_ref": "v0.2.3",
+          "dependency_path": "dsg/openscad/ext/lib.scad.mechint",
+          "depth": 1,
+          "name": "lib.scad.mechint",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.mechint",
+          "revision": "a3ec45dda7a58376b35c1a121f41242797e55e6e",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint"
+        },
+        {
+          "declared_ref": "v0.2.1",
+          "dependency_path": "ext/lib.scad.forge",
+          "depth": 2,
+          "name": "lib.scad.forge",
+          "owner_path": "dsg/openscad/ext/lib.scad.mechint",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "12a62580f4d24a8ebd80b061dc2a8e368a838ace",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge"
+        }
+      ],
+      "output": "bld/stl/corner-edge-tube-mount-coupler-left-small.stl",
+      "source": "dsg/openscad/export/corner-edge-tube-mount-coupler-left.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.8",
+          "dependency_path": "dsg/openscad/ext/lib.scad.clamps",
+          "depth": 1,
+          "name": "lib.scad.clamps",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.clamps",
+          "revision": "9d5db0014b51f730acb6eb36552d42bb4e1b6e14",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.clamps"
+        },
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+            "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        },
+        {
+          "declared_ref": "v0.2.3",
+          "dependency_path": "dsg/openscad/ext/lib.scad.mechint",
+          "depth": 1,
+          "name": "lib.scad.mechint",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.mechint",
+          "revision": "a3ec45dda7a58376b35c1a121f41242797e55e6e",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint"
+        },
+        {
+          "declared_ref": "v0.2.1",
+          "dependency_path": "ext/lib.scad.forge",
+          "depth": 2,
+          "name": "lib.scad.forge",
+          "owner_path": "dsg/openscad/ext/lib.scad.mechint",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "12a62580f4d24a8ebd80b061dc2a8e368a838ace",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge"
+        }
+      ],
+      "output": "bld/stl/corner-edge-tube-mount-coupler-left-medium.stl",
+      "source": "dsg/openscad/export/corner-edge-tube-mount-coupler-left.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.8",
+          "dependency_path": "dsg/openscad/ext/lib.scad.clamps",
+          "depth": 1,
+          "name": "lib.scad.clamps",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.clamps",
+          "revision": "9d5db0014b51f730acb6eb36552d42bb4e1b6e14",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.clamps"
+        },
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+            "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        },
+        {
+          "declared_ref": "v0.2.3",
+          "dependency_path": "dsg/openscad/ext/lib.scad.mechint",
+          "depth": 1,
+          "name": "lib.scad.mechint",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.mechint",
+          "revision": "a3ec45dda7a58376b35c1a121f41242797e55e6e",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint"
+        },
+        {
+          "declared_ref": "v0.2.1",
+          "dependency_path": "ext/lib.scad.forge",
+          "depth": 2,
+          "name": "lib.scad.forge",
+          "owner_path": "dsg/openscad/ext/lib.scad.mechint",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "12a62580f4d24a8ebd80b061dc2a8e368a838ace",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge"
+        }
+      ],
+      "output": "bld/stl/corner-edge-tube-mount-coupler-left-large.stl",
+      "source": "dsg/openscad/export/corner-edge-tube-mount-coupler-left.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.8",
+          "dependency_path": "dsg/openscad/ext/lib.scad.clamps",
+          "depth": 1,
+          "name": "lib.scad.clamps",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.clamps",
+          "revision": "9d5db0014b51f730acb6eb36552d42bb4e1b6e14",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.clamps"
+        },
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+            "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        },
+        {
+          "declared_ref": "v0.2.3",
+          "dependency_path": "dsg/openscad/ext/lib.scad.mechint",
+          "depth": 1,
+          "name": "lib.scad.mechint",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.mechint",
+          "revision": "a3ec45dda7a58376b35c1a121f41242797e55e6e",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint"
+        },
+        {
+          "declared_ref": "v0.2.1",
+          "dependency_path": "ext/lib.scad.forge",
+          "depth": 2,
+          "name": "lib.scad.forge",
+          "owner_path": "dsg/openscad/ext/lib.scad.mechint",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "12a62580f4d24a8ebd80b061dc2a8e368a838ace",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge"
+        }
+      ],
+      "output": "bld/stl/corner-edge-tube-mount-coupler-right-small.stl",
+      "source": "dsg/openscad/export/corner-edge-tube-mount-coupler-right.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.8",
+          "dependency_path": "dsg/openscad/ext/lib.scad.clamps",
+          "depth": 1,
+          "name": "lib.scad.clamps",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.clamps",
+          "revision": "9d5db0014b51f730acb6eb36552d42bb4e1b6e14",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.clamps"
+        },
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+            "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        },
+        {
+          "declared_ref": "v0.2.3",
+          "dependency_path": "dsg/openscad/ext/lib.scad.mechint",
+          "depth": 1,
+          "name": "lib.scad.mechint",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.mechint",
+          "revision": "a3ec45dda7a58376b35c1a121f41242797e55e6e",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint"
+        },
+        {
+          "declared_ref": "v0.2.1",
+          "dependency_path": "ext/lib.scad.forge",
+          "depth": 2,
+          "name": "lib.scad.forge",
+          "owner_path": "dsg/openscad/ext/lib.scad.mechint",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "12a62580f4d24a8ebd80b061dc2a8e368a838ace",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge"
+        }
+      ],
+      "output": "bld/stl/corner-edge-tube-mount-coupler-right-medium.stl",
+      "source": "dsg/openscad/export/corner-edge-tube-mount-coupler-right.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.8",
+          "dependency_path": "dsg/openscad/ext/lib.scad.clamps",
+          "depth": 1,
+          "name": "lib.scad.clamps",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.clamps",
+          "revision": "9d5db0014b51f730acb6eb36552d42bb4e1b6e14",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.clamps"
+        },
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+            "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        },
+        {
+          "declared_ref": "v0.2.3",
+          "dependency_path": "dsg/openscad/ext/lib.scad.mechint",
+          "depth": 1,
+          "name": "lib.scad.mechint",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.mechint",
+          "revision": "a3ec45dda7a58376b35c1a121f41242797e55e6e",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint"
+        },
+        {
+          "declared_ref": "v0.2.1",
+          "dependency_path": "ext/lib.scad.forge",
+          "depth": 2,
+          "name": "lib.scad.forge",
+          "owner_path": "dsg/openscad/ext/lib.scad.mechint",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "12a62580f4d24a8ebd80b061dc2a8e368a838ace",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge"
+        }
+      ],
+      "output": "bld/stl/corner-edge-tube-mount-coupler-right-large.stl",
+      "source": "dsg/openscad/export/corner-edge-tube-mount-coupler-right.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.8",
+          "dependency_path": "dsg/openscad/ext/lib.scad.clamps",
+          "depth": 1,
+          "name": "lib.scad.clamps",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.clamps",
+          "revision": "9d5db0014b51f730acb6eb36552d42bb4e1b6e14",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.clamps"
+        },
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+            "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        },
+        {
+          "declared_ref": "v0.2.3",
+          "dependency_path": "dsg/openscad/ext/lib.scad.mechint",
+          "depth": 1,
+          "name": "lib.scad.mechint",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.mechint",
+          "revision": "a3ec45dda7a58376b35c1a121f41242797e55e6e",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint"
+        },
+        {
+          "declared_ref": "v0.2.1",
+          "dependency_path": "ext/lib.scad.forge",
+          "depth": 2,
+          "name": "lib.scad.forge",
+          "owner_path": "dsg/openscad/ext/lib.scad.mechint",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "12a62580f4d24a8ebd80b061dc2a8e368a838ace",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge"
+        }
+      ],
+      "output": "bld/stl/dovetail-tube-clamp-small.stl",
+      "source": "dsg/openscad/export/dovetail-tube-clamp.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.8",
+          "dependency_path": "dsg/openscad/ext/lib.scad.clamps",
+          "depth": 1,
+          "name": "lib.scad.clamps",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.clamps",
+          "revision": "9d5db0014b51f730acb6eb36552d42bb4e1b6e14",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.clamps"
+        },
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+            "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        },
+        {
+          "declared_ref": "v0.2.3",
+          "dependency_path": "dsg/openscad/ext/lib.scad.mechint",
+          "depth": 1,
+          "name": "lib.scad.mechint",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.mechint",
+          "revision": "a3ec45dda7a58376b35c1a121f41242797e55e6e",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint"
+        },
+        {
+          "declared_ref": "v0.2.1",
+          "dependency_path": "ext/lib.scad.forge",
+          "depth": 2,
+          "name": "lib.scad.forge",
+          "owner_path": "dsg/openscad/ext/lib.scad.mechint",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "12a62580f4d24a8ebd80b061dc2a8e368a838ace",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge"
+        }
+      ],
+      "output": "bld/stl/dovetail-tube-clamp-medium.stl",
+      "source": "dsg/openscad/export/dovetail-tube-clamp.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.8",
+          "dependency_path": "dsg/openscad/ext/lib.scad.clamps",
+          "depth": 1,
+          "name": "lib.scad.clamps",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.clamps",
+          "revision": "9d5db0014b51f730acb6eb36552d42bb4e1b6e14",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.clamps"
+        },
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+            "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        },
+        {
+          "declared_ref": "v0.2.3",
+          "dependency_path": "dsg/openscad/ext/lib.scad.mechint",
+          "depth": 1,
+          "name": "lib.scad.mechint",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.mechint",
+          "revision": "a3ec45dda7a58376b35c1a121f41242797e55e6e",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint"
+        },
+        {
+          "declared_ref": "v0.2.1",
+          "dependency_path": "ext/lib.scad.forge",
+          "depth": 2,
+          "name": "lib.scad.forge",
+          "owner_path": "dsg/openscad/ext/lib.scad.mechint",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "12a62580f4d24a8ebd80b061dc2a8e368a838ace",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge"
+        }
+      ],
+      "output": "bld/stl/dovetail-tube-clamp-large.stl",
+      "source": "dsg/openscad/export/dovetail-tube-clamp.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        }
+      ],
+      "output": "bld/stl/horizontal-edge-coupler-small.stl",
+      "source": "dsg/openscad/export/horizontal-edge-coupler.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        }
+      ],
+      "output": "bld/stl/horizontal-edge-coupler-medium.stl",
+      "source": "dsg/openscad/export/horizontal-edge-coupler.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        }
+      ],
+      "output": "bld/stl/horizontal-edge-coupler-large.stl",
+      "source": "dsg/openscad/export/horizontal-edge-coupler.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.8",
+          "dependency_path": "dsg/openscad/ext/lib.scad.clamps",
+          "depth": 1,
+          "name": "lib.scad.clamps",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.clamps",
+          "revision": "9d5db0014b51f730acb6eb36552d42bb4e1b6e14",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.clamps"
+        },
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+            "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        },
+        {
+          "declared_ref": "v0.2.3",
+          "dependency_path": "dsg/openscad/ext/lib.scad.mechint",
+          "depth": 1,
+          "name": "lib.scad.mechint",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.mechint",
+          "revision": "a3ec45dda7a58376b35c1a121f41242797e55e6e",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint"
+        },
+        {
+          "declared_ref": "v0.2.1",
+          "dependency_path": "ext/lib.scad.forge",
+          "depth": 2,
+          "name": "lib.scad.forge",
+          "owner_path": "dsg/openscad/ext/lib.scad.mechint",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "12a62580f4d24a8ebd80b061dc2a8e368a838ace",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge"
+        }
+      ],
+      "output": "bld/stl/horizontal-edge-tube-mount-coupler-small.stl",
+      "source": "dsg/openscad/export/horizontal-edge-tube-mount-coupler.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.8",
+          "dependency_path": "dsg/openscad/ext/lib.scad.clamps",
+          "depth": 1,
+          "name": "lib.scad.clamps",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.clamps",
+          "revision": "9d5db0014b51f730acb6eb36552d42bb4e1b6e14",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.clamps"
+        },
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+            "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        },
+        {
+          "declared_ref": "v0.2.3",
+          "dependency_path": "dsg/openscad/ext/lib.scad.mechint",
+          "depth": 1,
+          "name": "lib.scad.mechint",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.mechint",
+          "revision": "a3ec45dda7a58376b35c1a121f41242797e55e6e",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint"
+        },
+        {
+          "declared_ref": "v0.2.1",
+          "dependency_path": "ext/lib.scad.forge",
+          "depth": 2,
+          "name": "lib.scad.forge",
+          "owner_path": "dsg/openscad/ext/lib.scad.mechint",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "12a62580f4d24a8ebd80b061dc2a8e368a838ace",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge"
+        }
+      ],
+      "output": "bld/stl/horizontal-edge-tube-mount-coupler-medium.stl",
+      "source": "dsg/openscad/export/horizontal-edge-tube-mount-coupler.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.8",
+          "dependency_path": "dsg/openscad/ext/lib.scad.clamps",
+          "depth": 1,
+          "name": "lib.scad.clamps",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.clamps",
+          "revision": "9d5db0014b51f730acb6eb36552d42bb4e1b6e14",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.clamps"
+        },
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+            "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        },
+        {
+          "declared_ref": "v0.2.3",
+          "dependency_path": "dsg/openscad/ext/lib.scad.mechint",
+          "depth": 1,
+          "name": "lib.scad.mechint",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.mechint",
+          "revision": "a3ec45dda7a58376b35c1a121f41242797e55e6e",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint"
+        },
+        {
+          "declared_ref": "v0.2.1",
+          "dependency_path": "ext/lib.scad.forge",
+          "depth": 2,
+          "name": "lib.scad.forge",
+          "owner_path": "dsg/openscad/ext/lib.scad.mechint",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "12a62580f4d24a8ebd80b061dc2a8e368a838ace",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge"
+        }
+      ],
+      "output": "bld/stl/horizontal-edge-tube-mount-coupler-large.stl",
+      "source": "dsg/openscad/export/horizontal-edge-tube-mount-coupler.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        }
+      ],
+      "output": "bld/stl/middle-coupler-small.stl",
+      "source": "dsg/openscad/export/middle-coupler.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        }
+      ],
+      "output": "bld/stl/middle-coupler-medium.stl",
+      "source": "dsg/openscad/export/middle-coupler.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        }
+      ],
+      "output": "bld/stl/middle-coupler-large.stl",
+      "source": "dsg/openscad/export/middle-coupler.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        }
+      ],
+      "output": "bld/stl/panels-assembly.stl",
+      "source": "dsg/openscad/export/panels-assembly.scad"
+    },
+    {
+      "dependencies": [
+        {
+          "declared_ref": "v0.1.8",
+          "dependency_path": "dsg/openscad/ext/lib.scad.clamps",
+          "depth": 1,
+          "name": "lib.scad.clamps",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.clamps",
+          "revision": "9d5db0014b51f730acb6eb36552d42bb4e1b6e14",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.clamps"
+        },
+        {
+          "declared_ref": "v0.2.2",
+          "dependency_path": "dsg/openscad/ext/lib.scad.forge",
+          "depth": 1,
+          "name": "lib.scad.forge",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+            "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.forge"
+        },
+        {
+          "declared_ref": "v0.1.5",
+          "dependency_path": "dsg/openscad/ext/lib.scad.hub75",
+          "depth": 1,
+          "name": "lib.scad.hub75",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.hub75",
+          "revision": "e0432a9533a08a1c0d9e87225c22f3f66b632531",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.hub75"
+        },
+        {
+          "declared_ref": "v0.2.3",
+          "dependency_path": "dsg/openscad/ext/lib.scad.mechint",
+          "depth": 1,
+          "name": "lib.scad.mechint",
+          "owner_path": ".",
+          "repository": "https://github.com/brainboxemb/lib.scad.mechint",
+          "revision": "a3ec45dda7a58376b35c1a121f41242797e55e6e",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+            "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint"
+        },
+        {
+          "declared_ref": "v0.2.1",
+          "dependency_path": "ext/lib.scad.forge",
+          "depth": 2,
+          "name": "lib.scad.forge",
+          "owner_path": "dsg/openscad/ext/lib.scad.mechint",
+          "repository": "https://github.com/brainboxemb/lib.scad.forge",
+          "revision": "12a62580f4d24a8ebd80b061dc2a8e368a838ace",
+          "used_sources": [
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+            "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad"
+          ],
+          "worktree_path": "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge"
+        }
+      ],
+      "output": "bld/stl/tube-mount-display-2-panel.stl",
+      "source": "dsg/openscad/export/tube-mount-display-2-panel.scad"
+    }
+  ]
+}

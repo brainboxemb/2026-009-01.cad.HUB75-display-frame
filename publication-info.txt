@@ -1,0 +1,68 @@
+Publication context : release
+Publication kind    : build
+Publication branch  : rel/v0.0.4/bld
+
+Source
+------
+Repository          : brainboxemb/2026-009-01.cad.HUB75-display-frame
+Ref type            : tag
+Ref                 : v0.0.4
+Commit              : 267abce8a3ac6e65f493618d2d4cc03164ea9911
+Triggered by        : brainboxemb
+Workflow run        : https://github.com/brainboxemb/2026-009-01.cad.HUB75-display-frame/actions/runs/35743095726
+
+Tooling
+-------
+SCAD toolchain image: ghcr.io/brainboxemb/scad-toolchain-openscad:v0.6.1
+SCAD toolchain ver. : v0.6.1
+tool.scad-project   : v0.15.8
+
+Git submodules
+--------------
+dsg/openscad/ext/lib.scad.clamps : 9d5db0014b51f730acb6eb36552d42bb4e1b6e14
+dsg/openscad/ext/lib.scad.clamps/tools/tool.git-project : 7c43f37e7b07cfb57638a1d1dad2501de09ba7eb
+dsg/openscad/ext/lib.scad.clamps/tools/tool.scad-project : a140b22858ac1899e7f2fa71b679639a70d819c3
+dsg/openscad/ext/lib.scad.forge : ae8a5f6e170c496ee76ce0a327fb8dfe46fb8f6d
+dsg/openscad/ext/lib.scad.forge/tools/tool.git-project : 9879da589101f41b2b0e634d196ddcc51e1a6102
+dsg/openscad/ext/lib.scad.forge/tools/tool.scad-project : 70fd4162731484a949dc390e942dde8b8d811f10
+dsg/openscad/ext/lib.scad.hub75 : e0432a9533a08a1c0d9e87225c22f3f66b632531
+dsg/openscad/ext/lib.scad.hub75/tools/tool.git-project : 7c43f37e7b07cfb57638a1d1dad2501de09ba7eb
+dsg/openscad/ext/lib.scad.hub75/tools/tool.scad-project : b86b2be325f64847b8d91b7f2596bfd4e4ffb7f2
+dsg/openscad/ext/lib.scad.mechint : a3ec45dda7a58376b35c1a121f41242797e55e6e
+dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge : 12a62580f4d24a8ebd80b061dc2a8e368a838ace
+dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/tools/tool.git-project : 9879da589101f41b2b0e634d196ddcc51e1a6102
+dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/tools/tool.scad-project : 70fd4162731484a949dc390e942dde8b8d811f10
+dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.util : 604970732671b3889f072f5fc744ca872326e69c
+dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.util/tools/tool.git-project : 7c43f37e7b07cfb57638a1d1dad2501de09ba7eb
+dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.util/tools/tool.scad-project : 78e26949c6f2397ed90bb7888c1386d3dd423312
+dsg/openscad/ext/lib.scad.mechint/tools/tool.git-project : 9879da589101f41b2b0e634d196ddcc51e1a6102
+dsg/openscad/ext/lib.scad.mechint/tools/tool.scad-project : 70fd4162731484a949dc390e942dde8b8d811f10
+dsg/openscad/ext/lib.scad.util : 604970732671b3889f072f5fc744ca872326e69c
+dsg/openscad/ext/lib.scad.util/tools/tool.git-project : 7c43f37e7b07cfb57638a1d1dad2501de09ba7eb
+dsg/openscad/ext/lib.scad.util/tools/tool.scad-project : 78e26949c6f2397ed90bb7888c1386d3dd423312
+tools/tool.git-project : 9879da589101f41b2b0e634d196ddcc51e1a6102
+tools/tool.scad-project : a029ec3719df2ee5e4899790a8424ff731959986
+
+Runtime components
+------------------
+SCAD toolchain
+==============
+Profile    : openscad
+Toolchain  : v0.6.1
+OpenSCAD   : OpenSCAD version 2026.09.17.nightly
+PythonSCAD : not installed
+Python     : Python 3.12.3
+Git        : git version 2.43.0
+SCons      : 4.11.1
+Inkscape   : not installed
+drawsvg    : not installed
+BOSL2      : v2.0.752
+pybosl2    : not installed
+Shapely    : not installed
+docsgen    : 2.0.55
+Pillow     : 12.3.0
+OPENSCADPATH: /opt/openscad-libraries
+BOSL2_ROOT  : /opt/openscad-libraries/BOSL2
+PYTHONPATH : /__w/2026-009-01.cad.HUB75-display-frame/2026-009-01.cad.HUB75-display-frame/tools/tool.scad-project/src
+Acknowledgments TXT: /usr/share/doc/scad-toolchain/OPEN_SOURCE_ACKNOWLEDGMENTS.txt
+Acknowledgments PDF: /usr/share/doc/scad-toolchain/OPEN_SOURCE_ACKNOWLEDGMENTS.pdf

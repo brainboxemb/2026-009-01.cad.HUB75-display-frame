@@ -1,0 +1,202 @@
+# HUB75 tube horizontal-edge coupler — design
+
+
+
+## Purpose
+
+This component adds the aluminium-tube interface **around** the accepted
+HUB75 horizontal-edge coupler.  The panel-facing core coupler remains a separate
+component under `components/hub75/`.
+
+The tube-aware component is deliberately constructed in functional order:
+
+```text
+accepted HUB75 core coupler
+    ↓
+make room for the aluminium tube
+    ↓
+derive where the clamps belong
+    ↓
+add load-carrying rear carriers
+    ↓
+cut top-entry female dovetails
+    ↓
+assemble detachable clamps + tube
+```
+
+The tube and clamp fit are different interfaces.  The tube itself is nominally
+Ø10.0 mm.  The coupler keep-out is a non-clamping clearance volume; the
+detachable clamp separately uses Ø10.0 mm functional geometry and a Ø9.6 mm
+tension bore.
+
+## 1. Start from the accepted HUB75 edge coupler
+
+The base component already owns all panel-facing mating geometry, screws,
+locators and guide walls.  Reinforcement work must not silently reshape those
+interfaces.
+
+![Core](img/01-core.png)
+
+Production starts from:
+
+```scad
+hub75_horizontal_edge_coupler_build(coupler);
+```
+
+## 2. Make continuous space for the Ø10 aluminium tube
+
+The aluminium tube runs along project X. Its current datum is:
+
+```text
+global Y = 6.0 mm
+local  Y = -8.5 mm from the 14.5 mm rear mounting plane
+Z = +10 mm
+```
+
+With Ø10 mm tube diameter, the tube therefore starts exactly 1.0 mm behind the
+panel front face.
+
+Before adding any clamp mount, one continuous cylindrical keep-out is subtracted
+through the complete horizontal-edge component.  The radial keep-out clearance
+uses the core coupler's existing printable `fit_clearance` (0.25 mm for the
+current presets), so the default keep-out is Ø10.5 mm.
+
+This Ø10.5 value is **not** a clamp bore and does not create clamp tension.
+
+![Tube Keepout](img/02-tube-keepout.png)
+
+Production helper:
+
+```scad
+_hub75_tube_horizontal_edge_keepout_cutter(coupler, clamp);
+```
+
+## 3. Derive clamp positions from the available edge structure
+
+The old tube-mount experiment used fixed 18 / 25 mm offsets.  The new component
+does not preserve those values as unexplained project constants.
+
+Carrier width is derived from the clearanced female dovetail root plus 2 mm
+of material on each side. With the current 12 / 2 / 30° interface this is
+about 16.6 mm. The carrier is kept 4 mm inside the outer end of the horizontal
+core profile:
+
+```text
+offset =
+    profile_size / 2
+    - carrier_width / 2
+    - edge_margin
+```
+
+with a lower bound of half the carrier width.
+
+That gives approximately:
+
+```text
+small   profile  60 mm → clamp centres ±17.7 mm
+medium  profile  80 mm → clamp centres ±27.7 mm
+large   profile 100 mm → clamp centres ±37.7 mm
+```
+
+The red markers below show those derived load-path positions relative to the
+real tube and the existing coupler.
+
+![Carrier Position](img/03-carrier-position.png)
+
+Public accessor:
+
+```scad
+hub75_tube_horizontal_edge_clamp_positions_mm(coupler)
+```
+
+## 4. Add rear carriers before adding the dovetail
+
+Only after the tube path and clamp locations are known are the carrier solids
+added.  They overlap the accepted core plate and provide rear material for the
+female mechanical interface.
+
+The carrier now encloses only the actual female channel. In Y it extends from
+the unchanged rear face forward to the dovetail mouth plane at local Y = -1.5 mm,
+instead of stopping at Y = 0. The extra 0.5 mm is deliberately added on the
+scarce female-interface side. This puts the complete female profile in real
+carrier material while preserving the rear face. In Z it adds 2 mm below the
+clearanced 16 mm channel and a 2 mm lip above it. The 16 mm straight
+entry-slot continues upward through free space instead of being surrounded by
+a tall carrier. This keeps the carrier local to the load path and prevents the
+entry approach from becoming a tunnel.
+
+![Carriers](img/04-carriers.png)
+
+Production helper:
+
+```scad
+_hub75_tube_horizontal_edge_carriers(coupler);
+```
+
+## 5. Cut the dovetail for top-down insertion
+
+The reusable `lib.scad.mechint` dovetail is rotated 90 degrees relative to the
+earlier experiment:
+
+```text
+tube axis       = X
+profile depth   = Y
+dovetail slide  = Z
+entry direction = +Z  (from above in top-edge orientation)
+```
+
+The native `-X` entry side from the library is transformed into project
+`+Z`. The existing 16 mm female entry slot therefore becomes a straight
+vertical approach above the mating channel. The 2 mm profile uses a 0.5 mm
+straight mouth land, 1.0 mm of 30° flank and a 0.5 mm straight root land. Its
+mouth is shifted to project Y = -1.5 mm. The channel roof then lies at local
+Y = +0.7 mm. The tongue uses all remaining host material up to the existing
+rear face: 1.3 / 2.3 / 3.3 mm for the 2 / 3 / 4 mm hosts. This keeps the
+rear-face-down print surface flat while the reusable lock mechanism is reviewed
+for a local hinge relief.
+
+![Dovetail](img/05-dovetail.png)
+
+Shared project adapter:
+
+```scad
+hub75_tube_mount_dovetail_female_cutter(...)
+```
+
+## 6. Assemble the detachable clamp
+
+The clamp no longer has a separate mounting spine. The clamp body and male
+dovetail are both 12 mm wide. The 16 mm male slide is centred on the same Z
+datum as the Ø10 tube/ring and its 2 mm profile sits directly beside the compact
+1 mm clamp transition. The Ø10 tube starts 1.0 mm behind the panel front face,
+placing its centre at global Y = 6.0 mm / local Y = -8.5 mm. The complete clamp
+moves with that datum, so the Ø14 clamp tangent and male mouth both land at local
+Y = -1.5 mm. Before unioning the male, the shared mechint
+`male_relief_cutter` trims that transition back to the actual dovetail contour,
+so both mating flanks remain exposed. HUB75 then applies one project-local
+finishing wedge immediately in front of the male mouth. Its lateral step is
+derived from half the difference between the 12 mm clamp width and the male
+mouth width, while its depth is derived from that step and the same 30° flank
+angle as the dovetail. With the current 12 / 2 / 30° / 0.5 mm mouth + 0.5 mm
+root-land profile this gives a 0.577 mm lateral step over 1.0 mm depth, so the
+finishing cut continues the dovetail's 30° visual direction instead of adding
+a second 45° angle. The existing 0.01 mm `extra`
+remains only a deliberate Boolean overlap.
+
+In the exploded view the two clamps move upward in Z, matching the intended
+installation direction.
+
+![Assembled](img/06-assembled.png)
+
+The physical subassembly is:
+
+```scad
+assemblies/sub/hub75_tube_horizontal_edge_assembly.scad
+```
+
+## Current status
+
+This is a **design iteration**, not physical fit acceptance.  The next review
+should focus on the carrier outline, the clamp/dovetail transition, access for
+top-down insertion and whether the tube keep-out removes the collision visible
+in the previous assembly.

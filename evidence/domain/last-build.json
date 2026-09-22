@@ -1,0 +1,1195 @@
+{
+  "backend_signature": "90b2bf091c2be8cf46e891906ed73fd6790c6026d1ce67cbfac69813b2dcb863",
+  "engine": "scons",
+  "kind": "build",
+  "manifest_schema_version": 1,
+  "outcome_counts": {
+    "BUILT": 57,
+    "CACHE_RESTORED": 0,
+    "CURRENT": 0,
+    "ERROR": 0
+  },
+  "provenance": {
+    "cache": {
+      "exact_hit": null,
+      "matched_key": "",
+      "namespace": "scad-selective-build-v2",
+      "primary_key": "scad-selective-build-v2-Linux-1362495546-v0.6.1-a029ec3719df2ee5e4899790a8424ff731959986-56cb57359b3ffe7f54ccc4f13605cc9640e7a0031d13e8f16968decdd91c55cc"
+    },
+    "source_commit_sha": "267abce8a3ac6e65f493618d2d4cc03164ea9911",
+    "tool_commit_sha": "a029ec3719df2ee5e4899790a8424ff731959986",
+    "tool_version": "0.15.8",
+    "toolchain_image": "ghcr.io/brainboxemb/scad-toolchain-openscad:v0.6.1",
+    "toolchain_version": "v0.6.1",
+    "workflow_version": "v0.15.8"
+  },
+  "schema": "scad-project.build-decisions",
+  "schema_version": 1,
+  "target_count": 57,
+  "targets": [
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/corner-edge-coupler-left-small.png",
+      "sources": [
+        "dsg/openscad/render/corner-edge-coupler-left.scad",
+        "dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "3dedb1bbcd48eec561fd1be67943c016bcd547a36d38681a84aaa7f9953101af"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/corner-edge-coupler-left-medium.png",
+      "sources": [
+        "dsg/openscad/render/corner-edge-coupler-left.scad",
+        "dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "b15c5d40a4a9c131cff32e3f6d3257819b9b9038959818f59ac69bc53cdc87ac"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/corner-edge-coupler-left-large.png",
+      "sources": [
+        "dsg/openscad/render/corner-edge-coupler-left.scad",
+        "dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "1eb91fc553481735f510dc507e5e378b899c01d222da20f6b9f33225cc74969a"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/corner-edge-coupler-right-small.png",
+      "sources": [
+        "dsg/openscad/render/corner-edge-coupler-right.scad",
+        "dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "fec43a1021e78575467480bd3f0a58be259397e7a13db19143b18babbd01712e"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/corner-edge-coupler-right-medium.png",
+      "sources": [
+        "dsg/openscad/render/corner-edge-coupler-right.scad",
+        "dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "0be6e8b209f93dc5ea2beb1936a6ce8214e50b1372e3be387ff5e9a1b2694d53"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/corner-edge-coupler-right-large.png",
+      "sources": [
+        "dsg/openscad/render/corner-edge-coupler-right.scad",
+        "dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "281a38398e70c94237d8d46b36bb9997b8f7d3e50f44393413bf84d0b3432902"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/corner-edge-tube-mount-coupler-left-small.png",
+      "sources": [
+        "dsg/openscad/render/corner-edge-tube-mount-coupler-left.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad",
+        "dsg/openscad/project_components/tube_mount/corner-edge-coupler/hub75_tube_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad",
+        "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad"
+      ],
+      "target_spec_digest": "f9b69398a77d446cc2065efcdc231270dd95601156e62c5284a720fea044f919"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/corner-edge-tube-mount-coupler-left-medium.png",
+      "sources": [
+        "dsg/openscad/render/corner-edge-tube-mount-coupler-left.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad",
+        "dsg/openscad/project_components/tube_mount/corner-edge-coupler/hub75_tube_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad",
+        "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad"
+      ],
+      "target_spec_digest": "d1d9a2bf17e2cbab90ecf1e46285728fda1fd32758b6cfd7845c4a5f8f6a00d9"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/corner-edge-tube-mount-coupler-left-large.png",
+      "sources": [
+        "dsg/openscad/render/corner-edge-tube-mount-coupler-left.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad",
+        "dsg/openscad/project_components/tube_mount/corner-edge-coupler/hub75_tube_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad",
+        "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad"
+      ],
+      "target_spec_digest": "90e6230f1dabf759b634bf1ee38fd302fe060e33dc0671b0a4f2d5c3d39f0291"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/corner-edge-tube-mount-coupler-right-small.png",
+      "sources": [
+        "dsg/openscad/render/corner-edge-tube-mount-coupler-right.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad",
+        "dsg/openscad/project_components/tube_mount/corner-edge-coupler/hub75_tube_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad",
+        "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad"
+      ],
+      "target_spec_digest": "feec0c114494457028370d6856c1497ae1e5cf8017adb29fc02feb9b02919950"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/corner-edge-tube-mount-coupler-right-medium.png",
+      "sources": [
+        "dsg/openscad/render/corner-edge-tube-mount-coupler-right.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad",
+        "dsg/openscad/project_components/tube_mount/corner-edge-coupler/hub75_tube_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad",
+        "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad"
+      ],
+      "target_spec_digest": "9652da535c9b67c46152785b1d945db8c48a2e487e345fa52bd74313956d0617"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/corner-edge-tube-mount-coupler-right-large.png",
+      "sources": [
+        "dsg/openscad/render/corner-edge-tube-mount-coupler-right.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad",
+        "dsg/openscad/project_components/tube_mount/corner-edge-coupler/hub75_tube_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad",
+        "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad"
+      ],
+      "target_spec_digest": "db223e1c4d754fb86ed455d83e42c2e8ba068c502e3f1db72d355c0253d657b3"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/dovetail-tube-clamp-small.png",
+      "sources": [
+        "dsg/openscad/render/dovetail-tube-clamp.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+      ],
+      "target_spec_digest": "41be3c7fdf4a1c0a29f41d89e31fee24b815db2814b0918fd876f47fa12d2b97"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/dovetail-tube-clamp-medium.png",
+      "sources": [
+        "dsg/openscad/render/dovetail-tube-clamp.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+      ],
+      "target_spec_digest": "250de4f04efe022e0d06db4cf12af895a2b4f0dfc17f453fa98c139662cc5203"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/dovetail-tube-clamp-large.png",
+      "sources": [
+        "dsg/openscad/render/dovetail-tube-clamp.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+      ],
+      "target_spec_digest": "1a5aba23ea33ba7f576e7ebc6669cc7ad78320199d44977cdfce85e606719220"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/front-angled.png",
+      "sources": [
+        "dsg/openscad/render/front-angled.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+      ],
+      "target_spec_digest": "c8bbdff49678a2296979a9d66ccec3f38a317f494cd88678f0504440686874c1"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/front.png",
+      "sources": [
+        "dsg/openscad/render/front.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+      ],
+      "target_spec_digest": "51765c94d100cc49698a8dcc3e07537e39261e46111af75ce23edbb14df9297b"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/horizontal-edge-coupler-small.png",
+      "sources": [
+        "dsg/openscad/render/horizontal-edge-coupler.scad",
+        "dsg/openscad/components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "2a6dbb818c6501e8026632d5fb3119e909779fccedd3851a35ae361efc7a3940"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/horizontal-edge-coupler-medium.png",
+      "sources": [
+        "dsg/openscad/render/horizontal-edge-coupler.scad",
+        "dsg/openscad/components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "014f115447dd9064ed4c5ff2f60b30e58af3ab0e532456ffe32780cf2459e77f"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/horizontal-edge-coupler-large.png",
+      "sources": [
+        "dsg/openscad/render/horizontal-edge-coupler.scad",
+        "dsg/openscad/components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "17bf72adfef7ef40a81af36ee9a27183573031aec8ca13bac433dcf200914ed5"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/horizontal-edge-tube-mount-coupler-small.png",
+      "sources": [
+        "dsg/openscad/render/horizontal-edge-tube-mount-coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad",
+        "dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/hub75_tube_horizontal_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad",
+        "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad"
+      ],
+      "target_spec_digest": "32612bdf249c5384090c3eae1bdabbfe8234665ffa3e29a156007d94b4d33628"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/horizontal-edge-tube-mount-coupler-medium.png",
+      "sources": [
+        "dsg/openscad/render/horizontal-edge-tube-mount-coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad",
+        "dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/hub75_tube_horizontal_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad",
+        "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad"
+      ],
+      "target_spec_digest": "b5640910e8263f167ee3fe8586edcf462a3b1a3d37a178c6cfbe84edcef7473e"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/horizontal-edge-tube-mount-coupler-large.png",
+      "sources": [
+        "dsg/openscad/render/horizontal-edge-tube-mount-coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad",
+        "dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/hub75_tube_horizontal_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad",
+        "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad"
+      ],
+      "target_spec_digest": "fcbd0780386fe30f7f1f66fa057589b868ff079561dcff596325a2aca6795439"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/middle-coupler-small.png",
+      "sources": [
+        "dsg/openscad/render/middle-coupler.scad",
+        "dsg/openscad/components/hub75/middle-coupler/hub75_middle_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "bf96fda4a86443b24e7eb75f7b0697cf3381e57318c19e2e7ede77233f0b3c0b"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/middle-coupler-medium.png",
+      "sources": [
+        "dsg/openscad/render/middle-coupler.scad",
+        "dsg/openscad/components/hub75/middle-coupler/hub75_middle_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "71fcd1c53ee80cc3fa5c37def5842fbba332cf7aca3e5a49d0ecce54b5b49a25"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/middle-coupler-large.png",
+      "sources": [
+        "dsg/openscad/render/middle-coupler.scad",
+        "dsg/openscad/components/hub75/middle-coupler/hub75_middle_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "9ee5bb6ea4c5f2db6ca57404efb7e46e6708b8dde1c7fdabd525880287510b7c"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/rear-angled-couplers-only.png",
+      "sources": [
+        "dsg/openscad/render/rear-angled-couplers-only.scad",
+        "dsg/openscad/assemblies/display_frame_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/components/aluminium_tube.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/assemblies/helpers/reference_box.scad",
+        "dsg/openscad/components/hub75/middle-coupler/hub75_middle_coupler.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad",
+        "dsg/openscad/components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad",
+        "dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/hub75_tube_horizontal_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad",
+        "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+        "dsg/openscad/project_components/tube_mount/corner-edge-coupler/hub75_tube_corner_edge_coupler.scad"
+      ],
+      "target_spec_digest": "d9e16cb95a1cad7152c282f73fcf9b6fea31b3b6b0635e3768781698ae1c237c"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/rear-angled-couplers.png",
+      "sources": [
+        "dsg/openscad/render/rear-angled-couplers.scad",
+        "dsg/openscad/assemblies/display_frame_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/components/aluminium_tube.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/assemblies/helpers/reference_box.scad",
+        "dsg/openscad/components/hub75/middle-coupler/hub75_middle_coupler.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad",
+        "dsg/openscad/components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad",
+        "dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/hub75_tube_horizontal_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad",
+        "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+        "dsg/openscad/project_components/tube_mount/corner-edge-coupler/hub75_tube_corner_edge_coupler.scad"
+      ],
+      "target_spec_digest": "742676b822b7f384dd0ba45d9d70290fe8f6740cfb55bfe459903660151ac3b6"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/rear-angled-exploded.png",
+      "sources": [
+        "dsg/openscad/render/rear-angled-exploded.scad",
+        "dsg/openscad/assemblies/display_frame_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/components/aluminium_tube.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/assemblies/helpers/reference_box.scad",
+        "dsg/openscad/components/hub75/middle-coupler/hub75_middle_coupler.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad",
+        "dsg/openscad/components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad",
+        "dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/hub75_tube_horizontal_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad",
+        "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+        "dsg/openscad/project_components/tube_mount/corner-edge-coupler/hub75_tube_corner_edge_coupler.scad"
+      ],
+      "target_spec_digest": "a559fbd23221719bf5c4c5cf09d34f4d38f914f00469d1b56bf4a8f1ecabfb37"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/rear-angled.png",
+      "sources": [
+        "dsg/openscad/render/rear-angled.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+      ],
+      "target_spec_digest": "6542e1894d904d230d8b176227d9896ece1590640add9c8c9c57c0f488526fe5"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/png/rear.png",
+      "sources": [
+        "dsg/openscad/render/rear.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+      ],
+      "target_spec_digest": "fc084523d76c2abe296eec3d605eece49e163c0b0c87a941b79dc2a9cfdcfcbd"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/stl/corner-edge-coupler-left-small.stl",
+      "sources": [
+        "dsg/openscad/export/corner-edge-coupler-left.scad",
+        "dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "932a7c9ad2a071fa489267ef9e90f865a9b37e945bf335b230794189d1b0d704"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/stl/corner-edge-coupler-left-medium.stl",
+      "sources": [
+        "dsg/openscad/export/corner-edge-coupler-left.scad",
+        "dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "9491ba572ce7b720d2e3c9987873ed477efd7cc7ba75065a4bcbb3c9b8296f57"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/stl/corner-edge-coupler-left-large.stl",
+      "sources": [
+        "dsg/openscad/export/corner-edge-coupler-left.scad",
+        "dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "6903694027b3c6dcb88201cc465c6ad566f51b0b9c619ffe2184a5ab48936fec"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/stl/corner-edge-coupler-right-small.stl",
+      "sources": [
+        "dsg/openscad/export/corner-edge-coupler-right.scad",
+        "dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "39de0754ca69f83adb1f43d34e5c0f8a98f024f02a03089e179ea947f972b861"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/stl/corner-edge-coupler-right-medium.stl",
+      "sources": [
+        "dsg/openscad/export/corner-edge-coupler-right.scad",
+        "dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "33f9d22e4d903fe0556d6ac85a486a5893f22722b739a7400390f063108f049f"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/stl/corner-edge-coupler-right-large.stl",
+      "sources": [
+        "dsg/openscad/export/corner-edge-coupler-right.scad",
+        "dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "8464d393eed1cd934da256811f82aeebf96e638efaf1425d6156886929a78f8a"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/stl/corner-edge-tube-mount-coupler-left-small.stl",
+      "sources": [
+        "dsg/openscad/export/corner-edge-tube-mount-coupler-left.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad",
+        "dsg/openscad/project_components/tube_mount/corner-edge-coupler/hub75_tube_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad",
+        "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad"
+      ],
+      "target_spec_digest": "253051bc17914fe480b49baea18a96eb26c4337e10e340c53522e4e816996f70"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/stl/corner-edge-tube-mount-coupler-left-medium.stl",
+      "sources": [
+        "dsg/openscad/export/corner-edge-tube-mount-coupler-left.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad",
+        "dsg/openscad/project_components/tube_mount/corner-edge-coupler/hub75_tube_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad",
+        "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad"
+      ],
+      "target_spec_digest": "efb70b161b5054791b296b03a3c776d7880fb42ec641246a14d5aa654541df85"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/stl/corner-edge-tube-mount-coupler-left-large.stl",
+      "sources": [
+        "dsg/openscad/export/corner-edge-tube-mount-coupler-left.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad",
+        "dsg/openscad/project_components/tube_mount/corner-edge-coupler/hub75_tube_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad",
+        "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad"
+      ],
+      "target_spec_digest": "2e16851a1dbf0ee9ec8a05731db7c8d9782a6c80212f0c149debe30a4c0049c5"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/stl/corner-edge-tube-mount-coupler-right-small.stl",
+      "sources": [
+        "dsg/openscad/export/corner-edge-tube-mount-coupler-right.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad",
+        "dsg/openscad/project_components/tube_mount/corner-edge-coupler/hub75_tube_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad",
+        "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad"
+      ],
+      "target_spec_digest": "8b3cfb9cdbf0b169863f04fe3d94e15adfc834abc3e83bfbdc1c4397250de688"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/stl/corner-edge-tube-mount-coupler-right-medium.stl",
+      "sources": [
+        "dsg/openscad/export/corner-edge-tube-mount-coupler-right.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad",
+        "dsg/openscad/project_components/tube_mount/corner-edge-coupler/hub75_tube_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad",
+        "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad"
+      ],
+      "target_spec_digest": "7dd461cff4706a2adea88bc7669086ac81c888f0d4f70e3ac3dba1b21872214a"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/stl/corner-edge-tube-mount-coupler-right-large.stl",
+      "sources": [
+        "dsg/openscad/export/corner-edge-tube-mount-coupler-right.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad",
+        "dsg/openscad/project_components/tube_mount/corner-edge-coupler/hub75_tube_corner_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad",
+        "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad"
+      ],
+      "target_spec_digest": "236fd6f4ceb2cc50b2cf637568c0c6a70a8e594a7522cea4108f3c3d2c2e0259"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/stl/dovetail-tube-clamp-small.stl",
+      "sources": [
+        "dsg/openscad/export/dovetail-tube-clamp.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+      ],
+      "target_spec_digest": "3b8b4a58be6927530b7b9baaaa36bb97203ad53faad7927f4d259934290a856a"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/stl/dovetail-tube-clamp-medium.stl",
+      "sources": [
+        "dsg/openscad/export/dovetail-tube-clamp.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+      ],
+      "target_spec_digest": "1ae4d807c387a424a2b985799c501280f1eb92244056044d72ae6bc199c7c161"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/stl/dovetail-tube-clamp-large.stl",
+      "sources": [
+        "dsg/openscad/export/dovetail-tube-clamp.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+      ],
+      "target_spec_digest": "350fcbab5855a9d3e054dee173a50dc3cb9f33a305ba3ef8522b4e24176c2519"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/stl/horizontal-edge-coupler-small.stl",
+      "sources": [
+        "dsg/openscad/export/horizontal-edge-coupler.scad",
+        "dsg/openscad/components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "a05a68934402e4e7baab162f45e7991007013b75fa607159da76f79b777ec289"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/stl/horizontal-edge-coupler-medium.stl",
+      "sources": [
+        "dsg/openscad/export/horizontal-edge-coupler.scad",
+        "dsg/openscad/components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "035340db3406bc436c003a406eadfb532eccb17863ecae289e74180bd5422c02"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/stl/horizontal-edge-coupler-large.stl",
+      "sources": [
+        "dsg/openscad/export/horizontal-edge-coupler.scad",
+        "dsg/openscad/components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "3da17bea2435719512ae5c4e1caf022e1ab48940f7ee16d5a0503f1c087eddb3"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/stl/horizontal-edge-tube-mount-coupler-small.stl",
+      "sources": [
+        "dsg/openscad/export/horizontal-edge-tube-mount-coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad",
+        "dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/hub75_tube_horizontal_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad",
+        "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad"
+      ],
+      "target_spec_digest": "0459ed536e32acf34f03e18daa3003f44cf13a4ee6555b911e893b28d9d76ccb"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/stl/horizontal-edge-tube-mount-coupler-medium.stl",
+      "sources": [
+        "dsg/openscad/export/horizontal-edge-tube-mount-coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad",
+        "dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/hub75_tube_horizontal_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad",
+        "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad"
+      ],
+      "target_spec_digest": "9864424949d3127358f2098cd35f3f979517646610603cf1d645a8c76cfa0d4d"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/stl/horizontal-edge-tube-mount-coupler-large.stl",
+      "sources": [
+        "dsg/openscad/export/horizontal-edge-tube-mount-coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad",
+        "dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/hub75_tube_horizontal_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad",
+        "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad"
+      ],
+      "target_spec_digest": "8b0811daead582621477374be83282c43e8a08bbbb07af93e21a83ed28482646"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/stl/middle-coupler-small.stl",
+      "sources": [
+        "dsg/openscad/export/middle-coupler.scad",
+        "dsg/openscad/components/hub75/middle-coupler/hub75_middle_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "82bcf9d22904746a9edc9080a133d708cdea82f59469b7766c651f9e5420217e"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/stl/middle-coupler-medium.stl",
+      "sources": [
+        "dsg/openscad/export/middle-coupler.scad",
+        "dsg/openscad/components/hub75/middle-coupler/hub75_middle_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "0b31b010f8fb88dace0366ddbfd48f4dee3667a0ea6ab83436d725603be29a57"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/stl/middle-coupler-large.stl",
+      "sources": [
+        "dsg/openscad/export/middle-coupler.scad",
+        "dsg/openscad/components/hub75/middle-coupler/hub75_middle_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad"
+      ],
+      "target_spec_digest": "0f00dac241af3b999a1c7944cdc8016531c27d40854fb1d3bb7ee74c43b232f1"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/stl/panels-assembly.stl",
+      "sources": [
+        "dsg/openscad/export/panels-assembly.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad"
+      ],
+      "target_spec_digest": "4255f093b3c189da0adcd11a4f70ceca3cd140b63b5da1b5f6bbfafeae394946"
+    },
+    {
+      "action_executed": true,
+      "existed_before": false,
+      "exists_after": true,
+      "outcome": "BUILT",
+      "output": "bld/stl/tube-mount-display-2-panel.stl",
+      "sources": [
+        "dsg/openscad/export/tube-mount-display-2-panel.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad",
+        "dsg/openscad/assemblies/tube_mount_display_2_panel_assembly.scad",
+        "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad",
+        "dsg/openscad/assemblies/display_frame_assembly.scad",
+        "dsg/openscad/components/aluminium_tube.scad",
+        "dsg/openscad/assemblies/panels_assembly.scad",
+        "dsg/openscad/assemblies/helpers/reference_box.scad",
+        "dsg/openscad/components/hub75/middle-coupler/hub75_middle_coupler.scad",
+        "dsg/openscad/components/hub75/hub75_panel_mating.scad",
+        "dsg/openscad/components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad",
+        "dsg/openscad/components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad",
+        "dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/hub75_tube_horizontal_edge_coupler.scad",
+        "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad",
+        "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad",
+        "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad",
+        "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad",
+        "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad",
+        "dsg/openscad/project_components/tube_mount/corner-edge-coupler/hub75_tube_corner_edge_coupler.scad"
+      ],
+      "target_spec_digest": "ff6bf6e9d2a1844231616deab43b91005a87cebe27bd3fce600b8835994c76d8"
+    }
+  ]
+}
