@@ -1,6 +1,7 @@
 // STL export entrypoint for the milestone-2 middle coupler.
 
 use <../components/hub75/middle-coupler/hub75_middle_coupler.scad>
+use <../export_support/export_orientation.scad>
 
 // tool.scad-project multi-size adapter: overridden by -D size=...
 size = "medium";
@@ -181,4 +182,5 @@ assert(
     "Default seam-side screw positions changed"
 );
 
-hub75_middle_coupler_build(coupler);
+hub75_export_rear_face_down(coupler.base_thickness)
+    hub75_middle_coupler_build(coupler);

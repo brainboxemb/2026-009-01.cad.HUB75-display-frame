@@ -1,6 +1,7 @@
 // STL export entrypoint for the right corner-edge coupler.
 
 use <../components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad>
+use <../export_support/export_orientation.scad>
 
 // tool.scad-project multi-size adapter: overridden by -D size=...
 size = "medium";
@@ -125,4 +126,5 @@ if ("right" == "left") {
     );
 }
 
-hub75_corner_edge_coupler_build(coupler);
+hub75_export_rear_face_down(coupler.base_thickness)
+    hub75_corner_edge_coupler_build(coupler);
