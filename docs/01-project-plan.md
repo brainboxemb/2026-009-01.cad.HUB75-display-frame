@@ -59,7 +59,7 @@ only placement, orientation and local carrier geometry.
 standard helper for ordinary X/Y/Z inspection slabs in interactive and
 verification views.
 
-The current implementation track is PR #45.
+The v0.0.4 integration checkpoint is complete. The next core-design gate remains physical fit issue #43; independent digital follow-ups may continue while they do not alter the unfrozen panel-facing interfaces.
 
 ## Parallel work model
 
