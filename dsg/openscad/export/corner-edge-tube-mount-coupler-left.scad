@@ -4,8 +4,10 @@ use <../ext/lib.scad.forge/openscad/resolution.scad>
 use <../components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad>
 use <../project_components/tube_mount/corner-edge-coupler/hub75_tube_corner_edge_coupler.scad>
 
-EXPORT_PROFILE = "medium";
-_coupler = hub75_corner_edge_coupler_create_for_size(side = "left", size = EXPORT_PROFILE);
+// tool.scad-project multi-size adapter: overridden by -D size=...
+size = "medium";
+d_profile = size;
+_coupler = hub75_corner_edge_coupler_create_for_size(side = "left", size = d_profile);
 
 hub75_tube_corner_edge_coupler_build(
     _coupler,
