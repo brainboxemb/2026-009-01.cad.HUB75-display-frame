@@ -41,6 +41,8 @@ d_corner_outside_projection_mm = 19.5;
 
 /* [Visibility - assembly / exploded] */
 c_show_panels = true;
+c_show_panel_numbers = false;
+c_show_in_out_labels = false;
 c_show_couplers = true;
 c_show_middle_couplers = true;
 c_show_horizontal_edge_couplers = true;
@@ -176,6 +178,8 @@ module _hub75_main_display(explode = 0, panels_visible = c_show_panels) {
         panel_view = _preview_panel_view,
         resolution = c_resolution,
         panels_visible = panels_visible,
+        panel_numbers_visible = c_show_panel_numbers,
+        in_out_labels_visible = c_show_in_out_labels,
         middle_couplers_visible =
             c_show_couplers && c_show_middle_couplers,
         horizontal_edge_couplers_visible =
@@ -204,6 +208,8 @@ module _hub75_main_selected_view() {
                 d_coupler_profile == "custom" ? "medium" : d_coupler_profile,
             panel_view = _preview_panel_view,
             resolution = c_resolution,
+            panel_numbers_visible = c_show_panel_numbers,
+            in_out_labels_visible = c_show_in_out_labels,
             tube_mount_enabled = c_use_wip_tube_mount_couplers,
             tube_clamps_visible = c_show_tube_clamps,
             aluminium_tubes_visible = c_show_aluminium_tubes,
@@ -219,7 +225,9 @@ module _hub75_main_selected_view() {
     else if (c_view == "panels")
         hub75_panels_assembly(
             panel = panel,
-            panel_view = _preview_panel_view
+            panel_view = _preview_panel_view,
+            panel_numbers_visible = c_show_panel_numbers,
+            in_out_labels_visible = c_show_in_out_labels
         );
     else if (c_view == "couplers")
         _hub75_main_display(panels_visible = false);
