@@ -30,6 +30,10 @@ entrypoints.
   convention without migrating external library APIs.
 ### Added
 
+- Restore optional rear-view HUB75 data-chain presentation with panel numbers
+  and IN/OUT labels, exposed from the interactive full-display, two-panel and
+  panels-only views. Add a dedicated rear-wiring render so this presentation
+  path is exercised in generated build evidence.
 - Split the interactive clamp inspection in `main.scad` into `tube-clamp`
   (raw reusable clamp body only) and `tube-clamp-dov` (the same body plus the
   HUB75 dovetail/foot) so clamp thickness and attachment geometry can be
@@ -53,6 +57,10 @@ entrypoints.
 
 ### Changed
 
+- Define panel orientation from rear-view data-chain order instead of local
+  array index. Panel 1 is the visual-left panel from the rear and keeps the
+  default start orientation, so focused two-panel and five-panel assemblies
+  now use the same wiring/orientation convention.
 - Migrate the HUB75 tube-mount adapter to released `lib.scad.mechint v0.2.3`
   and `lib.scad.forge v0.2.1`. HUB75 consumes mechint through the public
   `openscad/sliding_dovetail.scad` entrypoint. Project transforms use the Forge
