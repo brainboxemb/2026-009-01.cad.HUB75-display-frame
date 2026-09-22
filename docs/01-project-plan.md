@@ -36,7 +36,7 @@ core geometry is not silently changed. The tube-mount layer is therefore
 implemented as wrappers around the existing couplers.
 
 The older `2026-006-01.cad.HUB75-display-frame` remains historical evidence for
-four useful product decisions only:
+five useful product decisions only:
 
 - a visible full-display debug/reference envelope;
 - two continuous horizontal aluminium reinforcement tubes;
