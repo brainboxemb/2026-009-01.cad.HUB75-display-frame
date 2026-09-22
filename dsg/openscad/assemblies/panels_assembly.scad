@@ -18,10 +18,12 @@
 //
 // Each library panel is already modeled in portrait orientation:
 // nominal 160 mm in X x 320 mm in Z.
-// The physical display alternates panel orientation across the row. Even
-// indices keep the library orientation; odd indices rotate 180 degrees about Y.
-// This swaps panel-local left/right and top/bottom while preserving the same
-// nominal placement cell and the project front/rear Y datum.
+// Data-chain order is defined from the rear of the assembled display.
+// Rear-view left is panel 1 and uses the library's default start orientation.
+// From the rear X appears visually mirrored, so panel 1 is the highest-X
+// placement cell (the final local placement index). Orientation then alternates
+// by chain number rather than by local array index. This keeps focused two-panel
+// assemblies in sync with the same end of the five-panel production display.
 
 use <../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
 
@@ -57,16 +59,23 @@ function _hub75_display_panel_center_x(
 ) =
     (index - (panel_count - 1) / 2) * _hub75_display_panel_pitch_x(panel);
 
-function _hub75_display_panel_rotated(index) =
-    index % 2 == 1;
+function _hub75_display_panel_chain_number(index, panel_count) =
+    panel_count - index;
+
+function _hub75_display_panel_input_is_top(index, panel_count) =
+    _hub75_display_panel_chain_number(index, panel_count) % 2 == 1;
+
+function _hub75_display_panel_rotated(index, panel_count) =
+    !_hub75_display_panel_input_is_top(index, panel_count);
 
 module _hub75_display_panel_render(
     panel,
     index,
+    panel_count,
     color_scheme,
     panel_view
 ) {
-    if (_hub75_display_panel_rotated(index))
+    if (_hub75_display_panel_rotated(index, panel_count))
         rotate([0, 180, 0])
             hub75_p5_64x32_panel_render(
                 panel,
@@ -108,6 +117,14 @@ module hub75_display_verify_nominal_size(
             "Five-panel production display must remain 800 mm nominal width"
         );
     assert(
+        _hub75_display_panel_chain_number(panel_count - 1, panel_count) == 1,
+        "Rear-view left panel must remain data-chain panel 1"
+    );
+    assert(
+        !_hub75_display_panel_rotated(panel_count - 1, panel_count),
+        "Rear-view left panel must keep the default start orientation"
+    );
+    assert(
         abs(_hub75_display_panel_front_y(panel)) < 0.001,
         "HUB75 front face must remain on project Y=0"
     );
@@ -148,6 +165,7 @@ module hub75_panels_assembly(
             _hub75_display_panel_render(
                 panel = panel,
                 index = index,
+                panel_count = panel_count,
                 color_scheme = color_scheme,
                 panel_view = panel_view
             );
