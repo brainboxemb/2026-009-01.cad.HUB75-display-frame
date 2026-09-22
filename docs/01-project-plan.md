@@ -36,12 +36,14 @@ core geometry is not silently changed. The tube-mount layer is therefore
 implemented as wrappers around the existing couplers.
 
 The older `2026-006-01.cad.HUB75-display-frame` remains historical evidence for
-four useful product decisions only:
+five useful product decisions only:
 
 - a visible full-display debug/reference envelope;
 - two continuous horizontal aluminium reinforcement tubes;
 - clip positions associated with the horizontal-edge and corner couplers;
-- separate tube retention as the structural function to preserve.
+- separate tube retention as the structural function to preserve;
+- rear-view data-chain presentation: panel 1 starts at the visual left in its
+  default orientation, with optional panel numbering and IN/OUT annotations.
 
 The old integrated clip geometry is not copied. The new clip consumes the base
 `tube_clamp_build()` from `lib.scad.clamps` and is separately printable.
@@ -57,7 +59,7 @@ only placement, orientation and local carrier geometry.
 standard helper for ordinary X/Y/Z inspection slabs in interactive and
 verification views.
 
-The current implementation track is PR #45.
+The v0.0.4 integration checkpoint is complete. The next core-design gate remains physical fit issue #43; independent digital follow-ups may continue while they do not alter the unfrozen panel-facing interfaces.
 
 ## Parallel work model
 

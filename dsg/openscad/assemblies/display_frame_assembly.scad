@@ -285,6 +285,8 @@ module hub75_display_frame_assembly(
     tube_color = [0.72, 0.74, 0.76, 1],
     resolution = FG_RES_HIGH(),
     panels_visible = true,
+    panel_numbers_visible = false,
+    in_out_labels_visible = false,
     middle_couplers_visible = true,
     horizontal_edge_couplers_visible = true,
     corner_edge_couplers_visible = true,
@@ -359,7 +361,9 @@ module hub75_display_frame_assembly(
                 panel = panel,
                 panel_count = panel_count,
                 color_scheme = panel_color_scheme,
-                panel_view = panel_view
+                panel_view = panel_view,
+                panel_numbers_visible = panel_numbers_visible,
+                in_out_labels_visible = in_out_labels_visible
             );
 
     if (middle_couplers_visible)

@@ -2,6 +2,22 @@
 
 This file records the functional evolution of the HUB75 display-frame project.
 
+## Unreleased
+
+### Added
+
+- Restore optional rear-view HUB75 data-chain presentation with panel numbers
+  and IN/OUT labels, exposed from the interactive full-display, two-panel and
+  panels-only views. Add a dedicated rear-wiring render so this presentation
+  path is exercised in generated build evidence.
+
+### Changed
+
+- Define panel orientation from rear-view data-chain order instead of local
+  array index. Panel 1 is the visual-left panel from the rear and keeps the
+  default start orientation, so focused two-panel and five-panel assemblies
+  use the same wiring/orientation convention.
+
 ## v0.0.4
 
 This checkpoint release primarily captures the project's infrastructure and
