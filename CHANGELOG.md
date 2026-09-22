@@ -13,6 +13,12 @@ This file records the functional evolution of the HUB75 display-frame project.
 
 ### Changed
 
+- Correct printable component STL publication to use explicit export-owned print
+  orientation instead of leaking project orientation into slicer output. Core
+  and tube-mount couplers export rear-face-down; the detachable tube clamp uses
+  the qualified side-print mapping with project X as printer +Z. Assembly/reference
+  STL exports remain in project orientation.
+
 - Complete the targeted Forge integration cleanup for project-owned CAD:
   express core XZ-to-Y remaps and the corner ridge axis remap with Forge frames,
   migrate overlap-aware cylindrical cutters without changing nominal diameters

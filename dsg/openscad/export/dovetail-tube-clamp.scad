@@ -2,13 +2,15 @@
 
 use <../ext/lib.scad.forge/openscad/resolution.scad>
 use <../project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad>
+use <export_orientation.scad>
 
 // tool.scad-project multi-size adapter: overridden by -D size=...
 size = "medium";
 d_profile = size;
 _clamp = hub75_tube_clamp_create_for_size(d_profile);
 
-hub75_tube_clamp_build(
-    _clamp,
-    resolution = FG_RES_EXPORT()
-);
+hub75_export_clamp_side_down(_clamp.base_clamp.clamp_width)
+    hub75_tube_clamp_build(
+        _clamp,
+        resolution = FG_RES_EXPORT()
+    );
