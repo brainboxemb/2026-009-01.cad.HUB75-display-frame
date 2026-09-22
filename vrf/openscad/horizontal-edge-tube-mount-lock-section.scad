@@ -14,7 +14,7 @@ coupler =
         size = size
     );
 clip_positions =
-    hub75_tube_horizontal_edge_clamp_positions(coupler);
+    hub75_tube_horizontal_edge_clamp_positions_mm(coupler);
 clip_x = clip_positions[len(clip_positions) - 1];
 
 $vpt = [clip_x, 0.8, 0];

@@ -35,7 +35,7 @@ module hub75_tube_horizontal_edge_assembly(
     tube =
         aluminium_tube_create(
             length_mm = tube_length,
-            outer_diameter =
+            outer_diameter_mm =
                 hub75_tube_clamp_functional_diameter_mm(clamp),
             wall_thickness_mm = 1
         );
