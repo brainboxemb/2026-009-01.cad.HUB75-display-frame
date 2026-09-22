@@ -26,39 +26,39 @@ c_view = "assembly"; // [assembly,two-panel-assembly,exploded,panels,couplers,mi
 c_resolution = "low"; // [low,high,export]
 
 /* [Coupler profile] */
-d_d_coupler_profile = "medium"; // [small,medium,large,custom]
+d_coupler_profile = "medium"; // [small,medium,large,custom]
 
 /* [Custom coupler dimensions] */
-d_d_profile_size_mm_mm = 80;
-d_d_wall_thickness_mm_mm = 4;
-d_d_fit_clearance_mm_mm = 0.25;
-d_d_base_thickness_mm_mm = 3;
-d_d_guide_height_mm_mm = 6;
-d_d_inside_corner_radius_mm_mm = 10;
-d_d_outside_corner_radius_mm_mm = 6;
-d_d_guide_end_rounding_mm_mm = 1.5;
-d_d_corner_outside_projection_mm_mm = 19.5;
+d_profile_size_mm = 80;
+d_wall_thickness_mm = 4;
+d_fit_clearance_mm = 0.25;
+d_base_thickness_mm = 3;
+d_guide_height_mm = 6;
+d_inside_corner_radius_mm = 10;
+d_outside_corner_radius_mm = 6;
+d_guide_end_rounding_mm = 1.5;
+d_corner_outside_projection_mm = 19.5;
 
 /* [Visibility - assembly / exploded] */
-c_c_show_panels = true;
-c_c_show_couplers = true;
-c_c_show_middle_couplers = true;
-c_c_show_horizontal_edge_couplers = true;
-c_c_show_corner_edge_couplers = true;
-c_c_show_tube_mounts = true;
-c_c_show_tube_clamps = true;
-c_c_show_aluminium_tubes = true;
-c_c_show_debug_frame = false;
+c_show_panels = true;
+c_show_couplers = true;
+c_show_middle_couplers = true;
+c_show_horizontal_edge_couplers = true;
+c_show_corner_edge_couplers = true;
+c_show_tube_mounts = true;
+c_show_tube_clamps = true;
+c_show_aluminium_tubes = true;
+c_show_debug_frame = false;
 
 /* [Exploded view] */
 c_explode_distance_mm = 35;
 
 // BEGIN lib.scad.util: section-inspection
 /* [Section inspection] */
-c_c_section_axis = "None"; // [None,X,Y,Z]
-c_c_section_position_mm = 0; // [-100:0.5:100]
-c_c_section_depth_mm = 10; // [0.1:0.1:200]
-c_c_section_direction = "Positive"; // [Positive,Negative]
+c_section_axis = "None"; // [None,X,Y,Z]
+c_section_position_mm = 0; // [-100:0.5:100]
+c_section_depth_mm = 10; // [0.1:0.1:200]
+c_section_direction = "Positive"; // [Positive,Negative]
 // END lib.scad.util: section-inspection
 
 panel = hub75_p5_64x32_panel_create();

@@ -2,6 +2,7 @@
 //   Focused verification wrapper around the real horizontal tube-mount
 //   subassembly.
 
+use <../../ext/lib.scad.forge/openscad/resolution.scad>
 use <../sub/hub75_tube_horizontal_edge_assembly.scad>
 
 module hub75_tube_horizontal_edge_fit_assembly(
@@ -10,7 +11,7 @@ module hub75_tube_horizontal_edge_fit_assembly(
     show_clamp = true,
     show_tube = true,
     explode_distance = 0,
-    clamp_high_resolution = true
+    clamp_resolution = FG_RES_HIGH()
 ) {
     hub75_tube_horizontal_edge_assembly(
         size = size,
@@ -18,6 +19,6 @@ module hub75_tube_horizontal_edge_fit_assembly(
         show_clamps = show_clamp,
         show_tube = show_tube,
         explode_distance = explode_distance,
-        clamp_high_resolution = clamp_high_resolution
+        clamp_resolution = clamp_resolution
     );
 }
