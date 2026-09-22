@@ -2,7 +2,7 @@
 
 use <../ext/lib.scad.forge/openscad/resolution.scad>
 use <../project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad>
-use <export_orientation.scad>
+use <../export_support/export_orientation.scad>
 
 // tool.scad-project multi-size adapter: overridden by -D size=...
 size = "medium";

@@ -1,7 +1,7 @@
 // STL export entrypoint for the milestone-2 middle coupler.
 
 use <../components/hub75/middle-coupler/hub75_middle_coupler.scad>
-use <export_orientation.scad>
+use <../export_support/export_orientation.scad>
 
 // tool.scad-project multi-size adapter: overridden by -D size=...
 size = "medium";

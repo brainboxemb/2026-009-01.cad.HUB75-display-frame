@@ -1,7 +1,7 @@
 // STL export entrypoint for the milestone-3 horizontal-edge coupler.
 
 use <../components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad>
-use <export_orientation.scad>
+use <../export_support/export_orientation.scad>
 
 // tool.scad-project multi-size adapter: overridden by -D size=...
 size = "medium";
