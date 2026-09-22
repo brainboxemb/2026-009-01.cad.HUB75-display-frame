@@ -13,5 +13,5 @@ $vpd =
     : d_profile == "large" ? 250
     : 200;
 
-coupler = hub75_middle_coupler_create_for_size(size = d_profile);
-hub75_middle_coupler_render(coupler, view = "final");
+coupler_obj = hub75_middle_coupler_create_for_size(size = d_profile);
+hub75_middle_coupler_render(coupler_obj, view = "final");

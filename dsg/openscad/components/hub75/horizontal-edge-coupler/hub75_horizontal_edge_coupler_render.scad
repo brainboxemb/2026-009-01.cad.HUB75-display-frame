@@ -12,112 +12,112 @@ module _hub75_horizontal_edge_design_thin(y_min = -0.35, y_max = 0.35) {
             children();
 }
 
-module _hub75_horizontal_edge_design_horizontal_arm_2d(coupler) {
-    translate([0, hub75_horizontal_edge_coupler_rear_rail_center_z(coupler)])
+module _hub75_horizontal_edge_design_horizontal_arm_2d(coupler_obj) {
+    translate([0, hub75_horizontal_edge_coupler_rear_rail_center_z(coupler_obj)])
         square([
-            coupler.profile_size,
-            hub75_horizontal_edge_coupler_horizontal_arm_height(coupler)
+            coupler_obj.profile_size,
+            hub75_horizontal_edge_coupler_horizontal_arm_height(coupler_obj)
         ], center = true);
 }
 
-module _hub75_horizontal_edge_design_vertical_arm_2d(coupler) {
+module _hub75_horizontal_edge_design_vertical_arm_2d(coupler_obj) {
     square([
-        hub75_horizontal_edge_coupler_vertical_arm_width(coupler),
-        2 * hub75_horizontal_edge_coupler_inward_reach(coupler)
+        hub75_horizontal_edge_coupler_vertical_arm_width(coupler_obj),
+        2 * hub75_horizontal_edge_coupler_inward_reach(coupler_obj)
     ], center = true);
 }
 
-module _hub75_horizontal_edge_design_raw_cross_2d(coupler) {
+module _hub75_horizontal_edge_design_raw_cross_2d(coupler_obj) {
     union() {
-        _hub75_horizontal_edge_design_horizontal_arm_2d(coupler);
-        _hub75_horizontal_edge_design_vertical_arm_2d(coupler);
+        _hub75_horizontal_edge_design_horizontal_arm_2d(coupler_obj);
+        _hub75_horizontal_edge_design_vertical_arm_2d(coupler_obj);
     }
 }
 
-module _hub75_horizontal_edge_design_end_rail_2d(coupler) {
-    translate([0, hub75_horizontal_edge_coupler_rear_rail_center_z(coupler)])
+module _hub75_horizontal_edge_design_end_rail_2d(coupler_obj) {
+    translate([0, hub75_horizontal_edge_coupler_rear_rail_center_z(coupler_obj)])
         square([
-            coupler.profile_size + 6,
-            coupler.rear_end_rail_width
+            coupler_obj.profile_size + 6,
+            coupler_obj.rear_end_rail_width
         ], center = true);
 }
 
-module _hub75_horizontal_edge_design_profile_window_2d(coupler) {
-    reach = hub75_horizontal_edge_coupler_inward_reach(coupler);
-    outer = max(12, hub75_horizontal_edge_coupler_outer_projection(coupler) + 6);
+module _hub75_horizontal_edge_design_profile_window_2d(coupler_obj) {
+    reach = hub75_horizontal_edge_coupler_inward_reach(coupler_obj);
+    outer = max(12, hub75_horizontal_edge_coupler_outer_projection(coupler_obj) + 6);
     translate([0, (outer - reach) / 2])
-        square([coupler.profile_size + 10, reach + outer], center = true);
+        square([coupler_obj.profile_size + 10, reach + outer], center = true);
 }
 
-module _hub75_horizontal_edge_design_panel_keepout_visible_2d(coupler) {
+module _hub75_horizontal_edge_design_panel_keepout_visible_2d(coupler_obj) {
     intersection() {
-        _hub75_horizontal_edge_coupler_panel_keepout_2d(coupler);
-        _hub75_horizontal_edge_design_profile_window_2d(coupler);
+        _hub75_horizontal_edge_coupler_panel_keepout_2d(coupler_obj);
+        _hub75_horizontal_edge_design_profile_window_2d(coupler_obj);
     }
 }
 
-module _hub75_horizontal_edge_design_clearance_band_2d(coupler) {
+module _hub75_horizontal_edge_design_clearance_band_2d(coupler_obj) {
     difference() {
         intersection() {
-            offset(delta = coupler.fit_clearance)
-                _hub75_horizontal_edge_coupler_panel_keepout_2d(coupler);
-            _hub75_horizontal_edge_design_profile_window_2d(coupler);
+            offset(delta = coupler_obj.fit_clearance)
+                _hub75_horizontal_edge_coupler_panel_keepout_2d(coupler_obj);
+            _hub75_horizontal_edge_design_profile_window_2d(coupler_obj);
         }
-        _hub75_horizontal_edge_design_panel_keepout_visible_2d(coupler);
+        _hub75_horizontal_edge_design_panel_keepout_visible_2d(coupler_obj);
     }
 }
 
-module _hub75_horizontal_edge_design_profile_outline_2d(coupler, line_width = 1.0) {
+module _hub75_horizontal_edge_design_profile_outline_2d(coupler_obj, line_width = 1.0) {
     difference() {
-        _hub75_horizontal_edge_coupler_profile_2d(coupler);
+        _hub75_horizontal_edge_coupler_profile_2d(coupler_obj);
         offset(delta = -line_width)
-            _hub75_horizontal_edge_coupler_profile_2d(coupler);
+            _hub75_horizontal_edge_coupler_profile_2d(coupler_obj);
     }
 }
 
-module _hub75_horizontal_edge_design_reinforcement_relief_cutters(coupler) {
+module _hub75_horizontal_edge_design_reinforcement_relief_cutters(coupler_obj) {
     eps = 0.05;
     relief_diameter =
-        hub75_horizontal_edge_coupler_reinforcement_relief_diameter(coupler);
-    relief_depth = coupler.guide_height + 0.20;
+        hub75_horizontal_edge_coupler_reinforcement_relief_diameter(coupler_obj);
+    relief_depth = coupler_obj.guide_height + 0.20;
 
-    for (position = _hub75_horizontal_edge_coupler_reinforcement_positions(coupler))
+    for (position = _hub75_horizontal_edge_coupler_reinforcement_positions(coupler_obj))
         translate([position[0], eps, position[1]])
             rotate([90, 0, 0])
                 cylinder(d = relief_diameter, h = relief_depth + 2 * eps);
 }
 
-module _hub75_horizontal_edge_design_unrelieved_tall_guide(coupler) {
-    _hub75_horizontal_edge_coupler_extrude_xz_y(-coupler.guide_height, 0)
-        _hub75_horizontal_edge_coupler_tall_guide_2d(coupler);
+module _hub75_horizontal_edge_design_unrelieved_tall_guide(coupler_obj) {
+    _hub75_horizontal_edge_coupler_extrude_xz_y(-coupler_obj.guide_height, 0)
+        _hub75_horizontal_edge_coupler_tall_guide_2d(coupler_obj);
 }
 
 module _hub75_horizontal_edge_design_reinforcement_crop(
-    coupler,
+    coupler_obj,
     position,
     crop_width = 34,
     crop_height = 34
 ) {
     translate([
         position[0] - crop_width / 2,
-        -coupler.guide_height - 2,
+        -coupler_obj.guide_height - 2,
         position[1] - crop_height / 2
     ])
-        cube([crop_width, coupler.guide_height + 3, crop_height]);
+        cube([crop_width, coupler_obj.guide_height + 3, crop_height]);
 }
 
 module _hub75_horizontal_edge_design_reinforcement_panel_fragment(
-    coupler,
+    coupler_obj,
     position,
     fragment_length = 24,
     fragment_depth = 6.5
 ) {
-    outer_d = coupler.reinforcement_bushing_outer_diameter;
-    recess_d = coupler.reinforcement_bushing_recess_diameter;
-    recess_depth = coupler.reinforcement_bushing_recess_depth;
-    hole_d = coupler.reinforcement_bushing_hole_diameter;
-    hole_depth = coupler.reinforcement_bushing_hole_depth;
-    rail_width = coupler.rear_side_rail_width;
+    outer_d = coupler_obj.reinforcement_bushing_outer_diameter;
+    recess_d = coupler_obj.reinforcement_bushing_recess_diameter;
+    recess_depth = coupler_obj.reinforcement_bushing_recess_depth;
+    hole_d = coupler_obj.reinforcement_bushing_hole_diameter;
+    hole_depth = coupler_obj.reinforcement_bushing_hole_depth;
+    rail_width = coupler_obj.rear_side_rail_width;
     eps = 0.04;
 
     translate([position[0], 0, position[1]])
@@ -137,78 +137,78 @@ module _hub75_horizontal_edge_design_reinforcement_panel_fragment(
         }
 }
 
-module _hub75_horizontal_edge_design_reinforcement_guide_fragment(coupler, position) {
+module _hub75_horizontal_edge_design_reinforcement_guide_fragment(coupler_obj, position) {
     intersection() {
-        _hub75_horizontal_edge_design_unrelieved_tall_guide(coupler);
-        _hub75_horizontal_edge_design_reinforcement_crop(coupler, position);
+        _hub75_horizontal_edge_design_unrelieved_tall_guide(coupler_obj);
+        _hub75_horizontal_edge_design_reinforcement_crop(coupler_obj, position);
     }
 }
 
-module _hub75_horizontal_edge_design_reinforcement_clearance_band(coupler, position) {
+module _hub75_horizontal_edge_design_reinforcement_clearance_band(coupler_obj, position) {
     outer_d =
-        coupler.reinforcement_bushing_outer_diameter
-        + 2 * coupler.reinforcement_bushing_clearance;
-    inner_d = coupler.reinforcement_bushing_outer_diameter;
+        coupler_obj.reinforcement_bushing_outer_diameter
+        + 2 * coupler_obj.reinforcement_bushing_clearance;
+    inner_d = coupler_obj.reinforcement_bushing_outer_diameter;
 
     translate([position[0], 0, position[1]])
         difference() {
-            _hub75_horizontal_edge_coupler_extrude_xz_y(-coupler.guide_height, 0)
+            _hub75_horizontal_edge_coupler_extrude_xz_y(-coupler_obj.guide_height, 0)
                 circle(d = outer_d);
-            _hub75_horizontal_edge_coupler_extrude_xz_y(-coupler.guide_height - 0.05, 0.05)
+            _hub75_horizontal_edge_coupler_extrude_xz_y(-coupler_obj.guide_height - 0.05, 0.05)
                 circle(d = inner_d);
         }
 }
 
-module _hub75_horizontal_edge_design_reinforcement_collision(coupler, position) {
+module _hub75_horizontal_edge_design_reinforcement_collision(coupler_obj, position) {
     intersection() {
-        _hub75_horizontal_edge_design_reinforcement_guide_fragment(coupler, position);
-        _hub75_horizontal_edge_design_reinforcement_relief_cutters(coupler);
+        _hub75_horizontal_edge_design_reinforcement_guide_fragment(coupler_obj, position);
+        _hub75_horizontal_edge_design_reinforcement_relief_cutters(coupler_obj);
     }
 }
 
-module _hub75_horizontal_edge_design_physical_locator_pin(coupler) {
-    position = hub75_horizontal_edge_coupler_locator_pin_position(coupler);
+module _hub75_horizontal_edge_design_physical_locator_pin(coupler_obj) {
+    position = hub75_horizontal_edge_coupler_locator_pin_position(coupler_obj);
     translate([position[0], 0, position[1]])
         rotate([-90, 0, 0])
-            cylinder(d = coupler.locator_pin_diameter, h = coupler.locator_pin_protrusion);
+            cylinder(d = coupler_obj.locator_pin_diameter, h = coupler_obj.locator_pin_protrusion);
 }
 
-module _hub75_horizontal_edge_design_locator_crop(coupler, width = 34) {
-    position = hub75_horizontal_edge_coupler_locator_pin_position(coupler);
+module _hub75_horizontal_edge_design_locator_crop(coupler_obj, width = 34) {
+    position = hub75_horizontal_edge_coupler_locator_pin_position(coupler_obj);
     translate([
         position[0] - width / 2,
         -2,
         position[1] - width / 2
     ])
-        cube([width, coupler.base_thickness + 5, width]);
+        cube([width, coupler_obj.base_thickness + 5, width]);
 }
 
 module _hub75_horizontal_edge_design_outer_ridge_detail_2d(
-    coupler,
+    coupler_obj,
     panel_shift_z = 0
 ) {
     intersection() {
         _hub75_horizontal_edge_coupler_outer_ridge_2d(
-            coupler,
+            coupler_obj,
             panel_shift_z
         );
         square([18, 32], center = true);
     }
 }
 
-module _hub75_horizontal_edge_design_after_reference_pockets(coupler) {
+module _hub75_horizontal_edge_design_after_reference_pockets(coupler_obj) {
     union() {
         difference() {
-            _hub75_horizontal_edge_coupler_base_after_functional_cutters(coupler);
-            _hub75_horizontal_edge_coupler_reference_pocket_cutters(coupler);
+            _hub75_horizontal_edge_coupler_base_after_functional_cutters(coupler_obj);
+            _hub75_horizontal_edge_coupler_reference_pocket_cutters(coupler_obj);
         }
-        if (coupler.guide_height > 0) {
-            _hub75_horizontal_edge_coupler_guide_walls(coupler);
-            _hub75_horizontal_edge_coupler_outer_edge_ridge(coupler);
+        if (coupler_obj.guide_height > 0) {
+            _hub75_horizontal_edge_coupler_guide_walls(coupler_obj);
+            _hub75_horizontal_edge_coupler_outer_edge_ridge(coupler_obj);
         }
-        _hub75_horizontal_edge_coupler_reinforcement_locators(coupler);
-        if (coupler.seam_locator_height > 0)
-            _hub75_horizontal_edge_coupler_seam_locator(coupler);
+        _hub75_horizontal_edge_coupler_reinforcement_locators(coupler_obj);
+        if (coupler_obj.seam_locator_height > 0)
+            _hub75_horizontal_edge_coupler_seam_locator(coupler_obj);
     }
 }
 

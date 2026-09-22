@@ -7,7 +7,7 @@ use <../export_support/export_orientation.scad>
 size = "medium";
 d_profile = size;
 
-coupler = hub75_middle_coupler_create_for_size(size = d_profile);
+coupler_obj = hub75_middle_coupler_create_for_size(size = d_profile);
 
 expected_profile =
     d_profile == "small" ? [60, 2, 4, 2]
@@ -15,43 +15,43 @@ expected_profile =
     : [80, 4, 6, 3];
 
 assert(
-    abs(coupler.profile_size - expected_profile[0]) < 0.001
-    && abs(coupler.wall_thickness - expected_profile[1]) < 0.001
-    && abs(coupler.guide_height - expected_profile[2]) < 0.001
-    && abs(coupler.base_thickness - expected_profile[3]) < 0.001,
+    abs(coupler_obj.profile_size - expected_profile[0]) < 0.001
+    && abs(coupler_obj.wall_thickness - expected_profile[1]) < 0.001
+    && abs(coupler_obj.guide_height - expected_profile[2]) < 0.001
+    && abs(coupler_obj.base_thickness - expected_profile[3]) < 0.001,
     "Middle coupler size preset changed"
 );
 
 assert(
-    abs(coupler.inside_corner_radius - 10) < 0.001
-    && abs(coupler.outside_corner_radius - 6) < 0.001,
+    abs(coupler_obj.inside_corner_radius - 10) < 0.001
+    && abs(coupler_obj.outside_corner_radius - 6) < 0.001,
     "Middle coupler must retain the approved rounded v120 profile"
 );
 
 assert(
-    abs(coupler.guide_end_rounding - 1.5) < 0.001
-    && abs(coupler.seam_locator_end_radius - 1.0) < 0.001,
+    abs(coupler_obj.guide_end_rounding - 1.5) < 0.001
+    && abs(coupler_obj.seam_locator_end_radius - 1.0) < 0.001,
     "Middle coupler guide/locator rounding changed"
 );
 
 assert(
-    abs(coupler.screw_relief_depth - 0.20) < 0.001
-    && abs(coupler.screw_relief_radial - 0.40) < 0.001,
+    abs(coupler_obj.screw_relief_depth - 0.20) < 0.001
+    && abs(coupler_obj.screw_relief_radial - 0.40) < 0.001,
     "Middle coupler screw anti-elephant-foot relief changed"
 );
 
 assert(
-    coupler.render_fn >= 192,
+    coupler_obj.render_fn >= 192,
     "Middle coupler STL resolution dropped below approved quality"
 );
 
 assert(
-    abs(coupler.reference_pocket_diameter - 3.0) < 0.001
-    && abs(coupler.reference_pocket_depth - 2.0) < 0.001
-    && abs(coupler.reference_pocket_min_back_wall - 0.7) < 0.001
-    && abs(coupler.reference_pocket_end_diameter - 2.0) < 0.001
-    && abs(coupler.reference_pocket_taper_depth - 0.5) < 0.001
-    && abs(coupler.reference_pocket_pitch - 10.0) < 0.001,
+    abs(coupler_obj.reference_pocket_diameter - 3.0) < 0.001
+    && abs(coupler_obj.reference_pocket_depth - 2.0) < 0.001
+    && abs(coupler_obj.reference_pocket_min_back_wall - 0.7) < 0.001
+    && abs(coupler_obj.reference_pocket_end_diameter - 2.0) < 0.001
+    && abs(coupler_obj.reference_pocket_taper_depth - 0.5) < 0.001
+    && abs(coupler_obj.reference_pocket_pitch - 10.0) < 0.001,
     "Middle coupler reference pocket defaults changed"
 );
 
@@ -63,12 +63,12 @@ expected_reference_straight =
 
 assert(
     abs(
-        hub75_middle_coupler_reference_pocket_effective_depth(coupler)
+        hub75_middle_coupler_reference_pocket_effective_depth(coupler_obj)
         - expected_reference_depth
     ) < 0.001
     &&
     abs(
-        hub75_middle_coupler_reference_pocket_straight_depth(coupler)
+        hub75_middle_coupler_reference_pocket_straight_depth(coupler_obj)
         - expected_reference_straight
     ) < 0.001,
     "Middle coupler reference pocket depth derivation changed"
@@ -79,16 +79,16 @@ assert(
     ||
     abs(
         hub75_middle_coupler_reference_pocket_lane_offset(
-            coupler,
-            hub75_middle_coupler_horizontal_arm_height(coupler)
+            coupler_obj,
+            hub75_middle_coupler_horizontal_arm_height(coupler_obj)
         )
         - 7.5
     ) < 0.001
     &&
     abs(
         hub75_middle_coupler_reference_pocket_lane_offset(
-            coupler,
-            hub75_middle_coupler_vertical_arm_width(coupler)
+            coupler_obj,
+            hub75_middle_coupler_vertical_arm_width(coupler_obj)
         )
         - 7.5
     ) < 0.001,
@@ -97,28 +97,28 @@ assert(
 
 assert(
     size != "medium"
-    || hub75_middle_coupler_reference_pocket_uses_two_lanes(coupler),
+    || hub75_middle_coupler_reference_pocket_uses_two_lanes(coupler_obj),
     "Default middle coupler should support symmetric two-lane pockets"
 );
 
 assert(
-    abs(coupler.center_mark_depth - 0.40) < 0.001
-    && abs(coupler.center_mark_pitch - 10.0) < 0.001
-    && abs(coupler.center_mark_major_length - 4.0) < 0.001
-    && abs(coupler.center_mark_minor_length - 2.2) < 0.001
-    && abs(coupler.center_mark_width - 0.8) < 0.001
-    && abs(coupler.center_mark_cross_length - 6.0) < 0.001,
+    abs(coupler_obj.center_mark_depth - 0.40) < 0.001
+    && abs(coupler_obj.center_mark_pitch - 10.0) < 0.001
+    && abs(coupler_obj.center_mark_major_length - 4.0) < 0.001
+    && abs(coupler_obj.center_mark_minor_length - 2.2) < 0.001
+    && abs(coupler_obj.center_mark_width - 0.8) < 0.001
+    && abs(coupler_obj.center_mark_cross_length - 6.0) < 0.001,
     "Middle coupler centre-reference defaults changed"
 );
 
 assert(
     abs(
-        hub75_middle_coupler_reinforcement_locator_pad_diameter(coupler)
+        hub75_middle_coupler_reinforcement_locator_pad_diameter(coupler_obj)
         - 9.4
     ) < 0.001
     &&
     abs(
-        hub75_middle_coupler_reinforcement_locator_pad_height(coupler)
+        hub75_middle_coupler_reinforcement_locator_pad_height(coupler_obj)
         - 2.4
     ) < 0.001,
     "Reinforcement locator pad derivation changed"
@@ -126,11 +126,11 @@ assert(
 
 assert(
     abs(
-        hub75_middle_coupler_reinforcement_locator_pin_diameter(coupler)
+        hub75_middle_coupler_reinforcement_locator_pin_diameter(coupler_obj)
         - 2.1
     ) < 0.001
     &&
-    abs(coupler.reinforcement_locator_pin_length - 2.0) < 0.001,
+    abs(coupler_obj.reinforcement_locator_pin_length - 2.0) < 0.001,
     "Reinforcement locator pin derivation changed"
 );
 
@@ -139,7 +139,7 @@ assert(
     size != "medium"
     ||
     abs(
-        hub75_middle_coupler_horizontal_arm_height(coupler)
+        hub75_middle_coupler_horizontal_arm_height(coupler_obj)
         - 28.481875
     ) < 0.001,
     "Default horizontal arm derivation changed"
@@ -149,7 +149,7 @@ assert(
     size != "medium"
     ||
     abs(
-        hub75_middle_coupler_vertical_arm_width(coupler)
+        hub75_middle_coupler_vertical_arm_width(coupler_obj)
         - 33.8
     ) < 0.001,
     "Default vertical arm derivation changed"
@@ -159,7 +159,7 @@ assert(
     size != "medium"
     ||
     abs(
-        hub75_middle_coupler_seam_locator_width(coupler)
+        hub75_middle_coupler_seam_locator_width(coupler_obj)
         - 2.2953125
     ) < 0.001,
     "Default seam locator derivation changed"
@@ -170,17 +170,17 @@ assert(
     ||
     (
     abs(
-        hub75_middle_coupler_screw_x_positions(coupler)[0]
+        hub75_middle_coupler_screw_x_positions(coupler_obj)[0]
         + 8
     ) < 0.001
     &&
     abs(
-        hub75_middle_coupler_screw_x_positions(coupler)[1]
+        hub75_middle_coupler_screw_x_positions(coupler_obj)[1]
         - 8
     ) < 0.001
     ),
     "Default seam-side screw positions changed"
 );
 
-hub75_export_rear_face_down(coupler.base_thickness)
-    hub75_middle_coupler_build(coupler);
+hub75_export_rear_face_down(coupler_obj.base_thickness)
+    hub75_middle_coupler_build(coupler_obj);

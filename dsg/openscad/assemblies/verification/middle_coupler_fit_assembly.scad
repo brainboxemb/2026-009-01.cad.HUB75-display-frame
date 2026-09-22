@@ -10,41 +10,41 @@ use <../panels_assembly.scad>
 use <../../components/hub75/middle-coupler/hub75_middle_coupler.scad>
 use <../helpers/verification_datum_pin.scad>
 
-function _hub75_middle_coupler_fit_panel_pitch(panel) =
-    hub75_p5_64x32_panel_nominal_width(panel);
+function _hub75_middle_coupler_fit_panel_pitch(panel_obj) =
+    hub75_p5_64x32_panel_nominal_width(panel_obj);
 
-module _hub75_middle_coupler_fit_panel_pair(panel) {
+module _hub75_middle_coupler_fit_panel_pair(panel_obj) {
     hub75_panels_assembly(
-        panel = panel,
+        panel_obj = panel_obj,
         panel_count = 2,
         color_scheme = "light_gray"
     );
 }
 
-function _hub75_middle_coupler_fit_section_z(coupler) =
-    -hub75_middle_coupler_horizontal_arm_height(coupler) / 2
+function _hub75_middle_coupler_fit_section_z(coupler_obj) =
+    -hub75_middle_coupler_horizontal_arm_height(coupler_obj) / 2
     - 6;
 
 // Module: hub75_middle_coupler_fit_detail()
 // Description:
 //   Cropped rear context around the seam between two panels and the coupler.
 module hub75_middle_coupler_fit_detail(
-    panel = hub75_p5_64x32_panel_create(),
-    coupler = undef,
+    panel_obj = hub75_p5_64x32_panel_create(),
+    coupler_obj = undef,
     crop_width = 140,
     crop_height = 130
 ) {
-    active_coupler =
-        is_undef(coupler)
-            ? hub75_middle_coupler_create(panel = panel)
-            : coupler;
+    active_coupler_obj =
+        is_undef(coupler_obj)
+            ? hub75_middle_coupler_create(panel_obj = panel_obj)
+            : coupler_obj;
     mounting_y =
-        hub75_p5_64x32_panel_mounting_plane_y(panel);
+        hub75_p5_64x32_panel_mounting_plane_y(panel_obj);
 
     module _crop_volume() {
         y_max =
             mounting_y
-            + active_coupler.base_thickness
+            + active_coupler_obj.base_thickness
             + 2;
 
         translate([
@@ -60,13 +60,13 @@ module hub75_middle_coupler_fit_detail(
     }
 
     intersection() {
-        _hub75_middle_coupler_fit_panel_pair(panel);
+        _hub75_middle_coupler_fit_panel_pair(panel_obj);
         _crop_volume();
     }
 
     color([0.72, 0.05, 0.04, 1])
         translate([0, mounting_y, 0])
-            hub75_middle_coupler_build(active_coupler);
+            hub75_middle_coupler_build(active_coupler_obj);
 
     hub75_verification_datum_pin(
         x = 0,
@@ -74,7 +74,7 @@ module hub75_middle_coupler_fit_detail(
         y_min = -4,
         y_max =
             mounting_y
-            + active_coupler.base_thickness
+            + active_coupler_obj.base_thickness
             + 8
     );
 }
@@ -85,22 +85,22 @@ module hub75_middle_coupler_fit_detail(
 //   crossbar. util_section_inspect() owns the Z slab; this fixture owns only
 //   the local X/Y crop and presentation.
 module hub75_middle_coupler_fit_cross_section(
-    panel = hub75_p5_64x32_panel_create(),
-    coupler = undef,
+    panel_obj = hub75_p5_64x32_panel_create(),
+    coupler_obj = undef,
     slice_thickness = 0.50,
     crop_width = 90
 ) {
-    active_coupler =
-        is_undef(coupler)
-            ? hub75_middle_coupler_create(panel = panel)
-            : coupler;
+    active_coupler_obj =
+        is_undef(coupler_obj)
+            ? hub75_middle_coupler_create(panel_obj = panel_obj)
+            : coupler_obj;
     mounting_y =
-        hub75_p5_64x32_panel_mounting_plane_y(panel);
+        hub75_p5_64x32_panel_mounting_plane_y(panel_obj);
     slice_z =
-        _hub75_middle_coupler_fit_section_z(active_coupler);
+        _hub75_middle_coupler_fit_section_z(active_coupler_obj);
     y_max =
         mounting_y
-        + active_coupler.base_thickness
+        + active_coupler_obj.base_thickness
         + 2;
 
     module _crop_volume() {
@@ -123,7 +123,7 @@ module hub75_middle_coupler_fit_cross_section(
             depth = slice_thickness,
             direction = "Positive"
         )
-            _hub75_middle_coupler_fit_panel_pair(panel);
+            _hub75_middle_coupler_fit_panel_pair(panel_obj);
         _crop_volume();
     }
 
@@ -136,7 +136,7 @@ module hub75_middle_coupler_fit_cross_section(
                 direction = "Positive"
             )
                 translate([0, mounting_y, 0])
-                    hub75_middle_coupler_build(active_coupler);
+                    hub75_middle_coupler_build(active_coupler_obj);
             _crop_volume();
         }
 }
@@ -147,26 +147,26 @@ module hub75_middle_coupler_fit_cross_section(
 //   retained Y slab is delegated to lib.scad.util; this fixture keeps only
 //   the local X/Z crop, color separation and datum.
 module hub75_middle_coupler_rear_fit_section(
-    panel = hub75_p5_64x32_panel_create(),
-    coupler = undef,
+    panel_obj = hub75_p5_64x32_panel_create(),
+    coupler_obj = undef,
     depth = 5.0,
     crop_width = 140,
     crop_height = 130
 ) {
-    active_coupler =
-        is_undef(coupler)
-            ? hub75_middle_coupler_create(panel = panel)
-            : coupler;
+    active_coupler_obj =
+        is_undef(coupler_obj)
+            ? hub75_middle_coupler_create(panel_obj = panel_obj)
+            : coupler_obj;
     pitch =
-        _hub75_middle_coupler_fit_panel_pitch(panel);
+        _hub75_middle_coupler_fit_panel_pitch(panel_obj);
     mounting_y =
-        hub75_p5_64x32_panel_mounting_plane_y(panel);
+        hub75_p5_64x32_panel_mounting_plane_y(panel_obj);
     section_y =
         mounting_y - depth;
     y_min = -0.5;
     y_max =
         mounting_y
-        + active_coupler.base_thickness
+        + active_coupler_obj.base_thickness
         + 2;
 
     assert(depth > 0, "rear fit section depth must be > 0");
@@ -179,7 +179,7 @@ module hub75_middle_coupler_rear_fit_section(
         for (x = [-pitch / 2, pitch / 2])
             translate([x, 0, 0])
                 hub75_p5_64x32_panel_render(
-                    panel,
+                    panel_obj,
                     view = hub75_p5_64x32_panel_view_id("structure"),
                     color_scheme = "light_gray"
                 );
@@ -219,7 +219,7 @@ module hub75_middle_coupler_rear_fit_section(
                 direction = "Positive"
             )
                 translate([0, mounting_y, 0])
-                    hub75_middle_coupler_build(active_coupler);
+                    hub75_middle_coupler_build(active_coupler_obj);
             _crop_volume();
         }
 
@@ -229,7 +229,7 @@ module hub75_middle_coupler_rear_fit_section(
         y_min = -4,
         y_max =
             mounting_y
-            + active_coupler.base_thickness
+            + active_coupler_obj.base_thickness
             + 8
     );
 }

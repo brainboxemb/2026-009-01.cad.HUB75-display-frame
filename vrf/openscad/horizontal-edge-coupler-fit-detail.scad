@@ -9,11 +9,11 @@ $vpt = [0, 14, 115];
 $vpr = [78, 0, 220];
 $vpd = 260;
 
-coupler =
+coupler_obj =
     hub75_horizontal_edge_coupler_create_for_size(
         size = size
     );
 
 hub75_horizontal_edge_coupler_fit_detail(
-    coupler = coupler
+    coupler_obj = coupler_obj
 );

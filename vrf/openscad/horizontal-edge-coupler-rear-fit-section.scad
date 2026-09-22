@@ -9,16 +9,16 @@ $vpt = [0, 9.5, 115];
 $vpr = [90, 0, 180];
 $vpd = 235;
 
-coupler =
+coupler_obj =
     hub75_horizontal_edge_coupler_create_for_size(
         size = size
     );
 
 section_depth =
-    min(5.0, max(1.0, coupler.guide_height - 1.0));
+    min(5.0, max(1.0, coupler_obj.guide_height - 1.0));
 
 hub75_horizontal_edge_coupler_rear_fit_section(
-    coupler = coupler,
+    coupler_obj = coupler_obj,
     depth = section_depth,
     slice_thickness = 0.10
 );

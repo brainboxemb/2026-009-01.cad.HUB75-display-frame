@@ -18,67 +18,67 @@ module hub75_tube_horizontal_edge_coupler_design(
     view = "final",
     size = "medium"
 ) {
-    coupler =
+    coupler_obj =
         hub75_horizontal_edge_coupler_create_for_size(
             size = size
         );
-    clamp =
+    clamp_obj =
         hub75_tube_clamp_create(
-            dovetail =
+            dovetail_obj =
                 hub75_tube_mount_dovetail_create(
-                    host_depth_mm = coupler.base_thickness
+                    host_depth_mm = coupler_obj.base_thickness
                 )
         );
 
     if (view == "core") {
         color([0.72, 0.72, 0.72, 1])
-            hub75_horizontal_edge_coupler_build(coupler);
+            hub75_horizontal_edge_coupler_build(coupler_obj);
 
     } else if (view == "tube-keepout") {
         color([0.72, 0.72, 0.72, 0.55])
-            hub75_horizontal_edge_coupler_build(coupler);
+            hub75_horizontal_edge_coupler_build(coupler_obj);
         color([1, 0, 0, 0.55])
             _hub75_tube_horizontal_edge_keepout_cutter(
-                coupler,
-                clamp
+                coupler_obj,
+                clamp_obj
             );
 
     } else if (view == "carrier-position") {
         color([0.72, 0.72, 0.72, 1])
-            hub75_horizontal_edge_coupler_build(coupler);
+            hub75_horizontal_edge_coupler_build(coupler_obj);
         _hub75_tube_horizontal_edge_reference_tube(
-            coupler,
-            clamp
+            coupler_obj,
+            clamp_obj
         );
-        _hub75_tube_horizontal_edge_position_markers(coupler);
+        _hub75_tube_horizontal_edge_position_markers(coupler_obj);
 
     } else if (view == "carriers") {
         color([0.72, 0.72, 0.72, 1])
-            hub75_horizontal_edge_coupler_build(coupler);
+            hub75_horizontal_edge_coupler_build(coupler_obj);
         color([1, 0, 0, 0.70])
             _hub75_tube_horizontal_edge_carriers(
-                coupler,
-                clamp
+                coupler_obj,
+                clamp_obj
             );
         _hub75_tube_horizontal_edge_reference_tube(
-            coupler,
-            clamp,
+            coupler_obj,
+            clamp_obj,
             alpha = 0.45
         );
 
     } else if (view == "dovetail") {
         color([0.72, 0.72, 0.72, 0.75])
             union() {
-                hub75_horizontal_edge_coupler_build(coupler);
+                hub75_horizontal_edge_coupler_build(coupler_obj);
                 _hub75_tube_horizontal_edge_carriers(
-                coupler,
-                clamp
+                coupler_obj,
+                clamp_obj
             );
             }
         color([1, 0, 0, 0.55])
             _hub75_tube_horizontal_edge_dovetail_cutters(
-                coupler,
-                clamp
+                coupler_obj,
+                clamp_obj
             );
 
     } else if (view == "assembled") {
@@ -90,10 +90,10 @@ module hub75_tube_horizontal_edge_coupler_design(
 
     } else {
         color([0.72, 0.05, 0.04, 1])
-            hub75_tube_horizontal_edge_coupler_build(coupler);
+            hub75_tube_horizontal_edge_coupler_build(coupler_obj);
         _hub75_tube_horizontal_edge_reference_tube(
-            coupler,
-            clamp
+            coupler_obj,
+            clamp_obj
         );
     }
 }
@@ -104,30 +104,30 @@ module hub75_tube_horizontal_edge_coupler_design(
 // ----------------------------------------------------------------------
 
 module _hub75_tube_horizontal_edge_reference_tube(
-    coupler,
-    clamp,
+    coupler_obj,
+    clamp_obj,
     alpha = 0.65
 ) {
-    length = coupler.profile_size + 20;
-    tube =
+    length = coupler_obj.profile_size + 20;
+    tube_obj =
         aluminium_tube_create(
             length_mm = length,
             outer_diameter_mm =
-                hub75_tube_clamp_functional_diameter_mm(clamp),
+                hub75_tube_clamp_functional_diameter_mm(clamp_obj),
             wall_thickness_mm = 1
         );
 
     color([0.55, 0.57, 0.60, alpha])
         translate([
             -length / 2,
-            hub75_tube_clamp_tube_center_y_mm(clamp),
-            hub75_tube_clamp_tube_center_z_mm(clamp)
+            hub75_tube_clamp_tube_center_y_mm(clamp_obj),
+            hub75_tube_clamp_tube_center_z_mm(clamp_obj)
         ])
-            aluminium_tube_build(tube);
+            aluminium_tube_build(tube_obj);
 }
 
-module _hub75_tube_horizontal_edge_position_markers(coupler) {
-    for (clip_x = hub75_tube_horizontal_edge_clamp_positions_mm(coupler))
+module _hub75_tube_horizontal_edge_position_markers(coupler_obj) {
+    for (clip_x = hub75_tube_horizontal_edge_clamp_positions_mm(coupler_obj))
         color([1, 0, 0, 0.75])
             translate([clip_x - 0.6, -0.4, -12])
                 cube([1.2, 0.8, 38]);

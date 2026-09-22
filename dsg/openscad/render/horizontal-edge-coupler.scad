@@ -6,7 +6,7 @@ use <../components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.s
 size = "medium";
 d_profile = size;
 
-coupler =
+coupler_obj =
     hub75_horizontal_edge_coupler_create_for_size(
         size = d_profile
     );
@@ -14,7 +14,7 @@ coupler =
 $vpt = [
     0,
     0,
-    -hub75_horizontal_edge_coupler_inward_reach(coupler) / 2
+    -hub75_horizontal_edge_coupler_inward_reach(coupler_obj) / 2
 ];
 $vpr = [68, 0, 35];
 $vpd =
@@ -22,4 +22,4 @@ $vpd =
     : d_profile == "large" ? 250
     : 200;
 
-hub75_horizontal_edge_coupler_render(coupler, view = "final");
+hub75_horizontal_edge_coupler_render(coupler_obj, view = "final");

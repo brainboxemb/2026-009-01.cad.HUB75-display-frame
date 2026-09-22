@@ -5,16 +5,16 @@ use <../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
 use <../../ext/lib.scad.util/openscad/inspection.scad>
 use <../../components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad>
 
-function _hub75_corner_profile_corner_x(panel, side) =
+function _hub75_corner_profile_corner_x(panel_obj, side) =
     (side == "left" ? -1 : 1)
-    * hub75_p5_64x32_panel_nominal_width(panel) / 2;
+    * hub75_p5_64x32_panel_nominal_width(panel_obj) / 2;
 
-function _hub75_corner_profile_corner_z(panel) =
-    hub75_p5_64x32_panel_nominal_height(panel) / 2;
+function _hub75_corner_profile_corner_z(panel_obj) =
+    hub75_p5_64x32_panel_nominal_height(panel_obj) / 2;
 
-module _hub75_corner_profile_panel(panel) {
+module _hub75_corner_profile_panel(panel_obj) {
     hub75_p5_64x32_panel_render(
-        panel,
+        panel_obj,
         view = hub75_p5_64x32_panel_view_id("final"),
         color_scheme = "light_gray"
     );
@@ -23,23 +23,23 @@ module _hub75_corner_profile_panel(panel) {
 // Module: hub75_corner_edge_coupler_horizontal_profile_section()
 module hub75_corner_edge_coupler_horizontal_profile_section(
     side = "left",
-    panel = hub75_p5_64x32_panel_create(),
-    coupler = undef,
+    panel_obj = hub75_p5_64x32_panel_create(),
+    coupler_obj = undef,
     slice_inward = 20,
     slice_thickness = 0.50,
     crop_inward = 95,
     crop_outward = 10
 ) {
-    active_coupler =
-        is_undef(coupler)
-            ? hub75_corner_edge_coupler_create(side = side, panel = panel)
-            : coupler;
-    corner_x = _hub75_corner_profile_corner_x(panel, side);
-    corner_z = _hub75_corner_profile_corner_z(panel);
-    mounting_y = hub75_p5_64x32_panel_mounting_plane_y(panel);
+    active_coupler_obj =
+        is_undef(coupler_obj)
+            ? hub75_corner_edge_coupler_create(side = side, panel_obj = panel_obj)
+            : coupler_obj;
+    corner_x = _hub75_corner_profile_corner_x(panel_obj, side);
+    corner_z = _hub75_corner_profile_corner_z(panel_obj);
+    mounting_y = hub75_p5_64x32_panel_mounting_plane_y(panel_obj);
     x_inward = side == "left" ? 1 : -1;
     slice_x = corner_x + x_inward * slice_inward;
-    y_max = mounting_y + active_coupler.base_thickness + 2;
+    y_max = mounting_y + active_coupler_obj.base_thickness + 2;
 
     assert(slice_thickness > 0, "horizontal profile slice thickness must be > 0");
 
@@ -72,7 +72,7 @@ module hub75_corner_edge_coupler_horizontal_profile_section(
             depth = slice_thickness,
             direction = "Positive"
         )
-            _hub75_corner_profile_panel(panel);
+            _hub75_corner_profile_panel(panel_obj);
         _crop_volume();
     }
 
@@ -85,7 +85,7 @@ module hub75_corner_edge_coupler_horizontal_profile_section(
                 direction = "Positive"
             )
                 translate([corner_x, mounting_y, corner_z])
-                    hub75_corner_edge_coupler_build(active_coupler);
+                    hub75_corner_edge_coupler_build(active_coupler_obj);
             _crop_volume();
         }
 }
@@ -93,22 +93,22 @@ module hub75_corner_edge_coupler_horizontal_profile_section(
 // Module: hub75_corner_edge_coupler_vertical_profile_section()
 module hub75_corner_edge_coupler_vertical_profile_section(
     side = "left",
-    panel = hub75_p5_64x32_panel_create(),
-    coupler = undef,
+    panel_obj = hub75_p5_64x32_panel_create(),
+    coupler_obj = undef,
     slice_inward = 20,
     slice_thickness = 0.50,
     crop_inward = 95,
     crop_outward = 10
 ) {
-    active_coupler =
-        is_undef(coupler)
-            ? hub75_corner_edge_coupler_create(side = side, panel = panel)
-            : coupler;
-    corner_x = _hub75_corner_profile_corner_x(panel, side);
-    corner_z = _hub75_corner_profile_corner_z(panel);
-    mounting_y = hub75_p5_64x32_panel_mounting_plane_y(panel);
+    active_coupler_obj =
+        is_undef(coupler_obj)
+            ? hub75_corner_edge_coupler_create(side = side, panel_obj = panel_obj)
+            : coupler_obj;
+    corner_x = _hub75_corner_profile_corner_x(panel_obj, side);
+    corner_z = _hub75_corner_profile_corner_z(panel_obj);
+    mounting_y = hub75_p5_64x32_panel_mounting_plane_y(panel_obj);
     slice_z = corner_z - slice_inward;
-    y_max = mounting_y + active_coupler.base_thickness + 2;
+    y_max = mounting_y + active_coupler_obj.base_thickness + 2;
     x_min = side == "left" ? corner_x - crop_outward : corner_x - crop_inward;
     x_max = side == "left" ? corner_x + crop_inward : corner_x + crop_outward;
 
@@ -134,7 +134,7 @@ module hub75_corner_edge_coupler_vertical_profile_section(
             depth = slice_thickness,
             direction = "Positive"
         )
-            _hub75_corner_profile_panel(panel);
+            _hub75_corner_profile_panel(panel_obj);
         _crop_volume();
     }
 
@@ -147,7 +147,7 @@ module hub75_corner_edge_coupler_vertical_profile_section(
                 direction = "Positive"
             )
                 translate([corner_x, mounting_y, corner_z])
-                    hub75_corner_edge_coupler_build(active_coupler);
+                    hub75_corner_edge_coupler_build(active_coupler_obj);
             _crop_volume();
         }
 }

@@ -7,13 +7,13 @@ use <../project_components/tube_mount/horizontal-edge-coupler/hub75_tube_horizon
 // tool.scad-project multi-size adapter: overridden by -D size=...
 size = "medium";
 d_profile = size;
-_coupler = hub75_horizontal_edge_coupler_create_for_size(size = d_profile);
+_coupler_obj = hub75_horizontal_edge_coupler_create_for_size(size = d_profile);
 
-$vpt = [0, _coupler.base_thickness / 2, 0];
+$vpt = [0, _coupler_obj.base_thickness / 2, 0];
 $vpr = [68, 0, 35];
 $vpd = d_profile == "small" ? 150 : d_profile == "large" ? 250 : 200;
 
 hub75_tube_horizontal_edge_coupler_build(
-    _coupler,
+    _coupler_obj,
     resolution = FG_RES_HIGH()
 );

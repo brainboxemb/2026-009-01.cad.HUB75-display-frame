@@ -32,32 +32,32 @@ HUB75_DISPLAY_PANEL_COUNT = 5;
 function hub75_display_panel_create() =
     hub75_p5_64x32_panel_create();
 
-function _hub75_display_panel_pitch_x(panel) =
-    hub75_p5_64x32_panel_nominal_width(panel);
+function _hub75_display_panel_pitch_x(panel_obj) =
+    hub75_p5_64x32_panel_nominal_width(panel_obj);
 
-function _hub75_display_panel_pitch_z(panel) =
-    hub75_p5_64x32_panel_nominal_height(panel);
+function _hub75_display_panel_pitch_z(panel_obj) =
+    hub75_p5_64x32_panel_nominal_height(panel_obj);
 
 function _hub75_display_nominal_width(
-    panel,
+    panel_obj,
     panel_count = HUB75_DISPLAY_PANEL_COUNT
 ) =
-    panel_count * _hub75_display_panel_pitch_x(panel);
+    panel_count * _hub75_display_panel_pitch_x(panel_obj);
 
-function _hub75_display_nominal_height(panel) =
-    _hub75_display_panel_pitch_z(panel);
+function _hub75_display_nominal_height(panel_obj) =
+    _hub75_display_panel_pitch_z(panel_obj);
 
-function _hub75_display_panel_front_y(panel) = 0;
+function _hub75_display_panel_front_y(panel_obj) = 0;
 
-function _hub75_display_panel_rear_mounting_y(panel) =
-    hub75_p5_64x32_panel_mounting_plane_y(panel);
+function _hub75_display_panel_rear_mounting_y(panel_obj) =
+    hub75_p5_64x32_panel_mounting_plane_y(panel_obj);
 
 function _hub75_display_panel_center_x(
-    panel,
+    panel_obj,
     index,
     panel_count = HUB75_DISPLAY_PANEL_COUNT
 ) =
-    (index - (panel_count - 1) / 2) * _hub75_display_panel_pitch_x(panel);
+    (index - (panel_count - 1) / 2) * _hub75_display_panel_pitch_x(panel_obj);
 
 function _hub75_display_panel_chain_number(index, panel_count) =
     panel_count - index;
@@ -68,26 +68,26 @@ function _hub75_display_panel_input_is_top(index, panel_count) =
 function _hub75_display_panel_rotated(index, panel_count) =
     !_hub75_display_panel_input_is_top(index, panel_count);
 
-function _hub75_display_panel_connector_z_centered(panel, drawing_z) =
-    drawing_z - hub75_p5_64x32_panel_height(panel) / 2;
+function _hub75_display_panel_connector_z_centered(panel_obj, drawing_z) =
+    drawing_z - hub75_p5_64x32_panel_height(panel_obj) / 2;
 
-function _hub75_display_panel_data_connector_z_top(panel) =
+function _hub75_display_panel_data_connector_z_top(panel_obj) =
     _hub75_display_panel_connector_z_centered(
-        panel,
-        hub75_p5_64x32_panel_data_connector_z_top(panel)
+        panel_obj,
+        hub75_p5_64x32_panel_data_connector_z_top(panel_obj)
     );
 
-function _hub75_display_panel_data_connector_z_bottom(panel) =
+function _hub75_display_panel_data_connector_z_bottom(panel_obj) =
     _hub75_display_panel_connector_z_centered(
-        panel,
-        hub75_p5_64x32_panel_data_connector_z_bottom(panel)
+        panel_obj,
+        hub75_p5_64x32_panel_data_connector_z_bottom(panel_obj)
     );
 
 function _hub75_display_rear_visual_x(panel_x, visual_offset) =
     panel_x - visual_offset;
 
 module _hub75_display_rear_text_label(
-    panel,
+    panel_obj,
     label,
     x,
     z,
@@ -97,7 +97,7 @@ module _hub75_display_rear_text_label(
     color(label_color)
         translate([
             x,
-            _hub75_display_panel_rear_mounting_y(panel) + 0.35,
+            _hub75_display_panel_rear_mounting_y(panel_obj) + 0.35,
             z
         ])
             rotate([90, 0, 180])
@@ -111,7 +111,7 @@ module _hub75_display_rear_text_label(
 }
 
 module _hub75_display_panel_chain_annotations(
-    panel,
+    panel_obj,
     index,
     panel_count,
     show_number,
@@ -122,20 +122,20 @@ module _hub75_display_panel_chain_annotations(
     input_top =
         _hub75_display_panel_input_is_top(index, panel_count);
     center_x =
-        _hub75_display_panel_center_x(panel, index, panel_count);
+        _hub75_display_panel_center_x(panel_obj, index, panel_count);
     input_z =
         input_top
-            ? _hub75_display_panel_data_connector_z_top(panel)
-            : _hub75_display_panel_data_connector_z_bottom(panel);
+            ? _hub75_display_panel_data_connector_z_top(panel_obj)
+            : _hub75_display_panel_data_connector_z_bottom(panel_obj);
     output_z =
         input_top
-            ? _hub75_display_panel_data_connector_z_bottom(panel)
-            : _hub75_display_panel_data_connector_z_top(panel);
+            ? _hub75_display_panel_data_connector_z_bottom(panel_obj)
+            : _hub75_display_panel_data_connector_z_top(panel_obj);
     io_visual_offset = 28;
 
     if (show_number)
         _hub75_display_rear_text_label(
-            panel = panel,
+            panel_obj = panel_obj,
             label = str(chain_number),
             x = center_x,
             z = 0,
@@ -144,7 +144,7 @@ module _hub75_display_panel_chain_annotations(
 
     if (show_io) {
         _hub75_display_rear_text_label(
-            panel = panel,
+            panel_obj = panel_obj,
             label = "IN",
             x = _hub75_display_rear_visual_x(
                 center_x,
@@ -155,7 +155,7 @@ module _hub75_display_panel_chain_annotations(
             label_color = [0.20, 1.00, 0.35, 1]
         );
         _hub75_display_rear_text_label(
-            panel = panel,
+            panel_obj = panel_obj,
             label = "OUT",
             x = _hub75_display_rear_visual_x(
                 center_x,
@@ -168,7 +168,7 @@ module _hub75_display_panel_chain_annotations(
 }
 
 module _hub75_display_panel_render(
-    panel,
+    panel_obj,
     index,
     panel_count,
     color_scheme,
@@ -177,20 +177,20 @@ module _hub75_display_panel_render(
     if (_hub75_display_panel_rotated(index, panel_count))
         rotate([0, 180, 0])
             hub75_p5_64x32_panel_render(
-                panel,
+                panel_obj,
                 view = panel_view,
                 color_scheme = color_scheme
             );
     else
         hub75_p5_64x32_panel_render(
-            panel,
+            panel_obj,
             view = panel_view,
             color_scheme = color_scheme
         );
 }
 
 module hub75_display_verify_nominal_size(
-    panel = hub75_display_panel_create(),
+    panel_obj = hub75_display_panel_create(),
     panel_count = HUB75_DISPLAY_PANEL_COUNT
 ) {
     assert(
@@ -198,21 +198,21 @@ module hub75_display_verify_nominal_size(
         "panel_count must be at least 1"
     );
     assert(
-        abs(_hub75_display_panel_pitch_x(panel) - 160) < 0.001,
+        abs(_hub75_display_panel_pitch_x(panel_obj) - 160) < 0.001,
         "HUB75 portrait placement cell must remain 160 mm nominal width"
     );
     assert(
-        abs(_hub75_display_nominal_width(panel, panel_count)
+        abs(_hub75_display_nominal_width(panel_obj, panel_count)
             - 160 * panel_count) < 0.001,
         "Display nominal width must follow panel_count x 160 mm"
     );
     assert(
-        abs(_hub75_display_nominal_height(panel) - 320) < 0.001,
+        abs(_hub75_display_nominal_height(panel_obj) - 320) < 0.001,
         "HUB75 portrait placement cell must remain 320 mm nominal height"
     );
     if (panel_count == HUB75_DISPLAY_PANEL_COUNT)
         assert(
-            abs(_hub75_display_nominal_width(panel, panel_count) - 800) < 0.001,
+            abs(_hub75_display_nominal_width(panel_obj, panel_count) - 800) < 0.001,
             "Five-panel production display must remain 800 mm nominal width"
         );
     assert(
@@ -224,13 +224,13 @@ module hub75_display_verify_nominal_size(
         "Rear-view left panel must keep the default start orientation"
     );
     assert(
-        abs(_hub75_display_panel_front_y(panel)) < 0.001,
+        abs(_hub75_display_panel_front_y(panel_obj)) < 0.001,
         "HUB75 front face must remain on project Y=0"
     );
     assert(
         abs(
-            _hub75_display_panel_rear_mounting_y(panel)
-            - hub75_p5_64x32_panel_mounting_plane_y(panel)
+            _hub75_display_panel_rear_mounting_y(panel_obj)
+            - hub75_p5_64x32_panel_mounting_plane_y(panel_obj)
         ) < 0.001,
         "Rear mounting plane must follow the library mounting-plane datum"
     );
@@ -244,13 +244,13 @@ module hub75_display_verify_nominal_size(
 //   light_gray so complete-display renders remain readable and match the
 //   library's normal render/debug presentation.
 // Arguments:
-//   panel = HUB75 panel object.
+//   panel_obj = HUB75 panel object.
 //   panel_count = Number of portrait panels placed side by side.
 //   color_scheme = Library render colour scheme; default light_gray.
 //   panel_numbers_visible = Show rear-view data-chain panel numbers.
 //   in_out_labels_visible = Show rear-view IN/OUT labels at data connectors.
 module hub75_panels_assembly(
-    panel = hub75_display_panel_create(),
+    panel_obj = hub75_display_panel_create(),
     panel_count = HUB75_DISPLAY_PANEL_COUNT,
     color_scheme = "light_gray",
     panel_view = hub75_p5_64x32_panel_view_id("final"),
@@ -261,12 +261,12 @@ module hub75_panels_assembly(
 
     for (index = [0 : panel_count - 1]) {
         translate([
-            _hub75_display_panel_center_x(panel, index, panel_count),
+            _hub75_display_panel_center_x(panel_obj, index, panel_count),
             0,
             0
         ])
             _hub75_display_panel_render(
-                panel = panel,
+                panel_obj = panel_obj,
                 index = index,
                 panel_count = panel_count,
                 color_scheme = color_scheme,
@@ -275,7 +275,7 @@ module hub75_panels_assembly(
 
         if (panel_numbers_visible || in_out_labels_visible)
             _hub75_display_panel_chain_annotations(
-                panel = panel,
+                panel_obj = panel_obj,
                 index = index,
                 panel_count = panel_count,
                 show_number = panel_numbers_visible,

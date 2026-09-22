@@ -6,19 +6,19 @@ use <../components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad>
 size = "medium";
 d_profile = size;
 
-coupler =
+coupler_obj =
     hub75_corner_edge_coupler_create_for_size(
         side = "right",
         size = d_profile
     );
 
 reach =
-    hub75_corner_edge_coupler_inward_reach(coupler);
+    hub75_corner_edge_coupler_inward_reach(coupler_obj);
 view_center =
-    (reach - coupler.outside_projection) / 2;
+    (reach - coupler_obj.outside_projection) / 2;
 
 $vpt = [
-    coupler.x_inward * view_center,
+    coupler_obj.x_inward * view_center,
     0,
     -view_center
 ];
@@ -29,6 +29,6 @@ $vpd =
     : 200;
 
 hub75_corner_edge_coupler_render(
-    coupler,
+    coupler_obj,
     view = "final"
 );

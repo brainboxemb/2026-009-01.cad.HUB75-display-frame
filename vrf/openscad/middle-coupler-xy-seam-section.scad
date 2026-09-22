@@ -10,5 +10,5 @@ $vpt = [0, 7, -20];
 $vpr = [0, 0, 0];
 $vpd = 185;
 
-coupler = hub75_middle_coupler_create_for_size(size = size);
-hub75_middle_coupler_fit_cross_section(coupler = coupler);
+coupler_obj = hub75_middle_coupler_create_for_size(size = size);
+hub75_middle_coupler_fit_cross_section(coupler_obj = coupler_obj);
