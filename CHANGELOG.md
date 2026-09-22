@@ -17,6 +17,7 @@ entrypoints.
 
 ### Checkpoint status
 
+- Complete Migration 009 on the HUB75 consumer by advancing to released `tool.scad-project v0.15.7` (exact gitlink `bfaac9f6916c09bc6525abddf64c87238fe59103`). This serializes production-branch SCAD runs so consecutive main pushes cannot cancel required predecessor publication, and restores read-only `update-repo status` semantics. The v0.0.4 checkpoint is only complete after exact-main Build/Verification provenance is regenerated on this corrected stack.
 - Treat the detachable clip/tube-mount integration as explicit WIP for the
   integration checkpoint: standard HUB75 couplers are again the default full
   assembly, while `main.scad` exposes `c_use_wip_tube_mount_couplers` to opt
