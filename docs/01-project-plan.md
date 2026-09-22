@@ -41,7 +41,9 @@ four useful product decisions only:
 - a visible full-display debug/reference envelope;
 - two continuous horizontal aluminium reinforcement tubes;
 - clip positions associated with the horizontal-edge and corner couplers;
-- separate tube retention as the structural function to preserve.
+- separate tube retention as the structural function to preserve;
+- rear-view data-chain presentation: panel 1 starts at the visual left in its
+  default orientation, with optional panel numbering and IN/OUT annotations.
 
 The old integrated clip geometry is not copied. The new clip consumes the base
 `tube_clamp_build()` from `lib.scad.clamps` and is separately printable.
