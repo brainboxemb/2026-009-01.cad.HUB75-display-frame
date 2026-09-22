@@ -12,6 +12,8 @@
 // This component owns only printable coupler choices.
 
 use <../../../ext/lib.scad.forge/openscad/resolution.scad>
+use <../../../ext/lib.scad.forge/openscad/transform.scad>
+use <../../../ext/lib.scad.forge/openscad/cutter.scad>
 use <../../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
 use <../hub75_panel_mating.scad>
 
@@ -856,10 +858,13 @@ module _hub75_middle_coupler_profile_2d(coupler) {
 module _hub75_middle_coupler_extrude_xz_y(y_min, y_max) {
     assert(y_max > y_min, "Y extrusion span must be positive");
 
-    translate([0, y_max, 0])
-        rotate([90, 0, 0])
-            linear_extrude(height = y_max - y_min)
-                children();
+    fg_xf_frame(
+        pos_mm = [0, y_max, 0],
+        x_axis = [1, 0, 0],
+        y_axis = [0, 0, 1]
+    )
+        linear_extrude(height = y_max - y_min)
+            children();
 }
 
 
@@ -935,18 +940,14 @@ module _hub75_middle_coupler_mounting_tube_pocket_cutters(coupler) {
         hub75_middle_coupler_mounting_tube_pocket_diameter(coupler);
 
     for (x = hub75_middle_coupler_screw_x_positions(coupler))
-        translate([
-            x,
-            -_HUB75_MIDDLE_COUPLER_EPS,
-            0
-        ])
-            rotate([-90, 0, 0])
-                cylinder(
-                    h =
-                        pocket_depth
-                        + _HUB75_MIDDLE_COUPLER_EPS,
-                    d = pocket_diameter
-                );
+        fg_cut_cylinder(
+            diameter_mm = pocket_diameter,
+            height_mm = pocket_depth,
+            pos_mm = [x, 0, 0],
+            rot_deg = [-90, 0, 0],
+            overlap = [FG_BOTTOM()],
+            overlap_mm = _HUB75_MIDDLE_COUPLER_EPS
+        );
 }
 
 
