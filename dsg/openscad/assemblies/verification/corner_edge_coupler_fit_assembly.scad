@@ -3,6 +3,7 @@
 
 use <../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
 use <../../ext/lib.scad.util/openscad/inspection.scad>
+use <../../ext/lib.scad.forge/openscad/transform.scad>
 use <../../components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad>
 use <../helpers/verification_datum_pin.scad>
 
@@ -97,7 +98,7 @@ module hub75_corner_edge_coupler_fit_detail(
     }
 
     color([0.72, 0.05, 0.04, 1])
-        translate([
+        fg_xf_move([
             corner_x,
             mounting_y,
             corner_z
@@ -170,7 +171,7 @@ module hub75_corner_edge_coupler_rear_fit_section(
                 depth = slice_thickness,
                 direction = "Positive"
             )
-                translate([corner_x, mounting_y, corner_z])
+                fg_xf_move([corner_x, mounting_y, corner_z])
                     hub75_corner_edge_coupler_build(active_coupler_obj);
             _hub75_corner_edge_fit_crop_volume(
                 panel_obj,
@@ -237,7 +238,7 @@ module hub75_corner_edge_coupler_yz_top_edge_section(
                 depth = slice_thickness,
                 direction = "Positive"
             )
-                translate([corner_x, mounting_y, corner_z])
+                fg_xf_move([corner_x, mounting_y, corner_z])
                     hub75_corner_edge_coupler_build(active_coupler_obj);
             _hub75_corner_edge_fit_crop_volume(
                 panel_obj,
@@ -296,7 +297,7 @@ module hub75_corner_edge_coupler_xy_side_edge_section(
                 depth = slice_thickness,
                 direction = "Positive"
             )
-                translate([corner_x, mounting_y, corner_z])
+                fg_xf_move([corner_x, mounting_y, corner_z])
                     hub75_corner_edge_coupler_build(active_coupler_obj);
             _hub75_corner_edge_fit_crop_volume(
                 panel_obj,

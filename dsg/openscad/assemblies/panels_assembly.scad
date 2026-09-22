@@ -26,6 +26,7 @@
 // assemblies in sync with the same end of the five-panel production display.
 
 use <../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
+use <../ext/lib.scad.forge/openscad/transform.scad>
 
 HUB75_DISPLAY_PANEL_COUNT = 5;
 
@@ -95,12 +96,12 @@ module _hub75_display_rear_text_label(
     label_color = [0.25, 0.90, 1.00, 1]
 ) {
     color(label_color)
-        translate([
+        fg_xf_move([
             x,
             _hub75_display_panel_rear_mounting_y(panel_obj) + 0.35,
             z
         ])
-            rotate([90, 0, 180])
+            fg_xf_rot([90, 0, 180])
                 linear_extrude(height = 0.35)
                     text(
                         label,
@@ -175,7 +176,7 @@ module _hub75_display_panel_render(
     panel_view
 ) {
     if (_hub75_display_panel_rotated(index, panel_count))
-        rotate([0, 180, 0])
+        fg_xf_yrot(180)
             hub75_p5_64x32_panel_render(
                 panel_obj,
                 view = panel_view,
@@ -260,7 +261,7 @@ module hub75_panels_assembly(
     assert(panel_count >= 1, "panel_count must be at least 1");
 
     for (index = [0 : panel_count - 1]) {
-        translate([
+        fg_xf_move([
             _hub75_display_panel_center_x(panel_obj, index, panel_count),
             0,
             0

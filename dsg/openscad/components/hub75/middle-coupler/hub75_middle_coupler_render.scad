@@ -7,6 +7,7 @@
 // same sequence of primitive operations used for teaching the design.
 
 use <../../../ext/lib.scad.forge/openscad/resolution.scad>
+use <../../../ext/lib.scad.forge/openscad/transform.scad>
 use <hub75_middle_coupler.scad>
 use <../../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
 
@@ -16,7 +17,7 @@ module _hub75_middle_coupler_design_thin(y_min = -0.35, y_max = 0.35) {
     // document uses a zero-rotation camera for these diagram-like stages, so
     // rotate the thin explanatory slice into the screen plane only for the
     // documentation render. Production geometry remains untouched.
-    rotate([90, 0, 0])
+    fg_xf_xrot(90)
         _hub75_middle_coupler_extrude_xz_y(y_min, y_max)
             children();
 }
@@ -124,7 +125,7 @@ module _hub75_middle_coupler_design_reinforcement_panel_fragment(
     rail_width = coupler_obj.rear_side_rail_width;
     eps = 0.04;
 
-    translate([position[0], 0, position[1]])
+    fg_xf_move([position[0], 0, position[1]])
         difference() {
             // Rear side rail plus the retained circular reinforcement footprint.
             _hub75_middle_coupler_extrude_xz_y(-fragment_depth, 0)
@@ -180,7 +181,7 @@ module _hub75_middle_coupler_design_reinforcement_clearance_band(
 
     // Thin red halo outside the physical reinforcement footprint. It makes the
     // print-clearance requirement visible without hiding the dark panel detail.
-    translate([position[0], 0, position[1]])
+    fg_xf_move([position[0], 0, position[1]])
         difference() {
             _hub75_middle_coupler_extrude_xz_y(
                 -coupler_obj.guide_height,
@@ -413,5 +414,6 @@ module hub75_middle_coupler_design(view = "final") {
 
 
 // Direct opening shows the finished component.
-fg_res_apply(FG_RES_HIGH())
+fg_res_apply(FG_RES_HIGH()) {
     hub75_middle_coupler_design();
+}

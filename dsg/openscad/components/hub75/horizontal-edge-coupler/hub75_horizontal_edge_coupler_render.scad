@@ -3,17 +3,18 @@
 // Construction-only views decompose production geometry for explanation.
 
 use <../../../ext/lib.scad.forge/openscad/resolution.scad>
+use <../../../ext/lib.scad.forge/openscad/transform.scad>
 use <hub75_horizontal_edge_coupler.scad>
 use <../hub75_panel_mating.scad>
 
 module _hub75_horizontal_edge_design_thin(y_min = -0.35, y_max = 0.35) {
-    rotate([90, 0, 0])
+    fg_xf_xrot(90)
         _hub75_horizontal_edge_coupler_extrude_xz_y(y_min, y_max)
             children();
 }
 
 module _hub75_horizontal_edge_design_horizontal_arm_2d(coupler_obj) {
-    translate([0, hub75_horizontal_edge_coupler_rear_rail_center_z(coupler_obj)])
+    fg_xf_xzmove([0, hub75_horizontal_edge_coupler_rear_rail_center_z(coupler_obj)])
         square([
             coupler_obj.profile_size,
             hub75_horizontal_edge_coupler_horizontal_arm_height(coupler_obj)
@@ -35,7 +36,7 @@ module _hub75_horizontal_edge_design_raw_cross_2d(coupler_obj) {
 }
 
 module _hub75_horizontal_edge_design_end_rail_2d(coupler_obj) {
-    translate([0, hub75_horizontal_edge_coupler_rear_rail_center_z(coupler_obj)])
+    fg_xf_xzmove([0, hub75_horizontal_edge_coupler_rear_rail_center_z(coupler_obj)])
         square([
             coupler_obj.profile_size + 6,
             coupler_obj.rear_end_rail_width
@@ -45,7 +46,7 @@ module _hub75_horizontal_edge_design_end_rail_2d(coupler_obj) {
 module _hub75_horizontal_edge_design_profile_window_2d(coupler_obj) {
     reach = hub75_horizontal_edge_coupler_inward_reach(coupler_obj);
     outer = max(12, hub75_horizontal_edge_coupler_outer_projection(coupler_obj) + 6);
-    translate([0, (outer - reach) / 2])
+    fg_xf_xzmove([0, (outer - reach) / 2])
         square([coupler_obj.profile_size + 10, reach + outer], center = true);
 }
 
@@ -82,9 +83,15 @@ module _hub75_horizontal_edge_design_reinforcement_relief_cutters(coupler_obj) {
     relief_depth = coupler_obj.guide_height + 0.20;
 
     for (position = _hub75_horizontal_edge_coupler_reinforcement_positions(coupler_obj))
-        translate([position[0], eps, position[1]])
-            rotate([90, 0, 0])
-                cylinder(d = relief_diameter, h = relief_depth + 2 * eps);
+        fg_xf_frame(
+            pos_mm = [position[0], eps, position[1]],
+            x_axis = [1, 0, 0],
+            z_axis = [0, -1, 0]
+        )
+            cylinder(
+                d = relief_diameter,
+                h = relief_depth + 2 * eps
+            );
 }
 
 module _hub75_horizontal_edge_design_unrelieved_tall_guide(coupler_obj) {
@@ -120,7 +127,7 @@ module _hub75_horizontal_edge_design_reinforcement_panel_fragment(
     rail_width = coupler_obj.rear_side_rail_width;
     eps = 0.04;
 
-    translate([position[0], 0, position[1]])
+    fg_xf_move([position[0], 0, position[1]])
         difference() {
             _hub75_horizontal_edge_coupler_extrude_xz_y(-fragment_depth, 0)
                 union() {
@@ -150,7 +157,7 @@ module _hub75_horizontal_edge_design_reinforcement_clearance_band(coupler_obj, p
         + 2 * coupler_obj.reinforcement_bushing_clearance;
     inner_d = coupler_obj.reinforcement_bushing_outer_diameter;
 
-    translate([position[0], 0, position[1]])
+    fg_xf_move([position[0], 0, position[1]])
         difference() {
             _hub75_horizontal_edge_coupler_extrude_xz_y(-coupler_obj.guide_height, 0)
                 circle(d = outer_d);
@@ -168,9 +175,15 @@ module _hub75_horizontal_edge_design_reinforcement_collision(coupler_obj, positi
 
 module _hub75_horizontal_edge_design_physical_locator_pin(coupler_obj) {
     position = hub75_horizontal_edge_coupler_locator_pin_position(coupler_obj);
-    translate([position[0], 0, position[1]])
-        rotate([-90, 0, 0])
-            cylinder(d = coupler_obj.locator_pin_diameter, h = coupler_obj.locator_pin_protrusion);
+    fg_xf_frame(
+        pos_mm = [position[0], 0, position[1]],
+        x_axis = [1, 0, 0],
+        z_axis = [0, 1, 0]
+    )
+        cylinder(
+            d = coupler_obj.locator_pin_diameter,
+            h = coupler_obj.locator_pin_protrusion
+        );
 }
 
 module _hub75_horizontal_edge_design_locator_crop(coupler_obj, width = 34) {
@@ -287,9 +300,9 @@ module hub75_horizontal_edge_coupler_design(view = "final") {
 
     } else if (view == "locator-pin-clearance") {
         position = hub75_horizontal_edge_coupler_locator_pin_position(coupler);
-        translate([0, 0, -20])
+        fg_xf_zmove(-20)
             scale([2.25, 2.25, 2.25])
-                translate([-position[0], 0, -position[1]]) {
+                fg_xf_move([-position[0], 0, -position[1]]) {
                     color(existing_transparent)
                         intersection() {
                             _hub75_horizontal_edge_coupler_base_after_pockets(coupler);
@@ -344,7 +357,7 @@ module hub75_horizontal_edge_coupler_design(view = "final") {
             coupler.panel_taper_depth,
             coupler.panel_rear_outer_inset_z
         );
-        translate([0, 0, -10])
+        fg_xf_zmove(-10)
             scale([2.0, 2.0, 2.0]) {
                 color(existing)
                     _hub75_horizontal_edge_coupler_extrude_xz_y(-0.08, 0.08)
@@ -371,9 +384,9 @@ module hub75_horizontal_edge_coupler_design(view = "final") {
 
     } else if (view == "guide-reinforcement-detail") {
         detail_position = _hub75_horizontal_edge_coupler_reinforcement_positions(coupler)[1];
-        translate([0, 0, -10])
+        fg_xf_zmove(-10)
             scale([2.2, 2.2, 2.2])
-                translate([-detail_position[0], 0, -detail_position[1]]) {
+                fg_xf_move([-detail_position[0], 0, -detail_position[1]]) {
                     color([0.43, 0.43, 0.43, 1.0])
                         _hub75_horizontal_edge_design_reinforcement_panel_fragment(coupler, detail_position);
                     color([0.72, 0.72, 0.72, 0.48])
@@ -395,5 +408,6 @@ module hub75_horizontal_edge_coupler_design(view = "final") {
     }
 }
 
-fg_res_apply(FG_RES_HIGH())
+fg_res_apply(FG_RES_HIGH()) {
     hub75_horizontal_edge_coupler_design();
+}

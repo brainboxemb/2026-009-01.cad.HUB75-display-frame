@@ -7,6 +7,8 @@
 // The cylinder axis is Y, normal to the HUB75 panel plane. X/Z identify the
 // engraved + datum of the connector being verified.
 
+use <../../ext/lib.scad.forge/openscad/transform.scad>
+
 module hub75_verification_datum_pin(
     x = 0,
     z = 0,
@@ -18,11 +20,14 @@ module hub75_verification_datum_pin(
     assert(diameter > 0, "verification datum pin diameter must be > 0");
 
     color([0.10, 0.40, 0.95, 1.0])
-        translate([x, y_max, z])
-            rotate([90, 0, 0])
-                cylinder(
-                    h = y_max - y_min,
-                    d = diameter,
-                    $fn = 64
-                );
+        fg_xf_frame(
+            pos_mm = [x, y_max, z],
+            x_axis = [1, 0, 0],
+            z_axis = [0, -1, 0]
+        )
+            cylinder(
+                h = y_max - y_min,
+                d = diameter,
+                $fn = 64
+            );
 }

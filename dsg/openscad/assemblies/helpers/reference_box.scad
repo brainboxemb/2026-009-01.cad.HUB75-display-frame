@@ -1,6 +1,8 @@
 // File: reference_box.scad
 //   Simple project debug envelope recovered from the older HUB75 model.
 
+use <../../ext/lib.scad.forge/openscad/transform.scad>
+
 module hub75_reference_box_wireframe(
     x_min,
     x_max,
@@ -19,17 +21,17 @@ module hub75_reference_box_wireframe(
     color(box_color) {
         for (y = [y_min, y_max])
             for (z = [z_min, z_max])
-                translate([(x_min + x_max) / 2, y, z])
+                fg_xf_move([(x_min + x_max) / 2, y, z])
                     cube([dx, t, t], center = true);
 
         for (x = [x_min, x_max])
             for (y = [y_min, y_max])
-                translate([x, y, (z_min + z_max) / 2])
+                fg_xf_move([x, y, (z_min + z_max) / 2])
                     cube([t, t, dz], center = true);
 
         for (x = [x_min, x_max])
             for (z = [z_min, z_max])
-                translate([x, (y_min + y_max) / 2, z])
+                fg_xf_move([x, (y_min + y_max) / 2, z])
                     cube([t, dy, t], center = true);
     }
 }

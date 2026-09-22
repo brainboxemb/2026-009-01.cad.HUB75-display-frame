@@ -79,7 +79,7 @@ c_show_panel_numbers = false;
 c_show_in_out_labels = false;
 c_explode_distance_mm = 0; // [0:5:80]
 
-fg_res_apply(c_resolution)
+fg_res_apply(c_resolution) {
     hub75_tube_mount_display_2_panel_assembly(
         coupler_size = d_coupler_profile,
         resolution = c_resolution,
@@ -91,3 +91,4 @@ fg_res_apply(c_resolution)
         debug_reference_visible = c_show_debug_reference,
         explode_distance = c_explode_distance_mm
     );
+}

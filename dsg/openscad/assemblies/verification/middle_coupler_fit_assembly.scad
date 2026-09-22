@@ -6,6 +6,7 @@
 
 use <../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
 use <../../ext/lib.scad.util/openscad/inspection.scad>
+use <../../ext/lib.scad.forge/openscad/transform.scad>
 use <../panels_assembly.scad>
 use <../../components/hub75/middle-coupler/hub75_middle_coupler.scad>
 use <../helpers/verification_datum_pin.scad>
@@ -65,7 +66,7 @@ module hub75_middle_coupler_fit_detail(
     }
 
     color([0.72, 0.05, 0.04, 1])
-        translate([0, mounting_y, 0])
+        fg_xf_ymove(mounting_y)
             hub75_middle_coupler_build(active_coupler_obj);
 
     hub75_verification_datum_pin(
@@ -135,7 +136,7 @@ module hub75_middle_coupler_fit_cross_section(
                 depth = slice_thickness,
                 direction = "Positive"
             )
-                translate([0, mounting_y, 0])
+                fg_xf_ymove(mounting_y)
                     hub75_middle_coupler_build(active_coupler_obj);
             _crop_volume();
         }
@@ -177,7 +178,7 @@ module hub75_middle_coupler_rear_fit_section(
 
     module _panel_pair_rear_structure() {
         for (x = [-pitch / 2, pitch / 2])
-            translate([x, 0, 0])
+            fg_xf_xmove(x)
                 hub75_p5_64x32_panel_render(
                     panel_obj,
                     view = hub75_p5_64x32_panel_view_id("structure"),
@@ -218,7 +219,7 @@ module hub75_middle_coupler_rear_fit_section(
                 depth = section_y - y_min,
                 direction = "Positive"
             )
-                translate([0, mounting_y, 0])
+                fg_xf_ymove(mounting_y)
                     hub75_middle_coupler_build(active_coupler_obj);
             _crop_volume();
         }
