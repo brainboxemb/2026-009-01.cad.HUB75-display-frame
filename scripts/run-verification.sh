@@ -8,11 +8,11 @@ EXPECTED_GIT_TOOL_SHA="9879da589101f41b2b0e634d196ddcc51e1a6102"
 EXPECTED_SCAD_TOOL_SHA="70fd4162731484a949dc390e942dde8b8d811f10"
 EXPECTED_DIRECT_UTIL_SHA="604970732671b3889f072f5fc744ca872326e69c"
 EXPECTED_DIRECT_FORGE_SHA="12a62580f4d24a8ebd80b061dc2a8e368a838ace"
-EXPECTED_MECHINT_SHA="da06eeeda4f22bcb65b42e264c5ee83f356fe8b3"
-EXPECTED_MECHINT_UTIL_SHA="604970732671b3889f072f5fc744ca872326e69c"
+EXPECTED_MECHINT_SHA="6130e71a5af1c8976fa6752bbc2f75d9cff17f86"
+EXPECTED_MECHINT_FORGE_SHA="12a62580f4d24a8ebd80b061dc2a8e368a838ace"
 EXPECTED_DIRECT_UTIL_REF="v0.4.0"
 EXPECTED_DIRECT_FORGE_REF="v0.2.1"
-EXPECTED_MECHINT_REF="v0.2.1"
+EXPECTED_MECHINT_REF="v0.2.2"
 
 gitlink_sha() {
   local repo_root="$1"
@@ -58,7 +58,7 @@ verify_dependency_ownership() {
   local mechint="$ROOT_DIR/dsg/openscad/ext/lib.scad.mechint"
   local direct_util="$ROOT_DIR/dsg/openscad/ext/lib.scad.util"
   local direct_forge="$ROOT_DIR/dsg/openscad/ext/lib.scad.forge"
-  local nested_util="$mechint/ext/lib.scad.util"
+  local nested_forge="$mechint/ext/lib.scad.forge"
 
   require_gitlink "$ROOT_DIR" "tools/tool.git-project" "$EXPECTED_GIT_TOOL_SHA"
   require_gitlink "$ROOT_DIR" "tools/tool.scad-project" "$EXPECTED_SCAD_TOOL_SHA"
@@ -85,13 +85,13 @@ verify_dependency_ownership() {
     exit 1
   }
 
-  require_gitlink "$mechint" "ext/lib.scad.util" "$EXPECTED_MECHINT_UTIL_SHA"
-  require_checkout "$nested_util" "$EXPECTED_MECHINT_UTIL_SHA"
+  require_gitlink "$mechint" "ext/lib.scad.forge" "$EXPECTED_MECHINT_FORGE_SHA"
+  require_checkout "$nested_forge" "$EXPECTED_MECHINT_FORGE_SHA"
 
   require_uninitialized_nested_tooling "$mechint" "tools/tool.git-project"
   require_uninitialized_nested_tooling "$mechint" "tools/tool.scad-project"
 
-  echo "Dependency ownership: root util v0.4.0 owns inspection; root Forge v0.2.1 owns project transforms; mechint retains its released owner-local dependency stack"
+  echo "Dependency ownership: root util v0.4.0 owns inspection; root Forge v0.2.1 owns project transforms; mechint v0.2.2 owns an independent Forge v0.2.1 checkout"
 }
 OUT_DIR="${ROOT_DIR}/vrf/out"
 PNG_DIR="${OUT_DIR}/png"
