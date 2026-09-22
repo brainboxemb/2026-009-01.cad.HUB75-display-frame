@@ -12,6 +12,7 @@
 // The tube centres stay at Z = +/-170 mm, 10 mm inside that frame.
 
 use <../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
+use <../ext/lib.scad.forge/openscad/resolution.scad>
 use <display_frame_assembly.scad>
 
 function hub75_tube_mount_display_2_panel_count() = 2;
@@ -29,7 +30,7 @@ module hub75_tube_mount_display_2_panel_assembly(
     panel = hub75_p5_64x32_panel_create(),
     coupler_size = "medium",
     panel_view = hub75_p5_64x32_panel_view_id("final"),
-    clamp_high_resolution = true,
+    clamp_resolution = FG_RES_HIGH(),
     tube_mount_enabled = true,
     tube_clamps_visible = true,
     aluminium_tubes_visible = true,
@@ -45,7 +46,7 @@ module hub75_tube_mount_display_2_panel_assembly(
         coupler_size = coupler_size,
         panel_count = hub75_tube_mount_display_2_panel_count(),
         panel_view = panel_view,
-        clamp_high_resolution = clamp_high_resolution,
+        clamp_resolution = clamp_resolution,
         panels_visible = true,
         middle_couplers_visible = true,
         horizontal_edge_couplers_visible = true,
@@ -64,18 +65,21 @@ module hub75_tube_mount_display_2_panel_assembly(
 
 
 /* [Preview] */
-preview_coupler_size = "medium"; // [small,medium,large]
-show_tube_mount = true;
-show_tube_clamps = true;
-show_aluminium_tubes = true;
-show_debug_reference = false;
-preview_explode_distance = 0; // [0:5:80]
+d_coupler_profile = "medium"; // [small,medium,large]
+c_resolution = "high"; // [low,high,export]
+c_show_tube_mount = true;
+c_show_tube_clamps = true;
+c_show_aluminium_tubes = true;
+c_show_debug_reference = false;
+c_explode_distance_mm = 0; // [0:5:80]
 
-hub75_tube_mount_display_2_panel_assembly(
-    coupler_size = preview_coupler_size,
-    tube_mount_enabled = show_tube_mount,
-    tube_clamps_visible = show_tube_clamps,
-    aluminium_tubes_visible = show_aluminium_tubes,
-    debug_reference_visible = show_debug_reference,
-    explode_distance = preview_explode_distance
-);
+fg_res_apply(c_resolution)
+    hub75_tube_mount_display_2_panel_assembly(
+        coupler_size = d_coupler_profile,
+        clamp_resolution = c_resolution,
+        tube_mount_enabled = c_show_tube_mount,
+        tube_clamps_visible = c_show_tube_clamps,
+        aluminium_tubes_visible = c_show_aluminium_tubes,
+        debug_reference_visible = c_show_debug_reference,
+        explode_distance = c_explode_distance_mm
+    );

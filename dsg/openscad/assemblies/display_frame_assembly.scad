@@ -2,6 +2,7 @@
 //   Complete display overview with couplers and detachable tube-mount layer.
 
 use <../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
+use <../ext/lib.scad.forge/openscad/resolution.scad>
 use <../components/aluminium_tube.scad>
 use <panels_assembly.scad>
 use <helpers/reference_box.scad>
@@ -131,7 +132,7 @@ module _hub75_display_frame_tube_clamps(
     panel_count,
     mounting_y,
     clamp_color,
-    clamp_high_resolution
+    clamp_resolution
 ) {
     edge_x = _hub75_display_frame_half_width(panel, panel_count);
     edge_z = _hub75_display_frame_half_height(panel);
@@ -173,7 +174,7 @@ module _hub75_display_frame_tube_clamps(
                     horizontal_clamp,
                     part_color = clamp_color,
                     use_tension_bore = false,
-                    high_resolution = clamp_high_resolution
+                    resolution = clamp_resolution
                 );
 
             translate([seam_x - clip_x, mounting_y, -edge_z])
@@ -182,7 +183,7 @@ module _hub75_display_frame_tube_clamps(
                         horizontal_clamp,
                         part_color = clamp_color,
                         use_tension_bore = false,
-                        high_resolution = clamp_high_resolution
+                        resolution = clamp_resolution
                     );
         }
     }
@@ -192,7 +193,7 @@ module _hub75_display_frame_tube_clamps(
             left_clamp,
             part_color = clamp_color,
             use_tension_bore = false,
-            high_resolution = clamp_high_resolution
+            resolution = clamp_resolution
         );
 
     translate([edge_x + right_x, mounting_y, edge_z])
@@ -200,7 +201,7 @@ module _hub75_display_frame_tube_clamps(
             right_clamp,
             part_color = clamp_color,
             use_tension_bore = false,
-            high_resolution = clamp_high_resolution
+            resolution = clamp_resolution
         );
 
     translate([edge_x - left_x, mounting_y, -edge_z])
@@ -209,7 +210,7 @@ module _hub75_display_frame_tube_clamps(
                 left_clamp,
                 part_color = clamp_color,
                 use_tension_bore = false,
-                high_resolution = clamp_high_resolution
+                resolution = clamp_resolution
             );
 
     translate([-edge_x - right_x, mounting_y, -edge_z])
@@ -218,7 +219,7 @@ module _hub75_display_frame_tube_clamps(
                 right_clamp,
                 part_color = clamp_color,
                 use_tension_bore = false,
-                high_resolution = clamp_high_resolution
+                resolution = clamp_resolution
             );
 }
 
@@ -280,7 +281,7 @@ module hub75_display_frame_assembly(
     coupler_color = [0.72, 0.05, 0.04, 1],
     clamp_color = [0.92, 0.20, 0.08, 1],
     tube_color = [0.72, 0.74, 0.76, 1],
-    clamp_high_resolution = true,
+    clamp_resolution = FG_RES_HIGH(),
     panels_visible = true,
     middle_couplers_visible = true,
     horizontal_edge_couplers_visible = true,
@@ -397,7 +398,7 @@ module hub75_display_frame_assembly(
             panel_count,
             clamp_mounting_y,
             clamp_color,
-            clamp_high_resolution
+            clamp_resolution
         );
 
     if (tube_mount_enabled && aluminium_tubes_visible)

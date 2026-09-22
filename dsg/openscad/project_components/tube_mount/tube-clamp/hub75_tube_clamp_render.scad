@@ -4,15 +4,17 @@
 // FileSummary: Stable documentation views for the clamp/dovetail adapter.
 // The production geometry remains in hub75_tube_clamp.scad.
 
-$fn = 120;
-
+use <../../../ext/lib.scad.forge/openscad/resolution.scad>
 use <hub75_tube_clamp.scad>
 
 /* [Design view] */
-view = "final"; // [final,before-relief,relief-detail,body,lab-axis]
+c_view = "final"; // [final,before-relief,relief-detail,body,lab-axis]
 
 /* [Profile] */
-size = "medium"; // [small,medium,large]
+d_profile = "medium"; // [small,medium,large]
+
+/* [Resolution] */
+c_resolution = "high"; // [low,high,export]
 
 function _hub75_tube_clamp_design_size(size) =
     size == "small" || size == "medium" || size == "large"
@@ -41,8 +43,10 @@ module _hub75_tube_clamp_lab_z_reference(
 
 module hub75_tube_clamp_design(
     view = "final",
-    size = "medium"
+    size = "medium",
+    resolution = FG_RES_HIGH()
 ) {
+    fg_res_apply(resolution) {
     active_size = _hub75_tube_clamp_design_size(size);
     clamp = hub75_tube_clamp_create_for_size(active_size);
 
@@ -50,7 +54,7 @@ module hub75_tube_clamp_design(
         hub75_tube_clamp_build(
             clamp,
             use_tension_bore = false,
-            high_resolution = true,
+            resolution = resolution,
             apply_transition_relief = false
         );
     } else if (view == "relief-detail") {
@@ -58,7 +62,7 @@ module hub75_tube_clamp_design(
             hub75_tube_clamp_build(
                 clamp,
                 use_tension_bore = false,
-                high_resolution = true,
+                resolution = resolution,
                 apply_transition_relief = false
             );
 
@@ -67,14 +71,14 @@ module hub75_tube_clamp_design(
                 hub75_tube_clamp_build(
                     clamp,
                     use_tension_bore = false,
-                    high_resolution = true,
+                    resolution = resolution,
                     apply_transition_relief = false
                 );
 
                 hub75_tube_clamp_build(
                     clamp,
                     use_tension_bore = false,
-                    high_resolution = true,
+                    resolution = resolution,
                     apply_transition_relief = true
                 );
             }
@@ -82,14 +86,14 @@ module hub75_tube_clamp_design(
         hub75_tube_clamp_body_build(
             clamp,
             use_tension_bore = false,
-            high_resolution = true
+            resolution = resolution
         );
     } else if (view == "lab-axis") {
         color([0.88, 0.08, 0.05, 0.35])
             hub75_tube_clamp_build(
                 clamp,
                 use_tension_bore = false,
-                high_resolution = true
+                resolution = resolution
             );
 
         _hub75_tube_clamp_lab_z_reference(clamp);
@@ -97,12 +101,14 @@ module hub75_tube_clamp_design(
         hub75_tube_clamp_build(
             clamp,
             use_tension_bore = false,
-            high_resolution = true
+            resolution = resolution
         );
+    }
     }
 }
 
 hub75_tube_clamp_design(
-    view = view,
-    size = size
+    view = c_view,
+    size = d_profile,
+    resolution = c_resolution
 );

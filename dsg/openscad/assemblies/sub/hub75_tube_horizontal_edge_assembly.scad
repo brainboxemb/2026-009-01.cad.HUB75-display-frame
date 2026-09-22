@@ -3,6 +3,7 @@
 //   top-entry clamps and a short Ø10 aluminium tube.
 
 use <../../components/aluminium_tube.scad>
+use <../../ext/lib.scad.forge/openscad/resolution.scad>
 use <../../components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad>
 use <../../project_components/tube_mount/horizontal-edge-coupler/hub75_tube_horizontal_edge_coupler.scad>
 use <../../project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad>
@@ -15,7 +16,7 @@ module hub75_tube_horizontal_edge_assembly(
     show_clamps = true,
     show_tube = true,
     explode_distance = 0,
-    clamp_high_resolution = true
+    clamp_resolution = FG_RES_HIGH()
 ) {
     active_coupler =
         is_undef(coupler)
@@ -53,7 +54,7 @@ module hub75_tube_horizontal_edge_assembly(
                     clamp,
                     part_color = [0.92, 0.20, 0.08, 1],
                     use_tension_bore = false,
-                    high_resolution = clamp_high_resolution
+                    resolution = clamp_resolution
                 );
 
     if (show_tube)

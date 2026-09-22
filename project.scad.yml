@@ -31,7 +31,7 @@ externals:
   - name: lib.scad.util
     required_file: openscad/inspection.scad
   - name: lib.scad.forge
-    required_file: openscad/transform.scad
+    required_file: openscad/forge.scad
   - name: lib.scad.mechint
     required_file: openscad/sliding_dovetail.scad
 

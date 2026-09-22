@@ -11,6 +11,7 @@
 // including its male dovetail, stays positioned from the tube-front datum.
 
 use <../../../ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad>
+use <../../../ext/lib.scad.forge/openscad/resolution.scad>
 use <../../../ext/lib.scad.forge/openscad/transform.scad>
 use <../tube_mount_interface.scad>
 
@@ -27,7 +28,7 @@ d_relief_z_height_mm = 4.0;
 d_relief_z_offset_mm = 1.0;
 
 /* [Resolution] */
-c_high_resolution = false;
+c_resolution = "low"; // [low,high,export]
 
 // ----------------------------------------------------------------------
 // Fixed clamp-body baseline
@@ -198,14 +199,15 @@ module hub75_tube_clamp_body_build(
     clamp,
     part_color = [0.88, 0.08, 0.05, 1],
     use_tension_bore = true,
-    high_resolution = true,
+    resolution = FG_RES_HIGH(),
     apply_transition_relief = true
 ) {
-    color(part_color)
+    fg_res_apply(resolution)
+        color(part_color)
         _hub75_tube_clamp_ring_build(
             clamp,
             use_tension_bore,
-            high_resolution,
+            resolution,
             apply_transition_relief
         );
 }
@@ -214,16 +216,17 @@ module hub75_tube_clamp_build(
     clamp,
     part_color = [0.88, 0.08, 0.05, 1],
     use_tension_bore = true,
-    high_resolution = true,
+    resolution = FG_RES_HIGH(),
     apply_transition_relief = true
 ) {
-    color(part_color)
+    fg_res_apply(resolution)
+        color(part_color)
         union() {
             difference() {
                 _hub75_tube_clamp_ring_build(
                     clamp,
                     use_tension_bore,
-                    high_resolution,
+                    resolution,
                     apply_transition_relief
                 );
 
@@ -243,7 +246,7 @@ module hub75_tube_clamp_build(
 module _hub75_tube_clamp_ring_build(
     clamp,
     use_tension_bore,
-    high_resolution,
+    resolution,
     apply_transition_relief = true
 ) {
     local_center_x =
@@ -265,7 +268,7 @@ module _hub75_tube_clamp_ring_build(
             tube_clamp_build(
                 clamp.base_clamp,
                 use_tension_bore = use_tension_bore,
-                high_resolution = high_resolution
+                high_resolution = resolution != FG_RES_LOW()
             );
 
             if (
@@ -274,7 +277,7 @@ module _hub75_tube_clamp_ring_build(
             )
                 _hub75_tube_clamp_transition_relief_cutter_local(
                     clamp,
-                    high_resolution
+                    resolution
                 );
         }
 }
@@ -298,7 +301,7 @@ module _hub75_tube_clamp_ring_build(
 // dependent on the selected dovetail profile height.
 module _hub75_tube_clamp_transition_relief_cutter_local(
     clamp,
-    high_resolution
+    resolution
 ) {
     b = clamp.base_clamp;
     radius = clamp.transition_relief_radius;
@@ -344,11 +347,7 @@ module _hub75_tube_clamp_transition_relief_cutter_local(
             fg_xf_yrot(90)
                 cylinder(
                     r = radius,
-                    h = z_height,
-                    $fn =
-                        high_resolution
-                            ? 96
-                            : 32
+                    h = z_height
                 );
     }
 }
@@ -477,8 +476,8 @@ if (c_view == "body")
         _standalone_clamp,
         use_tension_bore =
             _standalone_use_tension,
-        high_resolution =
-            c_high_resolution,
+        resolution =
+            c_resolution,
         apply_transition_relief =
             d_apply_transition_relief
     );
@@ -487,8 +486,8 @@ else
         _standalone_clamp,
         use_tension_bore =
             _standalone_use_tension,
-        high_resolution =
-            c_high_resolution,
+        resolution =
+            c_resolution,
         apply_transition_relief =
             d_apply_transition_relief
     );

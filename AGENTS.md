@@ -115,6 +115,10 @@ locking/release geometry. Project reinforcement may add only HUB75-specific
 placement, orientation and carrier/backing geometry around those public APIs.
 `lib.scad.util` owns ordinary axis-aligned inspection slabs; use
 `util_section_inspect()` instead of duplicating giant X/Y/Z slice cubes.
+`lib.scad.forge` owns the shared project modeling vocabulary, including
+`fg_xf_*` transforms and semantic `low` / `high` / `export` geometry resolution.
+Use Forge where it makes project-owned OpenSCAD intent clearer; do not wrap native
+OpenSCAD mechanically when the native operation is already clearer.
 
 OpenSCAD cross-file interfaces use public names without a leading underscore.
 Private implementation helpers use a leading underscore, including nested
@@ -163,13 +167,14 @@ The previously approved rounded middle-coupler form is now encoded in current
 source and design documentation. Future changes must compare against current
 source/evidence, not an old archive or old repository code.
 
-Surface resolution is part of the connector object where required. Public
-build/render modules must not depend on ambient top-level variables that are
-lost across `use <...>` boundaries.
+Geometry resolution is presentation/output state, not a design dimension.
+Project-owned build/render interfaces use Forge's semantic `low`, `high` and
+`export` levels when they expose selectable resolution. Do not use `print` as a
+CAD-resolution name, and do not let ambient top-level `$fn` become a hidden API.
 
-Any hand-built curved helper must derive tessellation from the component's
-configured render resolution; do not use a small fixed segment count that can
-produce faceted STL geometry or polygonal screw holes.
+Any hand-built curved helper must derive tessellation from the selected geometry
+resolution; do not use a small fixed segment count that can produce faceted STL
+geometry or polygonal screw holes.
 
 ## Design documentation policy
 
@@ -250,7 +255,7 @@ per-target SCons selection. Both `project.yml` and `project.scad.yml` are cache
 inputs.
 
 Direct project gitlinks are the generic bootstrap engine, the SCAD project tool
-and the four reusable SCAD libraries consumed by this project:
+and the five reusable SCAD libraries consumed by this project:
 
 ```text
 tools/tool.git-project
@@ -259,6 +264,7 @@ dsg/openscad/ext/lib.scad.hub75
 dsg/openscad/ext/lib.scad.clamps
 dsg/openscad/ext/lib.scad.mechint
 dsg/openscad/ext/lib.scad.util
+dsg/openscad/ext/lib.scad.forge
 ```
 
 Normal checkout is direct-only; do not recursively initialize development
