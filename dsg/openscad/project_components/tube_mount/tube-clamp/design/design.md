@@ -74,9 +74,9 @@ components:
 - the project-local finishing transition;
 - any small print-driven relief that cannot sensibly live in either library.
 
-## Coordinate system
+## Project orientation
 
-Project coordinates are:
+The HUB75 **project orientation** is:
 
 ```text
 X = aluminium tube axis
@@ -84,7 +84,7 @@ Y = panel front -> rear
 Z = display-edge outward / dovetail insertion direction
 ```
 
-The reusable clamp has a different native frame. The production transform maps:
+The reusable clamp has its own **design orientation**. The production transform maps:
 
 ```text
 lib clamp Z  -> project X
@@ -95,7 +95,7 @@ lib clamp Y  -> project -Z
 That transform is not just an implementation detail. It determines which way a
 subtraction is oriented physically.
 
-## Development and print coordinates
+## Lab and print orientation
 
 The clamp is still **side-printed**. In that print orientation the 12 mm clamp
 side is placed on the bed, so:
@@ -104,21 +104,20 @@ side is placed on the bed, so:
 project X / tube axis = printer Z / build direction
 ```
 
-The local relief is, however, defined from the component-lab **development
-orientation**, because that is the orientation in which its position was
+The local relief is, however, defined from the component-lab **lab orientation**, because that is the orientation in which its position was
 visually calibrated:
 
 ```text
-project X -> development X
+project X -> lab X
 project Y -> development -Z
-project Z -> development Y
+project Z -> lab Y
 ```
 
 So `d_relief_z_height_mm` and `d_relief_z_offset_mm` refer specifically to
-**development Z**. They do not refer to dovetail height and they do not move
+**lab Z**. They do not refer to dovetail height and they do not move
 when small / medium / large is selected.
 
-The green reference axis below shows development Z. It is documentation-only.
+The green reference axis below shows lab Z. It is documentation-only.
 
 <!-- scad-render
 view: development-axis
@@ -312,14 +311,14 @@ The accepted defaults are:
 ```text
 radius          = 6.0 mm
 bite            = 0.4 mm
-development-Z height = 4.0 mm
-development-Z offset = 1.0 mm
+lab-Z height = 4.0 mm
+lab-Z offset = 1.0 mm
 ```
 
 The side position is derived rather than hard-coded. With the 12 mm clamp width:
 
 ```text
-abs(development X)
+abs(lab X)
 = clamp_width / 2 + radius - bite
 = 6 + 6 - 0.4
 = 11.6 mm
@@ -331,10 +330,10 @@ by only 0.4 mm.
 The other transverse coordinate is the fixed tube datum:
 
 ```text
-development Y = tube_center_z
+lab Y = tube_center_z
 ```
 
-Development-Z starts from the clamp body's own transition geometry and then
+Lab-Z starts from the clamp body's own transition geometry and then
 adds the explicit offset:
 
 ```text
@@ -352,16 +351,16 @@ development relief position
 The important semantic split is:
 
 - `d_relief_z_height_mm` controls the **length of the low cylinder along
-  development Z**;
-- `d_relief_z_offset_mm` moves that complete cutter along development Z without
+  lab Z**;
+- `d_relief_z_offset_mm` moves that complete cutter along lab Z without
   changing its height.
 
 Because the clamp-body transition is fixed across small / medium / large, this
 offset is independent of dovetail d_profile height.
 
-Translated back to the reusable clamp's native coordinates, the accepted
-development-Z cylinders become short **native-X** cylinders. Their circular
-centres sit just outside the two native-Z side faces. Production uses that
+Translated back to the reusable clamp's design coordinates, the accepted
+lab-Z cylinders become short **design-X** cylinders. Their circular
+centres sit just outside the two design-Z side faces. Production uses that
 equivalent construction directly.
 
 This is deliberately different from the previous lower-transition-foot
@@ -393,8 +392,8 @@ A candidate local relief is valid only when all of the following are true:
 
 1. the baseline silhouette is still recognizable immediately;
 2. the same small round relief appears on both physical clamp sides;
-3. the default geometry remains R6 / 0.4 mm bite / 4 mm development-Z height /
-   1 mm development-Z offset;
+3. the default geometry remains R6 / 0.4 mm bite / 4 mm lab-Z height /
+   1 mm lab-Z offset;
 4. changing small / medium / large does not move the relief merely because
    dovetail height changed;
 5. the fixed clamp-body transition remains identical across the three profiles;
@@ -455,7 +454,13 @@ Reusable base-clip design:
 lib.scad.clamps/openscad/tube-clamp/design/design.md
 ```
 
-Reusable sliding-dovetail owner:
+Reusable sliding-dovetail public API:
+
+```text
+lib.scad.mechint/openscad/sliding_dovetail.scad
+```
+
+Its companion design/reference/render workspace is:
 
 ```text
 lib.scad.mechint/openscad/sliding-dovetail/

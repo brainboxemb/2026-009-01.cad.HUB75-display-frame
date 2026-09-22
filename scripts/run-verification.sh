@@ -8,11 +8,11 @@ EXPECTED_GIT_TOOL_SHA="9879da589101f41b2b0e634d196ddcc51e1a6102"
 EXPECTED_SCAD_TOOL_SHA="70fd4162731484a949dc390e942dde8b8d811f10"
 EXPECTED_DIRECT_UTIL_SHA="604970732671b3889f072f5fc744ca872326e69c"
 EXPECTED_DIRECT_FORGE_SHA="12a62580f4d24a8ebd80b061dc2a8e368a838ace"
-EXPECTED_MECHINT_SHA="6130e71a5af1c8976fa6752bbc2f75d9cff17f86"
+EXPECTED_MECHINT_SHA="a3ec45dda7a58376b35c1a121f41242797e55e6e"
 EXPECTED_MECHINT_FORGE_SHA="12a62580f4d24a8ebd80b061dc2a8e368a838ace"
 EXPECTED_DIRECT_UTIL_REF="v0.4.0"
 EXPECTED_DIRECT_FORGE_REF="v0.2.1"
-EXPECTED_MECHINT_REF="v0.2.2"
+EXPECTED_MECHINT_REF="v0.2.3"
 
 gitlink_sha() {
   local repo_root="$1"
@@ -91,7 +91,7 @@ verify_dependency_ownership() {
   require_uninitialized_nested_tooling "$mechint" "tools/tool.git-project"
   require_uninitialized_nested_tooling "$mechint" "tools/tool.scad-project"
 
-  echo "Dependency ownership: root util v0.4.0 owns inspection; root Forge v0.2.1 owns project transforms; mechint v0.2.2 owns an independent Forge v0.2.1 checkout"
+  echo "Dependency ownership: root util v0.4.0 owns inspection; root Forge v0.2.1 owns project transforms; mechint v0.2.3 owns an independent Forge v0.2.1 checkout"
 }
 OUT_DIR="${ROOT_DIR}/vrf/out"
 PNG_DIR="${OUT_DIR}/png"

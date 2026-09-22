@@ -1,19 +1,24 @@
 // File: tube_mount_interface.scad
 //   HUB75 adapter around the reusable lib.scad.mechint sliding dovetail.
 //
-// Project coordinates:
+// Project orientation:
 //   X = aluminium-tube axis;
 //   Y = panel front -> rear, with the coupler mounting plane at Y = 0;
 //   Z = local display-edge outward direction.
 //
-// lib.scad.mechint owns the profile, fit, entry slot and lock. HUB75 rotates
-// that native interface so the clamp inserts from +Z. The Ø10 tube/clamp datum
+// lib.scad.mechint design orientation:
+//   X = slide / insertion direction;
+//   Y = profile depth, mouth at Y = 0 and root toward +Y;
+//   Z = profile width.
+//
+// HUB75 maps that design orientation into the project orientation so the clamp
+// inserts from +Z. The Ø10 tube/clamp datum
 // stays fixed with the tube front 1.0 mm behind the panel front face. The
 // dovetail mouth is recessed another 0.5 mm into the clamp transition, at
 // local Y = -2.0 mm. Small / medium / large hosts scale the dovetail height
 // with their 2 / 3 / 4 mm rear-base thickness.
 
-use <../../ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail.scad>
+use <../../ext/lib.scad.mechint/openscad/sliding_dovetail.scad>
 use <../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
 
 _HUB75_TUBE_MOUNT_FRONT_OFFSET = 1.0;
@@ -240,8 +245,8 @@ module _hub75_tube_mount_dovetail_to_project(
     center_x = 0,
     center_z = 0
 ) {
-    // Native X becomes project -Z, native Y remains project Y with its mouth
-    // at -1.5 mm, and native Z becomes project X.
+    // Mechint design X becomes project -Z, design Y remains project Y with
+    // its mouth at -2.0 mm, and design Z becomes project X.
     multmatrix([
         [ 0, 0, 1, center_x],
         [ 0, 1, 0, _HUB75_TUBE_MOUNT_DOVETAIL_MOUTH_Y],

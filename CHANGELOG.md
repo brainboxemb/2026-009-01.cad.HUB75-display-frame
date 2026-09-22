@@ -29,9 +29,10 @@ This file records the functional evolution of the HUB75 display-frame project.
 
 ### Changed
 
-- Migrate the HUB75 tube-mount adapter to released `lib.scad.mechint v0.2.2`
-  and `lib.scad.forge v0.2.1`. Project transforms now use the Forge `fg_xf_*`
-  namespace; `lib.scad.util v0.4.0` remains only for section inspection.
+- Migrate the HUB75 tube-mount adapter to released `lib.scad.mechint v0.2.3`
+  and `lib.scad.forge v0.2.1`. HUB75 consumes mechint through the public
+  `openscad/sliding_dovetail.scad` entrypoint. Project transforms use the Forge
+  `fg_xf_*` namespace; `lib.scad.util v0.4.0` remains only for section inspection.
 - Upgrade the HUB75 root repository stack to `tool.git-project v0.2.9` and
   `tool.scad-project v0.15.2`. Verification pins the direct Forge checkout and
   the independent mechint-owned Forge checkout to the exact v0.2.1 source,

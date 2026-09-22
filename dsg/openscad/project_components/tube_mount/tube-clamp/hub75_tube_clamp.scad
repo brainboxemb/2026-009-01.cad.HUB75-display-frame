@@ -252,9 +252,9 @@ module _hub75_tube_clamp_ring_build(
     y_translation =
         clamp.tube_center_y + local_center_x;
 
-    // Library local Z (clamp extrusion) becomes project X (tube axis).
-    // Library local X becomes -project Y, keeping the ring tangent near Y=0.
-    // Library local Y becomes -project Z around the tube centre.
+    // lib.scad.clamps design Z (clamp extrusion) becomes project X (tube axis).
+    // Clamp design X becomes -project Y, keeping the ring tangent near Y=0.
+    // Clamp design Y becomes -project Z around the tube centre.
     multmatrix([
         [ 0,  0,  1, -clamp.base_clamp.clamp_width / 2],
         [-1,  0,  0,  y_translation],
@@ -282,18 +282,18 @@ module _hub75_tube_clamp_ring_build(
 
 // Small round side relief accepted in the component lab.
 //
-// The lab geometry is defined in development orientation:
-//   project X -> development X
+// The lab geometry is defined in lab orientation:
+//   project X -> lab X
 //   project Y -> development -Z
-//   project Z -> development Y
+//   project Z -> lab Y
 //
 // In the reusable clamp's native coordinates this means:
-//   development X = native Z - clamp_width/2
-//   development Y = -native Y + tube_center_z
-//   development Z = native X - project Y translation
+//   lab X = native Z - clamp_width/2
+//   lab Y = -native Y + tube_center_z
+//   lab Z = native X - project Y translation
 //
-// The accepted low development-Z cylinders therefore become short native-X
-// cylinders whose circular centres sit just outside the two native-Z side
+// The accepted low development-Z cylinders therefore become short clamp design-X
+// cylinders whose circular centres sit just outside the two clamp design-Z side
 // faces.  This preserves the lab result exactly without making the relief
 // dependent on the selected dovetail profile height.
 module _hub75_tube_clamp_transition_relief_cutter_local(
@@ -318,7 +318,7 @@ module _hub75_tube_clamp_transition_relief_cutter_local(
             - b.extra
     );
 
-    // development-Z position translated back to native clamp X.
+    // development-Z position translated back to clamp design X.
     cutter_x =
         attach_x
         + z_offset;
