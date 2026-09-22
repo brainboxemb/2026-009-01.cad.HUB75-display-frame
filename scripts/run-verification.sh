@@ -7,9 +7,11 @@ cd "${ROOT_DIR}"
 EXPECTED_GIT_TOOL_SHA="9879da589101f41b2b0e634d196ddcc51e1a6102"
 EXPECTED_SCAD_TOOL_SHA="70fd4162731484a949dc390e942dde8b8d811f10"
 EXPECTED_DIRECT_UTIL_SHA="604970732671b3889f072f5fc744ca872326e69c"
+EXPECTED_DIRECT_FORGE_SHA="12a62580f4d24a8ebd80b061dc2a8e368a838ace"
 EXPECTED_MECHINT_SHA="da06eeeda4f22bcb65b42e264c5ee83f356fe8b3"
 EXPECTED_MECHINT_UTIL_SHA="604970732671b3889f072f5fc744ca872326e69c"
 EXPECTED_DIRECT_UTIL_REF="v0.4.0"
+EXPECTED_DIRECT_FORGE_REF="v0.2.1"
 EXPECTED_MECHINT_REF="v0.2.1"
 
 gitlink_sha() {
@@ -55,20 +57,27 @@ require_uninitialized_nested_tooling() {
 verify_dependency_ownership() {
   local mechint="$ROOT_DIR/dsg/openscad/ext/lib.scad.mechint"
   local direct_util="$ROOT_DIR/dsg/openscad/ext/lib.scad.util"
+  local direct_forge="$ROOT_DIR/dsg/openscad/ext/lib.scad.forge"
   local nested_util="$mechint/ext/lib.scad.util"
 
   require_gitlink "$ROOT_DIR" "tools/tool.git-project" "$EXPECTED_GIT_TOOL_SHA"
   require_gitlink "$ROOT_DIR" "tools/tool.scad-project" "$EXPECTED_SCAD_TOOL_SHA"
   require_gitlink "$ROOT_DIR" "dsg/openscad/ext/lib.scad.util" "$EXPECTED_DIRECT_UTIL_SHA"
+  require_gitlink "$ROOT_DIR" "dsg/openscad/ext/lib.scad.forge" "$EXPECTED_DIRECT_FORGE_SHA"
   require_gitlink "$ROOT_DIR" "dsg/openscad/ext/lib.scad.mechint" "$EXPECTED_MECHINT_SHA"
 
   require_checkout "$ROOT_DIR/tools/tool.git-project" "$EXPECTED_GIT_TOOL_SHA"
   require_checkout "$ROOT_DIR/tools/tool.scad-project" "$EXPECTED_SCAD_TOOL_SHA"
   require_checkout "$direct_util" "$EXPECTED_DIRECT_UTIL_SHA"
+  require_checkout "$direct_forge" "$EXPECTED_DIRECT_FORGE_SHA"
   require_checkout "$mechint" "$EXPECTED_MECHINT_SHA"
 
   grep -Fq "ref: $EXPECTED_DIRECT_UTIL_REF" "$ROOT_DIR/project.yml" || {
     echo "ERROR: project.yml must retain lib.scad.util $EXPECTED_DIRECT_UTIL_REF" >&2
+    exit 1
+  }
+  grep -Fq "ref: $EXPECTED_DIRECT_FORGE_REF" "$ROOT_DIR/project.yml" || {
+    echo "ERROR: project.yml must retain lib.scad.forge $EXPECTED_DIRECT_FORGE_REF" >&2
     exit 1
   }
   grep -Fq "ref: $EXPECTED_MECHINT_REF" "$ROOT_DIR/project.yml" || {
@@ -82,7 +91,7 @@ verify_dependency_ownership() {
   require_uninitialized_nested_tooling "$mechint" "tools/tool.git-project"
   require_uninitialized_nested_tooling "$mechint" "tools/tool.scad-project"
 
-  echo "Dependency ownership: root util v0.4.0 and mechint-owned util v0.4.0 resolve as independent owner-local checkouts"
+  echo "Dependency ownership: root util v0.4.0 owns inspection; root Forge v0.2.1 owns project transforms; mechint retains its released owner-local dependency stack"
 }
 OUT_DIR="${ROOT_DIR}/vrf/out"
 PNG_DIR="${OUT_DIR}/png"

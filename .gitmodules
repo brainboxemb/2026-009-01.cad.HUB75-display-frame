@@ -21,3 +21,7 @@
 [submodule "dsg/openscad/ext/lib.scad.mechint"]
 	path = dsg/openscad/ext/lib.scad.mechint
 	url = https://github.com/brainboxemb/lib.scad.mechint.git
+
+[submodule "dsg/openscad/ext/lib.scad.forge"]
+	path = dsg/openscad/ext/lib.scad.forge
+	url = https://github.com/brainboxemb/lib.scad.forge.git

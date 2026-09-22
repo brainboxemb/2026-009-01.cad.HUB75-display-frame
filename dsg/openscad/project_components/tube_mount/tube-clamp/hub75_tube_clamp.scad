@@ -11,7 +11,7 @@
 // including its male dovetail, stays positioned from the tube-front datum.
 
 use <../../../ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad>
-use <../../../ext/lib.scad.util/openscad/transform.scad>
+use <../../../ext/lib.scad.forge/openscad/transform.scad>
 use <../tube_mount_interface.scad>
 
 /* [Component] */
@@ -336,12 +336,12 @@ module _hub75_tube_clamp_transition_relief_cutter_local(
                 : b.clamp_width
                     + side_center_offset;
 
-        xf_move([
+        fg_xf_move([
             cutter_x - z_height / 2,
             0,
             cutter_z
         ])
-            xf_yrot(90)
+            fg_xf_yrot(90)
                 cylinder(
                     r = radius,
                     h = z_height,
