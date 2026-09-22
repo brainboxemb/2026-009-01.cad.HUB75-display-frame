@@ -9,65 +9,67 @@
 //   4. cut vertical, top-entry female dovetails into those carriers.
 
 use <../../../components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad>
+use <../../../ext/lib.scad.forge/openscad/resolution.scad>
+use <../../../ext/lib.scad.forge/openscad/transform.scad>
 use <../tube-clamp/hub75_tube_clamp.scad>
 use <../tube_mount_interface.scad>
 
-_HUB75_TUBE_EDGE_EPS = 0.05;
+_HUB75_TUBE_EDGE_EPS_MM = 0.05;
 
-function hub75_tube_horizontal_edge_carrier_side_wall() = 2;
-function hub75_tube_horizontal_edge_carrier_bottom_margin() = 2;
-function hub75_tube_horizontal_edge_carrier_top_lip() = 2;
+function hub75_tube_horizontal_edge_carrier_side_wall_mm() = 2;
+function hub75_tube_horizontal_edge_carrier_bottom_margin_mm() = 2;
+function hub75_tube_horizontal_edge_carrier_top_lip_mm() = 2;
 
-function hub75_tube_horizontal_edge_carrier_front_y() =
-    hub75_tube_mount_dovetail_mouth_y();
+function hub75_tube_horizontal_edge_carrier_front_y_mm() =
+    hub75_tube_mount_dovetail_mouth_y_mm();
 
-function hub75_tube_horizontal_edge_carrier_depth(coupler) =
+function hub75_tube_horizontal_edge_carrier_depth_mm(coupler) =
     coupler.base_thickness
-    - hub75_tube_horizontal_edge_carrier_front_y();
+    - hub75_tube_horizontal_edge_carrier_front_y_mm();
 
-function hub75_tube_horizontal_edge_carrier_width(
+function hub75_tube_horizontal_edge_carrier_width_mm(
     clamp = hub75_tube_clamp_create()
 ) =
-    hub75_tube_mount_dovetail_female_root_width(
+    hub75_tube_mount_dovetail_female_root_width_mm(
         clamp.dovetail
     )
-    + 2 * hub75_tube_horizontal_edge_carrier_side_wall();
+    + 2 * hub75_tube_horizontal_edge_carrier_side_wall_mm();
 
-function hub75_tube_horizontal_edge_carrier_z_min(clamp) =
-    clamp.dovetail_center_z
-    - hub75_tube_mount_dovetail_female_slide(
+function hub75_tube_horizontal_edge_carrier_z_min_mm(clamp) =
+    clamp.dovetail_center_z_mm
+    - hub75_tube_mount_dovetail_female_slide_len_mm(
         clamp.dovetail,
-        clamp.dovetail_slide
+        clamp.dovetail_slide_len_mm
     ) / 2
-    - hub75_tube_horizontal_edge_carrier_bottom_margin();
+    - hub75_tube_horizontal_edge_carrier_bottom_margin_mm();
 
-function hub75_tube_horizontal_edge_carrier_z_max(clamp) =
-    clamp.dovetail_center_z
-    + hub75_tube_mount_dovetail_female_slide(
+function hub75_tube_horizontal_edge_carrier_z_max_mm(clamp) =
+    clamp.dovetail_center_z_mm
+    + hub75_tube_mount_dovetail_female_slide_len_mm(
         clamp.dovetail,
-        clamp.dovetail_slide
+        clamp.dovetail_slide_len_mm
     ) / 2
-    + hub75_tube_horizontal_edge_carrier_top_lip();
+    + hub75_tube_horizontal_edge_carrier_top_lip_mm();
 
-function hub75_tube_horizontal_edge_carrier_edge_margin() = 4;
+function hub75_tube_horizontal_edge_carrier_edge_margin_mm() = 4;
 
-function hub75_tube_horizontal_edge_clamp_offset(
+function hub75_tube_horizontal_edge_clamp_offset_mm(
     coupler,
-    carrier_width = hub75_tube_horizontal_edge_carrier_width(),
-    edge_margin = hub75_tube_horizontal_edge_carrier_edge_margin()
+    carrier_width_mm = hub75_tube_horizontal_edge_carrier_width_mm(),
+    edge_margin_mm = hub75_tube_horizontal_edge_carrier_edge_margin_mm()
 ) =
     max(
-        carrier_width / 2,
+        carrier_width_mm / 2,
         coupler.profile_size / 2
-            - carrier_width / 2
-            - edge_margin
+            - carrier_width_mm / 2
+            - edge_margin_mm
     );
 
-function hub75_tube_horizontal_edge_clamp_positions(coupler) =
-    let(offset = hub75_tube_horizontal_edge_clamp_offset(coupler))
-    [-offset, offset];
+function hub75_tube_horizontal_edge_clamp_positions_mm(coupler) =
+    let(_offset_mm = hub75_tube_horizontal_edge_clamp_offset_mm(coupler))
+    [-_offset_mm, _offset_mm];
 
-function hub75_tube_horizontal_edge_keepout_radial_clearance(coupler) =
+function hub75_tube_horizontal_edge_keepout_radial_clearance_mm(coupler) =
     coupler.fit_clearance;
 
 
@@ -76,13 +78,16 @@ function hub75_tube_horizontal_edge_keepout_radial_clearance(coupler) =
 // ----------------------------------------------------------------------
 
 module hub75_tube_horizontal_edge_coupler_build(
-    coupler
+    obj,
+    resolution = FG_RES_HIGH()
 ) {
+    fg_res_apply(resolution) {
+    coupler = obj;
     clamp =
         hub75_tube_clamp_create(
             dovetail =
                 hub75_tube_mount_dovetail_create(
-                    host_depth = coupler.base_thickness
+                    host_depth_mm = coupler.base_thickness
                 )
         );
 
@@ -104,6 +109,8 @@ module hub75_tube_horizontal_edge_coupler_build(
             clamp
         );
     }
+    }
+
 }
 
 
@@ -116,20 +123,19 @@ module _hub75_tube_horizontal_edge_keepout_cutter(
     clamp
 ) {
     keepout_d =
-        hub75_tube_clamp_functional_diameter(clamp)
-        + 2 * hub75_tube_horizontal_edge_keepout_radial_clearance(coupler);
-    cutter_length = coupler.profile_size + 2 * _HUB75_TUBE_EDGE_EPS;
+        hub75_tube_clamp_functional_diameter_mm(clamp)
+        + 2 * hub75_tube_horizontal_edge_keepout_radial_clearance_mm(coupler);
+    cutter_length = coupler.profile_size + 2 * _HUB75_TUBE_EDGE_EPS_MM;
 
     translate([
         -cutter_length / 2,
-        hub75_tube_clamp_tube_center_y(clamp),
-        hub75_tube_clamp_tube_center_z(clamp)
+        hub75_tube_clamp_tube_center_y_mm(clamp),
+        hub75_tube_clamp_tube_center_z_mm(clamp)
     ])
         rotate([0, 90, 0])
             cylinder(
                 d = keepout_d,
-                h = cutter_length,
-                $fn = coupler.render_fn
+                h = cutter_length
             );
 }
 
@@ -138,9 +144,9 @@ module _hub75_tube_horizontal_edge_carrier_profile_2d(
     clamp,
     radius = 4
 ) {
-    width = hub75_tube_horizontal_edge_carrier_width(clamp);
-    z_min = hub75_tube_horizontal_edge_carrier_z_min(clamp);
-    z_max = hub75_tube_horizontal_edge_carrier_z_max(clamp);
+    width = hub75_tube_horizontal_edge_carrier_width_mm(clamp);
+    z_min = hub75_tube_horizontal_edge_carrier_z_min_mm(clamp);
+    z_max = hub75_tube_horizontal_edge_carrier_z_max_mm(clamp);
     height = z_max - z_min;
 
     assert(width > 2 * radius,
@@ -164,11 +170,11 @@ module _hub75_tube_horizontal_edge_carriers(
         rotate([90, 0, 0])
             linear_extrude(
                 height =
-                    hub75_tube_horizontal_edge_carrier_depth(
+                    hub75_tube_horizontal_edge_carrier_depth_mm(
                         coupler
                     )
             )
-                for (clip_x = hub75_tube_horizontal_edge_clamp_positions(coupler))
+                for (clip_x = hub75_tube_horizontal_edge_clamp_positions_mm(coupler))
                     _hub75_tube_horizontal_edge_carrier_profile_2d(
                         clip_x,
                         clamp
@@ -179,11 +185,11 @@ module _hub75_tube_horizontal_edge_dovetail_cutters(
     coupler,
     clamp
 ) {
-    for (clip_x = hub75_tube_horizontal_edge_clamp_positions(coupler))
+    for (clip_x = hub75_tube_horizontal_edge_clamp_positions_mm(coupler))
         hub75_tube_mount_dovetail_female_cutter(
-            dovetail = clamp.dovetail,
-            slide = clamp.dovetail_slide,
-            center_x = clip_x,
-            center_z = clamp.dovetail_center_z
+            clamp.dovetail,
+            slide_len_mm = clamp.dovetail_slide_len_mm,
+            center_x_mm = clip_x,
+            center_z_mm = clamp.dovetail_center_z_mm
         );
 }

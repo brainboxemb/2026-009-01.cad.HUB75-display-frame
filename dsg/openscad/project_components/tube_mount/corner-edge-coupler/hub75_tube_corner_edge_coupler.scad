@@ -8,33 +8,35 @@
 // side-rail centre, because that is the corner mass that reaches the tube height.
 
 use <../../../components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad>
+use <../../../ext/lib.scad.forge/openscad/resolution.scad>
+use <../../../ext/lib.scad.forge/openscad/transform.scad>
 use <../tube-clamp/hub75_tube_clamp.scad>
 use <../tube_mount_interface.scad>
 
-_HUB75_TUBE_CORNER_EPS = 0.05;
+_HUB75_TUBE_CORNER_EPS_MM = 0.05;
 
-function hub75_tube_corner_edge_clamp_x(coupler) =
+function hub75_tube_corner_edge_clamp_x_mm(coupler) =
     hub75_corner_edge_coupler_side_rail_center_x(coupler);
 
-function hub75_tube_corner_edge_available_interface_width(coupler) =
+function hub75_tube_corner_edge_available_interface_width_mm(coupler) =
     hub75_corner_edge_coupler_vertical_arm_width(coupler);
 
-function hub75_tube_corner_edge_required_interface_width(
+function hub75_tube_corner_edge_required_interface_width_mm(
     coupler,
     clamp = hub75_tube_clamp_create()
 ) =
     max(
-        hub75_tube_mount_dovetail_female_root_width(
+        hub75_tube_mount_dovetail_female_root_width_mm(
             clamp.dovetail
         ),
         clamp.base_clamp.clamp_width
-            + 2 * hub75_tube_corner_edge_clamp_body_clearance(coupler)
+            + 2 * hub75_tube_corner_edge_clamp_body_clearance_mm(coupler)
     );
 
-function hub75_tube_corner_edge_keepout_radial_clearance(coupler) =
+function hub75_tube_corner_edge_keepout_radial_clearance_mm(coupler) =
     coupler.fit_clearance;
 
-function hub75_tube_corner_edge_clamp_body_clearance(coupler) =
+function hub75_tube_corner_edge_clamp_body_clearance_mm(coupler) =
     coupler.fit_clearance;
 
 
@@ -43,20 +45,23 @@ function hub75_tube_corner_edge_clamp_body_clearance(coupler) =
 // ----------------------------------------------------------------------
 
 module hub75_tube_corner_edge_coupler_build(
-    coupler
+    obj,
+    resolution = FG_RES_HIGH()
 ) {
+    fg_res_apply(resolution) {
+    coupler = obj;
     clamp =
         hub75_tube_clamp_create(
             dovetail =
                 hub75_tube_mount_dovetail_create(
-                    host_depth = coupler.base_thickness
+                    host_depth_mm = coupler.base_thickness
                 )
         );
-    clip_x = hub75_tube_corner_edge_clamp_x(coupler);
+    clip_x = hub75_tube_corner_edge_clamp_x_mm(coupler);
     available_interface_width =
-        hub75_tube_corner_edge_available_interface_width(coupler);
+        hub75_tube_corner_edge_available_interface_width_mm(coupler);
     required_interface_width =
-        hub75_tube_corner_edge_required_interface_width(
+        hub75_tube_corner_edge_required_interface_width_mm(
             coupler,
             clamp
         );
@@ -81,12 +86,14 @@ module hub75_tube_corner_edge_coupler_build(
         );
 
         hub75_tube_mount_dovetail_female_cutter(
-            dovetail = clamp.dovetail,
-            slide = clamp.dovetail_slide,
-            center_x = clip_x,
-            center_z = clamp.dovetail_center_z
+            clamp.dovetail,
+            slide_len_mm = clamp.dovetail_slide_len_mm,
+            center_x_mm = clip_x,
+            center_z_mm = clamp.dovetail_center_z_mm
         );
     }
+    }
+
 }
 
 
@@ -99,23 +106,22 @@ module _hub75_tube_corner_edge_keepout_cutter(
     clamp
 ) {
     keepout_d =
-        hub75_tube_clamp_functional_diameter(clamp)
-        + 2 * hub75_tube_corner_edge_keepout_radial_clearance(coupler);
+        hub75_tube_clamp_functional_diameter_mm(clamp)
+        + 2 * hub75_tube_corner_edge_keepout_radial_clearance_mm(coupler);
     cutter_length =
         coupler.profile_size
         + 2 * coupler.outside_projection
-        + 2 * _HUB75_TUBE_CORNER_EPS;
+        + 2 * _HUB75_TUBE_CORNER_EPS_MM;
 
     translate([
         -cutter_length / 2,
-        hub75_tube_clamp_tube_center_y(clamp),
-        hub75_tube_clamp_tube_center_z(clamp)
+        hub75_tube_clamp_tube_center_y_mm(clamp),
+        hub75_tube_clamp_tube_center_z_mm(clamp)
     ])
         rotate([0, 90, 0])
             cylinder(
                 d = keepout_d,
-                h = cutter_length,
-                $fn = coupler.render_fn
+                h = cutter_length
             );
 }
 
@@ -128,23 +134,21 @@ module _hub75_tube_corner_edge_outer_ring_envelope(
     z_shift = 0
 ) {
     ring_r =
-        hub75_tube_clamp_outer_diameter(clamp) / 2
+        hub75_tube_clamp_outer_diameter_mm(clamp) / 2
         + radial_clearance;
     ring_width =
         clamp.base_clamp.clamp_width
         + 2 * lateral_clearance;
-    ring_fn = 64;
 
     translate([
         clip_x - ring_width / 2,
-        hub75_tube_clamp_tube_center_y(clamp),
-        hub75_tube_clamp_tube_center_z(clamp) + z_shift
+        hub75_tube_clamp_tube_center_y_mm(clamp),
+        hub75_tube_clamp_tube_center_z_mm(clamp) + z_shift
     ])
         rotate([0, 90, 0])
             cylinder(
                 r = ring_r,
-                h = ring_width,
-                $fn = ring_fn
+                h = ring_width
             );
 }
 
@@ -157,24 +161,24 @@ module _hub75_tube_corner_edge_clamp_access_cutter(
     entry_travel
 ) {
     ring_r =
-        hub75_tube_clamp_outer_diameter(clamp) / 2
+        hub75_tube_clamp_outer_diameter_mm(clamp) / 2
         + clearance;
     ring_front_y =
-        hub75_tube_clamp_tube_center_y(clamp)
+        hub75_tube_clamp_tube_center_y_mm(clamp)
         + ring_r;
     rear_y =
         coupler.base_thickness
-        + _HUB75_TUBE_CORNER_EPS;
+        + _HUB75_TUBE_CORNER_EPS_MM;
     access_depth =
         rear_y - ring_front_y;
     z_bottom =
-        hub75_tube_clamp_tube_center_z(clamp)
+        hub75_tube_clamp_tube_center_z_mm(clamp)
         - ring_r;
     z_top =
         max(
             coupler.outside_projection
-                + _HUB75_TUBE_CORNER_EPS,
-            hub75_tube_clamp_tube_center_z(clamp)
+                + _HUB75_TUBE_CORNER_EPS_MM,
+            hub75_tube_clamp_tube_center_z_mm(clamp)
                 + entry_travel
                 + ring_r
         );
@@ -192,20 +196,19 @@ module _hub75_tube_corner_edge_clamp_access_cutter(
     // envelope, removing the thin plate/shelf that previously sat underneath
     // the clip.  With rear-face-down printing this avoids the unsupported
     // circular roof while keeping the cavity simple and inspectable.
-    multmatrix([
-        [0, 0, 1, clip_x - opening_width / 2],
-        [1, 0, 0, 0],
-        [0, 1, 0, 0],
-        [0, 0, 0, 1]
-    ])
+    fg_xf_frame(
+        pos_mm = [clip_x - opening_width / 2, 0, 0],
+        x_axis = [0, 1, 0],
+        y_axis = [0, 0, 1]
+    )
         linear_extrude(height = opening_width)
             polygon(points = [
                 [
-                    ring_front_y - _HUB75_TUBE_CORNER_EPS,
+                    ring_front_y - _HUB75_TUBE_CORNER_EPS_MM,
                     z_bottom
                 ],
                 [
-                    ring_front_y - _HUB75_TUBE_CORNER_EPS,
+                    ring_front_y - _HUB75_TUBE_CORNER_EPS_MM,
                     z_top
                 ],
                 [
@@ -226,9 +229,9 @@ module _hub75_tube_corner_edge_clamp_keepout_cutter(
     clip_x
 ) {
     clearance =
-        hub75_tube_corner_edge_clamp_body_clearance(coupler);
+        hub75_tube_corner_edge_clamp_body_clearance_mm(coupler);
     entry_travel =
-        hub75_tube_mount_dovetail_entry_slot_length(
+        hub75_tube_mount_dovetail_entry_slot_len_mm(
             clamp.dovetail
         );
 
@@ -245,7 +248,7 @@ module _hub75_tube_corner_edge_clamp_keepout_cutter(
     // anywhere along the +Z insertion path.
     assert(
         clamp.base_clamp.transition_width
-            <= hub75_tube_clamp_outer_diameter(clamp)
+            <= hub75_tube_clamp_outer_diameter_mm(clamp)
                 + 2 * clearance,
         "corner ring envelope no longer contains the clamp transition"
     );

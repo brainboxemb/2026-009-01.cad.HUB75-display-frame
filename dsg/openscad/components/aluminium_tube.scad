@@ -4,46 +4,47 @@
 // This file owns only tube geometry. Project-specific length, placement,
 // colour and reinforcement meaning belong in assemblies.
 
+use <../ext/lib.scad.forge/openscad/resolution.scad>
+
 function aluminium_tube_create(
-    length = 840,
-    outer_diameter = 10,
-    wall_thickness = 1,
-    render_fn = 96
+    length_mm = 840,
+    outer_diameter_mm = 10,
+    wall_thickness_mm = 1
 ) =
-    assert(length > 0, "tube length must be > 0")
-    assert(outer_diameter > 0, "tube outer diameter must be > 0")
-    assert(wall_thickness > 0, "tube wall thickness must be > 0")
-    assert(2 * wall_thickness < outer_diameter,
+    assert(length_mm > 0, "tube length_mm must be > 0")
+    assert(outer_diameter_mm > 0, "tube outer_diameter_mm must be > 0")
+    assert(wall_thickness_mm > 0, "tube wall_thickness_mm must be > 0")
+    assert(2 * wall_thickness_mm < outer_diameter_mm,
         "tube wall thickness leaves no inner diameter")
-    assert(render_fn >= 24, "tube render_fn must be >= 24")
     object(
-        length = length,
-        outer_diameter = outer_diameter,
-        wall_thickness = wall_thickness,
-        render_fn = render_fn
+        length_mm = length_mm,
+        outer_diameter_mm = outer_diameter_mm,
+        wall_thickness_mm = wall_thickness_mm
     );
 
-function aluminium_tube_inner_diameter(tube) =
-    tube.outer_diameter - 2 * tube.wall_thickness;
+function aluminium_tube_inner_diameter_mm(obj) =
+    obj.outer_diameter_mm - 2 * obj.wall_thickness_mm;
 
-module aluminium_tube_build(tube) {
-    $fn = tube.render_fn;
-
-    rotate([0, 90, 0])
-        difference() {
-            cylinder(
-                h = tube.length,
-                d = tube.outer_diameter
-            );
-
-            translate([0, 0, -0.1])
+module aluminium_tube_build(
+    obj,
+    resolution = FG_RES_HIGH()
+) {
+    fg_res_apply(resolution)
+        rotate([0, 90, 0])
+            difference() {
                 cylinder(
-                    h = tube.length + 0.2,
-                    d = aluminium_tube_inner_diameter(tube)
+                    h = obj.length_mm,
+                    d = obj.outer_diameter_mm
                 );
-        }
+
+                translate([0, 0, -0.1])
+                    cylinder(
+                        h = obj.length_mm + 0.2,
+                        d = aluminium_tube_inner_diameter_mm(obj)
+                    );
+            }
 }
 
 // Standalone preview.
-_preview_tube = aluminium_tube_create(length = 160);
+_preview_tube = aluminium_tube_create(length_mm = 160);
 aluminium_tube_build(_preview_tube);

@@ -30,9 +30,9 @@ module _hub75_tube_clamp_lab_z_reference(
     color([0.1, 0.75, 0.1, 0.7])
         translate([
             0,
-            hub75_tube_clamp_tube_center_y(clamp)
+            hub75_tube_clamp_tube_center_y_mm(clamp)
                 + length / 2,
-            hub75_tube_clamp_tube_center_z(clamp)
+            hub75_tube_clamp_tube_center_z_mm(clamp)
         ])
             rotate([90, 0, 0])
                 cylinder(

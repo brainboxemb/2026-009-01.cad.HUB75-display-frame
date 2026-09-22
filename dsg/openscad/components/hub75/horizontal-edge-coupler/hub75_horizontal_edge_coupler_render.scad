@@ -340,7 +340,7 @@ module hub75_horizontal_edge_coupler_design(view = "final") {
 
     } else if (view == "guide-outer-taper") {
         taper_h = min(coupler.guide_height, coupler.panel_taper_depth);
-        taper_shift_z = hub75_panel_taper_shift_at_depth(
+        taper_shift_z = hub75_panel_taper_shift_at_depth_mm(
             taper_h,
             coupler.panel_taper_depth,
             coupler.panel_rear_outer_inset_z

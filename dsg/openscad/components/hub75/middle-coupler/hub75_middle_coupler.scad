@@ -391,7 +391,7 @@ function hub75_middle_coupler_seam_locator_width_at_depth(
     max(
         0,
         hub75_middle_coupler_seam_locator_width(coupler)
-        - 2 * hub75_panel_taper_shift_at_depth(
+        - 2 * hub75_panel_taper_shift_at_depth_mm(
             depth,
             coupler.panel_taper_depth,
             coupler.panel_rear_outer_inset_x

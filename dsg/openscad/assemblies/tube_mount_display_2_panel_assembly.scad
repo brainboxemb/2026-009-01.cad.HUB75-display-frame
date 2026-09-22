@@ -30,7 +30,7 @@ module hub75_tube_mount_display_2_panel_assembly(
     panel = hub75_p5_64x32_panel_create(),
     coupler_size = "medium",
     panel_view = hub75_p5_64x32_panel_view_id("final"),
-    clamp_resolution = FG_RES_HIGH(),
+    resolution = FG_RES_HIGH(),
     tube_mount_enabled = true,
     tube_clamps_visible = true,
     aluminium_tubes_visible = true,
@@ -46,7 +46,7 @@ module hub75_tube_mount_display_2_panel_assembly(
         coupler_size = coupler_size,
         panel_count = hub75_tube_mount_display_2_panel_count(),
         panel_view = panel_view,
-        clamp_resolution = clamp_resolution,
+        resolution = resolution,
         panels_visible = true,
         middle_couplers_visible = true,
         horizontal_edge_couplers_visible = true,
@@ -76,7 +76,7 @@ c_explode_distance_mm = 0; // [0:5:80]
 fg_res_apply(c_resolution)
     hub75_tube_mount_display_2_panel_assembly(
         coupler_size = d_coupler_profile,
-        clamp_resolution = c_resolution,
+        resolution = c_resolution,
         tube_mount_enabled = c_show_tube_mount,
         tube_clamps_visible = c_show_tube_clamps,
         aluminium_tubes_visible = c_show_aluminium_tubes,

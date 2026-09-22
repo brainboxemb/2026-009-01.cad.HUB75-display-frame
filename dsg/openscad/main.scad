@@ -173,7 +173,7 @@ module _hub75_main_display(explode = 0, panels_visible = c_show_panels) {
         coupler_size =
             d_coupler_profile == "custom" ? "medium" : d_coupler_profile,
         panel_view = _preview_panel_view,
-        clamp_resolution = c_resolution,
+        resolution = c_resolution,
         panels_visible = panels_visible,
         middle_couplers_visible =
             c_show_couplers && c_show_middle_couplers,
@@ -202,7 +202,7 @@ module _hub75_main_selected_view() {
             coupler_size =
                 d_coupler_profile == "custom" ? "medium" : d_coupler_profile,
             panel_view = _preview_panel_view,
-            clamp_resolution = c_resolution,
+            resolution = c_resolution,
             tube_mount_enabled = c_show_tube_mounts,
             tube_clamps_visible = c_show_tube_clamps,
             aluminium_tubes_visible = c_show_aluminium_tubes,
@@ -228,7 +228,8 @@ module _hub75_main_selected_view() {
         hub75_horizontal_edge_coupler_render(horizontal_coupler, view = "final");
     else if (c_view == "horizontal-edge-tube-mount-coupler")
         hub75_tube_horizontal_edge_coupler_build(
-            horizontal_coupler
+            horizontal_coupler,
+            resolution = c_resolution
         );
     else if (c_view == "horizontal-edge-tube-mount-assembly")
         hub75_tube_horizontal_edge_assembly(
@@ -236,7 +237,7 @@ module _hub75_main_selected_view() {
             show_coupler = c_show_couplers,
             show_clamps = c_show_tube_clamps,
             show_tube = c_show_aluminium_tubes,
-            clamp_resolution = c_resolution
+            resolution = c_resolution
         );
     else if (c_view == "corner-edge-left")
         hub75_corner_edge_coupler_render(left_corner_coupler, view = "final");
@@ -244,11 +245,13 @@ module _hub75_main_selected_view() {
         hub75_corner_edge_coupler_render(right_corner_coupler, view = "final");
     else if (c_view == "corner-edge-tube-mount-left")
         hub75_tube_corner_edge_coupler_build(
-            left_corner_coupler
+            left_corner_coupler,
+            resolution = c_resolution
         );
     else if (c_view == "corner-edge-tube-mount-right")
         hub75_tube_corner_edge_coupler_build(
-            right_corner_coupler
+            right_corner_coupler,
+            resolution = c_resolution
         );
     else if (c_view == "corner-edge-tube-mount-left-assembly")
         hub75_tube_corner_edge_assembly(
@@ -257,7 +260,7 @@ module _hub75_main_selected_view() {
             show_coupler = c_show_couplers,
             show_clamps = c_show_tube_clamps,
             show_tube = c_show_aluminium_tubes,
-            clamp_resolution = c_resolution
+            resolution = c_resolution
         );
     else if (c_view == "corner-edge-tube-mount-right-assembly")
         hub75_tube_corner_edge_assembly(
@@ -266,7 +269,7 @@ module _hub75_main_selected_view() {
             show_coupler = c_show_couplers,
             show_clamps = c_show_tube_clamps,
             show_tube = c_show_aluminium_tubes,
-            clamp_resolution = c_resolution
+            resolution = c_resolution
         );
     else if (c_view == "tube-clamp")
         let(clamp = _hub75_main_tube_clamp())

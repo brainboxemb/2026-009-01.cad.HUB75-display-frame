@@ -1235,7 +1235,7 @@ module _hub75_corner_edge_coupler_guide_walls(coupler) {
 module _hub75_corner_edge_coupler_horizontal_outer_ridge(coupler) {
     ridge_h = coupler.guide_height;
     taper_h = min(ridge_h, coupler.panel_taper_depth);
-    shift = hub75_panel_taper_shift_at_depth(
+    shift = hub75_panel_taper_shift_at_depth_mm(
         taper_h, coupler.panel_taper_depth, coupler.panel_rear_outer_inset_z
     );
     boundary = coupler.rear_outer_edge_z + coupler.fit_clearance;
@@ -1262,7 +1262,7 @@ module _hub75_corner_edge_coupler_horizontal_outer_ridge(coupler) {
 module _hub75_corner_edge_coupler_vertical_outer_ridge(coupler) {
     ridge_h = coupler.guide_height;
     taper_h = min(ridge_h, coupler.panel_taper_depth);
-    shift = hub75_panel_taper_shift_at_depth(
+    shift = hub75_panel_taper_shift_at_depth_mm(
         taper_h, coupler.panel_taper_depth, coupler.panel_rear_outer_inset_x
     );
     boundary = coupler.rear_outer_edge_x
