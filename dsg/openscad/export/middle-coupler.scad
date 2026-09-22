@@ -2,13 +2,15 @@
 
 use <../components/hub75/middle-coupler/hub75_middle_coupler.scad>
 
+// tool.scad-project multi-size adapter: overridden by -D size=...
 size = "medium";
+d_profile = size;
 
-coupler = hub75_middle_coupler_create_for_size(size = size);
+coupler = hub75_middle_coupler_create_for_size(size = d_profile);
 
 expected_profile =
-    size == "small" ? [60, 2, 4, 2]
-    : size == "large" ? [100, 6, 10, 4]
+    d_profile == "small" ? [60, 2, 4, 2]
+    : d_profile == "large" ? [100, 6, 10, 4]
     : [80, 4, 6, 3];
 
 assert(
@@ -54,9 +56,9 @@ assert(
 
 
 expected_reference_depth =
-    size == "small" ? 1.3 : 2.0;
+    d_profile == "small" ? 1.3 : 2.0;
 expected_reference_straight =
-    size == "small" ? 0.8 : 1.5;
+    d_profile == "small" ? 0.8 : 1.5;
 
 assert(
     abs(

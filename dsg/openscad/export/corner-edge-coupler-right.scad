@@ -2,27 +2,29 @@
 
 use <../components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad>
 
+// tool.scad-project multi-size adapter: overridden by -D size=...
 size = "medium";
+d_profile = size;
 
 coupler =
     hub75_corner_edge_coupler_create_for_size(
         side = "right",
-        size = size
+        size = d_profile
     );
 
 expected_profile =
-    size == "small" ? [60, 2, 4, 2]
-    : size == "large" ? [100, 6, 10, 4]
+    d_profile == "small" ? [60, 2, 4, 2]
+    : d_profile == "large" ? [100, 6, 10, 4]
     : [80, 4, 6, 3];
 
 expected_horizontal_arm =
-    size == "small" ? 14.0011328125
-    : size == "large" ? 22.0011328125
+    d_profile == "small" ? 14.0011328125
+    : d_profile == "large" ? 22.0011328125
     : 18.0011328125;
 
 expected_vertical_arm =
-    size == "small" ? 15.75234375
-    : size == "large" ? 23.75234375
+    d_profile == "small" ? 15.75234375
+    : d_profile == "large" ? 23.75234375
     : 19.75234375;
 
 expected_screw_x =
@@ -88,7 +90,7 @@ assert(
 assert(
     abs(
         hub75_corner_edge_coupler_reference_pocket_effective_depth(coupler)
-        - (size == "small" ? 1.3 : 2.0)
+        - (d_profile == "small" ? 1.3 : 2.0)
     ) < 0.001,
     "Corner-edge reference pocket depth changed"
 );

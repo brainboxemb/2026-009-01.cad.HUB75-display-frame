@@ -2,8 +2,7 @@
 // Design-documentation adapter for the horizontal-edge coupler.
 // Construction-only views decompose production geometry for explanation.
 
-$fn = 120;
-
+use <../../../ext/lib.scad.forge/openscad/resolution.scad>
 use <hub75_horizontal_edge_coupler.scad>
 use <../hub75_panel_mating.scad>
 
@@ -396,4 +395,5 @@ module hub75_horizontal_edge_coupler_design(view = "final") {
     }
 }
 
-hub75_horizontal_edge_coupler_design();
+fg_res_apply(FG_RES_HIGH())
+    hub75_horizontal_edge_coupler_design();

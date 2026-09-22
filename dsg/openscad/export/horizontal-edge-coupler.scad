@@ -2,16 +2,18 @@
 
 use <../components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad>
 
+// tool.scad-project multi-size adapter: overridden by -D size=...
 size = "medium";
+d_profile = size;
 
 coupler =
     hub75_horizontal_edge_coupler_create_for_size(
-        size = size
+        size = d_profile
     );
 
 expected_profile =
-    size == "small" ? [60, 2, 4, 2]
-    : size == "large" ? [100, 6, 10, 4]
+    d_profile == "small" ? [60, 2, 4, 2]
+    : d_profile == "large" ? [100, 6, 10, 4]
     : [80, 4, 6, 3];
 
 assert(
@@ -39,8 +41,8 @@ assert(
     abs(
         hub75_horizontal_edge_coupler_vertical_arm_width(coupler)
         - (
-            size == "small" ? 29.8
-            : size == "large" ? 37.8
+            d_profile == "small" ? 29.8
+            : d_profile == "large" ? 37.8
             : 33.8
         )
     ) < 0.001,
@@ -64,7 +66,7 @@ assert(
 assert(
     abs(
         hub75_horizontal_edge_coupler_reference_pocket_effective_depth(coupler)
-        - (size == "small" ? 1.3 : 2.0)
+        - (d_profile == "small" ? 1.3 : 2.0)
     ) < 0.001,
     "Horizontal-edge reference pocket effective depth changed"
 );
