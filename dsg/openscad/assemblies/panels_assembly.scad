@@ -1,7 +1,7 @@
 // File: panels_assembly.scad
-//   Five-panel portrait HUB75 display assembly.
+//   Parametric portrait HUB75 panel-row assembly.
 
-// Five-panel HUB75 display assembly.
+// HUB75 display panel-row assembly.
 //
 // The reusable panel geometry and its dimensions come exclusively from
 // lib.scad.hub75. This project only decides how many panels are present and
@@ -63,19 +63,20 @@ function _hub75_display_panel_rotated(index) =
 module _hub75_display_panel_render(
     panel,
     index,
-    color_scheme
+    color_scheme,
+    panel_view
 ) {
     if (_hub75_display_panel_rotated(index))
         rotate([0, 180, 0])
             hub75_p5_64x32_panel_render(
                 panel,
-                view = hub75_p5_64x32_panel_view_id("final"),
+                view = panel_view,
                 color_scheme = color_scheme
             );
     else
         hub75_p5_64x32_panel_render(
             panel,
-            view = hub75_p5_64x32_panel_view_id("final"),
+            view = panel_view,
             color_scheme = color_scheme
         );
 }
@@ -85,17 +86,27 @@ module hub75_display_verify_nominal_size(
     panel_count = HUB75_DISPLAY_PANEL_COUNT
 ) {
     assert(
-        panel_count == 5,
-        "Current milestone requires exactly five HUB75 panels"
+        panel_count >= 1,
+        "panel_count must be at least 1"
     );
     assert(
-        abs(_hub75_display_nominal_width(panel, panel_count) - 800) < 0.001,
-        "Five-panel display must be 800 mm nominal width"
+        abs(_hub75_display_panel_pitch_x(panel) - 160) < 0.001,
+        "HUB75 portrait placement cell must remain 160 mm nominal width"
+    );
+    assert(
+        abs(_hub75_display_nominal_width(panel, panel_count)
+            - 160 * panel_count) < 0.001,
+        "Display nominal width must follow panel_count x 160 mm"
     );
     assert(
         abs(_hub75_display_nominal_height(panel) - 320) < 0.001,
-        "Five-panel display must be 320 mm nominal height"
+        "HUB75 portrait placement cell must remain 320 mm nominal height"
     );
+    if (panel_count == HUB75_DISPLAY_PANEL_COUNT)
+        assert(
+            abs(_hub75_display_nominal_width(panel, panel_count) - 800) < 0.001,
+            "Five-panel production display must remain 800 mm nominal width"
+        );
     assert(
         abs(_hub75_display_panel_front_y(panel)) < 0.001,
         "HUB75 front face must remain on project Y=0"
@@ -111,7 +122,9 @@ module hub75_display_verify_nominal_size(
 
 // Module: hub75_panels_assembly()
 // Description:
-//   Places the five physical panels. The project presentation default is
+//   Places a row of physical panels. The project production default remains
+//   five panels; smaller counts are useful for focused inspection assemblies.
+//   The project presentation default is
 //   light_gray so complete-display renders remain readable and match the
 //   library's normal render/debug presentation.
 // Arguments:
@@ -121,7 +134,8 @@ module hub75_display_verify_nominal_size(
 module hub75_panels_assembly(
     panel = hub75_display_panel_create(),
     panel_count = HUB75_DISPLAY_PANEL_COUNT,
-    color_scheme = "light_gray"
+    color_scheme = "light_gray",
+    panel_view = hub75_p5_64x32_panel_view_id("final")
 ) {
     assert(panel_count >= 1, "panel_count must be at least 1");
 
@@ -134,6 +148,7 @@ module hub75_panels_assembly(
             _hub75_display_panel_render(
                 panel = panel,
                 index = index,
-                color_scheme = color_scheme
+                color_scheme = color_scheme,
+                panel_view = panel_view
             );
 }

@@ -24,8 +24,9 @@ XY seam section.
 
 ### Horizontal-edge coupler
 
-Joins the same panel seam at the top/bottom display edge. The first
-implementation intentionally has no aluminium-tube clip.
+Joins the same panel seam at the top/bottom display edge. The core fit evidence
+remains intentionally independent of the tube-mount layer so physical panel
+acceptance can still evaluate the accepted panel-facing geometry.
 
 Each small/medium/large size publishes an angled top-edge fit detail, a
 size-aware rear fit section, a YZ end-rail profile and an orthogonal XY seam
@@ -55,7 +56,25 @@ These canonical 0.50 mm profile sections retain the complete panel profile with
 the red corner coupler around it, matching the presentation style used for the
 horizontal-edge profile sections.
 
-The first corner milestone intentionally has no aluminium-tube clip.
+The core corner-fit evidence remains independent of the reinforcement layer.
+
+### Tube-mount coupler and canonical clamp
+
+The tube-mount layer uses one canonical separate printable tube clamp built from
+the public `lib.scad.clamps` tube-clamp body plus the standard locked
+`lib.scad.mechint v0.1.4` sliding-dovetail interface.
+
+For each small/medium/large coupler size, the same clamp is used and the
+verification snapshot publishes:
+
+- an assembled local view containing horizontal-edge tube-mount coupler,
+  detachable clamp and Ø10 aluminium tube;
+- a thin YZ section through the dovetail engagement, generated with
+  `lib.scad.util`;
+- a thin XY section through the integral threshold/recess/spring lock.
+
+These views establish digital placement and engagement only. Sliding force,
+printer/material tolerance and repeated removal remain physical checks.
 
 ## Selective verification
 

@@ -6,10 +6,9 @@
 // behind the coupler without forcing the production model to be written as the
 // same sequence of primitive operations used for teaching the design.
 
-$fn = 120;
-
+use <../../../ext/lib.scad.forge/openscad/resolution.scad>
 use <hub75_middle_coupler.scad>
-use <../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
+use <../../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
 
 
 module _hub75_middle_coupler_design_thin(y_min = -0.35, y_max = 0.35) {
@@ -414,4 +413,5 @@ module hub75_middle_coupler_design(view = "final") {
 
 
 // Direct opening shows the finished component.
-hub75_middle_coupler_design();
+fg_res_apply(FG_RES_HIGH())
+    hub75_middle_coupler_design();

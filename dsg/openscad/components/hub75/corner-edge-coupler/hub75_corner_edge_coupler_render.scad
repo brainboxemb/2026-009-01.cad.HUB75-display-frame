@@ -2,8 +2,7 @@
 // Design-documentation adapter for the corner-edge coupler.
 // Explanatory construction states decompose production geometry visually.
 
-$fn = 120;
-
+use <../../../ext/lib.scad.forge/openscad/resolution.scad>
 use <hub75_corner_edge_coupler.scad>
 
 module _hub75_corner_edge_design_thin(y_min = -0.35, y_max = 0.35) {
@@ -410,4 +409,5 @@ module hub75_corner_edge_coupler_design(view = "final") {
     }
 }
 
-hub75_corner_edge_coupler_design();
+fg_res_apply(FG_RES_HIGH())
+    hub75_corner_edge_coupler_design();

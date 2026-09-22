@@ -2,7 +2,7 @@
 //   True XY section below the horizontal rib, through the seam locator.
 
 use <../../dsg/openscad/assemblies/verification/middle_coupler_fit_assembly.scad>
-use <../../dsg/openscad/project_components/middle-coupler/hub75_middle_coupler.scad>
+use <../../dsg/openscad/components/hub75/middle-coupler/hub75_middle_coupler.scad>
 
 size = "medium";
 

@@ -26,6 +26,14 @@ rendering:
 externals:
   - name: lib.scad.hub75
     required_file: openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad
+  - name: lib.scad.clamps
+    required_file: openscad/tube-clamp/tube_clamp.scad
+  - name: lib.scad.util
+    required_file: openscad/inspection.scad
+  - name: lib.scad.forge
+    required_file: openscad/forge.scad
+  - name: lib.scad.mechint
+    required_file: openscad/sliding_dovetail.scad
 
 verification:
   render_root: vrf/openscad

@@ -4,8 +4,190 @@ This file records the functional evolution of the HUB75 display-frame project.
 
 ## Unreleased
 
+- Treat the detachable clip/tube-mount integration as explicit WIP for the
+  integration checkpoint: standard HUB75 couplers are again the default full
+  assembly, while `main.scad` exposes `c_use_wip_tube_mount_couplers` to opt
+  into the unfinished tube-aware couplers. Dedicated tube-mount views and
+  exports remain available for continued development.
+- Complete issue #47 source-coherence cleanup: move the HUB75 project baseline
+  to `lib.scad.forge v0.2.2`, adopt semantic `low/high/export` resolution,
+  align project-owned tube-mount APIs with explicit units and Forge coordinate
+  frames, and align standalone controls with the shared `d_` / `c_` naming
+  convention without migrating external library APIs.
+### Added
+
+- Split the interactive clamp inspection in `main.scad` into `tube-clamp`
+  (raw reusable clamp body only) and `tube-clamp-dov` (the same body plus the
+  HUB75 dovetail/foot) so clamp thickness and attachment geometry can be
+  dimensioned independently.
+- Add a `high_resolution` boolean Customizer switch to `main.scad`, off by
+  default for faster interactive work. Enabling it restores the full preview;
+  the default low-detail path keeps functional coupler/tube-mount geometry but
+  removes decorative reference pockets/marks, lowers circular resolution, and
+  uses the HUB75 panel's connector/arrow-free structural view.
+- Add a dedicated interactive two-panel tube-mount assembly entrypoint; the
+  existing two-panel STL export now delegates to that assembly instead of owning
+  a second copy of the assembly call; expose the same assembly from `main.scad`
+  as the `two-panel-assembly` interactive view.
+- Add `lib.scad.mechint` as the reusable owner of the tube-mount
+  sliding-dovetail profile, clearances, 16 mm female entry slot and integral
+  lock/release geometry.
+- Update the tube clamp to released `lib.scad.clamps v0.1.7`, using an
+  explicit Ø10.0 mm functional bore and Ø9.6 mm tension bore instead of using
+  positive clearance to create clamping preload.
+- Add focused YZ lock-section verification for the detachable top-entry tube mount.
+
+### Changed
+
+- Migrate the HUB75 tube-mount adapter to released `lib.scad.mechint v0.2.3`
+  and `lib.scad.forge v0.2.1`. HUB75 consumes mechint through the public
+  `openscad/sliding_dovetail.scad` entrypoint. Project transforms use the Forge
+  `fg_xf_*` namespace; `lib.scad.util v0.4.0` remains only for section inspection.
+- Upgrade the HUB75 root repository stack to `tool.git-project v0.2.9` and
+  `tool.scad-project v0.15.5`. The SCAD production workflow now uses exact-source
+  Moon output caching for SCons builds, preventing old PR output generations
+  from accumulating in the portable Moon cache while retaining same-source
+  rerun hydration. Verification pins the direct Forge checkout and
+  the independent mechint-owned Forge checkout to the exact v0.2.1 source,
+  while mechint's nested tooling gitlinks remain uninitialized.
+
+- Upgrade the tube-mount mechanical-interface dependency to released
+  `lib.scad.mechint v0.1.6` and enable its symmetric 45 degree printable
+  male lock-release wedges. The existing rectangular functional release opening
+  remains intact; the library only removes additional material toward the outer
+  edge, across the complete release/recess zone, with Boolean overlap beyond the
+  exposed male face to avoid sliver walls.
+- Move the R10 / 1 mm transition relief from the incorrectly targeted upper
+  ring-attachment point to the lower transition foot at the flat
+  base / dovetail connection. Use 2 mm-deep cylinders from both clamp faces and
+  mirror them across both profile sides, so the four local bites run along
+  native Z / project X / printer Z without creating a through-width groove.
+- Add a worked-out design document and stable design-render adapter for the
+  project-owned HUB75 tube clamp. The document freezes geometry ownership,
+  project/print coordinates, size mapping and the accepted baseline shape.
+- Restore the clamp to that accepted baseline while the tiny transition-edge
+  relief is revalidated. The previous project-Z relief was removed because
+  side-printing makes project X (the tube axis) the printer-Z/build direction;
+  a project-Z cylinder therefore created the wrong, print-unfriendly cut.
+- Bind the interactive `tube-clamp` and `tube-clamp-dov` views to the selected
+  `coupler_profile`. Small / medium / large now use their matching clamp
+  interface, while a custom profile derives the clamp interface from its
+  configured `base_thickness`.
+- Decouple the reusable clamp-body transition from the active dovetail height.
+  Small / medium / large now keep the same accepted clip body; only the
+  size-matched dovetail interface and its required mating relief vary.
+- Add standalone Customizer controls to `hub75_tube_clamp.scad` for profile,
+  body/complete view, functional/tension bore and preview resolution, and add
+  matching view/profile controls to the clamp design-render adapter.
+- Expand the corner insertion keep-out from the detailed hollow clamp body to
+  the complete solid outer-ring envelope and open that cavity to the rear print
+  face with a simple 45-degree lower ramp. This removes the thin plate/shelf
+  beneath the clamp, avoids a sharp circular lip and removes the unsupported
+  roof that would otherwise appear in rear-face-down printing.
+- Adopt the released `lib.scad.mechint v0.1.5` centered two-sided hinge
+  relief and leave a 0.8 mm central flex web in the HUB75 female lock tongue.
+- Split the detachable clamp into size-matched small / medium / large variants:
+  dovetail heights are 2.0 / 2.5 / 3.0 mm while the accepted clamp-body
+  transition remains fixed across those variants.
+- Recess the dovetail mouth from local Y = -1.5 mm to -2.0 mm without moving
+  the Ø10 tube or clamp ring. The extra 0.5 mm raises total female tongue
+  thickness from 1.3 / 1.8 / 2.3 mm to about 1.8 / 2.3 / 2.8 mm.
+- Pin `lib.scad.mechint v0.1.5` and add a 0.5 mm straight mouth land alongside
+  the existing 0.5 mm root land. The 2 mm profile is now 0.5 mm mouth land,
+  1.0 mm 30° flank and 0.5 mm root land.
+- Position the Ø10 tube from the panel-front datum: its front surface starts
+  1.0 mm behind panel Y = 0, so the tube centre is Y = 6.0 mm globally and
+  Y = -8.5 mm relative to the 14.5 mm rear mounting plane. The Ø14 clamp tangent
+  stays at local Y = -1.5 mm while the dovetail mouth now sits 0.5 mm farther
+  forward at local Y = -2.0 mm.
+- Move the interface mouth to local Y = -2.0 mm. On the corner-edge variant
+  the female is now cut directly into the existing corner base / guide /
+  outer-edge material with no added carrier solid; the horizontal-edge variant
+  retains its two compact local carriers.
+- Add the missing local clamp-body keep-out to the corner-edge variant. It
+  subtracts a fit-clearanced copy of the actual clamp body on the same
+  Y = -8.5 mm tube-centre datum, while the continuous tube keep-out remains
+  separate.
+- Move the corner clamp, clamp-body keep-out and female dovetail together from
+  the obsolete carrier-derived X offset onto the existing vertical side-rail
+  centre. This places the direct-cut interface in corner material that actually
+  reaches the Z = 10 mm tube height; assert that the complete cut width fits the
+  vertical arm for every size preset.
+- Replace the corner's static final-position clamp cavity with the actual
+  translational clamp-body swept volume over the female dovetail's 16 mm +Z
+  entry travel. This removes the blocking roof material so the complete clamp,
+  not only its male dovetail, has a physical insertion path.
+
+- Pin `lib.scad.mechint v0.1.5` and configure a 0.5 mm straight root land on
+  the 12 x 2 mm male/female dovetail. The remaining 1.5 mm of profile depth
+  keeps the 30° flank while the root ends on a print-friendlier straight land.
+- Trim the integrated clamp body with the library-owned
+  `sliding_dovetail_male_relief_cutter()` before unioning the male dovetail,
+  so local clamp-transition material no longer fills the male undercut. Add a
+  HUB75-local finishing wedge at the relief entrance so the remaining clamp
+  shoulder follows the same 30° flank angle as the dovetail instead of adding
+  a separate 45° transition. The raw `tube-clamp` inspection view remains
+  untrimmed; `tube-clamp-dov` shows the integrated relieved part.
+
+- Restore the agreed 2.0 mm dovetail profile and narrow the clamp / male-root
+  width to 12 mm. The final interface mouth is Y = -1.5 mm so the complete
+  clamp follows the 1.0 mm panel-front tube datum; the corner-edge female uses
+  existing front-side geometry rather than an added mount body.
+- Pin `lib.scad.mechint v0.1.5`, which adds the missing transverse relief when
+  locking and `entry_slot_length` are combined, keeping the female tongue
+  U-shaped.
+- Reduce the canonical clamp transition from 3 mm to 2 mm so the 2 mm dovetail
+  sits locally beside the ring instead of reading as a thick backing plate.
+
+- Separate accepted HUB75 panel-facing couplers under `components/hub75/` from
+  tube-aware project components under `project_components/tube_mount/`; model
+  the horizontal tube mount as a real physical subassembly under
+  `assemblies/sub/`.
+- Rotate the detachable dovetail from the earlier X/side-entry arrangement to a
+  Z-axis interface inserted from local +Z. The reusable mechint profile remains
+  12 mm root / 2.0 mm height / 30° with a 16 mm entry slot and integral lock.
+- Build tube-aware couplers from the accepted core geometry. The horizontal-edge
+  variant retains its compact local carrier geometry. The corner-edge variant
+  subtracts the continuous Ø10 tube keep-out and female dovetail directly from
+  the existing corner form.
+- Derive horizontal/corner clamp interface locations from the available edge
+  structure instead of preserving the earlier unexplained 18 / 25 mm offsets.
+- Remove the first-pass long clamp spine. Centre the 16 mm vertical male
+  dovetail on the Ø10 tube/ring datum so it overlaps the compact
+  `lib.scad.clamps` base directly through the existing 0.01 mm Boolean
+  `extra`.
+- For the corner edge, derive an interface placement envelope from the
+  clearanced female-root width plus 2 mm of existing side material and keep a
+  4 mm outer-edge margin. This envelope affects placement only and adds no
+  positive geometry.
+
+- Replace the earlier deep tube-mount profile with a project-configured
+  `lib.scad.mechint` 12 mm root / 2.0 mm height / 30° sliding dovetail while
+  retaining the library's 0.20 mm fit clearance, 0.25 mm axial clearance and
+  integral lock/release mechanism.
+- Keep the tube-mount lock tongue flush with each host rear face instead of
+  leaving a rear flex cavity. With the female channel roof at local Y = +0.7 mm,
+  the 2 / 3 / 4 mm hosts use 1.3 / 2.3 / 3.3 mm tongue thickness respectively,
+  removing the rear-face-down overhang while retaining the U-shaped relief cuts.
+- Reduce the canonical Ø10 tube-clamp wall from 2.6 mm to 2.0 mm, narrow the
+  clamp from 16 mm to 12 mm and reduce its local transition depth from 5 mm to
+  1 mm. The nominal outside ring remains Ø14.0 mm;
+  assembly/inspection views use the Ø10.0 mm functional bore while printable
+  clamp geometry uses the Ø9.6 mm tension bore.
+- Start from the historical 7.0 mm tube-centre datum, then move the current
+  tube/clamp assembly 1.0 mm farther forward to 8.0 mm in front of the panel
+  rear mounting plane. The datum no longer depends on the clamp library's former
+  1 mm base/body overlap shift.
+- Replace the HUB75-local female-entry extension cutter with the released
+  `lib.scad.mechint v0.1.5` `entry_slot_length` API. The configured 16 mm
+  straight entry pocket now combines with the v0.1.2 transverse lock relief, so
+  the female spring remains a true U-shaped tongue during top-entry insertion.
+
 ### Fixed
 
+- Restore Python-free repository dependency updates on Windows and POSIX by
+  routing `update-repo` through the pinned `tool.git-project`; keep SCAD workflow
+  ref synchronization in the root wrapper without invoking the Python SCAD CLI.
 - Restore the intended alternating five-panel physical orientation: panels 0, 2 and 4 keep the native HUB75 orientation while panels 1 and 3 rotate 180 degrees about Y; focused seam/edge verification now reuses the same project panel-array rule.
 
 Tagged releases summarize reproducible project snapshots. The milestone entries

@@ -19,7 +19,7 @@ after each smaller assembly is understood and verified.
 
 [![Rear angled panel view](../../raw/prod/bld/png/rear-angled.png)](../../blob/prod/bld/png/rear-angled.png)
 
-**With couplers**
+**With couplers and reinforcement**
 
 [![Rear angled view with couplers](../../raw/prod/bld/png/rear-angled-couplers.png)](../../blob/prod/bld/png/rear-angled-couplers.png)
 
@@ -36,12 +36,12 @@ These images are generated from the current `prod/bld` branch.
 - [Build PNG gallery](../../blob/prod/bld/png/README.md)
 - [Build provenance](../../blob/prod/bld/publication-info.txt)
 - [Generated design documentation](../../blob/prod/bld/design/README.md)
-- [Middle coupler design source](dsg/openscad/project_components/middle-coupler/design/design.md)
-- [Horizontal-edge coupler design source](dsg/openscad/project_components/horizontal-edge-coupler/design/design.md)
-- [Corner-edge coupler design source](dsg/openscad/project_components/corner-edge-coupler/design/design.md)
-- [Generated middle coupler design](../../blob/prod/bld/design/project/openscad/project_components/middle-coupler/design/design.md)
-- [Generated horizontal-edge coupler design](../../blob/prod/bld/design/project/openscad/project_components/horizontal-edge-coupler/design/design.md)
-- [Generated corner-edge coupler design](../../blob/prod/bld/design/project/openscad/project_components/corner-edge-coupler/design/design.md)
+- [Middle coupler design source](dsg/openscad/components/hub75/middle-coupler/design/design.md)
+- [Horizontal-edge coupler design source](dsg/openscad/components/hub75/horizontal-edge-coupler/design/design.md)
+- [Corner-edge coupler design source](dsg/openscad/components/hub75/corner-edge-coupler/design/design.md)
+- [Generated middle coupler design](../../blob/prod/bld/design/project/openscad/components/hub75/middle-coupler/design/design.md)
+- [Generated horizontal-edge coupler design](../../blob/prod/bld/design/project/openscad/components/hub75/horizontal-edge-coupler/design/design.md)
+- [Generated corner-edge coupler design](../../blob/prod/bld/design/project/openscad/components/hub75/corner-edge-coupler/design/design.md)
 - [Verification branch](../../tree/prod/vrf)
 - [Verification overview](../../blob/prod/vrf/README.md)
 - [Verification PNG gallery](../../blob/prod/vrf/png/README.md)
@@ -153,6 +153,8 @@ follows the same convention as BOSL2 and the reusable SCAD libraries.
 project.yml
 dsg/
 └── openscad/
+    ├── components/
+    │   └── aluminium_tube.scad
     ├── assemblies/
     │   ├── panels_assembly.scad
     │   ├── display_frame_assembly.scad
@@ -160,7 +162,7 @@ dsg/
     │   ├── horizontal_edge_coupler_fit_assembly.scad
     │   ├── corner_edge_coupler_fit_assembly.scad
     │   └── verification_datum_pin.scad
-    ├── project_components/
+    ├── components/hub75/
     │   ├── middle-coupler/
     │   │   ├── hub75_middle_coupler.scad
     │   │   ├── hub75_middle_coupler_render.scad
@@ -235,6 +237,9 @@ tool.scad-project  v0.14.9 / a140b22858ac1899e7f2fa71b679639a70d819c3
 tool.git-project   v0.2.8  / 7c43f37e7b07cfb57638a1d1dad2501de09ba7eb
 SCAD toolchain     ghcr.io/brainboxemb/scad-toolchain-openscad:v0.5.0
 lib.scad.hub75     v0.1.5  / e0432a9533a08a1c0d9e87225c22f3f66b632531
+lib.scad.clamps    v0.1.7  / 22c7794ad8741672176418e9c34a660affd90998
+lib.scad.mechint   v0.1.5  / 3557164c97f2852eff0ccca47cf5beb7f9fcde05
+lib.scad.util      exact    / b11c77cb5529696e730d4b54804d6f8676fd8001
 ```
 
 `project.yml` keeps the human-readable semantic versions while the tool and
@@ -333,14 +338,72 @@ Rear-fit sections are cut inside the active guide: 3 mm for the 4 mm small
 guide and 5 mm for medium/large. This keeps the same 5 mm reference where
 possible while ensuring the small preset still shows meaningful fit evidence.
 
-The build also contains one STL per connector and size:
+The build keeps the core coupler STL family and adds separate tube-mount output:
 
 ```text
 bld/stl/middle-coupler-<size>.stl
 bld/stl/horizontal-edge-coupler-<size>.stl
 bld/stl/corner-edge-coupler-left-<size>.stl
 bld/stl/corner-edge-coupler-right-<size>.stl
+
+bld/stl/horizontal-edge-tube-mount-coupler-<size>.stl
+bld/stl/corner-edge-tube-mount-coupler-left-<size>.stl
+bld/stl/corner-edge-tube-mount-coupler-right-<size>.stl
+bld/stl/dovetail-tube-clamp-<size>.stl
+bld/stl/tube-mount-display-2-panel.stl
 ```
+
+The aluminium tube itself is a generic local component under
+`dsg/openscad/components/`; only its frame length and placement are
+project-specific assembly decisions.
+
+The detachable snap ring comes from `lib.scad.clamps v0.1.7`. HUB75 publishes
+small / medium / large detachable clamp variants. All keep a 12 mm clamp width
+and the Ø10 functional / Ø9.6 tension-bore fit model. The Ø10 tube starts
+1.0 mm behind the panel front face, so its centre remains global Y = 6.0 mm,
+or local Y = -8.5 mm from the 14.5 mm rear mounting plane. The Ø14 clamp tangent
+therefore remains at local Y = -1.5 mm.
+
+The mating interface comes from `lib.scad.mechint v0.1.5`. The 12 mm root,
+30° dovetail uses 0.5 mm straight mouth and root lands, 0.20 mm fit clearance,
+0.25 mm axial clearance, a 16 mm straight entry slot and the integral lock /
+release mechanism. Small / medium / large use 2.0 / 2.5 / 3.0 mm dovetail
+heights against the matching 2 / 3 / 4 mm hosts. Their clamp transitions are
+derived from the same profile and become 1.0 / 1.5 / 2.0 mm.
+
+The dovetail mouth is now at local Y = -2.0 mm: 0.5 mm inside the clamp tangent.
+That leaves the tube datum unchanged while recovering 0.5 mm behind the female
+channel. Total female tongue thickness is therefore about 1.8 / 2.3 / 2.8 mm
+for small / medium / large. The v0.1.5 two-sided hinge relief leaves a centered
+0.8 mm flex web inside those tongues. The same library profile also supplies
+the male mating-relief cutter used to expose the dovetail flanks where the
+compact clamp transition overlaps the interface.
+
+The horizontal-edge variant retains its two compact local carriers. The
+corner-edge variant does not add a separate tube-mount body: its accepted
+outside shape is kept, the continuous Ø10 tube keep-out is subtracted, and a
+fit-clearanced copy of the real clamp body is swept upward over the same 16 mm
++Z approach as the female entry slot. The single female dovetail is then cut
+directly into the existing corner material. The swept clamp-body cutout follows
+the real snap opening/transition rather than merely clearing the final clamp
+position or removing an arbitrary full cylindrical envelope.
+Its placement envelope keeps 2 mm of existing material beside the clearanced
+female root and a 4 mm outer-edge margin.
+
+The dovetail slide axis is project Z; the clamp enters from local +Z, i.e. from
+above for the canonical top-edge orientation. The horizontal-edge variant
+derives two carrier positions from the available edge structure. Each corner
+variant places its direct-cut interface on the existing vertical side-rail
+centre, the part of the original corner body that actually reaches the tube /
+dovetail height.
+The tube keep-out is deliberately separate from the clamp's Ø10 functional /
+Ø9.6 tension-bore fit model. Couplers remain rear-face-down printable and the
+detachable clamp remains side-printed.
+
+`tube-mount-display-2-panel.stl` is the compact whole-model inspection export:
+it contains two panels, the complete coupler family, detachable clamps and both
+aluminium tubes without producing the >100 MB five-panel STL seen during PR
+iteration.
 
 The generated design walkthrough is published under the `prod/bld` branch's
 `design/` tree.
@@ -374,11 +437,11 @@ The forward-looking design sequence, current step and acceptance criteria now li
 in the [project plan](docs/01-project-plan.md). Keeping that information in one
 place avoids a second project backlog drifting inside this README.
 
-The plan preserves the key production boundary established here: core
-panel/coupler interfaces must be digitally and physically accepted before a new
-reinforcement attachment is integrated into the production couplers. A separate
-detachable-attachment PoP may run in parallel on neutral/surrogate geometry so
-that clip research does not wait on the unfinished physical panel-verification
-baseline.
+The plan preserves the core panel-fit boundary while allowing the independent
+tube-mount layer to progress in parallel. Experiment 005 is historical only;
+the current product direction uses the released `lib.scad.mechint` sliding
+dovetail and integral lock instead of maintaining project-local mating geometry.
+The reusable clamp body comes from `lib.scad.clamps`, and ordinary X/Y/Z
+inspection sections use `lib.scad.util`.
 
 The model and documentation were developed with the assistance of ChatGPT.

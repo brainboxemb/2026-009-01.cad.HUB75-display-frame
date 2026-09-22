@@ -17,7 +17,9 @@ Before starting a step:
 2. check that the step is still the smallest sensible next step;
 3. correct this plan first if a prerequisite, assumption or verification need
    has changed;
-4. do not start a later layer while an earlier physical interface is unresolved.
+4. independent digital design may continue around an unresolved physical
+   interface, but do not start dependent physical qualification or final
+   integration until that earlier interface is accepted.
 
 A step is complete only when its stated exit criteria are met. A green workflow
 alone is not visual or physical acceptance.
@@ -25,49 +27,39 @@ alone is not visual or physical acceptance.
 ## Current position
 
 The core middle, horizontal-edge and corner-edge coupler families exist and are
-digitally build/fit verified. Their physical acceptance is not ready to close
-yet, because the underlying `lib.scad.hub75` panel model still has unfinished
+digitally build/fit verified. Their physical panel-fit acceptance remains open
+because the underlying `lib.scad.hub75` panel model still has unfinished
 physical verification against real HUB75 hardware.
 
-That changes the sequencing. Physical panel/coupler acceptance remains a hard
-gate before the panel-facing coupler interface can be frozen, but it does not
-need to block independent research into a detachable reinforcement attachment.
+That does not block independent tube-mount design work as long as the panel-facing
+core geometry is not silently changed. The tube-mount layer is therefore
+implemented as wrappers around the existing couplers.
 
-The next structural layer has one important design direction already identified:
-the old frame proved the useful function of clips around the horizontal aluminium
-reinforcement tube, but those clips were integrated into the couplers and were
-therefore awkward to print. The new design should keep the tube-retention
-function while making the clips separate, replaceable parts that attach to the
-couplers.
+The older `2026-006-01.cad.HUB75-display-frame` remains historical evidence for
+four useful product decisions only:
 
-OpenGrid is a design reference for the detachable interface principle, not a
-geometry to copy blindly. Initial source inspection now puts
-`AndyLevesque/QuackWorks` first for this PoP: its
-`openGrid/opengrid-snap.scad` is a dedicated 24.8 mm removable OpenGrid snap
-with compliant click geometry and optional directional retention, while
-`openGrid/openGrid.scad` provides the fixed receiving board geometry. That
-fixed-side/removable-side split is much closer to the intended HUB75 attachment
-problem than tile-to-tile connectors.
+- a visible full-display debug/reference envelope;
+- two continuous horizontal aluminium reinforcement tubes;
+- clip positions associated with the horizontal-edge and corner couplers;
+- separate tube retention as the structural function to preserve.
 
-`jp-embedded/opengrid` remains a useful comparison source for alternative
-snap/socket and lock mechanisms. `dnnsmnstrr/connector-foundry` is also a
-valuable verification reference because it wraps the QuackWorks OpenGrid board
-and snap as externally sourced parts and checks reference shape/fit behaviour.
+The old integrated clip geometry is not copied. The new clip consumes the base
+`tube_clamp_build()` from `lib.scad.clamps` and is separately printable.
 
-QuackWorks is licensed CC BY-NC-SA 4.0 at repository level and its snap source
-contains additional licensing wording. The PoP must therefore keep source
-provenance and licensing explicit and distinguish studying/qualifying the
-mechanical principle from directly copying that implementation into production.
+Experiment 005 investigated an OpenGrid-inspired compliant snap, but it was
+stopped early because that mechanism was a poor match for the intended
+side-printed clip and layer direction. It is historical evidence, not a
+production prerequisite. The current product direction is the released
+`lib.scad.mechint` sliding dovetail with its integral lock enabled; HUB75 owns
+only placement, orientation and local carrier geometry.
 
-The coordination plan/handoff prerequisite was merged in PR #40. **Step 1 is
-complete in PR #31** and **Step 2 is digitally accepted in PR #41**. Step 3 is
-prepared but waiting on the physical panel-verification baseline. In parallel,
-Step 5 may now establish the detachable-attachment PoP. Production integration
-of that result remains blocked until Steps 3 and 4 are complete.
+`lib.scad.util` is also consumed directly. `util_section_inspect()` is the
+standard helper for ordinary X/Y/Z inspection slabs in interactive and
+verification views.
+
+The current implementation track is PR #45.
 
 ## Parallel work model
-
-Two project tracks may now progress independently:
 
 ```text
 Track A — physical core acceptance
@@ -75,22 +67,27 @@ Track A — physical core acceptance
         -> Step 3 physical coupler fit
         -> Step 4 core-interface freeze
 
-Track B — detachable reinforcement research
-    Step 5 PoP environment
-        -> Step 6 principle / requirement analysis
-        -> Step 7 detachable clip qualification
+Track B — tube-mount product design
+    recover old structural decisions
+        -> integrate shared clamp + dovetail
+        -> digital tube-mount design complete
 
-Integration gate
-    Step 4 complete
+Physical qualification gate
+    core panel-fit accepted / Step 4 frozen
     AND
-    Step 7 qualified
-        -> Step 8 production coupler integration
+    tube-mount CAD is printable
+        -> dovetail/clip print-fit qualification
+
+Final integration
+    core panel-fit accepted
+    AND
+    dovetail/clip fit accepted
+        -> tube-mounted frame prototype
 ```
 
-Track B must use neutral or surrogate attachment geometry while Track A is open.
-It may qualify insertion, retention, printability, flexure, tolerances and the
-tube-clamp concept, but it must not silently redefine the still-unfrozen
-panel-facing HUB75 mating geometry.
+Track B may add project-owned geometry only on the rear/outside reinforcement
+side of the couplers. It must not redefine the still-unfrozen HUB75 mating
+surfaces.
 
 ## Step 0 — Establish project handoff and forward plan
 
@@ -237,7 +234,7 @@ retest. Only then may Step 4 freeze the core interface baseline.
 **Goal**
 
 Create a clear boundary between accepted panel-fit geometry and the next
-reinforcement layer.
+tube-mount layer.
 
 **Work**
 
@@ -251,260 +248,178 @@ The project has a documented, digitally and physically accepted core connector
 baseline from which reinforcement can be designed without reopening basic
 panel-fit geometry by accident.
 
-## Step 5 — Establish the detachable-attachment PoP environment
+## Step 5 — Restore reinforcement context and shared utilities
 
-**Status:** environment established; OG-01 complete in experiment PR #1. AT-01 is next.
+**Status:** active in PR #45.
 
 **Goal**
 
-Create a controlled experiment environment for the removable coupler/clip
-interface without depending on unresolved HUB75 panel-fit geometry.
+Recover only the useful structural decisions from the old frame and establish
+the reusable dependencies needed by the new design.
 
-**Repository model**
+**Work**
 
-Use three separate repository roles:
-
-1. external-source fork — retained OpenGrid/OpenSCAD source and upstream
-   provenance;
-2. dedicated experiment/PoP repository — neutral fixtures, adapters, candidate
-   attachment geometry, testcases and evidence;
-3. this HUB75 project — production owner that consumes only a qualified design
-   decision later.
-
-The fork is not the experiment repository, and this project should not develop
-the PoP directly in production coupler source.
-
-**Selected external mechanism reference**
-
-Primary mechanism reference after inspection:
-
-```text
-upstream: AndyLevesque/QuackWorks
-baseline: e0c1cb7ec78dd9e9a8476ed739bd3402074354f3
-files:
-  openGrid/openGrid.scad
-  openGrid/opengrid-snap.scad
-repository license: CC BY-NC-SA 4.0
-```
-
-Why it is first:
-
-- the board/cell is the fixed receiver and `openGridSnap()` is the removable
-  part;
-- the snap is a compact 24.8 mm square insert rather than a whole tile;
-- retention comes from small perimeter nubs plus compliant click-hole regions;
-- a directional mode demonstrates asymmetric retention without changing the
-  overall fixed receiver;
-- the recent repository history includes fixes specifically for printable snap
-  connectivity.
-
-Comparison/reference sources:
-
-```text
-nnarain/opengrid-snap-mount-generator
-  application example: QuackWorks-style snap + arbitrary mounting plate
-
-jp-embedded/opengrid
-  alternative tile snap/socket + lock mechanisms
-  GPL-3.0
-
-dnnsmnstrr/connector-foundry
-  wraps QuackWorks board/snap
-  reference-shape + assembled-fit verification model
-  own code MIT; OpenGrid wrapper retains upstream CC BY-NC-SA terms
-
-openGrid-3D/openGrid-openSCAD
-  official ecosystem/OpenGrid reference
-  currently less complete for this particular removable-snap question
-```
-
-The retained source fork now exists as:
-
-```text
-brainboxemb/fork.andylevesque.quackworks
-```
-
-GitHub confirms it is a real fork of `AndyLevesque/QuackWorks`; its current
-`main` is exactly
-`e0c1cb7ec78dd9e9a8476ed739bd3402074354f3`.
-
-**Experiment repository**
-
-```text
-brainboxemb/exp.2026-005.scad-detachable-clip-interface
-```
-
-The experiment repository now exists. Its first work item,
-[PR #1](https://github.com/brainboxemb/exp.2026-005.scad-detachable-clip-interface/pull/1),
-is merged as `ceaaaef95d3592a0d3ee5a8b1199d274bbdb8c7c`. It pins the fork as
-`dsg/openscad/ext/quackworks` at the exact source above and qualifies OG-01
-with assembled/exploded/section PNGs plus separate receiver/snap STLs.
-
-AT-01 is the next experiment step: reduce the observed relationship to a neutral
-fixed/removable coupon before introducing a tube clamp or production HUB75
-geometry. Experiment-owned analysis and coupon geometry remain in that
-repository; the fork remains an external-source boundary.
+- restore the 840 x 360 mm debug/reference envelope around the five-panel display;
+- restore the two continuous Ø10 x 1 mm-wall aluminium tubes using the
+  historical structural datums explicitly:
+  - tube length = 840 mm, spanning X = -420 .. +420 mm;
+  - tube centres = Z = -170 mm and +170 mm (340 mm centre spacing);
+  - current tube centre = 8.5 mm in front of the HUB75 rear mounting plane,
+    moved 1.5 mm forward from the historical 7.0 mm datum;
+  - this Ø10 placement puts the tube centre at global Y = 6.0 mm and leaves
+    exactly 1.0 mm between the tube front and the panel front face;
+  - tube-clip offset from a seam/corner datum = 18 mm for the small profile and
+    25 mm for medium/large;
+- add `lib.scad.clamps` as the source of the basic tube-clamp geometry;
+- add `lib.scad.mechint v0.1.5` as the source of the sliding-dovetail mating
+  profile, fit clearance and integral lock/release geometry;
+- add `lib.scad.util` and use `util_section_inspect()` as the normal
+  axis-aligned section mechanism;
+- migrate existing verification slabs that merely duplicate that utility.
 
 **Exit criteria**
 
-- the source survey records why the selected OpenGrid implementation is the
-  right mechanical reference;
-- the external source fork exists with clear upstream provenance;
-- the experiment repository exists with a minimal reproducible SCAD fixture;
-- the exact upstream/fork revision and license are recorded;
-- the PoP can render/export a neutral fixed-side + removable-side attachment
-  coupon without importing HUB75 panel mating geometry.
+The current assembly can independently show/hide the debug envelope, tubes and
+tube-mount parts, and ordinary section views no longer need local giant-cube
+slab implementations.
 
-## Step 6 — Recover requirements and analyse the detachable principle
+## Step 6 — Integrate the detachable dovetail tube clip
 
-**Status:** may start once Step 5 has a reproducible fixture.
+**Status:** active in PR #45.
 
 **Goal**
 
-Separate the *function* required by the HUB75 frame from the *mechanism*
-demonstrated by OpenGrid before designing a production interface.
+Make the tube clip a separate printable part and attach it to the coupler with
+the standard locked `lib.scad.mechint` sliding dovetail while respecting both
+intended print orientations.
 
-**Recover from the older HUB75 frame**
+**Design direction**
 
-Use the old design only to establish:
+- couplers print upside down / rear-face-down;
+- the horizontal-edge tube-mount variant retains two local rounded carriers,
+  one for each tube clamp;
+- the corner-edge tube-mount variant keeps the accepted outer form and uses one
+  subtractive interface position in the existing corner structure; no separate
+  rounded mounting solid is added there. Its X datum is the existing vertical
+  side-rail centre. The clamp-body keep-out is the fit-clearanced real clamp
+  body swept over the same 16 mm +Z entry travel as the female entry slot, so
+  the clamp can physically slide into the direct-cut female channel;
+- each interface position contains one short female dovetail with project-Z slide
+  direction and local +Z top entry; `lib.scad.mechint v0.1.5` supplies the
+  16 mm straight female entry slot before the channel, so the complete clamp
+  can park above the channel before insertion; there is no long groove through
+  the coupler arm;
+- the mating mechanism remains `lib.scad.mechint v0.1.5` and now uses its
+  centered two-sided hinge relief. HUB75 keeps the 12 mm root / 30° profile with
+  0.5 mm straight mouth and root lands plus the library's 0.20 mm fit and
+  0.25 mm axial clearances. Small / medium / large use 2.0 / 2.5 / 3.0 mm
+  heights, and the mouth plane is local Y = -2.0 mm. On the corner-edge variant the cutter uses
+  already-existing corner guide / outer-edge material plus the rear base, so the
+  full profile is formed without adding a separate carrier and the accepted
+  outside form remains unchanged for all three size presets;
+- integral locking and screwdriver release are enabled on the shared interface
+  object now rather than being deferred as separate project-local geometry;
+- the horizontal-edge variant retains its local carrier treatment; the
+  corner-edge variant has no added backing lobe and uses the existing 2 / 3 /
+  4 mm rear base as the host for small / medium / large;
+- the integral female tongue follows the remaining host material behind the
+  size-specific channel. With the mouth moved to local Y = -2.0 mm, the
+  2 / 3 / 4 mm hosts retain about 1.8 / 2.3 / 2.8 mm total tongue thickness.
+  The v0.1.5 opposing relief pockets leave a centered 0.8 mm flex web;
+- the clamp family uses `tube_diameter = 10`, zero positive clearance,
+  `tension_diameter = 9.6`, a 2.0 mm wall and 12 mm clamp width. Small /
+  medium / large derive 1.0 / 1.5 / 2.0 mm transition depths from their
+  2.0 / 2.5 / 3.0 mm dovetails;
+  assembly/inspection renders use the nominal Ø10 bore while print geometry
+  uses the Ø9.6 tension bore;
+- the separate clamp is side-printed; each male dovetail keeps 0.5 mm straight
+  mouth and root lands around its size-specific 30° flank. The library's
+  male-relief cutter trims overlapping clamp-transition material away from the
+  mating flanks. The Ø10 tube remains 1.0 mm behind the panel front face, with
+  centre at global Y = 6.0 mm / local Y = -8.5 mm; the Ø14 clamp tangent stays
+  at Y = -1.5 mm while the dovetail mouth overlaps 0.5 mm farther to Y = -2.0 mm;
+- the actual snap clamp remains `tube_clamp_build()` from `lib.scad.clamps`;
+- top/bottom placements reuse the same local top-entry clamp geometry through
+  assembly rotation, while left/right corner variants reuse the same clamp and
+  mechanical-interface profile.
 
-- horizontal aluminium tube location and orientation;
-- which coupler positions retained the tube;
-- how many retention points were useful;
-- required tube clearance and assembly access;
-- functional load path from tube to coupler.
-
-The old integrated clip shape itself is not design authority.
-
-**Analyse from OpenGrid/OpenSCAD**
-
-At minimum inspect the relevant snap/lock implementation and document:
-
-- fixed-side versus removable-side geometry;
-- insertion and removal direction;
-- locating surfaces versus load-carrying surfaces;
-- compliant/flexing regions;
-- retention/locking features;
-- print direction assumptions;
-- nominal part gap / clearance strategy;
-- behaviour that is essential to the principle versus geometry specific to the
-  28 mm OpenGrid tile.
-
-Do not copy a complete OpenGrid tile into the HUB75 design merely because it is
-available.
-
-**Concept comparison**
-
-Use the PoP fixture to compare the smallest credible concepts only when a real
-design question requires it, for example:
-
-- direct snap-in;
-- short slide/key + retention detent;
-- keyed slide with separate lock;
-- another concept only if the first principles expose a concrete need.
+Digital CAD clearance and section evidence may be developed now, but they are
+not treated as printer/material fit acceptance.
 
 **Exit criteria**
 
-One attachment principle is selected for prototyping, with its load path,
-insertion/removal direction, expected flexure, tolerances, print orientation and
-reasons documented independently of the HUB75 coupler body.
+- horizontal-edge and corner tube-mount variants first create a continuous
+  aluminium-tube keep-out without editing the panel-facing core component
+  geometry;
+- both variants expose local Z-axis dovetails entered from local +Z; the
+  horizontal-edge variant has two structurally derived mounting positions and
+  each corner variant has one;
+- the clamp is independently exportable and uses the same top-entry interface;
+- the complete display shows the clamp/tube load path without a core-coupler
+  collision with the Ø10 tube;
+- focused YZ fit and lock-section evidence makes both dovetail engagement and
+  the integral retention mechanism readable;
+- rear-face-down coupler and side-printed clamp orientations remain practical
+  in CAD.
 
-## Step 7 — Qualify the detachable aluminium-tube clip in the PoP
+## Step 7 — Qualify dovetail and tube retention physically
 
-**Status:** provisional until Step 6 selects a principle.
+**Status:** blocked until Step 4 core-interface freeze and Step 6 printable
+output are both complete.
 
 **Goal**
 
-Prove that the selected removable interface can carry a separate printable clip
-for the horizontal aluminium reinforcement tube before touching production
-couplers.
-
-**PoP fixture**
-
-Use a neutral coupler-side coupon plus a removable clip-side coupon. Add the real
-tube diameter/orientation only after the attachment interface itself is readable
-and testable.
-
-Keep these functions distinct:
-
-```text
-fixed attachment interface
-        +
-removable attachment interface
-        +
-tube-clamping profile
-```
+After the HUB75 panel/core interface is physically accepted, check the parts
+that CAD alone cannot establish reliably: sliding fit, retention and
+serviceability. Do not spend print iterations on this tube-mount interface
+before that core gate is closed.
 
 **Check**
 
-- insertion/removal direction and required access;
-- retention under representative pull/shear directions;
-- print orientation and support requirements;
-- flexing/stress concentration around snap or locking features;
-- dimensional/tolerance sensitivity;
-- repeated attach/remove behaviour;
-- whether the fixed-side feature remains compact when no clip is installed;
-- tube insertion, retention and serviceability.
+- dovetail insertion/removal force;
+- printer/material sensitivity and clearance;
+- resistance to pulling the clip away from the coupler;
+- integral spring-lock engagement and release with a small screwdriver;
+- resistance to sliding back out of the groove while the lock is engaged;
+- clamp snap force around the aluminium tube;
+- side-print quality and layer direction of the separate clip;
+- repeated removal without visible damage.
 
-Digital evidence should use focused sections and local assemblies. Physical
-coupon prints should be used where snap/flex/tolerance behaviour cannot be
-established credibly from CAD alone.
-
-**Exit criteria**
-
-A neutral fixed-side interface + detachable clip + horizontal tube arrangement
-is digitally qualified and physically prototyped enough to support a production
-integration decision. The result defines an interface contract, not a finished
-HUB75 coupler.
-
-## Step 8 — Propagate the modular clip interface across the coupler family
-
-**Status:** blocked until Step 4 core-interface freeze and Step 7 PoP
-qualification are both complete.
-
-**Goal**
-
-Apply the accepted detachable interface only where reinforcement is required,
-while preserving the already accepted panel-fit geometry.
-
-**Check**
-
-- middle, horizontal-edge and corner placement;
-- left/right chirality where relevant;
-- consistent insertion/removal access;
-- no collision with panel features, screws or existing guides;
-- common clip geometry where practical instead of unnecessary coupler-specific
-  clip variants.
+If the reusable lock needs tuning, adjust the smallest relevant interface
+parameter and feed genuinely generic geometry changes back to
+`lib.scad.mechint` rather than duplicating a project-local detent.
 
 **Exit criteria**
 
-The required coupler variants expose a consistent modular attachment interface
-and use the smallest sensible set of detachable tube clips.
+A printed medium coupler/clip coupon or real coupler assembly demonstrates a
+usable dovetail and tube clamp with recorded fit observations.
 
-## Step 9 — Complete reinforced display-frame assembly
+## Step 8 — Complete tube-mounted display-frame assembly
 
-**Status:** provisional.
+**Status:** follows Steps 4 and 7.
 
 **Goal**
 
-Integrate all accepted connector, tube and detachable-clip parts into the full
-five-panel frame.
+Combine the physically accepted core mating geometry with the qualified
+tube-mount layer.
 
 **Check**
 
-- complete assembly consistency;
 - horizontal tube continuity and location;
-- service/access clearances;
-- repeated-part orientation and chirality;
+- all horizontal-edge and corner clip positions;
+- left/right and top/bottom transforms;
+- access for installation/removal;
 - useful STL/export set;
-- full-display documentation and verification views.
+- debug/reference envelope remains presentation-only;
+- full-display and local-section evidence agree.
 
 **Exit criteria**
 
-The complete reinforced assembly is digitally coherent and no local interface is
-being justified only by the full assembly render.
+The complete five-panel tube-mounted assembly is digitally coherent and every
+local interface is supported by focused evidence rather than only by a whole
+assembly render.
 
-## Step 10 — Full physical prototype and release candidate
+## Step 9 — Full physical prototype and release candidate
 
 **Status:** provisional.
 

@@ -83,3 +83,18 @@ profiles:
     files: [corner-edge-coupler-vertical-profile-section.scad]
     sizes: [small, medium, large]
     output_pattern: "corner-edge-coupler-{size}-vertical-profile-section.png"
+
+  horizontal-tube-mount-clamp-fit:
+    files: [horizontal-edge-tube-mount-clamp-fit.scad]
+    sizes: [small, medium, large]
+    output_pattern: "horizontal-edge-tube-mount-coupler-{size}-clamp-fit.png"
+
+  horizontal-tube-mount-yz-section:
+    files: [horizontal-edge-tube-mount-yz-section.scad]
+    sizes: [small, medium, large]
+    output_pattern: "horizontal-edge-tube-mount-coupler-{size}-yz-section.png"
+
+  horizontal-tube-mount-lock-section:
+    files: [horizontal-edge-tube-mount-lock-section.scad]
+    sizes: [small, medium, large]
+    output_pattern: "horizontal-edge-tube-mount-coupler-{size}-lock-section.png"

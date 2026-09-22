@@ -52,6 +52,9 @@ Use these in order:
 ```text
 current component source + generated design evidence
 lib.scad.hub75 public geometry/mating API
+lib.scad.clamps public tube-clamp API
+lib.scad.mechint public mechanical-interface API
+lib.scad.util public inspection API
 project.yml for generic profile/dependency policy
 project.scad.yml for SCAD build/verification/publication policy
 CHANGELOG.md for completed milestone history
@@ -106,9 +109,26 @@ project constants.
 mating dimensions. Consume its public object/accessor API. Do not copy panel
 measurements into connector source unless the value is genuinely project-owned.
 
+`lib.scad.clamps` owns the reusable tube-clamp body. `lib.scad.mechint` owns
+the reusable sliding-dovetail profile, fit clearance and optional integral
+locking/release geometry. Project reinforcement may add only HUB75-specific
+placement, orientation and carrier/backing geometry around those public APIs.
+`lib.scad.util` owns ordinary axis-aligned inspection slabs; use
+`util_section_inspect()` instead of duplicating giant X/Y/Z slice cubes.
+`lib.scad.forge` owns the shared project modeling vocabulary, including
+`fg_xf_*` transforms and semantic `low` / `high` / `export` geometry resolution.
+Use Forge where it makes project-owned OpenSCAD intent clearer; do not wrap native
+OpenSCAD mechanically when the native operation is already clearer.
+
 OpenSCAD cross-file interfaces use public names without a leading underscore.
 Private implementation helpers use a leading underscore, including nested
 helpers.
+
+Shared SCAD naming conventions are owned by
+[brainboxemb.meta/domains/scad/coding-conventions.md](https://github.com/brainboxemb/brainboxemb.meta/blob/main/domains/scad/coding-conventions.md).
+Follow that convention for `d_` design inputs, `c_` presentation state,
+unit suffixes, constants and private names; do not redefine those rules here.
+
 
 ## Assembly source layout
 
@@ -147,13 +167,14 @@ The previously approved rounded middle-coupler form is now encoded in current
 source and design documentation. Future changes must compare against current
 source/evidence, not an old archive or old repository code.
 
-Surface resolution is part of the connector object where required. Public
-build/render modules must not depend on ambient top-level variables that are
-lost across `use <...>` boundaries.
+Geometry resolution is presentation/output state, not a design dimension.
+Project-owned build/render interfaces use Forge's semantic `low`, `high` and
+`export` levels when they expose selectable resolution. Do not use `print` as a
+CAD-resolution name, and do not let ambient top-level `$fn` become a hidden API.
 
-Any hand-built curved helper must derive tessellation from the component's
-configured render resolution; do not use a small fixed segment count that can
-produce faceted STL geometry or polygonal screw holes.
+Any hand-built curved helper must derive tessellation from the selected geometry
+resolution; do not use a small fixed segment count that can produce faceted STL
+geometry or polygonal screw holes.
 
 ## Design documentation policy
 
@@ -234,12 +255,16 @@ per-target SCons selection. Both `project.yml` and `project.scad.yml` are cache
 inputs.
 
 Direct project gitlinks are the generic bootstrap engine, the SCAD project tool
-and `lib.scad.hub75`:
+and the five reusable SCAD libraries consumed by this project:
 
 ```text
 tools/tool.git-project
 tools/tool.scad-project
 dsg/openscad/ext/lib.scad.hub75
+dsg/openscad/ext/lib.scad.clamps
+dsg/openscad/ext/lib.scad.mechint
+dsg/openscad/ext/lib.scad.util
+dsg/openscad/ext/lib.scad.forge
 ```
 
 Normal checkout is direct-only; do not recursively initialize development
@@ -268,6 +293,10 @@ Fit evidence belongs on the configured verification publication branch. Rear-fit
 sections are the primary passing check: neutral panel structure, contrasting
 coupler material, and the nominal verification datum. Fixtures should stay
 small enough to diagnose the relevant interface.
+
+For ordinary axis-aligned verification sections, retain project-specific crop,
+color and datum logic locally but delegate the actual X/Y/Z slab to
+`lib.scad.util`.
 
 ## Publication
 

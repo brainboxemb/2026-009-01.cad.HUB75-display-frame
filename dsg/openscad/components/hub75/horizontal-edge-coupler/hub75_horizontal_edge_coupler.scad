@@ -16,67 +16,71 @@
 // The objective is to establish the T body and panel fit before adding frame
 // reinforcement hardware.
 
-use <../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
+use <../../../ext/lib.scad.forge/openscad/resolution.scad>
+use <../../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
 use <../hub75_panel_mating.scad>
 
 /* [Core profile] */
-profile_size = 80;
-wall_thickness = 4;
-fit_clearance = 0.25;
-base_thickness = 3;
-guide_height = 6;
-inside_corner_radius = 10;
-outside_corner_radius = 6;
-guide_end_rounding = 1.5;
+d_profile_size_mm = 80;
+d_wall_thickness_mm = 4;
+d_fit_clearance_mm = 0.25;
+d_base_thickness_mm = 3;
+d_guide_height_mm = 6;
+d_inside_corner_radius_mm = 10;
+d_outside_corner_radius_mm = 6;
+d_guide_end_rounding_mm = 1.5;
 
 /* [Mounting] */
-screw_hole_diameter = 3.4;
-screw_relief_depth = 0.20;
-screw_relief_radial = 0.40;
-mounting_tube_radial_clearance = 0.45;
-mounting_tube_axial_clearance = 0.40;
-locator_pin_clearance = 0.35;
+d_screw_hole_diameter_mm = 3.4;
+d_screw_relief_depth_mm = 0.20;
+d_screw_relief_radial_mm = 0.40;
+d_mounting_tube_radial_clearance_mm = 0.45;
+d_mounting_tube_axial_clearance_mm = 0.40;
+d_locator_pin_clearance_mm = 0.35;
 
-reinforcement_bushing_clearance = 0.45;
-reinforcement_locator_pad_radial_clearance = 0.30;
-reinforcement_locator_pad_axial_clearance = 0.10;
-reinforcement_locator_pin_radial_clearance = 0.20;
-reinforcement_locator_pin_length = 2.0;
+d_reinforcement_bushing_clearance_mm = 0.45;
+d_reinforcement_locator_pad_radial_clearance_mm = 0.30;
+d_reinforcement_locator_pad_axial_clearance_mm = 0.10;
+d_reinforcement_locator_pin_radial_clearance_mm = 0.20;
+d_reinforcement_locator_pin_length_mm = 2.0;
 
 /* [Surface reference details] */
-show_reference_pockets = true;
-reference_pocket_diameter = 3.0;
-reference_pocket_depth = 2.0;
-reference_pocket_min_back_wall = 0.7;
-reference_pocket_end_diameter = 2.0;
-reference_pocket_taper_depth = 0.5;
-reference_pocket_pitch = 10.0;
-reference_pocket_steps = [2, 3, 4];
-reference_pocket_lane_grid = 2.5;
-reference_pocket_lane_fraction = 0.25;
-reference_pocket_edge_margin = 4.0;
+d_show_reference_pockets = true;
+d_reference_pocket_diameter_mm = 3.0;
+d_reference_pocket_depth_mm = 2.0;
+d_reference_pocket_min_back_wall_mm = 0.7;
+d_reference_pocket_end_diameter_mm = 2.0;
+d_reference_pocket_taper_depth_mm = 0.5;
+d_reference_pocket_pitch_mm = 10.0;
+d_reference_pocket_steps = [2, 3, 4];
+d_reference_pocket_lane_grid_mm = 2.5;
+d_reference_pocket_lane_fraction = 0.25;
+d_reference_pocket_edge_margin_mm = 4.0;
 
-show_center_reference_marks = true;
-center_mark_depth = 0.40;
-center_mark_pitch = 10.0;
-center_mark_major_length = 4.0;
-center_mark_minor_length = 2.2;
-center_mark_width = 0.8;
-center_mark_cross_length = 6.0;
-center_mark_edge_margin = 4.0;
-center_mark_screw_keepout = 3.0;
+d_show_center_reference_marks = true;
+d_center_mark_depth_mm = 0.40;
+d_center_mark_pitch_mm = 10.0;
+d_center_mark_major_length_mm = 4.0;
+d_center_mark_minor_length_mm = 2.2;
+d_center_mark_width_mm = 0.8;
+d_center_mark_cross_length_mm = 6.0;
+d_center_mark_edge_margin_mm = 4.0;
+d_center_mark_screw_keepout_mm = 3.0;
 
 /* [Seam / outer edge locator] */
-seam_locator_height = 4;
-seam_locator_end_radius = 1.00;
+d_seam_locator_height_mm = 4;
+d_seam_locator_end_radius_mm = 1.00;
 
 /* [Preview] */
-preview_view = "final"; // [final,functional,profile,base,screw-holes,tube-pockets,locator-pin-clearance,guides,reinforcement-locators,seam-locator,reference-pockets,center-marks]
+c_view = "final"; // [final,functional,profile,base,screw-holes,tube-pockets,locator-pin-clearance,guides,reinforcement-locators,seam-locator,reference-pockets,center-marks]
 
 /* [Resolution] */
-render_fn = 192;
+c_resolution = "high"; // [low,high,export]
 
-$fn = render_fn;
+_standalone_render_fn =
+    c_resolution == FG_RES_LOW()
+        ? 48
+        : 192;
 
 _HUB75_HORIZONTAL_EDGE_COUPLER_EPS = 0.05;
 
@@ -265,7 +269,10 @@ function hub75_horizontal_edge_coupler_create(
 
 function hub75_horizontal_edge_coupler_create_for_size(
     size = "medium",
-    panel = hub75_p5_64x32_panel_create()
+    panel = hub75_p5_64x32_panel_create(),
+    render_fn = 192,
+    show_reference_pockets = true,
+    show_center_reference_marks = true
 ) =
     assert(
         size == "small" || size == "medium" || size == "large",
@@ -277,7 +284,10 @@ function hub75_horizontal_edge_coupler_create_for_size(
             profile_size = 60,
             wall_thickness = 2,
             guide_height = 4,
-            base_thickness = 2
+            base_thickness = 2,
+            render_fn = render_fn,
+            show_reference_pockets = show_reference_pockets,
+            show_center_reference_marks = show_center_reference_marks
         )
         : size == "large"
             ? hub75_horizontal_edge_coupler_create(
@@ -285,14 +295,20 @@ function hub75_horizontal_edge_coupler_create_for_size(
                 profile_size = 100,
                 wall_thickness = 6,
                 guide_height = 10,
-                base_thickness = 4
+                base_thickness = 4,
+                render_fn = render_fn,
+                show_reference_pockets = show_reference_pockets,
+                show_center_reference_marks = show_center_reference_marks
             )
             : hub75_horizontal_edge_coupler_create(
                 panel = panel,
                 profile_size = 80,
                 wall_thickness = 4,
                 guide_height = 6,
-                base_thickness = 3
+                base_thickness = 3,
+                render_fn = render_fn,
+                show_reference_pockets = show_reference_pockets,
+                show_center_reference_marks = show_center_reference_marks
             );
 
 
@@ -333,7 +349,7 @@ function hub75_horizontal_edge_coupler_seam_locator_width_at_depth(
     max(
         0,
         hub75_horizontal_edge_coupler_seam_locator_width(coupler)
-        - 2 * hub75_panel_taper_shift_at_depth(
+        - 2 * hub75_panel_taper_shift_at_depth_mm(
             depth,
             coupler.panel_taper_depth,
             coupler.panel_rear_outer_inset_x
@@ -1299,7 +1315,7 @@ module _hub75_horizontal_edge_coupler_outer_edge_ridge(coupler) {
     // of translating the complete cross-section outward.
     ridge_h = coupler.guide_height;
     taper_h = min(ridge_h, coupler.panel_taper_depth);
-    taper_shift_z = hub75_panel_taper_shift_at_depth(
+    taper_shift_z = hub75_panel_taper_shift_at_depth_mm(
         taper_h,
         coupler.panel_taper_depth,
         coupler.panel_rear_outer_inset_z
@@ -1493,60 +1509,61 @@ _preview_panel = hub75_p5_64x32_panel_create();
 _preview_coupler =
     hub75_horizontal_edge_coupler_create(
         panel = _preview_panel,
-        profile_size = profile_size,
-        wall_thickness = wall_thickness,
-        fit_clearance = fit_clearance,
-        base_thickness = base_thickness,
-        guide_height = guide_height,
-        inside_corner_radius = inside_corner_radius,
-        outside_corner_radius = outside_corner_radius,
-        guide_end_rounding = guide_end_rounding,
-        render_fn = render_fn,
+        profile_size = d_profile_size_mm,
+        wall_thickness = d_wall_thickness_mm,
+        fit_clearance = d_fit_clearance_mm,
+        base_thickness = d_base_thickness_mm,
+        guide_height = d_guide_height_mm,
+        inside_corner_radius = d_inside_corner_radius_mm,
+        outside_corner_radius = d_outside_corner_radius_mm,
+        guide_end_rounding = d_guide_end_rounding_mm,
+        render_fn = _standalone_render_fn,
 
-        screw_hole_diameter = screw_hole_diameter,
-        screw_relief_depth = screw_relief_depth,
-        screw_relief_radial = screw_relief_radial,
-        mounting_tube_radial_clearance = mounting_tube_radial_clearance,
-        mounting_tube_axial_clearance = mounting_tube_axial_clearance,
-        locator_pin_clearance = locator_pin_clearance,
+        screw_hole_diameter = d_screw_hole_diameter_mm,
+        screw_relief_depth = d_screw_relief_depth_mm,
+        screw_relief_radial = d_screw_relief_radial_mm,
+        mounting_tube_radial_clearance = d_mounting_tube_radial_clearance_mm,
+        mounting_tube_axial_clearance = d_mounting_tube_axial_clearance_mm,
+        locator_pin_clearance = d_locator_pin_clearance_mm,
 
-        reinforcement_bushing_clearance = reinforcement_bushing_clearance,
+        reinforcement_bushing_clearance = d_reinforcement_bushing_clearance_mm,
         reinforcement_locator_pad_radial_clearance =
-            reinforcement_locator_pad_radial_clearance,
+            d_reinforcement_locator_pad_radial_clearance_mm,
         reinforcement_locator_pad_axial_clearance =
-            reinforcement_locator_pad_axial_clearance,
+            d_reinforcement_locator_pad_axial_clearance_mm,
         reinforcement_locator_pin_radial_clearance =
-            reinforcement_locator_pin_radial_clearance,
+            d_reinforcement_locator_pin_radial_clearance_mm,
         reinforcement_locator_pin_length =
-            reinforcement_locator_pin_length,
+            d_reinforcement_locator_pin_length_mm,
 
-        show_reference_pockets = show_reference_pockets,
-        reference_pocket_diameter = reference_pocket_diameter,
-        reference_pocket_depth = reference_pocket_depth,
-        reference_pocket_min_back_wall = reference_pocket_min_back_wall,
-        reference_pocket_end_diameter = reference_pocket_end_diameter,
-        reference_pocket_taper_depth = reference_pocket_taper_depth,
-        reference_pocket_pitch = reference_pocket_pitch,
-        reference_pocket_steps = reference_pocket_steps,
-        reference_pocket_lane_grid = reference_pocket_lane_grid,
-        reference_pocket_lane_fraction = reference_pocket_lane_fraction,
-        reference_pocket_edge_margin = reference_pocket_edge_margin,
+        show_reference_pockets = d_show_reference_pockets,
+        reference_pocket_diameter = d_reference_pocket_diameter_mm,
+        reference_pocket_depth = d_reference_pocket_depth_mm,
+        reference_pocket_min_back_wall = d_reference_pocket_min_back_wall_mm,
+        reference_pocket_end_diameter = d_reference_pocket_end_diameter_mm,
+        reference_pocket_taper_depth = d_reference_pocket_taper_depth_mm,
+        reference_pocket_pitch = d_reference_pocket_pitch_mm,
+        reference_pocket_steps = d_reference_pocket_steps,
+        reference_pocket_lane_grid = d_reference_pocket_lane_grid_mm,
+        reference_pocket_lane_fraction = d_reference_pocket_lane_fraction,
+        reference_pocket_edge_margin = d_reference_pocket_edge_margin_mm,
 
-        show_center_reference_marks = show_center_reference_marks,
-        center_mark_depth = center_mark_depth,
-        center_mark_pitch = center_mark_pitch,
-        center_mark_major_length = center_mark_major_length,
-        center_mark_minor_length = center_mark_minor_length,
-        center_mark_width = center_mark_width,
-        center_mark_cross_length = center_mark_cross_length,
-        center_mark_edge_margin = center_mark_edge_margin,
-        center_mark_screw_keepout = center_mark_screw_keepout,
+        show_center_reference_marks = d_show_center_reference_marks,
+        center_mark_depth = d_center_mark_depth_mm,
+        center_mark_pitch = d_center_mark_pitch_mm,
+        center_mark_major_length = d_center_mark_major_length_mm,
+        center_mark_minor_length = d_center_mark_minor_length_mm,
+        center_mark_width = d_center_mark_width_mm,
+        center_mark_cross_length = d_center_mark_cross_length_mm,
+        center_mark_edge_margin = d_center_mark_edge_margin_mm,
+        center_mark_screw_keepout = d_center_mark_screw_keepout_mm,
 
-        seam_locator_height = seam_locator_height,
-        seam_locator_end_radius = seam_locator_end_radius
+        seam_locator_height = d_seam_locator_height_mm,
+        seam_locator_end_radius = d_seam_locator_end_radius_mm
     );
 
-hub75_horizontal_edge_coupler_render(
+fg_res_apply(c_resolution)
+    hub75_horizontal_edge_coupler_render(
     _preview_coupler,
-    view = preview_view
-);
+    view = c_view
+    );
