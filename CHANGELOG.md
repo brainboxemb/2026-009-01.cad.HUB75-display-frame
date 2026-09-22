@@ -13,6 +13,11 @@ This file records the functional evolution of the HUB75 display-frame project.
 
 ### Changed
 
+- Complete the targeted Forge integration cleanup for project-owned CAD:
+  express core XZ-to-Y remaps and the corner ridge axis remap with Forge frames,
+  migrate overlap-aware cylindrical cutters without changing nominal diameters
+  or the existing 0.05 mm project overlap, and use tagged CSG for the tube clamp
+  body/remove/keep composition.
 - Define panel orientation from rear-view data-chain order instead of local
   array index. Panel 1 is the visual-left panel from the rear and keeps the
   default start orientation, so focused two-panel and five-panel assemblies

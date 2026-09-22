@@ -17,6 +17,8 @@
 // reinforcement hardware.
 
 use <../../../ext/lib.scad.forge/openscad/resolution.scad>
+use <../../../ext/lib.scad.forge/openscad/transform.scad>
+use <../../../ext/lib.scad.forge/openscad/cutter.scad>
 use <../../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
 use <../hub75_panel_mating.scad>
 
@@ -759,10 +761,13 @@ module _hub75_horizontal_edge_coupler_structural_profile_2d(coupler) {
 module _hub75_horizontal_edge_coupler_extrude_xz_y(y_min, y_max) {
     assert(y_max > y_min, "Y extrusion span must be positive");
 
-    translate([0, y_max, 0])
-        rotate([90, 0, 0])
-            linear_extrude(height = y_max - y_min)
-                children();
+    fg_xf_frame(
+        pos_mm = [0, y_max, 0],
+        x_axis = [1, 0, 0],
+        y_axis = [0, 0, 1]
+    )
+        linear_extrude(height = y_max - y_min)
+            children();
 }
 
 
@@ -789,35 +794,33 @@ module _hub75_horizontal_edge_coupler_through_hole_y_with_relief(
         max(0, span / 2 - _HUB75_HORIZONTAL_EDGE_COUPLER_EPS)
     );
 
-    translate([
-        0,
-        y_max + _HUB75_HORIZONTAL_EDGE_COUPLER_EPS,
-        0
-    ])
-        rotate([90, 0, 0])
-            cylinder(
-                d = hole_diameter,
-                h = span + 2 * _HUB75_HORIZONTAL_EDGE_COUPLER_EPS
-            );
+    fg_cut_cylinder(
+        diameter_mm = hole_diameter,
+        height_mm = span,
+        pos_mm = [0, y_max, 0],
+        rot_deg = [90, 0, 0],
+        overlap = [FG_BOTTOM(), FG_TOP()],
+        overlap_mm = _HUB75_HORIZONTAL_EDGE_COUPLER_EPS
+    );
 
     if (rd > 0 && relief_radial > 0) {
-        translate([
-            0,
-            y_max + _HUB75_HORIZONTAL_EDGE_COUPLER_EPS,
-            0
-        ])
-            rotate([90, 0, 0])
-                cylinder(
-                    d = relief_d,
-                    h = rd + _HUB75_HORIZONTAL_EDGE_COUPLER_EPS
-                );
+        fg_cut_cylinder(
+            diameter_mm = relief_d,
+            height_mm = rd,
+            pos_mm = [0, y_max, 0],
+            rot_deg = [90, 0, 0],
+            overlap = [FG_BOTTOM()],
+            overlap_mm = _HUB75_HORIZONTAL_EDGE_COUPLER_EPS
+        );
 
-        translate([0, y_min + rd, 0])
-            rotate([90, 0, 0])
-                cylinder(
-                    d = relief_d,
-                    h = rd + _HUB75_HORIZONTAL_EDGE_COUPLER_EPS
-                );
+        fg_cut_cylinder(
+            diameter_mm = relief_d,
+            height_mm = rd,
+            pos_mm = [0, y_min + rd, 0],
+            rot_deg = [90, 0, 0],
+            overlap = [FG_TOP()],
+            overlap_mm = _HUB75_HORIZONTAL_EDGE_COUPLER_EPS
+        );
     }
 }
 
@@ -842,16 +845,14 @@ module _hub75_horizontal_edge_coupler_mounting_tube_pocket_cutters(coupler) {
         hub75_horizontal_edge_coupler_mounting_tube_pocket_diameter(coupler);
 
     for (x = hub75_horizontal_edge_coupler_screw_x_positions(coupler))
-        translate([
-            x,
-            -_HUB75_HORIZONTAL_EDGE_COUPLER_EPS,
-            coupler.screw_row_z
-        ])
-            rotate([-90, 0, 0])
-                cylinder(
-                    h = pocket_depth + _HUB75_HORIZONTAL_EDGE_COUPLER_EPS,
-                    d = pocket_diameter
-                );
+        fg_cut_cylinder(
+            diameter_mm = pocket_diameter,
+            height_mm = pocket_depth,
+            pos_mm = [x, 0, coupler.screw_row_z],
+            rot_deg = [-90, 0, 0],
+            overlap = [FG_BOTTOM()],
+            overlap_mm = _HUB75_HORIZONTAL_EDGE_COUPLER_EPS
+        );
 }
 
 
