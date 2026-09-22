@@ -34,7 +34,10 @@ This file records the functional evolution of the HUB75 display-frame project.
   `openscad/sliding_dovetail.scad` entrypoint. Project transforms use the Forge
   `fg_xf_*` namespace; `lib.scad.util v0.4.0` remains only for section inspection.
 - Upgrade the HUB75 root repository stack to `tool.git-project v0.2.9` and
-  `tool.scad-project v0.15.2`. Verification pins the direct Forge checkout and
+  `tool.scad-project v0.15.5`. The SCAD production workflow now uses exact-source
+  Moon output caching for SCons builds, preventing old PR output generations
+  from accumulating in the portable Moon cache while retaining same-source
+  rerun hydration. Verification pins the direct Forge checkout and
   the independent mechint-owned Forge checkout to the exact v0.2.1 source,
   while mechint's nested tooling gitlinks remain uninitialized.
 
