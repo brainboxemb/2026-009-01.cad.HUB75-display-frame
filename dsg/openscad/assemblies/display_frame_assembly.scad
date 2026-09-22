@@ -288,7 +288,8 @@ module hub75_display_frame_assembly(
     middle_couplers_visible = true,
     horizontal_edge_couplers_visible = true,
     corner_edge_couplers_visible = true,
-    tube_mount_enabled = true,
+    // WIP feature gate. Standard HUB75 couplers remain the assembly default.
+    tube_mount_enabled = false,
     tube_clamps_visible = true,
     aluminium_tubes_visible = true,
     debug_reference_visible = false,

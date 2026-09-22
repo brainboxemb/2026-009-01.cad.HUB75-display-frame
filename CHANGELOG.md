@@ -4,6 +4,11 @@ This file records the functional evolution of the HUB75 display-frame project.
 
 ## Unreleased
 
+- Treat the detachable clip/tube-mount integration as explicit WIP for the
+  integration checkpoint: standard HUB75 couplers are again the default full
+  assembly, while `main.scad` exposes `c_use_wip_tube_mount_couplers` to opt
+  into the unfinished tube-aware couplers. Dedicated tube-mount views and
+  exports remain available for continued development.
 - Complete issue #47 source-coherence cleanup: move the HUB75 project baseline
   to `lib.scad.forge v0.2.2`, adopt semantic `low/high/export` resolution,
   align project-owned tube-mount APIs with explicit units and Forge coordinate

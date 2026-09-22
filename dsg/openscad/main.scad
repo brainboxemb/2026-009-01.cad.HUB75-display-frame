@@ -45,7 +45,8 @@ c_show_couplers = true;
 c_show_middle_couplers = true;
 c_show_horizontal_edge_couplers = true;
 c_show_corner_edge_couplers = true;
-c_show_tube_mounts = true;
+// WIP: detachable tube-mount integration is not yet the default assembly.
+c_use_wip_tube_mount_couplers = false;
 c_show_tube_clamps = true;
 c_show_aluminium_tubes = true;
 c_show_debug_frame = false;
@@ -181,7 +182,7 @@ module _hub75_main_display(explode = 0, panels_visible = c_show_panels) {
             c_show_couplers && c_show_horizontal_edge_couplers,
         corner_edge_couplers_visible =
             c_show_couplers && c_show_corner_edge_couplers,
-        tube_mount_enabled = c_show_tube_mounts,
+        tube_mount_enabled = c_use_wip_tube_mount_couplers,
         tube_clamps_visible = c_show_tube_clamps,
         aluminium_tubes_visible = c_show_aluminium_tubes,
         debug_reference_visible = c_show_debug_frame,
@@ -203,7 +204,7 @@ module _hub75_main_selected_view() {
                 d_coupler_profile == "custom" ? "medium" : d_coupler_profile,
             panel_view = _preview_panel_view,
             resolution = c_resolution,
-            tube_mount_enabled = c_show_tube_mounts,
+            tube_mount_enabled = c_use_wip_tube_mount_couplers,
             tube_clamps_visible = c_show_tube_clamps,
             aluminium_tubes_visible = c_show_aluminium_tubes,
             debug_reference_visible = c_show_debug_frame,
