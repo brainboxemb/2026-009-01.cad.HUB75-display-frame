@@ -18,7 +18,9 @@ behaviour remains owned by `brainboxemb.meta` and the tool owners.
 
 ## Status
 
-**Ready to execute after PR #42 merges.**
+**Prepared / waiting.** PR #42 is merged. The procedures are ready, but
+physical execution remains downstream of the relevant real-panel verification
+in `lib.scad.hub75`.
 
 Physical execution is tracked in
 [issue #43](https://github.com/brainboxemb/2026-009-01.cad.HUB75-display-frame/issues/43).

@@ -13,6 +13,8 @@ This file records the functional evolution of the HUB75 display-frame project.
 
 ### Changed
 
+- Align project documentation and agent guidance with Migration 010: add numbered plan/specification/design/verification authorities, route shared workflow through `brainboxemb.meta`, reduce historical handoff/plan files to compatibility pointers, publish the verification strategy with `prod/vrf`, add docsgen-safe component design breadcrumbs, and refresh stale project/physical-verification status without changing product geometry.
+
 - Correct printable component STL publication to use explicit export-owned print
   orientation instead of leaking project orientation into slicer output. Core
   and tube-mount couplers export rear-face-down; the detachable tube clamp uses
