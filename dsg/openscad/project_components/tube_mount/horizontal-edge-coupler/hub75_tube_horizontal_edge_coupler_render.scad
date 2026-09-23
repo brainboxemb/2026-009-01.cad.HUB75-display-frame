@@ -2,6 +2,7 @@
 //   Design-documentation adapter for the tube-aware horizontal-edge coupler.
 
 use <../../../ext/lib.scad.forge/openscad/resolution.scad>
+use <../../../ext/lib.scad.forge/openscad/transform.scad>
 use <hub75_tube_horizontal_edge_coupler.scad>
 use <../tube-clamp/hub75_tube_clamp.scad>
 use <../tube_mount_interface.scad>
@@ -118,7 +119,7 @@ module _hub75_tube_horizontal_edge_reference_tube(
         );
 
     color([0.55, 0.57, 0.60, alpha])
-        translate([
+        fg_xf_move([
             -length / 2,
             hub75_tube_clamp_tube_center_y_mm(clamp_obj),
             hub75_tube_clamp_tube_center_z_mm(clamp_obj)
@@ -129,7 +130,7 @@ module _hub75_tube_horizontal_edge_reference_tube(
 module _hub75_tube_horizontal_edge_position_markers(coupler_obj) {
     for (clip_x = hub75_tube_horizontal_edge_clamp_positions_mm(coupler_obj))
         color([1, 0, 0, 0.75])
-            translate([clip_x - 0.6, -0.4, -12])
+            fg_xf_move([clip_x - 0.6, -0.4, -12])
                 cube([1.2, 0.8, 38]);
 }
 

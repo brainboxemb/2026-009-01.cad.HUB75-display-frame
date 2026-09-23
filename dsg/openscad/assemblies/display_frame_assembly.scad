@@ -3,6 +3,7 @@
 
 use <../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
 use <../ext/lib.scad.forge/openscad/resolution.scad>
+use <../ext/lib.scad.forge/openscad/transform.scad>
 use <../components/aluminium_tube.scad>
 use <panels_assembly.scad>
 use <helpers/reference_box.scad>
@@ -45,7 +46,7 @@ module _hub75_display_frame_middle_couplers(
 ) {
     color(coupler_color)
         for (seam_index = [0 : panel_count - 2])
-            translate([
+            fg_xf_move([
                 _hub75_display_frame_seam_x(panel_obj, seam_index, panel_count),
                 mounting_y,
                 0
@@ -69,14 +70,14 @@ module _hub75_display_frame_horizontal_edge_couplers(
             seam_x =
                 _hub75_display_frame_seam_x(panel_obj, seam_index, panel_count);
 
-            translate([seam_x, mounting_y, edge_z])
+            fg_xf_move([seam_x, mounting_y, edge_z])
                 if (tube_mount_enabled)
                     hub75_tube_horizontal_edge_coupler_build(coupler_obj, resolution = resolution);
                 else
                     hub75_horizontal_edge_coupler_build(coupler_obj);
 
-            translate([seam_x, mounting_y, -edge_z])
-                rotate([0, 180, 0])
+            fg_xf_move([seam_x, mounting_y, -edge_z])
+                fg_xf_yrot(180)
                     if (tube_mount_enabled)
                         hub75_tube_horizontal_edge_coupler_build(coupler_obj, resolution = resolution);
                     else
@@ -98,27 +99,27 @@ module _hub75_display_frame_corner_couplers(
     edge_z = _hub75_display_frame_half_height(panel_obj);
 
     color(coupler_color) {
-        translate([-edge_x, mounting_y, edge_z])
+        fg_xf_move([-edge_x, mounting_y, edge_z])
             if (tube_mount_enabled)
                 hub75_tube_corner_edge_coupler_build(left_coupler_obj, resolution = resolution);
             else
                 hub75_corner_edge_coupler_build(left_coupler_obj);
 
-        translate([edge_x, mounting_y, edge_z])
+        fg_xf_move([edge_x, mounting_y, edge_z])
             if (tube_mount_enabled)
                 hub75_tube_corner_edge_coupler_build(right_coupler_obj, resolution = resolution);
             else
                 hub75_corner_edge_coupler_build(right_coupler_obj);
 
-        translate([edge_x, mounting_y, -edge_z])
-            rotate([0, 180, 0])
+        fg_xf_move([edge_x, mounting_y, -edge_z])
+            fg_xf_yrot(180)
                 if (tube_mount_enabled)
                     hub75_tube_corner_edge_coupler_build(left_coupler_obj, resolution = resolution);
                 else
                     hub75_corner_edge_coupler_build(left_coupler_obj);
 
-        translate([-edge_x, mounting_y, -edge_z])
-            rotate([0, 180, 0])
+        fg_xf_move([-edge_x, mounting_y, -edge_z])
+            fg_xf_yrot(180)
                 if (tube_mount_enabled)
                     hub75_tube_corner_edge_coupler_build(right_coupler_obj, resolution = resolution);
                 else
@@ -171,7 +172,7 @@ module _hub75_display_frame_tube_clamps(
             _hub75_display_frame_seam_x(panel_obj, seam_index, panel_count);
 
         for (clip_x = horizontal_positions) {
-            translate([seam_x + clip_x, mounting_y, edge_z])
+            fg_xf_move([seam_x + clip_x, mounting_y, edge_z])
                 hub75_tube_clamp_build(
                     horizontal_clamp_obj,
                     part_color = clamp_color,
@@ -179,8 +180,8 @@ module _hub75_display_frame_tube_clamps(
                     resolution = resolution
                 );
 
-            translate([seam_x - clip_x, mounting_y, -edge_z])
-                rotate([0, 180, 0])
+            fg_xf_move([seam_x - clip_x, mounting_y, -edge_z])
+                fg_xf_yrot(180)
                     hub75_tube_clamp_build(
                         horizontal_clamp_obj,
                         part_color = clamp_color,
@@ -190,7 +191,7 @@ module _hub75_display_frame_tube_clamps(
         }
     }
 
-    translate([-edge_x + left_x, mounting_y, edge_z])
+    fg_xf_move([-edge_x + left_x, mounting_y, edge_z])
         hub75_tube_clamp_build(
             left_clamp_obj,
             part_color = clamp_color,
@@ -198,7 +199,7 @@ module _hub75_display_frame_tube_clamps(
             resolution = resolution
         );
 
-    translate([edge_x + right_x, mounting_y, edge_z])
+    fg_xf_move([edge_x + right_x, mounting_y, edge_z])
         hub75_tube_clamp_build(
             right_clamp_obj,
             part_color = clamp_color,
@@ -206,8 +207,8 @@ module _hub75_display_frame_tube_clamps(
             resolution = resolution
         );
 
-    translate([edge_x - left_x, mounting_y, -edge_z])
-        rotate([0, 180, 0])
+    fg_xf_move([edge_x - left_x, mounting_y, -edge_z])
+        fg_xf_yrot(180)
             hub75_tube_clamp_build(
                 left_clamp_obj,
                 part_color = clamp_color,
@@ -215,8 +216,8 @@ module _hub75_display_frame_tube_clamps(
                 resolution = resolution
             );
 
-    translate([-edge_x - right_x, mounting_y, -edge_z])
-        rotate([0, 180, 0])
+    fg_xf_move([-edge_x - right_x, mounting_y, -edge_z])
+        fg_xf_yrot(180)
             hub75_tube_clamp_build(
                 right_clamp_obj,
                 part_color = clamp_color,
@@ -252,10 +253,10 @@ module _hub75_display_frame_aluminium_tubes(
         + hub75_tube_clamp_tube_center_z_mm(clamp_obj);
 
     color(tube_color) {
-        translate([x_min, tube_y, tube_z + top_z_shift])
+        fg_xf_move([x_min, tube_y, tube_z + top_z_shift])
             aluminium_tube_build(tube_obj, resolution = resolution);
 
-        translate([x_min, tube_y, -tube_z + bottom_z_shift])
+        fg_xf_move([x_min, tube_y, -tube_z + bottom_z_shift])
             aluminium_tube_build(tube_obj, resolution = resolution);
     }
 }
@@ -356,7 +357,7 @@ module hub75_display_frame_assembly(
         base_mounting_y + tube_y_shift;
 
     if (panels_visible)
-        translate([0, panel_y_shift, 0])
+        fg_xf_move([0, panel_y_shift, 0])
             hub75_panels_assembly(
                 panel_obj = panel_obj,
                 panel_count = panel_count,

@@ -203,14 +203,15 @@ module hub75_tube_clamp_body_build(
     resolution = FG_RES_HIGH(),
     apply_transition_relief = true
 ) {
-    fg_res_apply(resolution)
+    fg_res_apply(resolution) {
         color(part_color)
-        _hub75_tube_clamp_ring_build(
-            clamp_obj,
-            use_tension_bore,
-            resolution,
-            apply_transition_relief
-        );
+            _hub75_tube_clamp_ring_build(
+                clamp_obj,
+                use_tension_bore,
+                resolution,
+                apply_transition_relief
+            );
+    }
 }
 
 module hub75_tube_clamp_build(
@@ -220,25 +221,26 @@ module hub75_tube_clamp_build(
     resolution = FG_RES_HIGH(),
     apply_transition_relief = true
 ) {
-    fg_res_apply(resolution)
+    fg_res_apply(resolution) {
         color(part_color)
-        fg_diff() {
-            fg_body()
-                _hub75_tube_clamp_ring_build(
-                    clamp_obj,
-                    use_tension_bore,
-                    resolution,
-                    apply_transition_relief
-                );
+            fg_diff() {
+                fg_body()
+                    _hub75_tube_clamp_ring_build(
+                        clamp_obj,
+                        use_tension_bore,
+                        resolution,
+                        apply_transition_relief
+                    );
 
-            fg_remove() {
-                _hub75_tube_clamp_dovetail_relief_cutter(clamp_obj);
-                _hub75_tube_clamp_dovetail_relief_chamfer_cutter(clamp_obj);
+                fg_remove() {
+                    _hub75_tube_clamp_dovetail_relief_cutter(clamp_obj);
+                    _hub75_tube_clamp_dovetail_relief_chamfer_cutter(clamp_obj);
+                }
+
+                fg_keep()
+                    _hub75_tube_clamp_dovetail_build(clamp_obj);
             }
-
-            fg_keep()
-                _hub75_tube_clamp_dovetail_build(clamp_obj);
-        }
+    }
 }
 
 
@@ -270,21 +272,23 @@ module _hub75_tube_clamp_ring_build(
         x_axis = [0, -1, 0],
         y_axis = [0, 0, -1]
     )
-        difference() {
-            tube_clamp_build(
-                clamp_obj.base_clamp,
-                use_tension_bore = use_tension_bore,
-                high_resolution = resolution != FG_RES_LOW()
-            );
+        fg_diff() {
+            fg_body()
+                tube_clamp_build(
+                    clamp_obj.base_clamp,
+                    use_tension_bore = use_tension_bore,
+                    high_resolution = resolution != FG_RES_LOW()
+                );
 
             if (
                 apply_transition_relief
                 && clamp_obj.transition_relief_bite_mm > 0
             )
-                _hub75_tube_clamp_transition_relief_cutter_local(
-                    clamp_obj,
-                    resolution
-                );
+                fg_remove()
+                    _hub75_tube_clamp_transition_relief_cutter_local(
+                        clamp_obj,
+                        resolution
+                    );
         }
 }
 
@@ -394,7 +398,7 @@ module _hub75_tube_clamp_dovetail_relief_chamfer_cutter(clamp_obj) {
         // exact dovetail contour; this wedge only softens the abrupt obj-body
         // shoulder immediately in front of the male mouth. Its slope follows
         // the same angle as the dovetail flank.
-        translate([0, 0, z_min])
+        fg_xf_zmove(z_min)
             linear_extrude(height = z_length)
                 union() {
                     polygon(points = [
@@ -417,7 +421,7 @@ module _hub75_tube_clamp_dovetail_relief_chamfer_cutter(clamp_obj) {
                         ]
                     ]);
 
-                    mirror([1, 0, 0])
+                    fg_xf_xflip()
                         polygon(points = [
                             [
                                 mouth_half_width

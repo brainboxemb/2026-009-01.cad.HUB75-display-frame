@@ -5,6 +5,9 @@
 // colour and reinforcement meaning belong in assemblies.
 
 use <../ext/lib.scad.forge/openscad/resolution.scad>
+use <../ext/lib.scad.forge/openscad/transform.scad>
+use <../ext/lib.scad.forge/openscad/cutter.scad>
+use <../ext/lib.scad.forge/openscad/csg.scad>
 
 function aluminium_tube_create(
     length_mm = 840,
@@ -25,24 +28,33 @@ function aluminium_tube_create(
 function aluminium_tube_inner_diameter_mm(tube_obj) =
     tube_obj.outer_diameter_mm - 2 * tube_obj.wall_thickness_mm;
 
+_ALUMINIUM_TUBE_BOOLEAN_OVERLAP_MM = 0.1;
+
 module aluminium_tube_build(
     tube_obj,
     resolution = FG_RES_HIGH()
 ) {
-    fg_res_apply(resolution)
-        rotate([0, 90, 0])
-            difference() {
-                cylinder(
-                    h = tube_obj.length_mm,
-                    d = tube_obj.outer_diameter_mm
-                );
-
-                translate([0, 0, -0.1])
+    fg_res_apply(resolution) {
+        // Cylinder primitives run along local +Z; this tube runs along project +X.
+        fg_xf_yrot(90)
+            fg_diff() {
+                fg_body()
                     cylinder(
-                        h = tube_obj.length_mm + 0.2,
-                        d = aluminium_tube_inner_diameter_mm(tube_obj)
+                        h = tube_obj.length_mm,
+                        d = tube_obj.outer_diameter_mm
+                    );
+
+                fg_remove()
+                    fg_cut_cylinder(
+                        diameter_mm =
+                            aluminium_tube_inner_diameter_mm(tube_obj),
+                        height_mm = tube_obj.length_mm,
+                        overlap = [FG_BOTTOM(), FG_TOP()],
+                        overlap_mm =
+                            _ALUMINIUM_TUBE_BOOLEAN_OVERLAP_MM
                     );
             }
+    }
 }
 
 // Standalone preview.

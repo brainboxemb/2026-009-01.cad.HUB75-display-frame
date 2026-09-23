@@ -4,6 +4,7 @@
 
 use <../../components/aluminium_tube.scad>
 use <../../ext/lib.scad.forge/openscad/resolution.scad>
+use <../../ext/lib.scad.forge/openscad/transform.scad>
 use <../../components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad>
 use <../../project_components/tube_mount/horizontal-edge-coupler/hub75_tube_horizontal_edge_coupler.scad>
 use <../../project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad>
@@ -48,7 +49,7 @@ module hub75_tube_horizontal_edge_assembly(
 
     if (show_clamps)
         for (clip_x = hub75_tube_horizontal_edge_clamp_positions_mm(active_coupler_obj))
-            translate([clip_x, 0, clamp_z_shift])
+            fg_xf_move([clip_x, 0, clamp_z_shift])
                 hub75_tube_clamp_build(
                     clamp_obj,
                     part_color = [0.92, 0.20, 0.08, 1],
@@ -58,7 +59,7 @@ module hub75_tube_horizontal_edge_assembly(
 
     if (show_tube)
         color([0.72, 0.74, 0.76, 1])
-            translate([
+            fg_xf_move([
                 -tube_length / 2,
                 hub75_tube_clamp_tube_center_y_mm(clamp_obj),
                 hub75_tube_clamp_tube_center_z_mm(clamp_obj)

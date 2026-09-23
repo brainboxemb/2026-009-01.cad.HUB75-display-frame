@@ -17,6 +17,7 @@
 use <../../../ext/lib.scad.forge/openscad/resolution.scad>
 use <../../../ext/lib.scad.forge/openscad/transform.scad>
 use <../../../ext/lib.scad.forge/openscad/cutter.scad>
+use <../../../ext/lib.scad.forge/openscad/csg.scad>
 use <../../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
 use <../hub75_panel_mating.scad>
 
@@ -669,9 +670,10 @@ function hub75_corner_edge_coupler_reinforcement_support_diameter(coupler_obj) =
     + 2 * coupler_obj.wall_thickness;
 
 module _hub75_corner_edge_coupler_reinforcement_support_envelope_2d(coupler_obj) {
-    position = hub75_corner_edge_coupler_reinforcement_position(coupler_obj);
+    position_xz_mm =
+        hub75_corner_edge_coupler_reinforcement_position(coupler_obj);
 
-    translate(position)
+    fg_xf_xzmove([position_xz_mm[0], position_xz_mm[1]])
         circle(
             d = hub75_corner_edge_coupler_reinforcement_support_diameter(coupler_obj)
         );
@@ -720,7 +722,9 @@ module _hub75_corner_edge_coupler_through_hole_y_with_relief(
     y_max,
     y_min,
     relief_depth,
-    relief_radial
+    relief_radial,
+    x_mm = 0,
+    z_mm = 0
 ) {
     span = y_max - y_min;
     relief_d = hole_diameter + 2 * relief_radial;
@@ -729,46 +733,53 @@ module _hub75_corner_edge_coupler_through_hole_y_with_relief(
         max(0, span / 2 - _HUB75_CORNER_EDGE_COUPLER_EPS)
     );
 
-    fg_cut_cylinder(
-        diameter_mm = hole_diameter,
-        height_mm = span,
-        pos_mm = [0, y_max, 0],
-        rot_deg = [90, 0, 0],
-        overlap = [FG_BOTTOM(), FG_TOP()],
-        overlap_mm = _HUB75_CORNER_EDGE_COUPLER_EPS
-    );
-
-    if (rd > 0 && relief_radial > 0) {
+    // Cylinder local +Z maps to project -Y: bore from y_max toward y_min.
+    fg_xf_frame(
+        pos_mm = [x_mm, y_max, z_mm],
+        x_axis = [1, 0, 0],
+        z_axis = [0, -1, 0]
+    ) {
         fg_cut_cylinder(
-            diameter_mm = relief_d,
-            height_mm = rd,
-            pos_mm = [0, y_max, 0],
-            rot_deg = [90, 0, 0],
-            overlap = [FG_BOTTOM()],
+            diameter_mm = hole_diameter,
+            height_mm = span,
+            overlap = [FG_BOTTOM(), FG_TOP()],
             overlap_mm = _HUB75_CORNER_EDGE_COUPLER_EPS
         );
 
-        fg_cut_cylinder(
-            diameter_mm = relief_d,
-            height_mm = rd,
-            pos_mm = [0, y_min + rd, 0],
-            rot_deg = [90, 0, 0],
-            overlap = [FG_TOP()],
-            overlap_mm = _HUB75_CORNER_EDGE_COUPLER_EPS
-        );
+        if (rd > 0 && relief_radial > 0)
+            fg_cut_cylinder(
+                diameter_mm = relief_d,
+                height_mm = rd,
+                overlap = [FG_BOTTOM()],
+                overlap_mm = _HUB75_CORNER_EDGE_COUPLER_EPS
+            );
     }
+
+    if (rd > 0 && relief_radial > 0)
+        fg_xf_frame(
+            pos_mm = [x_mm, y_min + rd, z_mm],
+            x_axis = [1, 0, 0],
+            z_axis = [0, -1, 0]
+        )
+            fg_cut_cylinder(
+                diameter_mm = relief_d,
+                height_mm = rd,
+                overlap = [FG_TOP()],
+                overlap_mm = _HUB75_CORNER_EDGE_COUPLER_EPS
+            );
 }
 
 
 module _hub75_corner_edge_coupler_screw_cutter(coupler_obj) {
-    translate([coupler_obj.screw_x, 0, coupler_obj.screw_z])
-        _hub75_corner_edge_coupler_through_hole_y_with_relief(
-            hole_diameter = coupler_obj.screw_hole_diameter,
-            y_max = coupler_obj.base_thickness,
-            y_min = 0,
-            relief_depth = coupler_obj.screw_relief_depth,
-            relief_radial = coupler_obj.screw_relief_radial
-        );
+    _hub75_corner_edge_coupler_through_hole_y_with_relief(
+        hole_diameter = coupler_obj.screw_hole_diameter,
+        y_max = coupler_obj.base_thickness,
+        y_min = 0,
+        relief_depth = coupler_obj.screw_relief_depth,
+        relief_radial = coupler_obj.screw_relief_radial,
+        x_mm = coupler_obj.screw_x,
+        z_mm = coupler_obj.screw_z
+    );
 }
 
 
@@ -778,55 +789,69 @@ module _hub75_corner_edge_coupler_mounting_tube_pocket_cutter(coupler_obj) {
     pocket_diameter =
         hub75_corner_edge_coupler_mounting_tube_pocket_diameter(coupler_obj);
 
-    fg_cut_cylinder(
-        diameter_mm = pocket_diameter,
-        height_mm = pocket_depth,
+    // Pocket enters the coupler from the panel plane along project +Y.
+    fg_xf_frame(
         pos_mm = [coupler_obj.screw_x, 0, coupler_obj.screw_z],
-        rot_deg = [-90, 0, 0],
-        overlap = [FG_BOTTOM()],
-        overlap_mm = _HUB75_CORNER_EDGE_COUPLER_EPS
-    );
+        x_axis = [1, 0, 0],
+        z_axis = [0, 1, 0]
+    )
+        fg_cut_cylinder(
+            diameter_mm = pocket_diameter,
+            height_mm = pocket_depth,
+            overlap = [FG_BOTTOM()],
+            overlap_mm = _HUB75_CORNER_EDGE_COUPLER_EPS
+        );
 }
 
 
 module _hub75_corner_edge_coupler_locator_pin_clearance_cutter(coupler_obj) {
     if (hub75_corner_edge_coupler_has_locator_pin(coupler_obj)) {
-        position =
+        position_xz_mm =
             hub75_corner_edge_coupler_locator_pin_position(coupler_obj);
 
-        translate([position[0], 0, position[1]])
-            _hub75_corner_edge_coupler_through_hole_y_with_relief(
-                hole_diameter =
-                    hub75_corner_edge_coupler_locator_pin_clearance_diameter(coupler_obj),
-                y_max = coupler_obj.base_thickness,
-                y_min = 0,
-                relief_depth = coupler_obj.screw_relief_depth,
-                relief_radial = coupler_obj.screw_relief_radial
-            );
+        _hub75_corner_edge_coupler_through_hole_y_with_relief(
+            hole_diameter =
+                hub75_corner_edge_coupler_locator_pin_clearance_diameter(coupler_obj),
+            y_max = coupler_obj.base_thickness,
+            y_min = 0,
+            relief_depth = coupler_obj.screw_relief_depth,
+            relief_radial = coupler_obj.screw_relief_radial,
+            x_mm = position_xz_mm[0],
+            z_mm = position_xz_mm[1]
+        );
     }
 }
 
 
 module _hub75_corner_edge_coupler_base_after_screw_hole(coupler_obj) {
-    difference() {
-        _hub75_corner_edge_coupler_base_solid(coupler_obj);
-        _hub75_corner_edge_coupler_screw_cutter(coupler_obj);
+    fg_diff() {
+        fg_body()
+            _hub75_corner_edge_coupler_base_solid(coupler_obj);
+
+        fg_remove()
+            _hub75_corner_edge_coupler_screw_cutter(coupler_obj);
     }
 }
 
 
 module _hub75_corner_edge_coupler_base_after_pocket(coupler_obj) {
-    difference() {
-        _hub75_corner_edge_coupler_base_after_screw_hole(coupler_obj);
-        _hub75_corner_edge_coupler_mounting_tube_pocket_cutter(coupler_obj);
+    fg_diff() {
+        fg_body()
+            _hub75_corner_edge_coupler_base_after_screw_hole(coupler_obj);
+
+        fg_remove()
+            _hub75_corner_edge_coupler_mounting_tube_pocket_cutter(coupler_obj);
     }
 }
 
 
 module _hub75_corner_edge_coupler_base_after_functional_cutters(coupler_obj) {
-    difference() {
-        _hub75_corner_edge_coupler_base_after_pocket(coupler_obj);
-        _hub75_corner_edge_coupler_locator_pin_clearance_cutter(coupler_obj);
+    fg_diff() {
+        fg_body()
+            _hub75_corner_edge_coupler_base_after_pocket(coupler_obj);
+
+        fg_remove()
+            _hub75_corner_edge_coupler_locator_pin_clearance_cutter(coupler_obj);
     }
 }
 
@@ -949,18 +974,18 @@ module _hub75_corner_edge_coupler_center_marks_2d(coupler_obj) {
                         ? coupler_obj.center_mark_major_length
                         : coupler_obj.center_mark_minor_length;
 
-                translate([ x, 0])
+                fg_xf_xzmove([x, 0])
                     square([coupler_obj.center_mark_width, tick], center = true);
-                translate([-x, 0])
+                fg_xf_xzmove([-x, 0])
                     square([coupler_obj.center_mark_width, tick], center = true);
-                translate([0, x])
+                fg_xf_xzmove([0, x])
                     square([tick, coupler_obj.center_mark_width], center = true);
-                translate([0,-x])
+                fg_xf_xzmove([0, -x])
                     square([tick, coupler_obj.center_mark_width], center = true);
             }
         }
 
-        translate([coupler_obj.screw_x, coupler_obj.screw_z])
+        fg_xf_xzmove([coupler_obj.screw_x, coupler_obj.screw_z])
             circle(
                 r =
                     coupler_obj.screw_hole_diameter / 2
@@ -990,42 +1015,47 @@ module _hub75_corner_edge_coupler_reference_pocket_cutters(coupler_obj) {
                     _hub75_corner_edge_coupler_profile_2d(coupler_obj);
 
             union()
-                for (position =
+                for (position_xz_mm =
                     _hub75_corner_edge_coupler_reference_pocket_positions(coupler_obj)
-                )
-                    translate([position[0], 0, position[1]]) {
-                        if (straight_depth > 0)
-                            translate([
-                                0,
+                ) {
+                    if (straight_depth > 0)
+                        fg_xf_frame(
+                            pos_mm = [
+                                position_xz_mm[0],
                                 coupler_obj.base_thickness
                                     + _HUB75_CORNER_EDGE_COUPLER_EPS,
-                                0
-                            ])
-                                rotate([90, 0, 0])
-                                    cylinder(
-                                        h =
-                                            straight_depth
-                                            + _HUB75_CORNER_EDGE_COUPLER_EPS,
-                                        d = coupler_obj.reference_pocket_diameter
-                                    );
+                                position_xz_mm[1]
+                            ],
+                            x_axis = [1, 0, 0],
+                            z_axis = [0, -1, 0]
+                        )
+                            cylinder(
+                                h =
+                                    straight_depth
+                                    + _HUB75_CORNER_EDGE_COUPLER_EPS,
+                                d = coupler_obj.reference_pocket_diameter
+                            );
 
-                        if (taper_depth > 0)
-                            translate([
-                                0,
+                    if (taper_depth > 0)
+                        fg_xf_frame(
+                            pos_mm = [
+                                position_xz_mm[0],
                                 coupler_obj.base_thickness
                                     - straight_depth
                                     + _HUB75_CORNER_EDGE_COUPLER_EPS,
-                                0
-                            ])
-                                rotate([90, 0, 0])
-                                    cylinder(
-                                        h =
-                                            taper_depth
-                                            + 2 * _HUB75_CORNER_EDGE_COUPLER_EPS,
-                                        d1 = coupler_obj.reference_pocket_diameter,
-                                        d2 = coupler_obj.reference_pocket_end_diameter
-                                    );
-                    }
+                                position_xz_mm[1]
+                            ],
+                            x_axis = [1, 0, 0],
+                            z_axis = [0, -1, 0]
+                        )
+                            cylinder(
+                                h =
+                                    taper_depth
+                                    + 2 * _HUB75_CORNER_EDGE_COUPLER_EPS,
+                                d1 = coupler_obj.reference_pocket_diameter,
+                                d2 = coupler_obj.reference_pocket_end_diameter
+                            );
+                }
         }
 }
 
@@ -1053,10 +1083,14 @@ module _hub75_corner_edge_coupler_center_mark_cutters(coupler_obj) {
 
 
 module _hub75_corner_edge_coupler_base_with_surface_details(coupler_obj) {
-    difference() {
-        _hub75_corner_edge_coupler_base_after_functional_cutters(coupler_obj);
-        _hub75_corner_edge_coupler_reference_pocket_cutters(coupler_obj);
-        _hub75_corner_edge_coupler_center_mark_cutters(coupler_obj);
+    fg_diff() {
+        fg_body()
+            _hub75_corner_edge_coupler_base_after_functional_cutters(coupler_obj);
+
+        fg_remove() {
+            _hub75_corner_edge_coupler_reference_pocket_cutters(coupler_obj);
+            _hub75_corner_edge_coupler_center_mark_cutters(coupler_obj);
+        }
     }
 }
 
@@ -1073,10 +1107,7 @@ module _hub75_corner_edge_coupler_panel_keepout_2d(coupler_obj) {
 
     // Canonical +U/+V points inward from the physical rear panel corner.
     // Mirroring X supplies left/right; top always maps inward to -Z.
-    translate([
-        coupler_obj.rear_outer_edge_x,
-        coupler_obj.rear_outer_edge_z
-    ])
+    fg_xf_xzmove([coupler_obj.rear_outer_edge_x, coupler_obj.rear_outer_edge_z])
         scale([coupler_obj.x_inward, -1])
             difference() {
                 square([span, span]);
@@ -1095,10 +1126,7 @@ module _hub75_corner_edge_coupler_panel_keepout_2d(coupler_obj) {
 module _hub75_corner_edge_coupler_inside_panel_2d(coupler_obj) {
     span = coupler_obj.profile_size + 50;
 
-    translate([
-        coupler_obj.rear_outer_edge_x,
-        coupler_obj.rear_outer_edge_z
-    ])
+    fg_xf_xzmove([coupler_obj.rear_outer_edge_x, coupler_obj.rear_outer_edge_z])
         scale([coupler_obj.x_inward, -1])
             square([span, span]);
 }
@@ -1156,7 +1184,7 @@ module _hub75_corner_edge_coupler_horizontal_outer_zone_2d(
         + coupler_obj.fit_clearance
         + panel_shift_z;
 
-    translate([0, boundary + span / 2])
+    fg_xf_xzmove([0, boundary + span / 2])
         square([span, span], center = true);
 }
 
@@ -1171,10 +1199,10 @@ module _hub75_corner_edge_coupler_vertical_outer_zone_2d(
         - coupler_obj.x_inward * (coupler_obj.fit_clearance + panel_shift_x);
 
     if (coupler_obj.side == "left")
-        translate([boundary - span / 2, 0])
+        fg_xf_xzmove([boundary - span / 2, 0])
             square([span, 2 * span], center = true);
     else
-        translate([boundary + span / 2, 0])
+        fg_xf_xzmove([boundary + span / 2, 0])
             square([span, 2 * span], center = true);
 }
 
@@ -1209,28 +1237,30 @@ module _hub75_corner_edge_coupler_vertical_outer_ridge_2d(
 module _hub75_corner_edge_coupler_guide_walls(coupler_obj) {
     reinforcement =
         hub75_corner_edge_coupler_reinforcement_position(coupler_obj);
+    relief_depth = coupler_obj.guide_height + 0.20;
 
-    difference() {
-        _hub75_corner_edge_coupler_extrude_xz_y(
-            -coupler_obj.guide_height,
-            0
+    fg_diff() {
+        fg_body()
+            _hub75_corner_edge_coupler_extrude_xz_y(
+                -coupler_obj.guide_height,
+                0
+            )
+                _hub75_corner_edge_coupler_tall_guide_2d(coupler_obj);
+
+        fg_remove()
+            fg_xf_frame(
+            pos_mm = [reinforcement[0], 0, reinforcement[1]],
+            x_axis = [1, 0, 0],
+            z_axis = [0, -1, 0]
         )
-            _hub75_corner_edge_coupler_tall_guide_2d(coupler_obj);
-
-        translate([
-            reinforcement[0],
-            _HUB75_CORNER_EDGE_COUPLER_EPS,
-            reinforcement[1]
-        ])
-            rotate([90, 0, 0])
-                cylinder(
-                    d =
+                fg_cut_cylinder(
+                    diameter_mm =
                         hub75_corner_edge_coupler_reinforcement_relief_diameter(
                             coupler_obj
                         ),
-                    h =
-                        coupler_obj.guide_height
-                        + 0.30
+                    height_mm = relief_depth,
+                    overlap = [FG_BOTTOM(), FG_TOP()],
+                    overlap_mm = _HUB75_CORNER_EDGE_COUPLER_EPS
                 );
     }
 }
@@ -1322,29 +1352,36 @@ module _hub75_corner_edge_coupler_reinforcement_locator(coupler_obj) {
     pin_d =
         hub75_corner_edge_coupler_reinforcement_locator_pin_diameter(coupler_obj);
 
-    translate([
-        position[0],
-        _HUB75_CORNER_EDGE_COUPLER_EPS,
-        position[1]
-    ])
-        rotate([90, 0, 0])
-            cylinder(
-                d = pad_d,
-                h = pad_h + _HUB75_CORNER_EDGE_COUPLER_EPS
-            );
+    // Both locator cylinders extend from the mounting plane toward project -Y.
+    fg_xf_frame(
+        pos_mm = [
+            position[0],
+            _HUB75_CORNER_EDGE_COUPLER_EPS,
+            position[1]
+        ],
+        x_axis = [1, 0, 0],
+        z_axis = [0, -1, 0]
+    )
+        cylinder(
+            d = pad_d,
+            h = pad_h + _HUB75_CORNER_EDGE_COUPLER_EPS
+        );
 
-    translate([
-        position[0],
-        -pad_h + _HUB75_CORNER_EDGE_COUPLER_EPS,
-        position[1]
-    ])
-        rotate([90, 0, 0])
-            cylinder(
-                d = pin_d,
-                h =
-                    coupler_obj.reinforcement_locator_pin_length
-                    + _HUB75_CORNER_EDGE_COUPLER_EPS
-            );
+    fg_xf_frame(
+        pos_mm = [
+            position[0],
+            -pad_h + _HUB75_CORNER_EDGE_COUPLER_EPS,
+            position[1]
+        ],
+        x_axis = [1, 0, 0],
+        z_axis = [0, -1, 0]
+    )
+        cylinder(
+            d = pin_d,
+            h =
+                coupler_obj.reinforcement_locator_pin_length
+                + _HUB75_CORNER_EDGE_COUPLER_EPS
+        );
 }
 
 
@@ -1427,8 +1464,9 @@ _preview_coupler_obj =
         center_mark_screw_keepout = d_center_mark_screw_keepout_mm
     );
 
-fg_res_apply(c_resolution)
+fg_res_apply(c_resolution) {
     hub75_corner_edge_coupler_render(
-    _preview_coupler_obj,
-    view = c_view
+        _preview_coupler_obj,
+        view = c_view
     );
+}

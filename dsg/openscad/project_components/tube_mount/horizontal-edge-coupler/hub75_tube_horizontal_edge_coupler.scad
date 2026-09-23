@@ -12,6 +12,7 @@ use <../../../components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_cou
 use <../../../ext/lib.scad.forge/openscad/resolution.scad>
 use <../../../ext/lib.scad.forge/openscad/transform.scad>
 use <../../../ext/lib.scad.forge/openscad/cutter.scad>
+use <../../../ext/lib.scad.forge/openscad/csg.scad>
 use <../tube-clamp/hub75_tube_clamp.scad>
 use <../tube_mount_interface.scad>
 
@@ -83,34 +84,35 @@ module hub75_tube_horizontal_edge_coupler_build(
     resolution = FG_RES_HIGH()
 ) {
     fg_res_apply(resolution) {
-    clamp_obj =
-        hub75_tube_clamp_create(
-            dovetail_obj =
-                hub75_tube_mount_dovetail_create(
-                    host_depth_mm = coupler_obj.base_thickness
-                )
-        );
-
-    difference() {
-        union() {
-            hub75_horizontal_edge_coupler_build(coupler_obj);
-            _hub75_tube_horizontal_edge_carriers(
-                coupler_obj,
-                clamp_obj
+        clamp_obj =
+            hub75_tube_clamp_create(
+                dovetail_obj =
+                    hub75_tube_mount_dovetail_create(
+                        host_depth_mm = coupler_obj.base_thickness
+                    )
             );
+
+        fg_diff() {
+            fg_body() {
+                hub75_horizontal_edge_coupler_build(coupler_obj);
+                _hub75_tube_horizontal_edge_carriers(
+                    coupler_obj,
+                    clamp_obj
+                );
+            }
+
+            fg_remove() {
+                _hub75_tube_horizontal_edge_keepout_cutter(
+                    coupler_obj,
+                    clamp_obj
+                );
+                _hub75_tube_horizontal_edge_dovetail_cutters(
+                    coupler_obj,
+                    clamp_obj
+                );
+            }
         }
-
-        _hub75_tube_horizontal_edge_keepout_cutter(
-            coupler_obj,
-            clamp_obj
-        );
-        _hub75_tube_horizontal_edge_dovetail_cutters(
-            coupler_obj,
-            clamp_obj
-        );
     }
-    }
-
 }
 
 
@@ -156,7 +158,7 @@ module _hub75_tube_horizontal_edge_carrier_profile_2d(
     assert(height > 2 * radius,
         "tube carrier height must exceed twice its radius");
 
-    translate([clip_x, (z_min + z_max) / 2])
+    fg_xf_xzmove([clip_x, (z_min + z_max) / 2])
         offset(r = radius)
             square([
                 width - 2 * radius,
@@ -168,14 +170,17 @@ module _hub75_tube_horizontal_edge_carriers(
     coupler_obj,
     clamp_obj
 ) {
-    translate([0, coupler_obj.base_thickness, 0])
-        rotate([90, 0, 0])
-            linear_extrude(
-                height =
-                    hub75_tube_horizontal_edge_carrier_depth_mm(
-                        coupler_obj
-                    )
-            )
+    fg_xf_frame(
+        pos_mm = [0, coupler_obj.base_thickness, 0],
+        x_axis = [1, 0, 0],
+        z_axis = [0, -1, 0]
+    )
+        linear_extrude(
+            height =
+                hub75_tube_horizontal_edge_carrier_depth_mm(
+                    coupler_obj
+                )
+        )
                 for (clip_x = hub75_tube_horizontal_edge_clamp_positions_mm(coupler_obj))
                     _hub75_tube_horizontal_edge_carrier_profile_2d(
                         clip_x,

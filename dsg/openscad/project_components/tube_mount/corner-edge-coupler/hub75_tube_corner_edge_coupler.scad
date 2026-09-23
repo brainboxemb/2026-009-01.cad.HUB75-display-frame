@@ -11,6 +11,7 @@ use <../../../components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.sca
 use <../../../ext/lib.scad.forge/openscad/resolution.scad>
 use <../../../ext/lib.scad.forge/openscad/transform.scad>
 use <../../../ext/lib.scad.forge/openscad/cutter.scad>
+use <../../../ext/lib.scad.forge/openscad/csg.scad>
 use <../tube-clamp/hub75_tube_clamp.scad>
 use <../tube_mount_interface.scad>
 
@@ -50,50 +51,52 @@ module hub75_tube_corner_edge_coupler_build(
     resolution = FG_RES_HIGH()
 ) {
     fg_res_apply(resolution) {
-    clamp_obj =
-        hub75_tube_clamp_create(
-            dovetail_obj =
-                hub75_tube_mount_dovetail_create(
-                    host_depth_mm = coupler_obj.base_thickness
-                )
-        );
-    clip_x = hub75_tube_corner_edge_clamp_x_mm(coupler_obj);
-    available_interface_width =
-        hub75_tube_corner_edge_available_interface_width_mm(coupler_obj);
-    required_interface_width =
-        hub75_tube_corner_edge_required_interface_width_mm(
-            coupler_obj,
-            clamp_obj
-        );
+        clamp_obj =
+            hub75_tube_clamp_create(
+                dovetail_obj =
+                    hub75_tube_mount_dovetail_create(
+                        host_depth_mm = coupler_obj.base_thickness
+                    )
+            );
+        clip_x = hub75_tube_corner_edge_clamp_x_mm(coupler_obj);
+        available_interface_width =
+            hub75_tube_corner_edge_available_interface_width_mm(coupler_obj);
+        required_interface_width =
+            hub75_tube_corner_edge_required_interface_width_mm(
+                coupler_obj,
+                clamp_obj
+            );
 
-    assert(
-        required_interface_width <= available_interface_width,
-        "corner tube-mount interface does not fit inside the existing vertical arm"
-    );
-
-    difference() {
-        hub75_corner_edge_coupler_build(coupler_obj);
-
-        _hub75_tube_corner_edge_keepout_cutter(
-            coupler_obj,
-            clamp_obj
+        assert(
+            required_interface_width <= available_interface_width,
+            "corner tube-mount interface does not fit inside the existing vertical arm"
         );
 
-        _hub75_tube_corner_edge_clamp_keepout_cutter(
-            coupler_obj,
-            clamp_obj,
-            clip_x
-        );
+        fg_diff() {
+            fg_body()
+                hub75_corner_edge_coupler_build(coupler_obj);
 
-        hub75_tube_mount_dovetail_female_cutter(
-            clamp_obj.dovetail,
-            slide_len_mm = clamp_obj.dovetail_slide_len_mm,
-            center_x_mm = clip_x,
-            center_z_mm = clamp_obj.dovetail_center_z_mm
-        );
+            fg_remove() {
+                _hub75_tube_corner_edge_keepout_cutter(
+                    coupler_obj,
+                    clamp_obj
+                );
+
+                _hub75_tube_corner_edge_clamp_keepout_cutter(
+                    coupler_obj,
+                    clamp_obj,
+                    clip_x
+                );
+
+                hub75_tube_mount_dovetail_female_cutter(
+                    clamp_obj.dovetail,
+                    slide_len_mm = clamp_obj.dovetail_slide_len_mm,
+                    center_x_mm = clip_x,
+                    center_z_mm = clamp_obj.dovetail_center_z_mm
+                );
+            }
+        }
     }
-    }
-
 }
 
 
@@ -141,16 +144,19 @@ module _hub75_tube_corner_edge_outer_ring_envelope(
         clamp_obj.base_clamp.clamp_width
         + 2 * lateral_clearance;
 
-    translate([
-        clip_x - ring_width / 2,
-        hub75_tube_clamp_tube_center_y_mm(clamp_obj),
-        hub75_tube_clamp_tube_center_z_mm(clamp_obj) + z_shift
-    ])
-        rotate([0, 90, 0])
-            cylinder(
-                r = ring_r,
-                h = ring_width
-            );
+    fg_xf_frame(
+        pos_mm = [
+            clip_x - ring_width / 2,
+            hub75_tube_clamp_tube_center_y_mm(clamp_obj),
+            hub75_tube_clamp_tube_center_z_mm(clamp_obj) + z_shift
+        ],
+        y_axis = [0, 1, 0],
+        z_axis = [1, 0, 0]
+    )
+        cylinder(
+            r = ring_r,
+            h = ring_width
+        );
 }
 
 

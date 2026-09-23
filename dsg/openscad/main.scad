@@ -320,7 +320,7 @@ module _hub75_main_selected_view() {
         assert(false, str("Unsupported c_view: ", c_view));
 }
 
-fg_res_apply(c_resolution)
+fg_res_apply(c_resolution) {
     util_section_inspect(
         axis = c_section_axis,
         position = c_section_position_mm,
@@ -328,3 +328,4 @@ fg_res_apply(c_resolution)
         direction = c_section_direction
     )
         _hub75_main_selected_view();
+}

@@ -41,7 +41,7 @@ dependencies:
     type: git-submodule
     url: https://github.com/brainboxemb/lib.scad.forge.git
     path: dsg/openscad/ext/lib.scad.forge
-    ref: v0.2.2
+    ref: v0.3.0
 
   - name: lib.scad.mechint
     role: external

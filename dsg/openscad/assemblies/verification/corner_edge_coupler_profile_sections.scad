@@ -3,6 +3,7 @@
 
 use <../../ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad>
 use <../../ext/lib.scad.util/openscad/inspection.scad>
+use <../../ext/lib.scad.forge/openscad/transform.scad>
 use <../../components/hub75/corner-edge-coupler/hub75_corner_edge_coupler.scad>
 
 function _hub75_corner_profile_corner_x(panel_obj, side) =
@@ -84,7 +85,7 @@ module hub75_corner_edge_coupler_horizontal_profile_section(
                 depth = slice_thickness,
                 direction = "Positive"
             )
-                translate([corner_x, mounting_y, corner_z])
+                fg_xf_move([corner_x, mounting_y, corner_z])
                     hub75_corner_edge_coupler_build(active_coupler_obj);
             _crop_volume();
         }
@@ -146,7 +147,7 @@ module hub75_corner_edge_coupler_vertical_profile_section(
                 depth = slice_thickness,
                 direction = "Positive"
             )
-                translate([corner_x, mounting_y, corner_z])
+                fg_xf_move([corner_x, mounting_y, corner_z])
                     hub75_corner_edge_coupler_build(active_coupler_obj);
             _crop_volume();
         }
