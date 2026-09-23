@@ -7,6 +7,7 @@ PNG_DIR="${OUT_DIR}/png"
 TEMPLATE_DIR="${ROOT_DIR}/vrf/templates"
 
 mkdir -p "${PNG_DIR}"
+cp "${ROOT_DIR}/doc/30-verification.md" "${OUT_DIR}/30-verification.md"
 
 copy_template() {
   local source="$1"

@@ -2,6 +2,9 @@
 //   Project-specific T-shaped coupler for two adjacent portrait HUB75 panels
 //   at the top or bottom display edge.
 //
+// - Design: design/design.md
+// - Design review: hub75_horizontal_edge_coupler_render.scad
+//
 // Coordinate system:
 // - local X=0 is the nominal seam between the two adjacent panels;
 // - local Y=0 is the panel rear mounting plane;

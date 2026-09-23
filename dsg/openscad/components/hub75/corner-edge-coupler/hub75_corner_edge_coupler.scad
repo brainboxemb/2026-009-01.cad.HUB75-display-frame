@@ -1,6 +1,9 @@
 // File: hub75_corner_edge_coupler.scad
 //   Project-specific top-corner coupler for one portrait HUB75 panel.
 //
+// - Design: design/design.md
+// - Design review: hub75_corner_edge_coupler_render.scad
+//
 // Printable variants:
 // - side="left"  : top-left, rotated 180 degrees also fits bottom-right;
 // - side="right" : top-right, rotated 180 degrees also fits bottom-left.

@@ -1,5 +1,7 @@
 # HUB75 display-frame verification
 
+Repository-level strategy/status: [30-verification.md](30-verification.md).
+
 Verification evidence is deliberately separate from normal build output.
 
 The build branch answers **what is built**. This verification branch answers
@@ -62,7 +64,7 @@ The core corner-fit evidence remains independent of the reinforcement layer.
 
 The tube-mount layer uses one canonical separate printable tube clamp built from
 the public `lib.scad.clamps` tube-clamp body plus the standard locked
-`lib.scad.mechint v0.1.4` sliding-dovetail interface.
+sliding-dovetail interface from the pinned `lib.scad.mechint` revision.
 
 For each small/medium/large coupler size, the same clamp is used and the
 verification snapshot publishes:

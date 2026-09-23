@@ -1,11 +1,6 @@
 # 2026-009-01.cad.HUB75-display-frame
 
-Structured OpenSCAD project for a modular HUB75 display frame using reusable
-libraries, design documentation and automated verification.
-
-This repository is a clean restart of the display-frame design. It deliberately
-does not copy the old frame/coupler implementation. Complexity is added only
-after each smaller assembly is understood and verified.
+Structured OpenSCAD project for a modular five-panel HUB75 display frame.
 
 ## Preview
 
@@ -23,425 +18,40 @@ after each smaller assembly is understood and verified.
 
 [![Rear angled view with couplers](../../raw/prod/bld/png/rear-angled-couplers.png)](../../blob/prod/bld/png/rear-angled-couplers.png)
 
-These images are generated from the current `prod/bld` branch.
+## Start here
 
-## Quick links
-
-- [Changelog](CHANGELOG.md)
-- [Project plan](docs/01-project-plan.md)
-- [New-chat / agent handoff](docs/00-new-chat-handoff.md)
-- [Project releases](../../releases)
-- [Generated build branch](../../tree/prod/bld)
-- [Build overview](../../blob/prod/bld/README.md)
-- [Build PNG gallery](../../blob/prod/bld/png/README.md)
-- [Build provenance](../../blob/prod/bld/publication-info.txt)
+- [Plan](doc/00-plan.md) — current gate, work sequence, information sources and roadmap.
+- [Specification](doc/10-specification.md) — why the frame exists and what the project should achieve.
+- [Design](doc/20-design.md) — application architecture, ownership boundaries and coordinate model.
+- [Verification](doc/30-verification.md) — digital versus physical verification and current acceptance status.
+- [Changelog](CHANGELOG.md) — completed functional/repository history.
 - [Generated design documentation](../../blob/prod/bld/design/README.md)
-- [Middle coupler design source](dsg/openscad/components/hub75/middle-coupler/design/design.md)
-- [Horizontal-edge coupler design source](dsg/openscad/components/hub75/horizontal-edge-coupler/design/design.md)
-- [Corner-edge coupler design source](dsg/openscad/components/hub75/corner-edge-coupler/design/design.md)
-- [Generated middle coupler design](../../blob/prod/bld/design/project/openscad/components/hub75/middle-coupler/design/design.md)
-- [Generated horizontal-edge coupler design](../../blob/prod/bld/design/project/openscad/components/hub75/horizontal-edge-coupler/design/design.md)
-- [Generated corner-edge coupler design](../../blob/prod/bld/design/project/openscad/components/hub75/corner-edge-coupler/design/design.md)
-- [Verification branch](../../tree/prod/vrf)
-- [Verification overview](../../blob/prod/vrf/README.md)
-- [Verification PNG gallery](../../blob/prod/vrf/png/README.md)
-- [Middle medium rear fit section](../../blob/prod/vrf/png/middle-coupler-medium-rear-fit-section.png)
-- [Horizontal-edge medium fit detail](../../blob/prod/vrf/png/horizontal-edge-coupler-medium-fit-detail.png)
-- [Horizontal-edge medium rear fit section](../../blob/prod/vrf/png/horizontal-edge-coupler-medium-rear-fit-section.png)
-- [PNG renders](../../tree/prod/bld/png)
-- [Five-panel STL](../../blob/prod/bld/stl/panels-assembly.stl)
-- [Connector STLs](../../tree/prod/bld/stl)
-
-## Project status
-
-Completed design milestones and their functional changes are recorded only in
-[CHANGELOG.md](CHANGELOG.md), so the README does not maintain a second milestone
-history that can drift out of sync. Tagged releases capture reproducible project
-snapshots; milestone history remains the detailed design record. The current
-design direction is described under [Next design step](#next-design-step).
-
-## Dimension authority
-
-Panel geometry and dimensions come from:
-
-```text
-lib.scad.hub75
-└── openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad
-```
-
-The physical panel is slightly undersized relative to its placement cell:
-
-```text
-physical
-    159.70 x 319.71 mm
-
-nominal placement cell
-    160.00 x 320.00 mm
-```
-
-Assembly placement therefore uses the library's nominal accessors:
-
-```text
-hub75_p5_64x32_panel_nominal_width()
-hub75_p5_64x32_panel_nominal_height()
-```
-
-The project does not duplicate 160/320 mm panel constants in its own
-configuration.
-
-## Project origin
-
-The project uses the physical front face of the HUB75 panels as its Y datum:
-
-```text
-X = 0
-    horizontal centre of the complete five-panel display
-
-Y = 0
-    front face of the HUB75 panels
-
-Z = 0
-    vertical centre of the panels
-```
-
-With the current 14.50 mm panel depth:
-
-```text
-front face          Y =  0.00 mm
-rear mounting plane Y = 14.50 mm
-```
-
-This deliberately matches the native coordinate convention of
-`lib.scad.hub75`. The panel is not symmetric front-to-rear, so the physical
-front face is a clearer and more stable datum than the geometric midpoint of
-its depth.
-
-The five panel placement centres are:
-
-```text
-X = -320, -160, 0, +160, +320 mm
-Z = 0
-```
-
-Adjacent panels alternate physical orientation. From left to right the current
-five-panel rule is:
-
-```text
-panel 0   native
-panel 1   180° about Y
-panel 2   native
-panel 3   180° about Y
-panel 4   native
-```
-
-The Y-axis rotation keeps the front/rear datum unchanged while swapping each
-rotated panel's local left/right and top/bottom features. This is an assembly
-choice; the reusable panel geometry itself remains owned by `lib.scad.hub75`.
-
-Future frame/coupler geometry should reference explicit mechanical datums such
-as the front face and rear mounting plane instead of assuming symmetry in Y.
-
-## OpenSCAD naming
-
-Private implementation helpers use a leading `_`, including nested helpers.
-Only the small cross-file project interface remains without an underscore. This
-follows the same convention as BOSL2 and the reusable SCAD libraries.
-
-## Structure
-
-```text
-project.yml
-dsg/
-└── openscad/
-    ├── components/
-    │   └── aluminium_tube.scad
-    ├── assemblies/
-    │   ├── panels_assembly.scad
-    │   ├── display_frame_assembly.scad
-    │   ├── middle_coupler_fit_assembly.scad
-    │   ├── horizontal_edge_coupler_fit_assembly.scad
-    │   ├── corner_edge_coupler_fit_assembly.scad
-    │   └── verification_datum_pin.scad
-    ├── components/hub75/
-    │   ├── middle-coupler/
-    │   │   ├── hub75_middle_coupler.scad
-    │   │   ├── hub75_middle_coupler_render.scad
-    │   │   └── design/design.md
-    │   ├── horizontal-edge-coupler/
-    │   │   ├── hub75_horizontal_edge_coupler.scad
-    │   │   ├── hub75_horizontal_edge_coupler_render.scad
-    │   │   └── design/design.md
-    │   └── corner-edge-coupler/
-    │       ├── hub75_corner_edge_coupler.scad
-    │       ├── hub75_corner_edge_coupler_render.scad
-    │       └── design/design.md
-    ├── ext/
-    │   └── lib.scad.hub75
-    ├── render/
-    │   ├── front.scad
-    │   ├── front-angled.scad
-    │   ├── rear.scad
-    │   ├── rear-angled.scad
-    │   ├── rear-angled-couplers.scad
-    │   ├── middle-coupler.scad
-    │   ├── horizontal-edge-coupler.scad
-    │   ├── corner-edge-coupler-left.scad
-    │   └── corner-edge-coupler-right.scad
-    ├── export/
-    │   ├── panels-assembly.scad
-    │   ├── middle-coupler.scad
-    │   ├── horizontal-edge-coupler.scad
-    │   ├── corner-edge-coupler-left.scad
-    │   └── corner-edge-coupler-right.scad
-    └── main.scad
-
-tools/
-└── tool.scad-project
-
-vrf/
-├── openscad/
-│   ├── middle-coupler-fit-detail.scad
-│   ├── middle-coupler-rear-fit-section.scad
-│   ├── middle-coupler-xy-seam-section.scad
-│   ├── horizontal-edge-coupler-fit-detail.scad
-│   ├── horizontal-edge-coupler-rear-fit-section.scad
-│   ├── horizontal-edge-coupler-yz-edge-section.scad
-│   ├── horizontal-edge-coupler-xy-seam-section.scad
-│   ├── corner-edge-coupler-horizontal-profile-section.scad
-│   ├── corner-edge-coupler-vertical-profile-section.scad
-│   ├── corner-edge-coupler-left-fit-detail.scad
-│   ├── corner-edge-coupler-left-rear-fit-section.scad
-│   ├── corner-edge-coupler-left-yz-top-edge-section.scad
-│   ├── corner-edge-coupler-left-xy-side-edge-section.scad
-│   ├── corner-edge-coupler-right-fit-detail.scad
-│   ├── corner-edge-coupler-right-rear-fit-section.scad
-│   ├── corner-edge-coupler-right-yz-top-edge-section.scad
-│   └── corner-edge-coupler-right-xy-side-edge-section.scad
-└── templates/
-    ├── README.md
-    └── png/
-        └── README.md
-```
-
-The verification README files are maintained as source templates under
-`vrf/templates/`. `scripts/build-verification-index.sh` copies those templates
-to the generated verification output instead of embedding long Markdown blocks
-inside the shell script.
-
-## Tooling
-
-The project pins the Migration-005 shared execution architecture:
-
-```text
-tool.scad-project  v0.14.9 / a140b22858ac1899e7f2fa71b679639a70d819c3
-tool.git-project   v0.2.8  / 7c43f37e7b07cfb57638a1d1dad2501de09ba7eb
-SCAD toolchain     ghcr.io/brainboxemb/scad-toolchain-openscad:v0.5.0
-lib.scad.hub75     v0.1.5  / e0432a9533a08a1c0d9e87225c22f3f66b632531
-lib.scad.clamps    v0.1.7  / 22c7794ad8741672176418e9c34a660affd90998
-lib.scad.mechint   v0.1.5  / 3557164c97f2852eff0ccca47cf5beb7f9fcde05
-lib.scad.util      exact    / b11c77cb5529696e730d4b54804d6f8676fd8001
-```
-
-`project.yml` keeps the human-readable semantic versions while the tool and
-library gitlinks plus reusable workflow callers resolve them to immutable source
-commits. Reusable workflow callers use the same released semantic tool ref, while the committed tool gitlink records the exact source commit.
-
-The root `moon.yml` selects the project capabilities `scad.docs`, `scad.build`
-and `scad.verify` and owns only project-specific source-family impact boundaries.
-`.moon/tasks/scad.yml` inherits the shared capability implementation from the
-pinned `tool.scad-project`; this repository no longer carries its own duplicate
-Build/Verify lifecycle graph.
-
-This repository is OpenSCAD-only, so production selects the focused v0.5.0
-OpenSCAD runtime. Normal Build and Verification both have configured SCons
-targets, so their caches are transported independently. Moon determines which
-capabilities are source-affected; the shared planner separately determines the
-complete materialization scope needed for publication-safe Build/Verification
-snapshots.
-
-Normal project renders and exports are discovered from `dsg/openscad/render`
-and `dsg/openscad/export`. The configured SCons build engine tracks their SCAD
-dependencies and reuses compatible cached targets rather than blindly rebuilding
-every output on every workflow run.
-
-Production output from `main` is published to `prod/bld` and
-`prod/vrf`. Version releases are coordinated by the Release workflow
-and publish immutable snapshots under `rel/vX.Y.Z/bld` and
-`rel/vX.Y.Z/vrf`.
-
-The five configured full-display PNG renders use 2560x1440. Complete-display
-presentation uses the library's `light_gray` colour scheme explicitly, rather
-than the dark/original material colours used by the low-level panel
-`build()` API. The fifth view, `rear-angled-couplers.png`, overlays the complete
-medium connector family on the same rear-angled panel view.
-
-They deliberately reuse the official camera views from the old HUB75
-display-frame project:
-
-```text
-front         [90, 0,   0]  distance 1200
-front angled  [85, 0,  40]  distance 1050
-rear          [90, 0, 180]  distance 1200
-rear angled   [85, 0, 220]  distance 1050
-```
-
-They use the generic watermark path:
-
-```text
-© 2026 brainboxemb
-```
-
-The same assembly is also exported as `bld/stl/panels-assembly.stl`. This STL
-is a verification model: it lets the complete five-panel arrangement be opened
-in a 3D viewer and freely rotated/zoomed.
-
-The normal build contains size-specific renders for the current connector
-family:
-
-```text
-bld/png/middle-coupler-<size>.png
-bld/png/horizontal-edge-coupler-<size>.png
-bld/png/corner-edge-coupler-left-<size>.png
-bld/png/corner-edge-coupler-right-<size>.png
-```
-
-The shared tooling also generates `bld/png/README.md` as a browseable,
-deterministically ordered gallery for the normal build PNGs. The generated
-`bld/README.md` links directly to that gallery.
-
-Fit evidence is intentionally published on the separate `prod/vrf`
-branch:
-
-```text
-png/middle-coupler-<size>-fit-detail.png
-png/middle-coupler-<size>-rear-fit-section.png
-png/middle-coupler-<size>-xy-seam-section.png
-
-png/horizontal-edge-coupler-<size>-fit-detail.png
-png/horizontal-edge-coupler-<size>-rear-fit-section.png
-png/horizontal-edge-coupler-<size>-yz-edge-section.png
-png/horizontal-edge-coupler-<size>-xy-seam-section.png
-
-png/corner-edge-coupler-<size>-horizontal-profile-section.png
-png/corner-edge-coupler-<size>-vertical-profile-section.png
-png/corner-edge-coupler-left-<size>-fit-detail.png
-png/corner-edge-coupler-left-<size>-rear-fit-section.png
-png/corner-edge-coupler-left-<size>-yz-top-edge-section.png
-png/corner-edge-coupler-left-<size>-xy-side-edge-section.png
-png/corner-edge-coupler-right-<size>-fit-detail.png
-png/corner-edge-coupler-right-<size>-rear-fit-section.png
-png/corner-edge-coupler-right-<size>-yz-top-edge-section.png
-png/corner-edge-coupler-right-<size>-xy-side-edge-section.png
-```
-
-Rear-fit sections are cut inside the active guide: 3 mm for the 4 mm small
-guide and 5 mm for medium/large. This keeps the same 5 mm reference where
-possible while ensuring the small preset still shows meaningful fit evidence.
-
-The build keeps the core coupler STL family and adds separate tube-mount output:
-
-```text
-bld/stl/middle-coupler-<size>.stl
-bld/stl/horizontal-edge-coupler-<size>.stl
-bld/stl/corner-edge-coupler-left-<size>.stl
-bld/stl/corner-edge-coupler-right-<size>.stl
-
-bld/stl/horizontal-edge-tube-mount-coupler-<size>.stl
-bld/stl/corner-edge-tube-mount-coupler-left-<size>.stl
-bld/stl/corner-edge-tube-mount-coupler-right-<size>.stl
-bld/stl/dovetail-tube-clamp-<size>.stl
-bld/stl/tube-mount-display-2-panel.stl
-```
-
-The aluminium tube itself is a generic local component under
-`dsg/openscad/components/`; only its frame length and placement are
-project-specific assembly decisions.
-
-The detachable snap ring comes from `lib.scad.clamps v0.1.7`. HUB75 publishes
-small / medium / large detachable clamp variants. All keep a 12 mm clamp width
-and the Ø10 functional / Ø9.6 tension-bore fit model. The Ø10 tube starts
-1.0 mm behind the panel front face, so its centre remains global Y = 6.0 mm,
-or local Y = -8.5 mm from the 14.5 mm rear mounting plane. The Ø14 clamp tangent
-therefore remains at local Y = -1.5 mm.
-
-The mating interface comes from `lib.scad.mechint v0.1.5`. The 12 mm root,
-30° dovetail uses 0.5 mm straight mouth and root lands, 0.20 mm fit clearance,
-0.25 mm axial clearance, a 16 mm straight entry slot and the integral lock /
-release mechanism. Small / medium / large use 2.0 / 2.5 / 3.0 mm dovetail
-heights against the matching 2 / 3 / 4 mm hosts. Their clamp transitions are
-derived from the same profile and become 1.0 / 1.5 / 2.0 mm.
-
-The dovetail mouth is now at local Y = -2.0 mm: 0.5 mm inside the clamp tangent.
-That leaves the tube datum unchanged while recovering 0.5 mm behind the female
-channel. Total female tongue thickness is therefore about 1.8 / 2.3 / 2.8 mm
-for small / medium / large. The v0.1.5 two-sided hinge relief leaves a centered
-0.8 mm flex web inside those tongues. The same library profile also supplies
-the male mating-relief cutter used to expose the dovetail flanks where the
-compact clamp transition overlaps the interface.
-
-The horizontal-edge variant retains its two compact local carriers. The
-corner-edge variant does not add a separate tube-mount body: its accepted
-outside shape is kept, the continuous Ø10 tube keep-out is subtracted, and a
-fit-clearanced copy of the real clamp body is swept upward over the same 16 mm
-+Z approach as the female entry slot. The single female dovetail is then cut
-directly into the existing corner material. The swept clamp-body cutout follows
-the real snap opening/transition rather than merely clearing the final clamp
-position or removing an arbitrary full cylindrical envelope.
-Its placement envelope keeps 2 mm of existing material beside the clearanced
-female root and a 4 mm outer-edge margin.
-
-The dovetail slide axis is project Z; the clamp enters from local +Z, i.e. from
-above for the canonical top-edge orientation. The horizontal-edge variant
-derives two carrier positions from the available edge structure. Each corner
-variant places its direct-cut interface on the existing vertical side-rail
-centre, the part of the original corner body that actually reaches the tube /
-dovetail height.
-The tube keep-out is deliberately separate from the clamp's Ø10 functional /
-Ø9.6 tension-bore fit model. Couplers remain rear-face-down printable and the
-detachable clamp remains side-printed.
-
-`tube-mount-display-2-panel.stl` is the compact whole-model inspection export:
-it contains two panels, the complete coupler family, detachable clamps and both
-aluminium tubes without producing the >100 MB five-panel STL seen during PR
-iteration.
-
-The generated design walkthrough is published under the `prod/bld` branch's
-`design/` tree.
-
-Generated files are published to the mutable `prod/bld` and
-`prod/vrf` branches and are not stored on `main`.
+- [Latest Build](../../tree/prod/bld)
+- [Latest Verification](../../tree/prod/vrf)
+
+Detailed component construction remains beside source, including the
+[middle coupler](dsg/openscad/components/hub75/middle-coupler/design/design.md),
+[horizontal-edge coupler](dsg/openscad/components/hub75/horizontal-edge-coupler/design/design.md),
+[corner-edge coupler](dsg/openscad/components/hub75/corner-edge-coupler/design/design.md),
+[tube-mount edge coupler](dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/design/design.md)
+and [detachable tube clamp](dsg/openscad/project_components/tube_mount/tube-clamp/design/design.md).
+
+## Current status
+
+The v0.0.4 checkpoint is complete. Standard core couplers remain the default
+full-display assembly. The detachable tube-mount/dovetail layer exists on main
+as explicit WIP and is opt-in; it is not yet an accepted mechanical baseline.
+
+The next physical gate is issue #43 and remains downstream of the relevant
+real-panel verification in `lib.scad.hub75`. See the plan and verification
+document for the precise state.
 
 ## Local setup
 
-After cloning:
+After cloning run `.\bootstrap.ps1`. A configured build can be run with
+`.\tools\tool.scad-project\scad-project.ps1 build`. Open
+`dsg/openscad/main.scad` for the interactive development entrypoint.
 
-```powershell
-.\bootstrap.ps1
-```
-
-Then a local configured build can be run with:
-
-```powershell
-.\tools\tool.scad-project\scad-project.ps1 build
-```
-
-Open the development entrypoint in OpenSCAD:
-
-```text
-dsg/openscad/main.scad
-```
-
-## Next design step
-
-The forward-looking design sequence, current step and acceptance criteria now live
-in the [project plan](docs/01-project-plan.md). Keeping that information in one
-place avoids a second project backlog drifting inside this README.
-
-The plan preserves the core panel-fit boundary while allowing the independent
-tube-mount layer to progress in parallel. Experiment 005 is historical only;
-the current product direction uses the released `lib.scad.mechint` sliding
-dovetail and integral lock instead of maintaining project-local mating geometry.
-The reusable clamp body comes from `lib.scad.clamps`, and ordinary X/Y/Z
-inspection sections use `lib.scad.util`.
-
-The model and documentation were developed with the assistance of ChatGPT.
+Current dependency/tool/runtime versions are intentionally not copied here.
+Use `project.yml`, `project.scad.yml`, committed gitlinks, live Actions and
+`prod/bld` / `prod/vrf` provenance for exact current state.

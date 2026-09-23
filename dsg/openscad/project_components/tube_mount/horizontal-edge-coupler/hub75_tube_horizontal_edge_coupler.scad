@@ -2,6 +2,9 @@
 //   Tube-aware horizontal-edge coupler built around the accepted HUB75 core
 //   horizontal-edge component.
 //
+// - Design: design/design.md
+// - Design review: hub75_tube_horizontal_edge_coupler_render.scad
+//
 // Construction order:
 //   1. start from the accepted core coupler;
 //   2. remove one continuous aluminium-tube keep-out;

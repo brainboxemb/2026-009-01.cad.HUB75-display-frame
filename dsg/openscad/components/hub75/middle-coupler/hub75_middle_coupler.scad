@@ -1,6 +1,9 @@
 // File: hub75_middle_coupler.scad
 //   Project-specific middle coupler for two adjacent portrait HUB75 panels.
 //
+// - Design: design/design.md
+// - Design review: hub75_middle_coupler_render.scad
+//
 // Physical role:
 // - local X=0 is the nominal seam between the two panels;
 // - local Y=0 is the panel-facing surface of the coupler base;
