@@ -4,15 +4,19 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "${ROOT_DIR}"
 
-EXPECTED_GIT_TOOL_SHA="9879da589101f41b2b0e634d196ddcc51e1a6102"
-EXPECTED_SCAD_TOOL_SHA="a029ec3719df2ee5e4899790a8424ff731959986"
-EXPECTED_DIRECT_UTIL_SHA="604970732671b3889f072f5fc744ca872326e69c"
-EXPECTED_DIRECT_FORGE_SHA="b9cdd27f9a2ec4bf46edee1d7017abb40bdd3b74"
-EXPECTED_MECHINT_SHA="a3ec45dda7a58376b35c1a121f41242797e55e6e"
-EXPECTED_MECHINT_FORGE_SHA="12a62580f4d24a8ebd80b061dc2a8e368a838ace"
-EXPECTED_DIRECT_UTIL_REF="v0.4.0"
-EXPECTED_DIRECT_FORGE_REF="v0.3.0"
-EXPECTED_MECHINT_REF="v0.2.3"
+EXPECTED_GIT_TOOL_SHA="d1ed47c7d85524cfcb2a8f7e1ea81ba106ae9c60"
+EXPECTED_SCAD_TOOL_SHA="8d167ad17dbfa798d68f46d871aaeed2e2e09857"
+EXPECTED_DIRECT_UTIL_SHA="af04b44c2fb1d779a87797da4290deca92c7594d"
+EXPECTED_DIRECT_FORGE_SHA="100693541e056e312605c88a2f145ee1cbb829a4"
+EXPECTED_MECHINT_SHA="28a8ac1aa1097f7284fd806c91b4cab655566509"
+EXPECTED_MECHINT_FORGE_SHA="100693541e056e312605c88a2f145ee1cbb829a4"
+EXPECTED_DIRECT_UTIL_REF="v0.4.1"
+EXPECTED_DIRECT_FORGE_REF="v0.3.1"
+EXPECTED_MECHINT_REF="v0.2.4"
+EXPECTED_HUB75_SHA="bdd92ab920213849ed678c7d11f9615d4992ed14"
+EXPECTED_CLAMPS_SHA="e9f2fe0039a5f1cb6e2a0386a736767d95e627e7"
+EXPECTED_HUB75_REF="v0.1.8"
+EXPECTED_CLAMPS_REF="v0.1.9"
 
 gitlink_sha() {
   local repo_root="$1"
@@ -56,22 +60,36 @@ require_uninitialized_nested_tooling() {
 
 verify_dependency_ownership() {
   local mechint="$ROOT_DIR/dsg/openscad/ext/lib.scad.mechint"
+  local direct_hub75="$ROOT_DIR/dsg/openscad/ext/lib.scad.hub75"
+  local direct_clamps="$ROOT_DIR/dsg/openscad/ext/lib.scad.clamps"
   local direct_util="$ROOT_DIR/dsg/openscad/ext/lib.scad.util"
   local direct_forge="$ROOT_DIR/dsg/openscad/ext/lib.scad.forge"
   local nested_forge="$mechint/ext/lib.scad.forge"
 
   require_gitlink "$ROOT_DIR" "tools/tool.git-project" "$EXPECTED_GIT_TOOL_SHA"
   require_gitlink "$ROOT_DIR" "tools/tool.scad-project" "$EXPECTED_SCAD_TOOL_SHA"
+  require_gitlink "$ROOT_DIR" "dsg/openscad/ext/lib.scad.hub75" "$EXPECTED_HUB75_SHA"
+  require_gitlink "$ROOT_DIR" "dsg/openscad/ext/lib.scad.clamps" "$EXPECTED_CLAMPS_SHA"
   require_gitlink "$ROOT_DIR" "dsg/openscad/ext/lib.scad.util" "$EXPECTED_DIRECT_UTIL_SHA"
   require_gitlink "$ROOT_DIR" "dsg/openscad/ext/lib.scad.forge" "$EXPECTED_DIRECT_FORGE_SHA"
   require_gitlink "$ROOT_DIR" "dsg/openscad/ext/lib.scad.mechint" "$EXPECTED_MECHINT_SHA"
 
   require_checkout "$ROOT_DIR/tools/tool.git-project" "$EXPECTED_GIT_TOOL_SHA"
   require_checkout "$ROOT_DIR/tools/tool.scad-project" "$EXPECTED_SCAD_TOOL_SHA"
+  require_checkout "$direct_hub75" "$EXPECTED_HUB75_SHA"
+  require_checkout "$direct_clamps" "$EXPECTED_CLAMPS_SHA"
   require_checkout "$direct_util" "$EXPECTED_DIRECT_UTIL_SHA"
   require_checkout "$direct_forge" "$EXPECTED_DIRECT_FORGE_SHA"
   require_checkout "$mechint" "$EXPECTED_MECHINT_SHA"
 
+  grep -Fq "ref: $EXPECTED_HUB75_REF" "$ROOT_DIR/project.yml" || {
+    echo "ERROR: project.yml must retain lib.scad.hub75 $EXPECTED_HUB75_REF" >&2
+    exit 1
+  }
+  grep -Fq "ref: $EXPECTED_CLAMPS_REF" "$ROOT_DIR/project.yml" || {
+    echo "ERROR: project.yml must retain lib.scad.clamps $EXPECTED_CLAMPS_REF" >&2
+    exit 1
+  }
   grep -Fq "ref: $EXPECTED_DIRECT_UTIL_REF" "$ROOT_DIR/project.yml" || {
     echo "ERROR: project.yml must retain lib.scad.util $EXPECTED_DIRECT_UTIL_REF" >&2
     exit 1
@@ -91,7 +109,7 @@ verify_dependency_ownership() {
   require_uninitialized_nested_tooling "$mechint" "tools/tool.git-project"
   require_uninitialized_nested_tooling "$mechint" "tools/tool.scad-project"
 
-  echo "Dependency ownership: root util v0.4.0 owns inspection; root Forge v0.3.0 owns project modeling/resolution; mechint v0.2.3 owns an independent Forge v0.2.1 checkout"
+  echo "Dependency ownership: HUB75 v0.1.8 and clamps v0.1.9 own reusable panel/clamp geometry; root util v0.4.1 owns inspection; root Forge v0.3.1 owns project modeling/resolution; mechint v0.2.4 owns the released mechanical interface baseline"
 }
 OUT_DIR="${ROOT_DIR}/vrf/out"
 PNG_DIR="${OUT_DIR}/png"

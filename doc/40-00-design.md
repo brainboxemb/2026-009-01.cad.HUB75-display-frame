@@ -1,7 +1,7 @@
 # HUB75 display-frame design
 
 This document describes the **application-level architecture** used to realise
-[10-specification.md](10-specification.md).
+[30-00-specification.md](30-00-specification.md).
 
 ## Layered model
 
@@ -70,5 +70,5 @@ SCons tracks dependencies behind the shared `scad-project` interface.
 ## Verification architecture
 
 `vrf/openscad/` owns generated digital fit/section targets; `vrf/physical/`
-owns executable physical acceptance procedures; [30-verification.md](30-verification.md)
+owns executable physical acceptance procedures; [50-00-verification.md](50-00-verification.md)
 owns repository-level strategy and current acceptance state.

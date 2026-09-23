@@ -4,6 +4,16 @@ This file records the functional evolution of the HUB75 display-frame project.
 
 ## Unreleased
 
+### Changed
+
+- Adopt the Migration-011 released owner baseline: tool.git-project v0.2.14,
+  tool.scad-project v0.15.11, lib.scad.hub75 v0.1.8, lib.scad.clamps v0.1.9,
+  lib.scad.util v0.4.1, lib.scad.forge v0.3.1 and lib.scad.mechint v0.2.4;
+  refresh managed bootstrap/update launchers, self-scoped workflows, exact
+  dependency assertions and the shared numbered documentation/publication
+  structure without changing project geometry or physical-verification status.
+
+
 ### Added
 
 - Restore optional rear-view HUB75 data-chain presentation with panel numbers
