@@ -1,0 +1,16 @@
+{
+  "base_revision": "af838a5b8951feb93912adaf882e5613c4ba08d3",
+  "event_name": "push",
+  "publication_family": "verification",
+  "repository": "brainboxemb/2026-009-01.cad.HUB75-display-frame",
+  "run_attempt": "1",
+  "run_id": "35922579030",
+  "schema": "brainboxemb.scad-orchestration-run-context",
+  "schema_version": 1,
+  "snapshot_preparation": {
+    "duration_ms": 9,
+    "finished_at": "2026-09-23T21:29:17.423Z",
+    "started_at": "2026-09-23T21:29:17.414Z"
+  },
+  "source_revision": "87b12b705c1a50ae95dfe10a11b15fec4cd1e48d"
+}
