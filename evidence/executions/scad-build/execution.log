@@ -1,0 +1,82 @@
+SCAD producer execution
+=======================
+
+Capability: scad.build
+Action: build
+Source revision: 87b12b705c1a50ae95dfe10a11b15fec4cd1e48d
+Owner: brainboxemb/tool.scad-project
+Owner revision: 8d167ad17dbfa798d68f46d871aaeed2e2e09857
+tool.scad-project version: 0.15.11
+Status: success
+Producer started (UTC): 2026-09-23T21:28:34Z
+Producer finished (UTC): 2026-09-23T21:28:54Z
+Producer duration: 19569 ms
+
+Domain evidence:
+- ../../domain/last-build.json
+- ../../domain/dependency-provenance.json
+
+Decision report kind: build
+Build engine: scons
+Targets: 58
+Outcomes: BUILT=4, CACHE_RESTORED=54, CURRENT=0, ERROR=0
+
+Target decisions:
+- CACHE_RESTORED: bld/png/corner-edge-coupler-left-small.png
+- CACHE_RESTORED: bld/png/corner-edge-coupler-left-medium.png
+- CACHE_RESTORED: bld/png/corner-edge-coupler-left-large.png
+- CACHE_RESTORED: bld/png/corner-edge-coupler-right-small.png
+- CACHE_RESTORED: bld/png/corner-edge-coupler-right-medium.png
+- CACHE_RESTORED: bld/png/corner-edge-coupler-right-large.png
+- CACHE_RESTORED: bld/png/corner-edge-tube-mount-coupler-left-small.png
+- CACHE_RESTORED: bld/png/corner-edge-tube-mount-coupler-left-medium.png
+- CACHE_RESTORED: bld/png/corner-edge-tube-mount-coupler-left-large.png
+- CACHE_RESTORED: bld/png/corner-edge-tube-mount-coupler-right-small.png
+- CACHE_RESTORED: bld/png/corner-edge-tube-mount-coupler-right-medium.png
+- CACHE_RESTORED: bld/png/corner-edge-tube-mount-coupler-right-large.png
+- CACHE_RESTORED: bld/png/dovetail-tube-clamp-small.png
+- CACHE_RESTORED: bld/png/dovetail-tube-clamp-medium.png
+- CACHE_RESTORED: bld/png/dovetail-tube-clamp-large.png
+- CACHE_RESTORED: bld/png/front-angled.png
+- CACHE_RESTORED: bld/png/front.png
+- CACHE_RESTORED: bld/png/horizontal-edge-coupler-small.png
+- CACHE_RESTORED: bld/png/horizontal-edge-coupler-medium.png
+- CACHE_RESTORED: bld/png/horizontal-edge-coupler-large.png
+- CACHE_RESTORED: bld/png/horizontal-edge-tube-mount-coupler-small.png
+- CACHE_RESTORED: bld/png/horizontal-edge-tube-mount-coupler-medium.png
+- CACHE_RESTORED: bld/png/horizontal-edge-tube-mount-coupler-large.png
+- CACHE_RESTORED: bld/png/middle-coupler-small.png
+- CACHE_RESTORED: bld/png/middle-coupler-medium.png
+- CACHE_RESTORED: bld/png/middle-coupler-large.png
+- BUILT: bld/png/rear-angled-couplers-only.png
+- BUILT: bld/png/rear-angled-couplers.png
+- BUILT: bld/png/rear-angled-exploded.png
+- CACHE_RESTORED: bld/png/rear-angled.png
+- CACHE_RESTORED: bld/png/rear-wiring.png
+- CACHE_RESTORED: bld/png/rear.png
+- CACHE_RESTORED: bld/stl/corner-edge-coupler-left-small.stl
+- CACHE_RESTORED: bld/stl/corner-edge-coupler-left-medium.stl
+- CACHE_RESTORED: bld/stl/corner-edge-coupler-left-large.stl
+- CACHE_RESTORED: bld/stl/corner-edge-coupler-right-small.stl
+- CACHE_RESTORED: bld/stl/corner-edge-coupler-right-medium.stl
+- CACHE_RESTORED: bld/stl/corner-edge-coupler-right-large.stl
+- CACHE_RESTORED: bld/stl/corner-edge-tube-mount-coupler-left-small.stl
+- CACHE_RESTORED: bld/stl/corner-edge-tube-mount-coupler-left-medium.stl
+- CACHE_RESTORED: bld/stl/corner-edge-tube-mount-coupler-left-large.stl
+- CACHE_RESTORED: bld/stl/corner-edge-tube-mount-coupler-right-small.stl
+- CACHE_RESTORED: bld/stl/corner-edge-tube-mount-coupler-right-medium.stl
+- CACHE_RESTORED: bld/stl/corner-edge-tube-mount-coupler-right-large.stl
+- CACHE_RESTORED: bld/stl/dovetail-tube-clamp-small.stl
+- CACHE_RESTORED: bld/stl/dovetail-tube-clamp-medium.stl
+- CACHE_RESTORED: bld/stl/dovetail-tube-clamp-large.stl
+- CACHE_RESTORED: bld/stl/horizontal-edge-coupler-small.stl
+- CACHE_RESTORED: bld/stl/horizontal-edge-coupler-medium.stl
+- CACHE_RESTORED: bld/stl/horizontal-edge-coupler-large.stl
+- CACHE_RESTORED: bld/stl/horizontal-edge-tube-mount-coupler-small.stl
+- CACHE_RESTORED: bld/stl/horizontal-edge-tube-mount-coupler-medium.stl
+- CACHE_RESTORED: bld/stl/horizontal-edge-tube-mount-coupler-large.stl
+- CACHE_RESTORED: bld/stl/middle-coupler-small.stl
+- CACHE_RESTORED: bld/stl/middle-coupler-medium.stl
+- CACHE_RESTORED: bld/stl/middle-coupler-large.stl
+- CACHE_RESTORED: bld/stl/panels-assembly.stl
+- BUILT: bld/stl/tube-mount-display-2-panel.stl

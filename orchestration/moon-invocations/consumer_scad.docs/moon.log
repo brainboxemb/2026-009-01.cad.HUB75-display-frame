@@ -1,0 +1,255 @@
+[ WARN 2026-09-23 21:28:24.914] moon_app::queries::changed_files  Detected a shallow checkout, unable to run Git commands to determine changed files. 
+[ WARN 21:28:24.914] moon_app::queries::changed_files  A full Git history is required for affected checks, falling back to an empty files list. 
+▮▮▮▮ consumer:scad.docs (8d600204)
+SCons design engine: 79 target(s), cache=/work/.cache/scad-project/scons
++ scons -Q -f /work/tools/tool.scad-project/src/scad_project/design_scons_driver.py SCAD_PROJECT_MANIFEST=/work/.cache/scad-project/state/design-manifest.json
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/01-mating-reference.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/02-profile-horizontal-arm.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/03-profile-vertical-arm.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/04-profile-raw-cross.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/05-profile-rounded.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/06-reinforcement-support-profile.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/07-base.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/08-screw-hole.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/09-tube-pocket.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/10-locator-pin-clearance.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/11-guide-keepout.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/12-guide-raw-shell.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/13-guide-end-mask.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/14-guide-zones.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/15-guide-taper.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/16-guide-reinforcement-relief.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/17-guide-reinforcement-detail.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/18-guides.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/19-reinforcement-locator.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/20-functional.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/21-reference-pockets.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/22-center-marks.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/23-final.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/24-right-final.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/01-mating-reference.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/02-profile-horizontal-arm.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/03-profile-vertical-arm.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/04-profile-raw-cross.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/05-profile-rounded-cross.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/06-profile-t.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/07-reinforcement-support-profile.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/08-screw-holes.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/09-tube-pockets.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/10-locator-pin-clearance.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/11-guide-keepout.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/12-guide-raw-shell.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/13-guide-rounded-shell.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/14-guide-zones.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/15-guide-outer-taper.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/16-guide-reinforcement-reliefs.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/17-guide-reinforcement-detail.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/18-guides.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/19-reinforcement-locators.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/20-seam-locator.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/21-functional.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/22-reference-pockets.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/23-center-marks.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/24-final.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/01-mating-reference.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/02-profile-horizontal-arm.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/03-profile-vertical-arm.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/04-profile-raw-plus.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/05-profile-rounded.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/06-base.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/07-screw-holes.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/08-tube-pockets.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/09-guide-keepout.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/10-guide-raw-shell.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/11-guide-rounded-shell.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/12-guide-reinforcement-reliefs.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/13-guide-reinforcement-detail.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/14-guides.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/15-reinforcement-locators.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/16-seam-locator.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/17-functional.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/18-reference-pockets.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/19-center-marks.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/20-final.png' from cache
+_action([".cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/01-core.png"], [".cache/scad-project/state/design-entrypoints/bd71b23d4ffa0fb3.scad", "dsg/openscad/assemblies/sub/hub75_tube_horizontal_edge_assembly.scad", "dsg/openscad/components/aluminium_tube.scad", "dsg/openscad/components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad", "dsg/openscad/components/hub75/hub75_panel_mating.scad", "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad", "dsg/openscad/ext/lib.scad.forge/openscad/csg.scad", "dsg/openscad/ext/lib.scad.forge/openscad/cutter.scad", "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad", "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/resolution.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad", "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad", "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad", "dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/design/design.md", "dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/hub75_tube_horizontal_edge_coupler.scad", "dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/hub75_tube_horizontal_edge_coupler_render.scad", "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad", "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o --camera=0.0,0.0,7.0,90.0,0.0,0.0,145.0 --imgsize=640,480 -o /work/.cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/.01-core.unwatermarked.png /work/.cache/scad-project/state/design-entrypoints/bd71b23d4ffa0fb3.scad
+Geometries in cache: 183
+Geometry cache size in bytes: 3759224
+CGAL Polyhedrons in cache: 35
+CGAL cache size in bytes: 31569000
+Total rendering time: 0:00:00.910
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      2
+   Vertices:    13735
+   Facets:      27474
++ scad-image-watermark /work/.cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/.01-core.unwatermarked.png /work/.cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/01-core.png --text © 2026 brainboxemb
+SCons design built: .cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/01-core.png
+_action([".cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/02-tube-keepout.png"], [".cache/scad-project/state/design-entrypoints/f2057bcc53d3add8.scad", "dsg/openscad/assemblies/sub/hub75_tube_horizontal_edge_assembly.scad", "dsg/openscad/components/aluminium_tube.scad", "dsg/openscad/components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad", "dsg/openscad/components/hub75/hub75_panel_mating.scad", "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad", "dsg/openscad/ext/lib.scad.forge/openscad/csg.scad", "dsg/openscad/ext/lib.scad.forge/openscad/cutter.scad", "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad", "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/resolution.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad", "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad", "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad", "dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/design/design.md", "dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/hub75_tube_horizontal_edge_coupler.scad", "dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/hub75_tube_horizontal_edge_coupler_render.scad", "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad", "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o --camera=0.0,0.0,7.0,90.0,0.0,0.0,145.0 --imgsize=640,480 -o /work/.cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/.02-tube-keepout.unwatermarked.png /work/.cache/scad-project/state/design-entrypoints/f2057bcc53d3add8.scad
+Geometries in cache: 188
+Geometry cache size in bytes: 3860944
+CGAL Polyhedrons in cache: 36
+CGAL cache size in bytes: 35062750
+Total rendering time: 0:00:00.741
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      1
+   Vertices:    13975
+   Facets:      27950
++ scad-image-watermark /work/.cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/.02-tube-keepout.unwatermarked.png /work/.cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/02-tube-keepout.png --text © 2026 brainboxemb
+SCons design built: .cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/02-tube-keepout.png
+_action([".cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/03-carrier-position.png"], [".cache/scad-project/state/design-entrypoints/1dc268da42c76873.scad", "dsg/openscad/assemblies/sub/hub75_tube_horizontal_edge_assembly.scad", "dsg/openscad/components/aluminium_tube.scad", "dsg/openscad/components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad", "dsg/openscad/components/hub75/hub75_panel_mating.scad", "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad", "dsg/openscad/ext/lib.scad.forge/openscad/csg.scad", "dsg/openscad/ext/lib.scad.forge/openscad/cutter.scad", "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad", "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/resolution.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad", "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad", "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad", "dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/design/design.md", "dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/hub75_tube_horizontal_edge_coupler.scad", "dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/hub75_tube_horizontal_edge_coupler_render.scad", "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad", "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o --camera=0.0,0.0,7.0,90.0,0.0,0.0,145.0 --imgsize=640,480 -o /work/.cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/.03-carrier-position.unwatermarked.png /work/.cache/scad-project/state/design-entrypoints/1dc268da42c76873.scad
+ECHO: "DEPRECATED: fg_res_apply() is deprecated; use fg_res_scope() instead."
+Geometries in cache: 193
+Geometry cache size in bytes: 3787272
+CGAL Polyhedrons in cache: 42
+CGAL cache size in bytes: 35192000
+Total rendering time: 0:00:00.726
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      2
+   Vertices:    13896
+   Facets:      27796
++ scad-image-watermark /work/.cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/.03-carrier-position.unwatermarked.png /work/.cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/03-carrier-position.png --text © 2026 brainboxemb
+SCons design built: .cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/03-carrier-position.png
+_action([".cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/04-carriers.png"], [".cache/scad-project/state/design-entrypoints/7296fe2b84555c76.scad", "dsg/openscad/assemblies/sub/hub75_tube_horizontal_edge_assembly.scad", "dsg/openscad/components/aluminium_tube.scad", "dsg/openscad/components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad", "dsg/openscad/components/hub75/hub75_panel_mating.scad", "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad", "dsg/openscad/ext/lib.scad.forge/openscad/csg.scad", "dsg/openscad/ext/lib.scad.forge/openscad/cutter.scad", "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad", "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/resolution.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad", "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad", "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad", "dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/design/design.md", "dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/hub75_tube_horizontal_edge_coupler.scad", "dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/hub75_tube_horizontal_edge_coupler_render.scad", "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad", "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o --camera=0.0,0.0,7.0,90.0,0.0,0.0,145.0 --imgsize=640,480 -o /work/.cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/.04-carriers.unwatermarked.png /work/.cache/scad-project/state/design-entrypoints/7296fe2b84555c76.scad
+ECHO: "DEPRECATED: fg_res_apply() is deprecated; use fg_res_scope() instead."
+Geometries in cache: 196
+Geometry cache size in bytes: 3936520
+CGAL Polyhedrons in cache: 41
+CGAL cache size in bytes: 35265000
+Total rendering time: 0:00:00.744
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      2
+   Vertices:    14204
+   Facets:      28412
++ scad-image-watermark /work/.cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/.04-carriers.unwatermarked.png /work/.cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/04-carriers.png --text © 2026 brainboxemb
+SCons design built: .cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/04-carriers.png
+_action([".cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/05-dovetail.png"], [".cache/scad-project/state/design-entrypoints/22e67b2c0757a837.scad", "dsg/openscad/assemblies/sub/hub75_tube_horizontal_edge_assembly.scad", "dsg/openscad/components/aluminium_tube.scad", "dsg/openscad/components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad", "dsg/openscad/components/hub75/hub75_panel_mating.scad", "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad", "dsg/openscad/ext/lib.scad.forge/openscad/csg.scad", "dsg/openscad/ext/lib.scad.forge/openscad/cutter.scad", "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad", "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/resolution.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad", "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad", "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad", "dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/design/design.md", "dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/hub75_tube_horizontal_edge_coupler.scad", "dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/hub75_tube_horizontal_edge_coupler_render.scad", "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad", "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o --camera=0.0,0.0,7.0,90.0,0.0,0.0,145.0 --imgsize=640,480 -o /work/.cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/.05-dovetail.unwatermarked.png /work/.cache/scad-project/state/design-entrypoints/22e67b2c0757a837.scad
+Geometries in cache: 211
+Geometry cache size in bytes: 3882960
+CGAL Polyhedrons in cache: 46
+CGAL cache size in bytes: 38958000
+Total rendering time: 0:00:00.744
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      2
+   Vertices:    14178
+   Facets:      28360
++ scad-image-watermark /work/.cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/.05-dovetail.unwatermarked.png /work/.cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/05-dovetail.png --text © 2026 brainboxemb
+SCons design built: .cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/05-dovetail.png
+_action([".cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/06-assembled.png"], [".cache/scad-project/state/design-entrypoints/37e8c1058fc1cd13.scad", "dsg/openscad/assemblies/sub/hub75_tube_horizontal_edge_assembly.scad", "dsg/openscad/components/aluminium_tube.scad", "dsg/openscad/components/hub75/horizontal-edge-coupler/hub75_horizontal_edge_coupler.scad", "dsg/openscad/components/hub75/hub75_panel_mating.scad", "dsg/openscad/ext/lib.scad.clamps/openscad/tube-clamp/tube_clamp.scad", "dsg/openscad/ext/lib.scad.forge/openscad/csg.scad", "dsg/openscad/ext/lib.scad.forge/openscad/cutter.scad", "dsg/openscad/ext/lib.scad.forge/openscad/resolution.scad", "dsg/openscad/ext/lib.scad.forge/openscad/transform.scad", "dsg/openscad/ext/lib.scad.hub75/openscad/p5-64x32-panel/hub75_p5_64x32_panel.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/csg.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/cutter.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/forge.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/resolution.scad", "dsg/openscad/ext/lib.scad.mechint/ext/lib.scad.forge/openscad/transform.scad", "dsg/openscad/ext/lib.scad.mechint/openscad/sliding-dovetail/sliding_dovetail_lock.scad", "dsg/openscad/ext/lib.scad.mechint/openscad/sliding_dovetail.scad", "dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/design/design.md", "dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/hub75_tube_horizontal_edge_coupler.scad", "dsg/openscad/project_components/tube_mount/horizontal-edge-coupler/hub75_tube_horizontal_edge_coupler_render.scad", "dsg/openscad/project_components/tube_mount/tube-clamp/hub75_tube_clamp.scad", "dsg/openscad/project_components/tube_mount/tube_mount_interface.scad"])
++ xvfb-run -a openscad --enable=object-function --render --projection=o --camera=0.0,-2.0,7.0,68.0,0.0,35.0,155.0 --imgsize=640,480 -o /work/.cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/.06-assembled.unwatermarked.png /work/.cache/scad-project/state/design-entrypoints/37e8c1058fc1cd13.scad
+ECHO: "DEPRECATED: fg_res_apply() is deprecated; use fg_res_scope() instead."
+ECHO: "DEPRECATED: fg_res_apply() is deprecated; use fg_res_scope() instead."
+ECHO: "DEPRECATED: fg_res_apply() is deprecated; use fg_res_scope() instead."
+ECHO: "DEPRECATED: fg_res_apply() is deprecated; use fg_res_scope() instead."
+Geometries in cache: 265
+Geometry cache size in bytes: 3892800
+CGAL Polyhedrons in cache: 76
+CGAL cache size in bytes: 46733750
+Total rendering time: 0:00:00.795
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      8
+   Vertices:    14512
+   Facets:      29052
++ scad-image-watermark /work/.cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/.06-assembled.unwatermarked.png /work/.cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/06-assembled.png --text © 2026 brainboxemb
+SCons design built: .cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/06-assembled.png
+Retrieved `.cache/scad-project/design-stage/project/openscad/project_components/tube_mount/tube-clamp/design/img/01-before-relief.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/project_components/tube_mount/tube-clamp/design/img/02-lab-axis.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/project_components/tube_mount/tube-clamp/design/img/03-baseline.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/project_components/tube_mount/tube-clamp/design/img/04-relief-detail.png' from cache
+Retrieved `.cache/scad-project/design-stage/project/openscad/project_components/tube_mount/tube-clamp/design/img/05-final.png' from cache
+SCons design summary: targets=79 built=6 cache-restored=73 current=0 error=0
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/01-mating-reference.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/02-profile-horizontal-arm.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/03-profile-vertical-arm.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/04-profile-raw-cross.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/05-profile-rounded.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/06-reinforcement-support-profile.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/07-base.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/08-screw-hole.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/09-tube-pocket.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/10-locator-pin-clearance.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/11-guide-keepout.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/12-guide-raw-shell.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/13-guide-end-mask.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/14-guide-zones.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/15-guide-taper.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/16-guide-reinforcement-relief.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/17-guide-reinforcement-detail.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/18-guides.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/19-reinforcement-locator.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/20-functional.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/21-reference-pockets.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/22-center-marks.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/23-final.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/corner-edge-coupler/design/img/24-right-final.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/01-mating-reference.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/02-profile-horizontal-arm.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/03-profile-vertical-arm.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/04-profile-raw-cross.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/05-profile-rounded-cross.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/06-profile-t.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/07-reinforcement-support-profile.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/08-screw-holes.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/09-tube-pockets.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/10-locator-pin-clearance.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/11-guide-keepout.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/12-guide-raw-shell.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/13-guide-rounded-shell.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/14-guide-zones.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/15-guide-outer-taper.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/16-guide-reinforcement-reliefs.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/17-guide-reinforcement-detail.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/18-guides.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/19-reinforcement-locators.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/20-seam-locator.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/21-functional.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/22-reference-pockets.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/23-center-marks.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/horizontal-edge-coupler/design/img/24-final.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/01-mating-reference.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/02-profile-horizontal-arm.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/03-profile-vertical-arm.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/04-profile-raw-plus.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/05-profile-rounded.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/06-base.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/07-screw-holes.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/08-tube-pockets.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/09-guide-keepout.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/10-guide-raw-shell.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/11-guide-rounded-shell.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/12-guide-reinforcement-reliefs.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/13-guide-reinforcement-detail.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/14-guides.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/15-reinforcement-locators.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/16-seam-locator.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/17-functional.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/18-reference-pockets.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/19-center-marks.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/components/hub75/middle-coupler/design/img/20-final.png
+  built: .cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/01-core.png
+  built: .cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/02-tube-keepout.png
+  built: .cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/03-carrier-position.png
+  built: .cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/04-carriers.png
+  built: .cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/05-dovetail.png
+  built: .cache/scad-project/design-stage/project/openscad/project_components/tube_mount/horizontal-edge-coupler/design/img/06-assembled.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/project_components/tube_mount/tube-clamp/design/img/01-before-relief.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/project_components/tube_mount/tube-clamp/design/img/02-lab-axis.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/project_components/tube_mount/tube-clamp/design/img/03-baseline.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/project_components/tube_mount/tube-clamp/design/img/04-relief-detail.png
+  cache_restored: .cache/scad-project/design-stage/project/openscad/project_components/tube_mount/tube-clamp/design/img/05-final.png
+Generated design documentation: bld/design
+design build: OK
+▮▮▮▮ consumer:scad.docs (8s 250ms, 8d600204)
+
+Tasks: 1 completed
+ Time: 8s 343ms
+
