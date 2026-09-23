@@ -28,8 +28,6 @@ function aluminium_tube_create(
 function aluminium_tube_inner_diameter_mm(tube_obj) =
     tube_obj.outer_diameter_mm - 2 * tube_obj.wall_thickness_mm;
 
-_ALUMINIUM_TUBE_BOOLEAN_OVERLAP_MM = 0.1;
-
 module aluminium_tube_build(
     tube_obj,
     resolution = FG_RES_HIGH()
@@ -49,9 +47,7 @@ module aluminium_tube_build(
                         diameter_mm =
                             aluminium_tube_inner_diameter_mm(tube_obj),
                         height_mm = tube_obj.length_mm,
-                        overlap = [FG_BOTTOM(), FG_TOP()],
-                        overlap_mm =
-                            _ALUMINIUM_TUBE_BOOLEAN_OVERLAP_MM
+                        overlap = [FG_BOTTOM(), FG_TOP()]
                     );
             }
     }
